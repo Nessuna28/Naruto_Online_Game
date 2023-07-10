@@ -5,7 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.DataBinderMapperImpl
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.adapter.CharacterAdapter
@@ -23,18 +26,23 @@ class AboutTheCharactersFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentAboutTheCharactersBinding.inflate(inflater, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_about_the_characters, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val characterListAdapter = CharacterAdapter(viewModel.characters)
+        viewModel.characters.observe(viewLifecycleOwner) {
+            binding.rvAboutTheCharacters.adapter = CharacterAdapter(it)
+        }
 
-        binding.rvAboutTheCharacters.adapter = characterListAdapter
+        binding.tiSearch.addTextChangedListener {
+            viewModel.loadCharacters(it.toString())
+        }
 
-
+        binding.ivBack.setOnClickListener {
+            findNavController().navigate(AboutTheCharactersFragmentDirections.actionAboutTheCharactersFragmentToHomeFragment())
+        }
     }
-
 }

@@ -15,18 +15,18 @@ const val TAG = "MainViewModel"
 class MainViewModel(application: Application): AndroidViewModel(application) {
 
     private val repository = AppRepository(CharacterApi)
-    var characters = listOf<Character>()
+    val characters = repository.characters
 
 
     init {
-        loadCharacters()
+        loadCharacters("")
     }
 
-    fun loadCharacters() {
+    fun loadCharacters(name: String) {
 
         viewModelScope.launch {
             try {
-                characters = repository.getCharacter()
+                repository.getCharacters(name)
             } catch (e: Exception) {
                 Log.e(TAG, "Error loading Data: $e")
             }

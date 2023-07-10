@@ -2,6 +2,7 @@ package com.example.abschlussaufgabe.data.datamodels.modelsApi
 
 import com.squareup.moshi.Json
 
+
 data class Personal(
 
     val species: String = "",
@@ -13,7 +14,6 @@ data class Personal(
 
     @Json(name = "jinchūriki")
     val jinchuriki: List<String> = listOf(),
-
     val affiliation: List<String> = listOf(),
     val occupation: List<String> = listOf()
 )

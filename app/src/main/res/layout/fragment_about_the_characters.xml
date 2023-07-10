@@ -78,25 +78,44 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="40dp"
             android:text="Infos zu den Charakteren"
-            android:textSize="25dp"
+            android:textSize="20dp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/iv_background"
-            app:layout_constraintTop_toTopOf="@+id/iv_background" />
+            app:layout_constraintBottom_toBottomOf="@+id/iv_back"
+            app:layout_constraintStart_toEndOf="@+id/iv_back"
+            app:layout_constraintTop_toTopOf="@+id/iv_back" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/ti_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:hint="suchen"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_characterTitle" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_aboutTheCharacters"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="4dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_characterTitle"
+            app:layout_constraintTop_toBottomOf="@+id/ti_search"
             tools:listitem="@layout/character_item" />
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/baseline_arrow_back_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/iv_background" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
