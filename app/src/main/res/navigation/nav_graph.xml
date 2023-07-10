@@ -12,6 +12,12 @@
         <action
             android:id="@+id/action_homeFragment_to_characterSelectionFragment"
             app:destination="@id/characterSelectionFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_aboutTheCharactersFragment"
+            app:destination="@id/aboutTheCharactersFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_statisticsFragment"
+            app:destination="@id/statisticsFragment" />
     </fragment>
     <fragment
         android:id="@+id/characterSelectionFragment"
@@ -51,5 +57,23 @@
         <action
             android:id="@+id/action_fightFragment_to_characterSelectionFragment"
             app:destination="@id/characterSelectionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutTheCharactersFragment"
+        android:name="com.example.abschlussaufgabe.ui.AboutTheCharactersFragment"
+        android:label="fragment_about_the_characters"
+        tools:layout="@layout/fragment_about_the_characters" >
+        <action
+            android:id="@+id/action_aboutTheCharactersFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/statisticsFragment"
+        android:name="com.example.abschlussaufgabe.ui.StatisticsFragment"
+        android:label="fragment_statistics"
+        tools:layout="@layout/fragment_statistics" >
+        <action
+            android:id="@+id/action_statisticsFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>
