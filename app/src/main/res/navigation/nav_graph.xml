@@ -66,6 +66,9 @@
         <action
             android:id="@+id/action_aboutTheCharactersFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_aboutTheCharactersFragment_to_characterDetailFragment"
+            app:destination="@id/characterDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/statisticsFragment"
@@ -74,6 +77,18 @@
         tools:layout="@layout/fragment_statistics" >
         <action
             android:id="@+id/action_statisticsFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/characterDetailFragment"
+        android:name="com.example.abschlussaufgabe.ui.CharacterDetailFragment"
+        android:label="fragment_character_detail"
+        tools:layout="@layout/fragment_character_detail" >
+        <action
+            android:id="@+id/action_characterDetailFragment_to_aboutTheCharactersFragment"
+            app:destination="@id/aboutTheCharactersFragment" />
+        <action
+            android:id="@+id/action_characterDetailFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

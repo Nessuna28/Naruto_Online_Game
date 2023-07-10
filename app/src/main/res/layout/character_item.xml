@@ -7,31 +7,37 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mc_character"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="12dp">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/iv_imageCharacter"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/profile_picture"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/iv_name"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:text="Name"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:gravity="center_vertical"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_imageCharacter"
-            app:layout_constraintStart_toEndOf="@+id/iv_imageCharacter"
-            app:layout_constraintTop_toTopOf="@+id/iv_imageCharacter" />
+            android:layout_margin="12dp">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/iv_imageCharacter"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/profile_picture"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/iv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:text="Name"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:gravity="center_vertical"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_imageCharacter"
+                app:layout_constraintStart_toEndOf="@+id/iv_imageCharacter"
+                app:layout_constraintTop_toTopOf="@+id/iv_imageCharacter" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

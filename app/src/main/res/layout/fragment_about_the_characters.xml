@@ -87,14 +87,16 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_aboutTheCharacters"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="24dp"
+            android:layout_marginEnd="4dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_characterTitle"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/character_item"/>
+            tools:listitem="@layout/character_item" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
