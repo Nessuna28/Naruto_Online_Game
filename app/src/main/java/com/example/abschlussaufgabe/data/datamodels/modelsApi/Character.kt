@@ -1,6 +1,5 @@
 package com.example.abschlussaufgabe.data.datamodels.modelsApi
 
-import androidx.room.PrimaryKey
 
 data class Character(
 

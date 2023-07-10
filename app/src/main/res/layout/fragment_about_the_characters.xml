@@ -23,6 +23,7 @@
             app:srcCompat="@drawable/baseline_settings_24" />
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mc_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -32,45 +33,50 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
+                android:id="@+id/iv_profilePhoto"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/profile_picture" />
         </com.google.android.material.card.MaterialCardView>
 
-        <TextView
-            android:id="@+id/tv_subtitle"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mc_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:fontFamily="sans-serif-medium"
-            android:text="Online Game"
-            android:textColor="@color/primary"
-            android:textSize="30dp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_title"
-            app:layout_constraintEnd_toEndOf="@+id/iv_title" />
-
-        <ImageView
-            android:id="@+id/iv_title"
-            android:layout_width="335dp"
-            android:layout_height="190dp"
-            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.355"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/naruto_title" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_title"
+                android:layout_width="216dp"
+                android:layout_height="77dp"
+                android:layout_marginTop="4dp"
+                app:srcCompat="@drawable/naruto_title" />
+
+            <TextView
+                android:id="@+id/tv_subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="110dp"
+                android:layout_marginTop="60dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="Online Game"
+                android:textColor="@color/primary"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+        </com.google.android.material.card.MaterialCardView>
 
         <ImageView
             android:id="@+id/iv_background"
             android:layout_width="match_parent"
             android:layout_height="580dp"
-            android:layout_marginTop="170dp"
             android:alpha="0.3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mc_title"
             app:srcCompat="@drawable/naruto_background" />
 
         <TextView
