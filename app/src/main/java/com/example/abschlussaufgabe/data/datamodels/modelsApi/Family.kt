@@ -4,16 +4,16 @@ import com.squareup.moshi.Json
 
 data class Family(
 
-    val father: String = "",
-    val mother: String = "",
-    val sister: String = "",
-    val brother: String = "",
+    val father: String? = "",
+    val mother: String? = "",
+    val sister: String? = "",
+    val brother: String? = "",
     @Json(name = "adoptive brother")
-    val adoptiveBrother: String = "",
+    val adoptiveBrother: String? = "",
     @Json(name = "adoptive sister")
-    val adoptiveSister: String = "",
+    val adoptiveSister: String? = "",
     @Json(name = "incarnation with the god tree")
-    val incarnation: String = "",
+    val incarnation: String? = "",
     @Json(name = "depowered form")
-    val depoweredForm: String = ""
+    val depoweredForm: String? = ""
 )

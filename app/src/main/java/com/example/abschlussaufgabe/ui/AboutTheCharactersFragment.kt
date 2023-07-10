@@ -9,7 +9,6 @@ import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.example.abschlussaufgabe.DataBinderMapperImpl
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.adapter.CharacterAdapter
 import com.example.abschlussaufgabe.databinding.FragmentAboutTheCharactersBinding
@@ -42,7 +41,7 @@ class AboutTheCharactersFragment : Fragment() {
         }
 
         binding.ivBack.setOnClickListener {
-            findNavController().navigate(AboutTheCharactersFragmentDirections.actionAboutTheCharactersFragmentToHomeFragment())
+            findNavController().navigateUp()
         }
     }
 }

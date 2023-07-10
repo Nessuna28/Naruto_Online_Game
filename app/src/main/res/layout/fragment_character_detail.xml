@@ -12,72 +12,38 @@
         android:layout_height="match_parent"
         tools:context=".ui.CharacterDetailFragment">
 
-
         <ImageView
-            android:id="@+id/iv_settings"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/baseline_settings_24" />
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/mc_profile"
+            android:id="@+id/iv_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            app:cardCornerRadius="@android:dimen/app_icon_size"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="140dp"
+            android:src="@drawable/baseline_arrow_back_24"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/iv_profilePhoto"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/profile_picture" />
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/mc_title"
+        <TextView
+            android:id="@+id/tv_characterName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/iv_title"
-                android:layout_width="216dp"
-                android:layout_height="77dp"
-                android:layout_marginTop="4dp"
-                app:srcCompat="@drawable/naruto_title" />
-
-            <TextView
-                android:id="@+id/tv_subtitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="110dp"
-                android:layout_marginTop="60dp"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="Online Game"
-                android:textColor="@color/primary"
-                android:textSize="18dp"
-                android:textStyle="bold" />
-        </com.google.android.material.card.MaterialCardView>
+            android:layout_marginStart="150dp"
+            android:text="Name"
+            android:textColor="#FF5722"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_back"
+            app:layout_constraintStart_toEndOf="@+id/iv_back"
+            app:layout_constraintTop_toTopOf="@+id/iv_back" />
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:src="@drawable/naruto_all"
-            app:layout_constraintEnd_toEndOf="@+id/mc_title"
-            app:layout_constraintStart_toStartOf="@+id/mc_title"
-            app:layout_constraintTop_toBottomOf="@+id/mc_title" />
+            app:layout_constraintEnd_toEndOf="@+id/tv_characterName"
+            app:layout_constraintStart_toStartOf="@+id/tv_characterName"
+            app:layout_constraintTop_toBottomOf="@+id/tv_characterName" />
 
         <TextView
             android:id="@+id/textView"
@@ -85,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
-            android:text="Name:"
+            android:text="Clan:"
             android:textColor="#FF5722"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -176,7 +142,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/tv_clan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="115dp"
@@ -187,7 +153,7 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/textView10"
+            android:id="@+id/tv_rank"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="115dp"
@@ -198,7 +164,7 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/textView11"
+            android:id="@+id/tv_natureTyp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
@@ -209,7 +175,7 @@
             app:layout_constraintTop_toTopOf="@+id/textView3" />
 
         <TextView
-            android:id="@+id/textView12"
+            android:id="@+id/tv_jutsu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -220,7 +186,7 @@
             app:layout_constraintTop_toTopOf="@+id/textView4" />
 
         <TextView
-            android:id="@+id/textView13"
+            android:id="@+id/tv_uniqueTraits"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="115dp"
@@ -230,7 +196,7 @@
             app:layout_constraintTop_toTopOf="@+id/textView5" />
 
         <TextView
-            android:id="@+id/textView14"
+            android:id="@+id/tv_tools"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="115dp"
@@ -240,7 +206,7 @@
             app:layout_constraintTop_toTopOf="@+id/textView6" />
 
         <TextView
-            android:id="@+id/textView15"
+            android:id="@+id/tv_personal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
@@ -251,7 +217,7 @@
             app:layout_constraintTop_toTopOf="@+id/textView7" />
 
         <TextView
-            android:id="@+id/textView16"
+            android:id="@+id/tv_family"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="115dp"
@@ -259,5 +225,6 @@
             app:layout_constraintBottom_toBottomOf="@+id/textView8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView8" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
