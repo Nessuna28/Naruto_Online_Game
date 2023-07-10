@@ -2,6 +2,7 @@ package com.example.abschlussaufgabe
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.example.abschlussaufgabe.databinding.ActivityMainBinding
