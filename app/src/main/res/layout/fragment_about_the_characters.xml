@@ -18,8 +18,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Infos zu den Charakteren"
-            android:textSize="20dp"
+            android:text="@string/infos_about_characters"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/iv_back"
             app:layout_constraintStart_toEndOf="@+id/iv_back"
@@ -33,7 +33,8 @@
             android:layout_marginTop="40dp"
             android:hint="suchen"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_characterTitle" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_characterTitle"
+            tools:ignore="HardcodedText" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_aboutTheCharacters"
