@@ -13,10 +13,10 @@ class AppRepository(private val api: CharacterApi) {
     val characters: MutableLiveData<List<Character>>
         get() = _characters
 
-    suspend fun getCharacters(name: String) {
+    suspend fun getAllCharacters() {
 
         try {
-            _characters.value = api.retrofitService.getCharacters(name).characters
+            _characters.value = api.retrofitService.getAllCharacters().characters
         } catch (e: Exception) {
             Log.e(TAG, "Error: ${e.message}")
         }
