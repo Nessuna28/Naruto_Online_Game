@@ -1,5 +1,6 @@
 package com.example.abschlussaufgabe.data.remote
 
+import com.example.abschlussaufgabe.data.datamodels.modelsApi.Character
 import com.example.abschlussaufgabe.data.datamodels.modelsApi.CharacterList
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -23,7 +24,7 @@ private val retrofit = Retrofit.Builder()
 interface CharacterApiService {
 
     @GET("character/search")
-    suspend fun getCharacter(@Query("name") name: String): CharacterList
+    suspend fun getCharacter(@Query("name") name: String): Character
 
     @GET("character")
     suspend fun getAllCharacters(@Query("page")page: Int=1, @Query("limit")limit: Int=100): CharacterList
