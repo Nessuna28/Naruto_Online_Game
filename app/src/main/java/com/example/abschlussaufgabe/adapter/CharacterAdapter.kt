@@ -12,7 +12,7 @@ import com.example.abschlussaufgabe.data.datamodels.modelsApi.Character
 import com.example.abschlussaufgabe.databinding.CharacterItemBinding
 import com.example.abschlussaufgabe.ui.AboutTheCharactersFragmentDirections
 
-const val TAG = "CharacterAdapter"
+const val TAGADAPTER = "CharacterAdapter"
 
 class CharacterAdapter(private var dataset: List<Character>
 ): RecyclerView.Adapter<CharacterAdapter.ItemViewHolder>() {
@@ -37,7 +37,7 @@ class CharacterAdapter(private var dataset: List<Character>
             val imgUri = character.images.first().toUri().buildUpon().scheme("https").build()
             holder.binding.ivImageCharacter.load(imgUri)
         } catch (e: Exception) {
-            Log.e(TAG, "Error: ${e.message} im CharacterAdapter")
+            Log.e(TAGADAPTER, "Error: ${e.message} im CharacterAdapter")
             holder.binding.ivImageCharacter.setImageResource(R.drawable.no_picture)
         }
 

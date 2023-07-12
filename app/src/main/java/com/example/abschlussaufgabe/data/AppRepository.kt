@@ -41,7 +41,9 @@ class AppRepository(private val api: CharacterApi, private val database: Charact
     }
 
 
+
     val characterListForFight: LiveData<List<CharacterForFight>> = database.characterDao.getAllCharacters()
+
     suspend fun fillUpDB() {
 
         if (characterListForFight.value?.isEmpty() == true) {
@@ -52,6 +54,4 @@ class AppRepository(private val api: CharacterApi, private val database: Charact
             }
         }
     }
-
-
 }
