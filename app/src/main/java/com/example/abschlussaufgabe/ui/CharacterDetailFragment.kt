@@ -18,6 +18,30 @@ class CharacterDetailFragment : Fragment() {
 
     private lateinit var binding: FragmentCharacterDetailBinding
 
+    private var name = ""
+    private var image = ""
+    private var clan = ""
+    private var rank = ""
+    private var natureTyp = ""
+    private var jutsus = ""
+    private var uniqueTraits = ""
+    private var tools = ""
+    private var personal = ""
+    private var family = ""
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        arguments?.let {
+            name = it.getString("name").toString()
+            image = it.getString("images").toString()
+            natureTyp = it.getString("natureType").toString()
+            jutsus = it.getString("jutsus").toString()
+            tools = it.getString("tools").toString()
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,7 +55,14 @@ class CharacterDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.characters.observe(viewLifecycleOwner) {
-            // ToDo: Textviews setzen
+
+            if (it != null) {
+                binding.tvCharacterName.setText(name)
+                binding.ivCharacterImage.setImageResource(image.toInt())
+                binding.tvNatureTyp.setText(natureTyp)
+                binding.tvJutsu.setText(jutsus)
+                binding.tvTools.setText(tools)
+            }
         }
 
         binding.ivBack.setOnClickListener {

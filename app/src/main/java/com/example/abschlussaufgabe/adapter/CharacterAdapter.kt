@@ -41,11 +41,18 @@ class CharacterAdapter(private var dataset: List<Character>
             holder.binding.ivImageCharacter.setImageResource(R.drawable.naruto_all)
         }
 
-        // holder.binding.ivImageCharacter.setImageResource(character.images[0].toInt())
         holder.binding.ivName.setText(character.name)
 
         holder.binding.mcCharacter.setOnClickListener {
-            holder.binding.mcCharacter.findNavController().navigate(AboutTheCharactersFragmentDirections.actionAboutTheCharactersFragmentToCharacterDetailFragment())
+            holder.itemView.findNavController().navigate(AboutTheCharactersFragmentDirections
+                .actionAboutTheCharactersFragmentToCharacterDetailFragment(
+                    character.name,
+                    character.images[0],
+                    character.natureType,
+                    character.jutsu.toTypedArray(),
+                    character.tools
+            ))
         }
     }
 }
+

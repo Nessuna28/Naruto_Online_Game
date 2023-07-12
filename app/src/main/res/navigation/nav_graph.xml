@@ -82,13 +82,26 @@
     <fragment
         android:id="@+id/characterDetailFragment"
         android:name="com.example.abschlussaufgabe.ui.CharacterDetailFragment"
-        android:label="fragment_character_detail"
-        tools:layout="@layout/fragment_character_detail" >
+        android:label="CharacterDetailFragment" >
         <action
             android:id="@+id/action_characterDetailFragment_to_aboutTheCharactersFragment"
             app:destination="@id/aboutTheCharactersFragment" />
         <action
             android:id="@+id/action_characterDetailFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="images"
+            app:argType="string" />
+        <argument
+            android:name="natureTyp" />
+        <argument
+            android:name="jutsus"
+            app:argType="string[]" />
+        <argument
+            android:name="tools"
+            app:argType="string[]" />
     </fragment>
 </navigation>

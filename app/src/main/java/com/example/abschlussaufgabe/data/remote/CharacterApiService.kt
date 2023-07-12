@@ -23,7 +23,7 @@ private val retrofit = Retrofit.Builder()
 interface CharacterApiService {
 
     @GET("character/search?")
-    suspend fun getCharacterByName(@Query("name") name: String): CharacterList
+    suspend fun getCharacters(@Query("name") name: String): CharacterList
 
     @GET("character")
     suspend fun getAllCharacters(): CharacterList

@@ -38,7 +38,7 @@ class AboutTheCharactersFragment : Fragment() {
         }
 
         binding.tiSearch.addTextChangedListener {
-
+            viewModel.loadCharacters(it.toString())
         }
 
         binding.ivBack.setOnClickListener {

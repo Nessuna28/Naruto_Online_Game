@@ -1,15 +1,12 @@
 package com.example.abschlussaufgabe
 
+import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.findNavController
 import com.example.abschlussaufgabe.databinding.ActivityMainBinding
-import com.example.abschlussaufgabe.ui.AboutTheCharactersFragmentDirections
-import com.example.abschlussaufgabe.ui.CharacterDetailFragmentDirections
-import com.example.abschlussaufgabe.ui.HomeFragment
-import com.example.abschlussaufgabe.ui.HomeFragmentDirections
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,6 +18,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.ivHome.setOnClickListener {
             TODO()
+            binding.ivHome.visibility = View.GONE
         }
 
         binding.ivSettings.setOnClickListener {
