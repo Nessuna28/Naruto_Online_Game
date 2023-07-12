@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/akaya_telivigala"
-            android:text="TextView"
+            android:text="@string/name"
             android:textColor="@color/primary"
             android:textSize="30dp"
             android:textStyle="bold"
@@ -55,6 +55,29 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_characterNamePlayer"
             app:srcCompat="@drawable/naruto_all" />
 
+        <ImageView
+            android:id="@+id/iv_okPlayer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/primary"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_selectionPlayer"
+            app:layout_constraintEnd_toEndOf="@+id/iv_selectionPlayer"
+            app:srcCompat="@drawable/baseline_check_24" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_selectionJutsusPlayer"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="8dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_selectionPlayer"
+            app:layout_constraintEnd_toStartOf="@+id/iv_okPlayer"
+            app:layout_constraintStart_toStartOf="@+id/iv_selectionPlayer"
+            app:layout_constraintTop_toTopOf="@+id/iv_selectionPlayer"
+            tools:listitem="@layout/jutsu_player_item" />
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
             android:layout_width="wrap_content"
@@ -69,7 +92,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="77dp"
             android:fontFamily="@font/akaya_telivigala"
-            android:text="TextView"
+            android:text="@string/name"
             android:textColor="@color/primary"
             android:textSize="30dp"
             android:textStyle="bold"
@@ -115,6 +138,39 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/baseline_arrow_back_24" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_selectionJutsusCom"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_selectionCom"
+            app:layout_constraintEnd_toEndOf="@+id/iv_selectionCom"
+            app:layout_constraintStart_toEndOf="@+id/iv_okCom"
+            app:layout_constraintTop_toTopOf="@+id/iv_selectionCom"
+            tools:listitem="@layout/jutsu_com_item" />
+
+        <ImageView
+            android:id="@+id/iv_okCom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/primary"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_selectionCom"
+            app:layout_constraintStart_toStartOf="@+id/iv_selectionCom"
+            app:srcCompat="@drawable/baseline_check_24" />
+
+        <Button
+            android:id="@+id/btn_further"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/weiter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

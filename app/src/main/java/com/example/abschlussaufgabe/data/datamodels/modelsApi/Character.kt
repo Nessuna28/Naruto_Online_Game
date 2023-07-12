@@ -7,7 +7,7 @@ data class Character(
     val name: String = "",
     val images: List<String> = listOf(),
     val jutsu: List<String> = listOf(),
-    val natureType: List<String> = listOf(),
+    val natureType: List<String> = listOf("Insekten"),
     //val personal: Personal = Personal("", "", "", "", "", "", listOf(), listOf(), listOf()),
     val rank: Rank = Rank(NinjaRank("", "")),
     val family: Family = Family("", "", "", "", "", "","", ""),

@@ -18,15 +18,26 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
 
     init {
-        loadCharacters("")
+        loadCharacters()
+        searchCharacter("")
     }
 
-    fun loadCharacters(name: String) {
+    fun loadCharacters() {
 
         viewModelScope.launch {
             try {
                 repository.getAllCharacters()
-                repository.getCharacters(name)
+            } catch (e: Exception) {
+                Log.e(TAG, "Error loading Data: $e")
+            }
+        }
+    }
+
+    fun searchCharacter(name: String) {
+
+        viewModelScope.launch {
+            try {
+                repository.getCharacter(name)
                 println(characters)
             } catch (e: Exception) {
                 Log.e(TAG, "Error loading Data: $e")

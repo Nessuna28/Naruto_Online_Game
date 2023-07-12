@@ -1,15 +1,20 @@
 package com.example.abschlussaufgabe.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import coil.load
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.databinding.FragmentCharacterDetailBinding
+
+const val TAGDETAIL = "CharacterDetailFragment"
 
 
 class CharacterDetailFragment : Fragment() {
@@ -54,16 +59,19 @@ class CharacterDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.characters.observe(viewLifecycleOwner) {
-
-            if (it != null) {
                 binding.tvCharacterName.setText(name)
-                binding.ivCharacterImage.setImageResource(image.toInt())
+
+                try {
+                    val imgUri = image.toUri().buildUpon().scheme("https").build()
+                    binding.ivCharacterImage.load(imgUri)
+                } catch (e: Exception) {
+                    Log.e(TAGDETAIL, "Error: ${e.message} im CharacterDetailFragment")
+                    binding.ivCharacterImage.setImageResource(R.drawable.no_picture)
+                }
                 binding.tvNatureTyp.setText(natureTyp)
                 binding.tvJutsu.setText(jutsus)
                 binding.tvTools.setText(tools)
-            }
-        }
+
 
         binding.ivBack.setOnClickListener {
             findNavController().navigateUp()

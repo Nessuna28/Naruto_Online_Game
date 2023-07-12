@@ -38,7 +38,7 @@ class CharacterAdapter(private var dataset: List<Character>
             holder.binding.ivImageCharacter.load(imgUri)
         } catch (e: Exception) {
             Log.e(TAG, "Error: ${e.message} im CharacterAdapter")
-            holder.binding.ivImageCharacter.setImageResource(R.drawable.naruto_all)
+            holder.binding.ivImageCharacter.setImageResource(R.drawable.no_picture)
         }
 
         holder.binding.ivName.setText(character.name)
@@ -48,9 +48,9 @@ class CharacterAdapter(private var dataset: List<Character>
                 .actionAboutTheCharactersFragmentToCharacterDetailFragment(
                     character.name,
                     character.images[0],
-                    character.natureType,
+                    character.natureType.toTypedArray(),
                     character.jutsu.toTypedArray(),
-                    character.tools
+                    character.tools.toTypedArray()
             ))
         }
     }

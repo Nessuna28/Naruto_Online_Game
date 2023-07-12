@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.abschlussaufgabe.data.datamodels.modelsApi.Character
 import com.example.abschlussaufgabe.data.remote.CharacterApi
 
-const val TAG = "AppRepositoryTAG"
+const val TAG = "AppRepository"
 
 class AppRepository(private val api: CharacterApi) {
 
@@ -13,11 +13,10 @@ class AppRepository(private val api: CharacterApi) {
     val characters: MutableLiveData<List<Character>>
         get() = _characters
 
-    suspend fun getCharacters(name: String) {
+    suspend fun getCharacter(name: String) {
 
         try {
-            _characters.value = api.retrofitService.getCharacters(name).characters
-            _characters.value = api.retrofitService.getAllCharacters().characters
+            _characters.value = api.retrofitService.getCharacter(name).characters
         } catch (e: Exception) {
             Log.e(TAG, "Error: ${e.message}")
         }
@@ -31,4 +30,6 @@ class AppRepository(private val api: CharacterApi) {
             Log.e(TAG, "Error: ${e.message}")
         }
     }
+
+
 }

@@ -96,7 +96,8 @@
             android:name="images"
             app:argType="string" />
         <argument
-            android:name="natureTyp" />
+            android:name="natureTyp"
+            app:argType="string[]" />
         <argument
             android:name="jutsus"
             app:argType="string[]" />

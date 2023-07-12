@@ -15,4 +15,6 @@
     <string name="tools">Werkzeug:</string>
     <string name="personal">persönliches:</string>
     <string name="family">Familie:</string>
+    <string name="weiter">Weiter</string>
+    <string name="liste_an_jutsus">Liste an Jutsus</string>
 </resources>
