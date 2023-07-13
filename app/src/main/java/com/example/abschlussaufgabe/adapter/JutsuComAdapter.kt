@@ -3,11 +3,10 @@ package com.example.abschlussaufgabe.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.abschlussaufgabe.data.datamodels.modelForFight.CharacterForFight
 import com.example.abschlussaufgabe.databinding.JutsuComItemBinding
 
 
-class JutsuComAdapter(private var dataset: List<CharacterForFight>
+class JutsuComAdapter(private var dataset: Map<String, Int>
 ): RecyclerView.Adapter<JutsuComAdapter.ItemViewHolder>() {
 
 
@@ -28,7 +27,8 @@ class JutsuComAdapter(private var dataset: List<CharacterForFight>
 
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val characterCom = dataset[position]
+        val jutsuCom = dataset.keys.elementAt(position)
 
+        holder.binding.tvJutsusCom.setText(jutsuCom)
     }
 }

@@ -59,7 +59,7 @@
             android:id="@+id/rv_selectionJutsusPlayer"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="@+id/iv_selectionPlayer"
             app:layout_constraintEnd_toEndOf="@+id/iv_selectionPlayer"

@@ -45,6 +45,10 @@ class AppRepository(private val api: CharacterApi, private val database: PlayerD
                 get() = _dataList
 
 
+    fun loadExampleData() {
+
+    }
+
 
     suspend fun insertData(player: Player) {
 

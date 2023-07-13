@@ -5,9 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.CharacterForFight
 import com.example.abschlussaufgabe.databinding.SelectionCharacterItemBinding
+import com.example.abschlussaufgabe.ui.MainViewModel
 
 
-class CharacterForFightAdapter(private var dataset: List<CharacterForFight>
+class CharacterForFightAdapter(
+    private var dataset: List<CharacterForFight>,
+    private var viewModel: MainViewModel
 ): RecyclerView.Adapter<CharacterForFightAdapter.ItemViewHolder>() {
 
 
@@ -33,7 +36,7 @@ class CharacterForFightAdapter(private var dataset: List<CharacterForFight>
         holder.binding.ivCharacter.setImageResource(characterForFight.image)
 
         holder.binding.ivCharacter.setOnClickListener {
-
+            viewModel.setJutsuForPlayer(characterForFight.jutsus)
         }
     }
 }

@@ -11,8 +11,6 @@ import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.adapter.CharacterForFightAdapter
 import com.example.abschlussaufgabe.adapter.JutsuComAdapter
 import com.example.abschlussaufgabe.adapter.JutsuPlayerAdapter
-import com.example.abschlussaufgabe.data.datamodels.modelForFight.CharacterForFight
-import com.example.abschlussaufgabe.data.datamodels.modelForFight.FightDataForDatabase.Player
 import com.example.abschlussaufgabe.databinding.FragmentCharacterSelectionBinding
 
 
@@ -21,14 +19,13 @@ class CharacterSelectionFragment : Fragment() {
     private val viewModel: MainViewModel by activityViewModels()
 
     private lateinit var binding: FragmentCharacterSelectionBinding
-    lateinit var dataPlayer: Player
+
     //private val characterCom = viewModel.characterLiveData.value?.random()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
 
-        viewModel.updateDatabase(dataPlayer)
+        //viewModel.updateDatabase(dataPlayer)
     }
 
     override fun onCreateView(
@@ -36,7 +33,7 @@ class CharacterSelectionFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_character_selection, container, false)
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_character_selection, container, false)
         return binding.root
     }
 
@@ -44,11 +41,16 @@ class CharacterSelectionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.characterForFight.observe(viewLifecycleOwner) {
-            binding.rvCharactersPlayer.adapter = CharacterForFightAdapter(it.image)
-            binding.rvCharactersCom.adapter = CharacterForFightAdapter(it.image)
-            //binding.rvSelectionJutsusPlayer.adapter = JutsuPlayerAdapter(it.jutsus)
-            //binding.rvSelectionJutsusCom.adapter = JutsuComAdapter(it.jutsus)
+            binding.rvCharactersPlayer.adapter = CharacterForFightAdapter(it, viewModel)
+            binding.rvCharactersCom.adapter = CharacterForFightAdapter(it, viewModel)
         }
 
+        viewModel.jutsuListForPlayer.observe(viewLifecycleOwner) {
+            binding.rvSelectionJutsusPlayer.adapter = JutsuPlayerAdapter(it,viewModel)
+        }
+
+        viewModel.jutsuListForCom.observe(viewLifecycleOwner) {
+            binding.rvSelectionJutsusCom.adapter = JutsuComAdapter(it)
+        }
     }
 }

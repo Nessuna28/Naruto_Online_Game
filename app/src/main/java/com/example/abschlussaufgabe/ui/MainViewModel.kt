@@ -3,11 +3,13 @@ package com.example.abschlussaufgabe.ui
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.abschlussaufgabe.data.AppRepository
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.CharacterForFight
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.FightDataForDatabase.Player
+import com.example.abschlussaufgabe.data.datamodels.modelForFight.characterData.CharacterListForFight
 import com.example.abschlussaufgabe.data.local.PlayerDatabase
 import com.example.abschlussaufgabe.data.remote.CharacterApi
 import kotlinx.coroutines.launch
@@ -22,6 +24,31 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     var characters = repository.characters
 
+
+    private val _characterForFight = MutableLiveData<List<CharacterForFight>>()
+    val characterForFight: LiveData<List<CharacterForFight>>
+        get() = _characterForFight
+
+
+    private val _jutsuListForPlayer = MutableLiveData<Map<String, Int>>()
+    val jutsuListForPlayer: LiveData<Map<String, Int>>
+        get() = _jutsuListForPlayer
+
+
+    private val _jutsuListForCom = MutableLiveData<Map<String, Int>>()
+    val jutsuListForCom: LiveData<Map<String, Int>>
+        get() = _jutsuListForCom
+
+    val _player = MutableLiveData<CharacterForFight>()
+    val player: LiveData<CharacterForFight>
+        get() = _player
+
+
+    init {
+        loadCharacters()
+        searchCharacter("")
+        _characterForFight.value = CharacterListForFight().characterList
+    }
 
 
     // Alles für die Charakterinformationen
@@ -52,10 +79,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     // Alles für das Kampfgeschehen
 
-    private val _characterForFight = MutableLiveData<CharacterForFight>()
-    val characterForFight: MutableLiveData<CharacterForFight>
-        get() = _characterForFight
-
     fun updateDatabase(player: Player) {
 
         viewModelScope.launch {
@@ -65,5 +88,10 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
                 Log.e(TAGVIEWMODEL, "Error loading Data from Database: $e")
             }
         }
+    }
+
+    fun setJutsuForPlayer(jutsu: Map<String, Int>) {
+
+        _jutsuListForPlayer.value = jutsu
     }
 }
