@@ -21,6 +21,13 @@ class AboutTheCharactersFragment : Fragment() {
 
     private lateinit var binding: FragmentAboutTheCharactersBinding
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        viewModel.loadCharacters()
+        viewModel.searchCharacter("")
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

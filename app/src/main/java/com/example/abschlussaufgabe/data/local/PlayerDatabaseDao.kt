@@ -7,38 +7,37 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.CharacterForFight
-import com.example.abschlussaufgabe.data.datamodels.modelForFight.characterData.CharacterListForFight
-import com.example.abschlussaufgabe.data.datamodels.modelsApi.CharacterList
+import com.example.abschlussaufgabe.data.datamodels.modelForFight.FightDataForDatabase.Player
 
 @Dao
-interface CharacterDatabaseDao {
+interface PlayerDatabaseDao {
 
     // Funktion die die Daten in die Tabelle einfügt
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCharacter(characters: CharacterForFight)
+    suspend fun insertData(playerData: Player)
 
 
     // Funktion die alle Daten aus der Tabelle zurück gibt
-    @Query("SELECT * FROM character_table")
-    fun getAllCharacters(): LiveData<List<CharacterForFight>>
+    @Query("SELECT * FROM player_table")
+    fun getAllData(): LiveData<List<Player>>
 
 
     // Funktion mit der Daten anhand des Namen aus der Tabelle zurückgegeben werden
-    @Query("SELECT * FROM character_table WHERE name = :name")
-    fun getCharacterByName(name: String): LiveData<CharacterForFight>
+    @Query("SELECT * FROM player_table WHERE characterName = :name")
+    fun getDataByName(name: String): LiveData<Player>
 
 
     // Funktion mit der Daten in die Tabelle eingefügt werden können
     @Update
-    fun updateCharacter(character: CharacterForFight)
+    fun updateData(data: Player)
 
 
     // Funktion mit der Daten anhand des Namen aus der Tabelle gelöscht werden können
-    @Query("DELETE FROM character_table WHERE name = :name")
+    @Query("DELETE FROM player_table WHERE characterName = :name")
     fun deleteByName(name: String)
 
 
     // Funktion die alle Daten aus der Tabelle löscht
-    @Query("DELETE FROM character_table")
-    suspend fun deleteAllCharacters()
+    @Query("DELETE FROM player_table")
+    suspend fun deleteAllData()
 }

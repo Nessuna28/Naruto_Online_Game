@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.adapter.CharacterForFightAdapter
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.CharacterForFight
+import com.example.abschlussaufgabe.data.datamodels.modelForFight.FightDataForDatabase.Player
 import com.example.abschlussaufgabe.databinding.FragmentCharacterSelectionBinding
 
 
@@ -18,8 +19,15 @@ class CharacterSelectionFragment : Fragment() {
     private val viewModel: MainViewModel by activityViewModels()
 
     private lateinit var binding: FragmentCharacterSelectionBinding
-    lateinit var characterPlayer: CharacterForFight
-    private val characterCom = viewModel.characterLiveData.value?.random()
+    lateinit var dataPlayer: Player
+    //private val characterCom = viewModel.characterLiveData.value?.random()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+
+        super.onCreate(savedInstanceState)
+
+        viewModel.updateDatabase(dataPlayer)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,11 +41,9 @@ class CharacterSelectionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.characterLiveData.observe(viewLifecycleOwner) {
-            binding.rvCharactersPlayer.adapter = CharacterForFightAdapter(it)
-            binding.rvCharactersCom.adapter = CharacterForFightAdapter(it)
-            binding.rvSelectionJutsusPlayer.adapter = CharacterForFightAdapter(it)
-            binding.rvSelectionJutsusCom.adapter = CharacterForFightAdapter(it)
-        }
+            binding.rvCharactersPlayer.adapter
+            binding.rvCharactersCom.adapter
+            //binding.rvSelectionJutsusPlayer.adapter = CharacterForFightAdapter(it)
+            //binding.rvSelectionJutsusCom.adapter = CharacterForFightAdapter(it)
     }
 }

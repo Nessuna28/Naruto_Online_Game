@@ -6,17 +6,35 @@ import com.example.abschlussaufgabe.data.datamodels.modelForFight.CharacterForFi
 object CharacterListForFight {
 
     val naruto = CharacterForFight(
-        1, R.drawable.naruto_all, "Naruto", "Schattendoppelgänger", "Rasengan",
-        "Rasenshuriken", "sexy Jutsu", 25, 45, 75,
-        15, "Shuriken", "Kunai", 20, 15,
-        "Weisenmodus", "Kiubimodus", 80, 100,
-        "", R.drawable.naruto_all)
+        R.drawable.naruto_all,
+        "Naruto",
+        mapOf("Rasengan" to 50, "Rasenshuriken" to 70, "Jutsu des vertrauten Geistes" to 80, "Taijutsu" to 20),
+        mapOf("Shuriken" to 20, "Kunai" to 15),
+        mapOf("Weisenmodus" to 80, "Kiubimodus" to 100),
+        listOf("Schattendoppelgänger", "Jutsu des Tausches"),
+        "",
+        R.drawable.naruto_all
+    )
 
     val sasuke = CharacterForFight(
-        2, R.drawable.naruto_all, "Sasuke", "Jutsu der Phönixblume ", "Chidori",
-        "Jutsu des Vertrauten Geistes", "Jutsu der flammenden Feuerkugel", 45,
-        45, 70, 50, "Shuriken", "Schwert", 20,
-        30, "Susanoo", "Sharingan", 100, 80,
-        "", R.drawable.naruto_all
+        R.drawable.naruto_all,
+        "Sasuke",
+        mapOf("Chidori" to 50, "Feuerversteck" to 40, "Jutsu des vertrauten Geistes" to 80, "Taijutsu" to 30),
+        mapOf("Shuriken" to 20, "Schwert" to 30),
+        mapOf("Susanoo" to 100),
+        listOf("Schattendoppelgänger", "Jutsu des Tausches"),
+        "",
+        R.drawable.naruto_all
+    )
+
+    val sakura = CharacterForFight(
+        R.drawable.naruto_all,
+        "Sakura",
+        mapOf("große Sakura" to 20, "Kirschblütenschlag" to 50, "Kirschblütenformation" to 70, "Jutsu des vertrauten Geistes" to 80, "Taijutsu" to 15),
+        mapOf("Shuriken" to 20, "Kunai" to 15),
+        mapOf("Heilung" to 80),
+        listOf("Schattendoppelgänger", "Jutsu des Tausches"),
+        "",
+        R.drawable.naruto_all
     )
 }

@@ -27,8 +27,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text=""
+            android:clickable="true"
             app:layout_constraintStart_toEndOf="@+id/tv_jutsu1"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:focusable="true" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
