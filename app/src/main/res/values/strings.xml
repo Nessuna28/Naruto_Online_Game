@@ -17,4 +17,6 @@
     <string name="family">Familie:</string>
     <string name="weiter">Weiter</string>
     <string name="liste_an_jutsus">Liste an Jutsus</string>
+    <string name="ok">OK</string>
+    <string name="zufall">Zufall</string>
 </resources>

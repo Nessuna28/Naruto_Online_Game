@@ -9,6 +9,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.adapter.CharacterForFightAdapter
+import com.example.abschlussaufgabe.adapter.JutsuComAdapter
+import com.example.abschlussaufgabe.adapter.JutsuPlayerAdapter
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.CharacterForFight
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.FightDataForDatabase.Player
 import com.example.abschlussaufgabe.databinding.FragmentCharacterSelectionBinding
@@ -41,9 +43,12 @@ class CharacterSelectionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-            binding.rvCharactersPlayer.adapter
-            binding.rvCharactersCom.adapter
-            //binding.rvSelectionJutsusPlayer.adapter = CharacterForFightAdapter(it)
-            //binding.rvSelectionJutsusCom.adapter = CharacterForFightAdapter(it)
+        viewModel.characterForFight.observe(viewLifecycleOwner) {
+            binding.rvCharactersPlayer.adapter = CharacterForFightAdapter(it.image)
+            binding.rvCharactersCom.adapter = CharacterForFightAdapter(it.image)
+            //binding.rvSelectionJutsusPlayer.adapter = JutsuPlayerAdapter(it.jutsus)
+            //binding.rvSelectionJutsusCom.adapter = JutsuComAdapter(it.jutsus)
+        }
+
     }
 }

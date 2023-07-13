@@ -36,11 +36,11 @@
             android:textColor="@color/primary"
             android:textSize="30dp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_back"
             app:layout_constraintEnd_toEndOf="@+id/iv_selectionPlayer"
             app:layout_constraintEnd_toStartOf="@+id/guideline"
             app:layout_constraintStart_toStartOf="@+id/iv_selectionPlayer"
-            app:layout_constraintTop_toTopOf="@+id/imageView4" />
+            app:layout_constraintTop_toTopOf="@+id/iv_back" />
 
         <ImageView
             android:id="@+id/iv_selectionPlayer"
@@ -55,26 +55,14 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_characterNamePlayer"
             app:srcCompat="@drawable/naruto_all" />
 
-        <ImageView
-            android:id="@+id/iv_okPlayer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:background="@color/grey"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_selectionPlayer"
-            app:layout_constraintEnd_toEndOf="@+id/iv_selectionPlayer"
-            app:srcCompat="@drawable/baseline_check_24" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_selectionJutsusPlayer"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginEnd="8dp"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="@+id/iv_selectionPlayer"
-            app:layout_constraintEnd_toStartOf="@+id/iv_okPlayer"
+            app:layout_constraintEnd_toEndOf="@+id/iv_selectionPlayer"
             app:layout_constraintStart_toStartOf="@+id/iv_selectionPlayer"
             app:layout_constraintTop_toTopOf="@+id/iv_selectionPlayer"
             tools:listitem="@layout/jutsu_player_item" />
@@ -131,11 +119,11 @@
             tools:listitem="@layout/selection_character_item" />
 
         <ImageView
-            android:id="@+id/imageView4"
+            android:id="@+id/iv_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="80dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/baseline_arrow_back_24" />
@@ -144,25 +132,37 @@
             android:id="@+id/rv_selectionJutsusCom"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="8dp"
             android:visibility="gone"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="@+id/iv_selectionCom"
             app:layout_constraintEnd_toEndOf="@+id/iv_selectionCom"
-            app:layout_constraintStart_toEndOf="@+id/iv_okCom"
+            app:layout_constraintStart_toStartOf="@+id/iv_selectionCom"
             app:layout_constraintTop_toTopOf="@+id/iv_selectionCom"
             tools:listitem="@layout/jutsu_com_item" />
 
-        <ImageView
-            android:id="@+id/iv_okCom"
+        <Button
+            android:id="@+id/btn_coincidence"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginBottom="8dp"
-            android:background="@color/grey"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_selectionCom"
-            app:layout_constraintStart_toStartOf="@+id/iv_selectionCom"
-            app:srcCompat="@drawable/baseline_check_24" />
+            android:layout_marginEnd="24dp"
+            android:backgroundTint="@color/grey"
+            android:text="@string/zufall"
+            android:textColor="@color/primary"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_ok"
+            app:layout_constraintEnd_toStartOf="@+id/btn_ok"
+            app:layout_constraintTop_toTopOf="@+id/btn_ok" />
+
+        <Button
+            android:id="@+id/btn_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="50dp"
+            android:backgroundTint="@color/grey"
+            android:text="@string/ok"
+            android:textColor="@color/primary"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_further"
+            app:layout_constraintEnd_toStartOf="@+id/btn_further"
+            app:layout_constraintTop_toTopOf="@+id/btn_further" />
 
         <Button
             android:id="@+id/btn_further"
