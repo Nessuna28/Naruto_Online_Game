@@ -19,4 +19,6 @@
     <string name="liste_an_jutsus">Liste an Jutsus</string>
     <string name="ok">OK</string>
     <string name="zufall">Zufall</string>
+    <string name="location">Location</string>
+    <string name="playerName">Spielername</string>
 </resources>

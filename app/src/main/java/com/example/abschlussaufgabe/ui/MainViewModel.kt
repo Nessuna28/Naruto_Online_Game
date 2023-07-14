@@ -2,6 +2,9 @@ package com.example.abschlussaufgabe.ui
 
 import android.app.Application
 import android.util.Log
+import android.view.View
+import android.widget.ImageView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -39,9 +42,20 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     val jutsuListForCom: LiveData<Map<String, Int>>
         get() = _jutsuListForCom
 
+
     val _player = MutableLiveData<CharacterForFight>()
     val player: LiveData<CharacterForFight>
         get() = _player
+
+
+    val _imageTitle = MutableLiveData<ImageView>()
+    val imageTitle: LiveData<ImageView>
+        get() = _imageTitle
+
+
+    val _imageHome = MutableLiveData<ImageView>()
+    val imageHome: LiveData<ImageView>
+        get() = _imageHome
 
 
     init {
@@ -50,6 +64,16 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         _characterForFight.value = CharacterListForFight().characterList
     }
 
+
+    fun hideImages(image: ImageView) {
+
+        image.visibility = View.GONE
+    }
+
+    fun showImages(image: ImageView) {
+
+        image.visibility = View.VISIBLE
+    }
 
     // Alles für die Charakterinformationen
 

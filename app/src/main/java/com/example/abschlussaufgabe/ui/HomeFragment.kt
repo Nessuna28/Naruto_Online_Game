@@ -1,11 +1,12 @@
 package com.example.abschlussaufgabe.ui
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.R
@@ -16,6 +17,17 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
 
+    private val viewModel: MainViewModel by activityViewModels()
+
+
+    override fun onStart() {
+        super.onStart()
+
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+
+        viewModel.imageTitle.value?.let { viewModel.hideImages(it) }
+        viewModel.imageHome.value?.let { viewModel.hideImages(it) }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

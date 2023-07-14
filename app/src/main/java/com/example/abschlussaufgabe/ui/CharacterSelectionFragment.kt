@@ -1,5 +1,6 @@
 package com.example.abschlussaufgabe.ui
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.adapter.CharacterForFightAdapter
 import com.example.abschlussaufgabe.adapter.JutsuComAdapter
@@ -25,6 +27,8 @@ class CharacterSelectionFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+
         //viewModel.updateDatabase(dataPlayer)
     }
 
@@ -41,16 +45,20 @@ class CharacterSelectionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.characterForFight.observe(viewLifecycleOwner) {
-            binding.rvCharactersPlayer.adapter = CharacterForFightAdapter(it, viewModel)
-            binding.rvCharactersCom.adapter = CharacterForFightAdapter(it, viewModel)
+            binding.rvCharactersPlayer?.adapter = CharacterForFightAdapter(it, viewModel)
+            binding.rvCharactersCom?.adapter = CharacterForFightAdapter(it, viewModel)
         }
 
         viewModel.jutsuListForPlayer.observe(viewLifecycleOwner) {
-            binding.rvSelectionJutsusPlayer.adapter = JutsuPlayerAdapter(it,viewModel)
+            binding.rvSelectionJutsusPlayer?.adapter = JutsuPlayerAdapter(it,viewModel)
         }
 
         viewModel.jutsuListForCom.observe(viewLifecycleOwner) {
-            binding.rvSelectionJutsusCom.adapter = JutsuComAdapter(it)
+            binding.rvSelectionJutsusCom?.adapter = JutsuComAdapter(it)
+        }
+
+        viewModel.imageHome.value?.setOnClickListener {
+            findNavController().navigate(CharacterSelectionFragmentDirections.actionCharacterSelectionFragmentToHomeFragment())
         }
     }
 }

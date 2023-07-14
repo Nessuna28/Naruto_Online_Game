@@ -76,5 +76,9 @@ class CharacterDetailFragment : Fragment() {
         binding.ivBack.setOnClickListener {
             findNavController().navigateUp()
         }
+
+        viewModel.imageHome.value?.setOnClickListener {
+            findNavController().navigate(CharacterDetailFragmentDirections.actionCharacterDetailFragmentToHomeFragment())
+        }
     }
 }

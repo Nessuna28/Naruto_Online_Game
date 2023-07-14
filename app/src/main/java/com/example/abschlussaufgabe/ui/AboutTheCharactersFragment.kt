@@ -22,6 +22,13 @@ class AboutTheCharactersFragment : Fragment() {
     private lateinit var binding: FragmentAboutTheCharactersBinding
 
 
+    override fun onStart() {
+        super.onStart()
+
+        viewModel.imageTitle.value?.let { viewModel.showImages(it) }
+        viewModel.imageHome.value?.let { viewModel.showImages(it) }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -44,6 +51,10 @@ class AboutTheCharactersFragment : Fragment() {
 
         binding.ivBack.setOnClickListener {
             findNavController().navigateUp()
+        }
+
+        viewModel.imageHome.value?.setOnClickListener {
+            findNavController().navigate(AboutTheCharactersFragmentDirections.actionAboutTheCharactersFragmentToHomeFragment())
         }
     }
 }
