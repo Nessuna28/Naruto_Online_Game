@@ -12,6 +12,19 @@
         android:layout_height="match_parent"
         tools:context=".ui.CharacterSelectionFragment">
 
+        <Button
+            android:id="@+id/btn_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:backgroundTint="@color/grey"
+            android:text="@string/reset"
+            android:textColor="@color/primary"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_ok"
+            app:layout_constraintEnd_toStartOf="@+id/btn_random"
+            app:layout_constraintTop_toTopOf="@+id/btn_ok"
+            app:layout_constraintVertical_bias="1.0" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_charactersPlayer"
             android:layout_width="wrap_content"
@@ -25,7 +38,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_characterNamePlayer"
             app:spanCount="3"
-            tools:listitem="@layout/selection_character_item" />
+            tools:listitem="@layout/selection_character_player_item" />
 
         <TextView
             android:id="@+id/tv_characterNamePlayer"
@@ -76,7 +89,7 @@
             app:layout_constraintGuide_begin="365dp" />
 
         <TextView
-            android:id="@+id/tv_characterNameCom"
+            android:id="@+id/tv_characterNameEnemy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -87,37 +100,38 @@
             android:textSize="30dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/tv_characterNamePlayer"
-            app:layout_constraintEnd_toEndOf="@+id/iv_selectionCom"
-            app:layout_constraintStart_toStartOf="@+id/iv_selectionCom"
+            app:layout_constraintEnd_toEndOf="@+id/iv_selectionEnemy"
+            app:layout_constraintStart_toStartOf="@+id/iv_selectionEnemy"
             app:layout_constraintTop_toTopOf="@+id/tv_characterNamePlayer" />
 
         <ImageView
-            android:id="@+id/iv_selectionCom"
+            android:id="@+id/iv_selectionEnemy"
             android:layout_width="200dp"
             android:layout_height="250dp"
             android:layout_marginStart="8dp"
             android:layout_marginBottom="21dp"
             android:alpha="0.3"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/rv_charactersCom"
+            app:layout_constraintEnd_toStartOf="@+id/rv_charactersEnemy"
             app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/tv_characterNameCom"
+            app:layout_constraintTop_toBottomOf="@+id/tv_characterNameEnemy"
             app:srcCompat="@drawable/naruto_all" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_charactersCom"
+            android:id="@+id/rv_charactersEnemy"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="71dp"
             android:scrollbars="horizontal"
+            android:clickable="false"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/iv_selectionCom"
-            app:layout_constraintTop_toBottomOf="@+id/tv_characterNameCom"
+            app:layout_constraintStart_toEndOf="@+id/iv_selectionEnemy"
+            app:layout_constraintTop_toBottomOf="@+id/tv_characterNameEnemy"
             app:spanCount="3"
-            tools:listitem="@layout/selection_character_item" />
+            tools:listitem="@layout/selection_character_player_item" />
 
         <ImageView
             android:id="@+id/iv_back"
@@ -136,14 +150,14 @@
             android:visibility="gone"
             android:scrollbars="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_selectionCom"
-            app:layout_constraintEnd_toEndOf="@+id/iv_selectionCom"
-            app:layout_constraintStart_toStartOf="@+id/iv_selectionCom"
-            app:layout_constraintTop_toTopOf="@+id/iv_selectionCom"
-            tools:listitem="@layout/jutsu_com_item" />
+            app:layout_constraintBottom_toBottomOf="@+id/iv_selectionEnemy"
+            app:layout_constraintEnd_toEndOf="@+id/iv_selectionEnemy"
+            app:layout_constraintStart_toStartOf="@+id/iv_selectionEnemy"
+            app:layout_constraintTop_toTopOf="@+id/iv_selectionEnemy"
+            tools:listitem="@layout/jutsu_enemy_item" />
 
         <Button
-            android:id="@+id/btn_coincidence"
+            android:id="@+id/btn_random"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
@@ -173,6 +187,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
             android:text="@string/weiter"
+            android:clickable="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -180,12 +195,23 @@
             android:id="@+id/tv_playerName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:text="@string/playerName"
+            android:layout_marginStart="50dp"
             android:fontFamily="@font/akaya_telivigala"
+            android:text="@string/playerName"
             app:layout_constraintBottom_toBottomOf="@+id/iv_back"
-            app:layout_constraintStart_toEndOf="@+id/iv_back"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/iv_back" />
+
+        <TextView
+            android:id="@+id/tv_enemyName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="50dp"
+            android:fontFamily="@font/akaya_telivigala"
+            android:text="@string/playerName"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_playerName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_playerName" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

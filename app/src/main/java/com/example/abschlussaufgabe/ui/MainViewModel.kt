@@ -4,7 +4,6 @@ import android.app.Application
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,6 +15,7 @@ import com.example.abschlussaufgabe.data.datamodels.modelForFight.characterData.
 import com.example.abschlussaufgabe.data.local.PlayerDatabase
 import com.example.abschlussaufgabe.data.remote.CharacterApi
 import kotlinx.coroutines.launch
+import kotlin.reflect.jvm.internal.impl.load.java.lazy.descriptors.DeclaredMemberIndex.Empty
 
 const val TAGVIEWMODEL = "MainViewModel"
 
@@ -28,9 +28,32 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     var characters = repository.characters
 
 
+    // für die Datenbank
+    private val _player = MutableLiveData<CharacterForFight>()
+    val player: LiveData<CharacterForFight>
+        get() = _player
+
+
+    // für die Charakterauswahl (CharacterSelectionFragment)
+
     private val _characterForFight = MutableLiveData<List<CharacterForFight>>()
     val characterForFight: LiveData<List<CharacterForFight>>
         get() = _characterForFight
+
+
+    private val _imageForPlayer = MutableLiveData<Int>()
+    val imageForPlayer: LiveData<Int>
+        get() = _imageForPlayer
+
+
+    private val _image2ForPlayer = MutableLiveData<Int>()
+    val image2ForPlayer: LiveData<Int>
+        get() = _image2ForPlayer
+
+
+    private val _characterNameForPlayer = MutableLiveData<String>()
+    val characterNameForPlayer: LiveData<String>
+        get() = _characterNameForPlayer
 
 
     private val _jutsuListForPlayer = MutableLiveData<Map<String, Int>>()
@@ -38,14 +61,31 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _jutsuListForPlayer
 
 
-    private val _jutsuListForCom = MutableLiveData<Map<String, Int>>()
-    val jutsuListForCom: LiveData<Map<String, Int>>
-        get() = _jutsuListForCom
+    private val _enemy = MutableLiveData<CharacterForFight>()
+    val enemy: LiveData<CharacterForFight>
+        get() = _enemy
 
 
-    val _player = MutableLiveData<CharacterForFight>()
-    val player: LiveData<CharacterForFight>
-        get() = _player
+    private val _imageForEnemy = MutableLiveData<Int>()
+    val imageForEnemy: LiveData<Int>
+        get() = _imageForEnemy
+
+
+    private val _image2ForEnemy = MutableLiveData<Int>()
+    val image2ForEnemy: LiveData<Int>
+        get() = _image2ForEnemy
+
+
+    private val _characterNameForEnemy = MutableLiveData<String>()
+    val characterNameForEnemy: LiveData<String>
+        get() = _characterNameForEnemy
+
+
+    private val _jutsuListForEnemy = MutableLiveData<Map<String, Int>>()
+    val jutsuListForEnemy: LiveData<Map<String, Int>>
+        get() = _jutsuListForEnemy
+
+
 
 
     val _imageTitle = MutableLiveData<ImageView>()
@@ -56,6 +96,11 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     val _imageHome = MutableLiveData<ImageView>()
     val imageHome: LiveData<ImageView>
         get() = _imageHome
+
+
+    val _imageBackground = MutableLiveData<ImageView>()
+    val imageBackground: LiveData<ImageView>
+        get() = _imageBackground
 
 
     init {
@@ -101,8 +146,10 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     }
 
 
-    // Alles für das Kampfgeschehen
+    // Funktionen für das Kampfgeschehen
 
+
+    // speichert Daten des Spielers in der Datenbank
     fun updateDatabase(player: Player) {
 
         viewModelScope.launch {
@@ -114,8 +161,64 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
+    fun setImageForPlayer(image: Int) {
+
+        _imageForPlayer.value = image
+    }
+
+    fun setCharacterNameForPlayer(characterName: String) {
+
+        _characterNameForPlayer.value = characterName
+    }
+
     fun setJutsuForPlayer(jutsu: Map<String, Int>) {
 
         _jutsuListForPlayer.value = jutsu
+    }
+
+    fun setImageForEnemy(image: Int) {
+
+        _imageForEnemy.value = image
+    }
+
+
+    fun setCharacterNameForEnemy(characterName: String) {
+
+        _characterNameForEnemy.value = characterName
+    }
+
+    fun setJutsuForEnemy(jutsu: Map<String, Int>) {
+
+        _jutsuListForEnemy.value = jutsu
+    }
+
+    fun randomCharacterForPlayer() {
+
+        val randomCharacter = characterForFight.value?.random()
+
+        setImageForPlayer(randomCharacter!!.image2)
+        setCharacterNameForPlayer(randomCharacter.name)
+        setJutsuForPlayer(randomCharacter.jutsus)
+    }
+
+    fun randomCharacterForEnemy() {
+
+        val randomCharacter = characterForFight.value?.random()
+
+        setImageForEnemy(randomCharacter!!.image2)
+        setCharacterNameForEnemy(randomCharacter.name)
+        setJutsuForEnemy(randomCharacter.jutsus)
+    }
+
+    fun resetSelectionData() {
+
+        _imageForPlayer.value = 0
+        _image2ForPlayer.value = 0
+        _imageForEnemy.value = 0
+        _image2ForEnemy.value = 0
+        _characterNameForPlayer.value = ""
+        _characterNameForEnemy.value = ""
+        _jutsuListForPlayer.value = mapOf()
+        _jutsuListForEnemy.value = mapOf()
     }
 }

@@ -7,7 +7,8 @@ class CharacterListForFight {
 
     val characterList = mutableListOf<CharacterForFight>(
         CharacterForFight(
-            R.drawable.naruto_all,
+            R.drawable.naruto,
+            R.drawable.naruto2,
     "Naruto",
     mapOf("Rasengan" to 50, "Rasenshuriken" to 70, "Jutsu des vertrauten Geistes" to 80, "Taijutsu" to 20),
     mapOf("Shuriken" to 20, "Kunai" to 15),
@@ -18,7 +19,8 @@ class CharacterListForFight {
     ),
 
     CharacterForFight(
-        R.drawable.naruto_all,
+        R.drawable.sasuke,
+        R.drawable.sasuke2,
         "Sasuke",
         mapOf("Chidori" to 50, "Feuerversteck" to 40, "Jutsu des vertrauten Geistes" to 80, "Taijutsu" to 30),
         mapOf("Shuriken" to 20, "Schwert" to 30),
@@ -29,7 +31,8 @@ class CharacterListForFight {
     ),
 
     CharacterForFight(
-        R.drawable.naruto_all,
+        R.drawable.sakura,
+        R.drawable.sakura2,
         "Sakura",
         mapOf("große Sakura" to 20, "Kirschblütenschlag" to 50, "Kirschblütenformation" to 70, "Jutsu des vertrauten Geistes" to 80, "Taijutsu" to 15),
         mapOf("Shuriken" to 20, "Kunai" to 15),

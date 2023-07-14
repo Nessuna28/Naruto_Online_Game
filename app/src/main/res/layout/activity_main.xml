@@ -46,15 +46,15 @@
 
             <ImageView
                 android:id="@+id/iv_profilePhoto"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:src="@drawable/profile_picture" />
         </com.google.android.material.card.MaterialCardView>
 
         <ImageView
             android:id="@+id/iv_title"
-            android:layout_width="216dp"
-            android:layout_height="77dp"
+            android:layout_width="190dp"
+            android:layout_height="69dp"
             app:layout_constraintEnd_toEndOf="@+id/iv_background"
             app:layout_constraintStart_toStartOf="@+id/iv_background"
             app:layout_constraintTop_toTopOf="parent"

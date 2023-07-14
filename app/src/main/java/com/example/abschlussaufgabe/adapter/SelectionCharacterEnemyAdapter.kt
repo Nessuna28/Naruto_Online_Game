@@ -4,23 +4,23 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.CharacterForFight
-import com.example.abschlussaufgabe.databinding.SelectionCharacterItemBinding
+import com.example.abschlussaufgabe.databinding.SelectionCharacterEnemyItemBinding
 import com.example.abschlussaufgabe.ui.MainViewModel
 
 
-class CharacterForFightAdapter(
+class SelectionCharacterEnemyAdapter(
     private var dataset: List<CharacterForFight>,
     private var viewModel: MainViewModel
-): RecyclerView.Adapter<CharacterForFightAdapter.ItemViewHolder>() {
+): RecyclerView.Adapter<SelectionCharacterEnemyAdapter.ItemViewHolder>() {
 
 
-    inner class ItemViewHolder(val binding: SelectionCharacterItemBinding) :
+    inner class ItemViewHolder(val binding: SelectionCharacterEnemyItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        val binding = SelectionCharacterItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = SelectionCharacterEnemyItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         return ItemViewHolder(binding)
     }
@@ -36,7 +36,9 @@ class CharacterForFightAdapter(
         holder.binding.ivCharacter.setImageResource(characterForFight.image)
 
         holder.binding.ivCharacter.setOnClickListener {
-            viewModel.setJutsuForPlayer(characterForFight.jutsus)
+            viewModel.setImageForEnemy(characterForFight.image2)
+            viewModel.setCharacterNameForEnemy(characterForFight.name)
+            viewModel.setJutsuForEnemy(characterForFight.jutsus)
         }
     }
 }

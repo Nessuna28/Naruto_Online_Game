@@ -3,20 +3,20 @@ package com.example.abschlussaufgabe.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.abschlussaufgabe.databinding.JutsuComItemBinding
+import com.example.abschlussaufgabe.databinding.JutsuEnemyItemBinding
 
 
-class JutsuComAdapter(private var dataset: Map<String, Int>
-): RecyclerView.Adapter<JutsuComAdapter.ItemViewHolder>() {
+class JutsuEnemyAdapter(private var dataset: Map<String, Int>
+): RecyclerView.Adapter<JutsuEnemyAdapter.ItemViewHolder>() {
 
 
-    inner class ItemViewHolder(val binding: JutsuComItemBinding) :
+    inner class ItemViewHolder(val binding: JutsuEnemyItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val binding =
-            JutsuComItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            JutsuEnemyItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         return ItemViewHolder(binding)
     }
@@ -27,8 +27,8 @@ class JutsuComAdapter(private var dataset: Map<String, Int>
 
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val jutsuCom = dataset.keys.elementAt(position)
+        val jutsuEnemy = dataset.keys.elementAt(position)
 
-        holder.binding.tvJutsusCom.setText(jutsuCom)
+        holder.binding.tvJutsusEnemy.setText(jutsuEnemy)
     }
 }

@@ -10,9 +10,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.R
-import com.example.abschlussaufgabe.adapter.CharacterForFightAdapter
-import com.example.abschlussaufgabe.adapter.JutsuComAdapter
+import com.example.abschlussaufgabe.adapter.SelectionCharacterPlayerAdapter
+import com.example.abschlussaufgabe.adapter.JutsuEnemyAdapter
 import com.example.abschlussaufgabe.adapter.JutsuPlayerAdapter
+import com.example.abschlussaufgabe.adapter.SelectionCharacterEnemyAdapter
 import com.example.abschlussaufgabe.databinding.FragmentCharacterSelectionBinding
 
 
@@ -22,12 +23,13 @@ class CharacterSelectionFragment : Fragment() {
 
     private lateinit var binding: FragmentCharacterSelectionBinding
 
-    //private val characterCom = viewModel.characterLiveData.value?.random()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+
+        viewModel.imageBackground.value?.let { viewModel.hideImages(it) }
 
         //viewModel.updateDatabase(dataPlayer)
     }
@@ -45,16 +47,56 @@ class CharacterSelectionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.characterForFight.observe(viewLifecycleOwner) {
-            binding.rvCharactersPlayer?.adapter = CharacterForFightAdapter(it, viewModel)
-            binding.rvCharactersCom?.adapter = CharacterForFightAdapter(it, viewModel)
+            binding.rvCharactersPlayer?.adapter = SelectionCharacterPlayerAdapter(it, viewModel)
+            binding.rvCharactersEnemy?.adapter = SelectionCharacterEnemyAdapter(it, viewModel)
         }
 
         viewModel.jutsuListForPlayer.observe(viewLifecycleOwner) {
             binding.rvSelectionJutsusPlayer?.adapter = JutsuPlayerAdapter(it,viewModel)
         }
 
-        viewModel.jutsuListForCom.observe(viewLifecycleOwner) {
-            binding.rvSelectionJutsusCom?.adapter = JutsuComAdapter(it)
+        viewModel.jutsuListForEnemy.observe(viewLifecycleOwner) {
+            binding.rvSelectionJutsusCom?.adapter = JutsuEnemyAdapter(it)
+        }
+
+
+
+        if (viewModel.imageForPlayer?.value != null && viewModel.imageForPlayer.value != 0) {
+            binding.tvCharacterNamePlayer?.setText(viewModel.characterNameForPlayer.value)
+            binding.rvSelectionJutsusPlayer?.visibility = View.VISIBLE
+        }
+
+        if (viewModel.imageForEnemy?.value != null && viewModel.imageForEnemy.value != 0) {
+            binding.ivSelectionEnemy?.setImageResource(viewModel.image2ForEnemy.value!!)
+            binding.tvCharacterNameEnemy?.setText(viewModel.characterNameForEnemy.value)
+            binding.rvSelectionJutsusCom?.visibility = View.VISIBLE
+        }
+
+        binding.btnReset?.setOnClickListener {
+
+        }
+
+        binding.btnOk?.setOnClickListener {
+            binding.rvCharactersEnemy?.isClickable = true
+        }
+
+
+        // Navigation
+
+        binding.ivBack?.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
+        binding.btnRandom?.setOnClickListener {
+            viewModel.randomCharacterForPlayer()
+        }
+
+        binding.btnReset?.setOnClickListener {
+            viewModel.resetSelectionData()
+        }
+
+        binding.btnFurther?.setOnClickListener {
+            findNavController().navigate(CharacterSelectionFragmentDirections.actionCharacterSelectionFragmentToLocationSelectionFragment())
         }
 
         viewModel.imageHome.value?.setOnClickListener {

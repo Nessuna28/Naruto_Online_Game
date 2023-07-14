@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         viewModel._imageTitle.value = binding.ivTitle
         viewModel._imageHome.value = binding.ivHome
+        viewModel._imageBackground.value = binding.ivBackground
 
 
         binding.ivSettings.setOnClickListener {

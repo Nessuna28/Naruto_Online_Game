@@ -12,7 +12,7 @@
 
 
         <TextView
-            android:id="@+id/tv_jutsusCom"
+            android:id="@+id/tv_jutsusEnemy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/liste_an_jutsus"
@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text=""
-            app:layout_constraintEnd_toStartOf="@+id/tv_jutsusCom"
+            app:layout_constraintEnd_toStartOf="@+id/tv_jutsusEnemy"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
