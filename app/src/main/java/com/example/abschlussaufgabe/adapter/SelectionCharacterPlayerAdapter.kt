@@ -36,9 +36,10 @@ class SelectionCharacterPlayerAdapter(
         holder.binding.ivCharacter.setImageResource(characterForFight.image)
 
         holder.binding.ivCharacter.setOnClickListener {
-            viewModel.setImageForPlayer(characterForFight.image2)
+            viewModel.setImageForPlayer(characterForFight.image, characterForFight.image2)
             viewModel.setCharacterNameForPlayer(characterForFight.name)
             viewModel.setJutsuForPlayer(characterForFight.jutsus)
+            viewModel.setUniqueTraitForPlayer(characterForFight.uniqueTraits)
         }
     }
 }

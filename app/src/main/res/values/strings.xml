@@ -2,24 +2,26 @@
     <string name="app_name">AbschlussAufgabe</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="subtitle">Online Game</string>
-    <string name="infos_about_characters">Infos zu den Charakteren</string>
+    <string name="infosAboutCharacters">Infos zu den Charakteren</string>
     <string name="statistics">Statistik</string>
     <string name="fight">Kampf</string>
     <string name="name">Name</string>
     <string name="clan">Clan:</string>
     <string name="rank">Rank:</string>
-    <string name="nature_type">Naturtyp:</string>
-    <string name="jutsus">Jutsus:</string>
-    <string name="unique_traits">einzigartige Eigenschaften:</string>
+    <string name="natureType">Naturtyp:</string>
+    <string name="titleJutsus">Jutsus:</string>
+    <string name="titleUniqueTraits">einzigartige Eigenschaften:</string>
     <string name="tools">Werkzeug:</string>
     <string name="personal">persönliches:</string>
     <string name="family">Familie:</string>
-    <string name="weiter">Weiter</string>
-    <string name="liste_an_jutsus">Liste an Jutsus</string>
+    <string name="further">Weiter</string>
     <string name="ok">OK</string>
     <string name="zufall">Zufall</string>
     <string name="location">Location</string>
     <string name="playerName">Spielername</string>
     <string name="reset">Reset</string>
+    <string name="jutsus">Jutsus</string>
+    <string name="traits">Fähigkeiten</string>
 </resources>

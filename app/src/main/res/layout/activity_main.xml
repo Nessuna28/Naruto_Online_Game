@@ -20,7 +20,6 @@
             android:alpha="0.3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/naruto_background" />
 
@@ -55,7 +54,7 @@
             android:id="@+id/iv_title"
             android:layout_width="190dp"
             android:layout_height="69dp"
-            app:layout_constraintEnd_toEndOf="@+id/iv_background"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/iv_background"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/naruto_title" />

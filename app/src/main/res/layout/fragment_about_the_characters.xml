@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="135dp"
-            android:text="@string/infos_about_characters"
+            android:text="@string/infosAboutCharacters"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/iv_back"

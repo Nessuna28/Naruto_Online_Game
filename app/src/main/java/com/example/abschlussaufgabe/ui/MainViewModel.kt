@@ -15,7 +15,7 @@ import com.example.abschlussaufgabe.data.datamodels.modelForFight.characterData.
 import com.example.abschlussaufgabe.data.local.PlayerDatabase
 import com.example.abschlussaufgabe.data.remote.CharacterApi
 import kotlinx.coroutines.launch
-import kotlin.reflect.jvm.internal.impl.load.java.lazy.descriptors.DeclaredMemberIndex.Empty
+
 
 const val TAGVIEWMODEL = "MainViewModel"
 
@@ -61,6 +61,11 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _jutsuListForPlayer
 
 
+    private val _uniqueTraitsListForPlayer = MutableLiveData<Map<String, Int>>()
+    val uniqueTraitsListForPlayer: LiveData<Map<String, Int>>
+        get() = _uniqueTraitsListForPlayer
+
+
     private val _enemy = MutableLiveData<CharacterForFight>()
     val enemy: LiveData<CharacterForFight>
         get() = _enemy
@@ -84,6 +89,11 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     private val _jutsuListForEnemy = MutableLiveData<Map<String, Int>>()
     val jutsuListForEnemy: LiveData<Map<String, Int>>
         get() = _jutsuListForEnemy
+
+
+    private val _uniqueTraitsListForEnemy = MutableLiveData<Map<String, Int>>()
+    val uniqueTraitsListForEnemy: LiveData<Map<String, Int>>
+        get() = _uniqueTraitsListForEnemy
 
 
 
@@ -161,9 +171,11 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
-    fun setImageForPlayer(image: Int) {
+    // setzt die Daten für die Anzeigen im Screen
+    fun setImageForPlayer(image: Int, image2: Int) {
 
         _imageForPlayer.value = image
+        _image2ForPlayer.value = image2
     }
 
     fun setCharacterNameForPlayer(characterName: String) {
@@ -171,14 +183,21 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         _characterNameForPlayer.value = characterName
     }
 
-    fun setJutsuForPlayer(jutsu: Map<String, Int>) {
+    fun setJutsuForPlayer(jutsus: Map<String, Int>) {
 
-        _jutsuListForPlayer.value = jutsu
+        _jutsuListForPlayer.value = jutsus
     }
 
-    fun setImageForEnemy(image: Int) {
+    fun setUniqueTraitForPlayer(uniqueTraits: Map<String, Int>) {
+
+        _uniqueTraitsListForPlayer.value = uniqueTraits
+    }
+
+
+    fun setImageForEnemy(image: Int, image2: Int) {
 
         _imageForEnemy.value = image
+        _image2ForEnemy.value = image2
     }
 
 
@@ -187,27 +206,35 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         _characterNameForEnemy.value = characterName
     }
 
-    fun setJutsuForEnemy(jutsu: Map<String, Int>) {
+    fun setJutsuForEnemy(jutsus: Map<String, Int>) {
 
-        _jutsuListForEnemy.value = jutsu
+        _jutsuListForEnemy.value = jutsus
     }
+
+    fun setUniqueTraitForEnemy(uniqueTraits: Map<String, Int>) {
+
+        _uniqueTraitsListForEnemy.value = uniqueTraits
+    }
+
 
     fun randomCharacterForPlayer() {
 
         val randomCharacter = characterForFight.value?.random()
 
-        setImageForPlayer(randomCharacter!!.image2)
+        setImageForPlayer(randomCharacter!!.image, randomCharacter!!.image2)
         setCharacterNameForPlayer(randomCharacter.name)
         setJutsuForPlayer(randomCharacter.jutsus)
+        setUniqueTraitForPlayer(randomCharacter.uniqueTraits)
     }
 
     fun randomCharacterForEnemy() {
 
         val randomCharacter = characterForFight.value?.random()
 
-        setImageForEnemy(randomCharacter!!.image2)
+        setImageForEnemy(randomCharacter!!.image, randomCharacter!!.image2)
         setCharacterNameForEnemy(randomCharacter.name)
         setJutsuForEnemy(randomCharacter.jutsus)
+        setUniqueTraitForEnemy(randomCharacter.uniqueTraits)
     }
 
     fun resetSelectionData() {
@@ -219,6 +246,8 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         _characterNameForPlayer.value = ""
         _characterNameForEnemy.value = ""
         _jutsuListForPlayer.value = mapOf()
+        _uniqueTraitsListForPlayer.value = mapOf()
         _jutsuListForEnemy.value = mapOf()
+        _uniqueTraitsListForEnemy.value = mapOf()
     }
 }

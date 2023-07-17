@@ -7,8 +7,7 @@ import com.example.abschlussaufgabe.databinding.JutsuPlayerItemBinding
 import com.example.abschlussaufgabe.ui.MainViewModel
 
 
-class JutsuPlayerAdapter(private var dataset: Map<String, Int>,
-                         private var viewModel: MainViewModel
+class JutsuPlayerAdapter(private var dataset: Map<String, Int>
 ): RecyclerView.Adapter<JutsuPlayerAdapter.ItemViewHolder>() {
 
 
@@ -31,8 +30,6 @@ class JutsuPlayerAdapter(private var dataset: Map<String, Int>,
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val jutsuPlayer = dataset.keys.elementAt(position)
 
-        holder.binding.tvJutsusPlayer.setText(jutsuPlayer)
-
-
+        holder.binding.tvJutsuPlayer.text = jutsuPlayer
     }
 }

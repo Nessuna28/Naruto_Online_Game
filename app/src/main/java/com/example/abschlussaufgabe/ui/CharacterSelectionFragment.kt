@@ -2,6 +2,7 @@ package com.example.abschlussaufgabe.ui
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,8 @@ import com.example.abschlussaufgabe.adapter.SelectionCharacterPlayerAdapter
 import com.example.abschlussaufgabe.adapter.JutsuEnemyAdapter
 import com.example.abschlussaufgabe.adapter.JutsuPlayerAdapter
 import com.example.abschlussaufgabe.adapter.SelectionCharacterEnemyAdapter
+import com.example.abschlussaufgabe.adapter.TraitsEnemyAdapter
+import com.example.abschlussaufgabe.adapter.TraitsPlayerAdapter
 import com.example.abschlussaufgabe.databinding.FragmentCharacterSelectionBinding
 
 
@@ -24,12 +27,21 @@ class CharacterSelectionFragment : Fragment() {
     private lateinit var binding: FragmentCharacterSelectionBinding
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onStart() {
+        super.onStart()
 
         requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
 
         viewModel.imageBackground.value?.let { viewModel.hideImages(it) }
+
+        binding.tvCharacterNamePlayer?.visibility = View.GONE
+        binding.tvCharacterNameEnemy?.visibility = View.GONE
+        binding.ivSelectionPlayer?.visibility = View.GONE
+        binding.ivSelectionEnemy?.visibility = View.GONE
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
         //viewModel.updateDatabase(dataPlayer)
     }
@@ -51,40 +63,58 @@ class CharacterSelectionFragment : Fragment() {
             binding.rvCharactersEnemy?.adapter = SelectionCharacterEnemyAdapter(it, viewModel)
         }
 
+        viewModel.imageForPlayer.observe(viewLifecycleOwner) {
+            binding.ivSelectionPlayer?.visibility = View.VISIBLE
+            binding.ivSelectionPlayer?.setImageResource(it)
+        }
+
+        viewModel.characterNameForPlayer.observe(viewLifecycleOwner) {
+            binding.tvCharacterNamePlayer?.visibility = View.VISIBLE
+            binding.tvCharacterNamePlayer?.text = viewModel.characterNameForPlayer.value
+        }
+
         viewModel.jutsuListForPlayer.observe(viewLifecycleOwner) {
-            binding.rvSelectionJutsusPlayer?.adapter = JutsuPlayerAdapter(it,viewModel)
+            binding.tvTitleJutsusPlayer?.visibility = View.VISIBLE
+            binding.rvJutsusPlayer?.visibility = View.VISIBLE
+            binding.rvJutsusPlayer?.adapter = JutsuPlayerAdapter(it)
+        }
+
+        viewModel.uniqueTraitsListForPlayer.observe(viewLifecycleOwner) {
+            binding.tvTitleTraitsPlayer?.visibility = View.VISIBLE
+            binding.rvTraitsPlayer?.visibility = View.VISIBLE
+            binding.rvTraitsPlayer?.adapter = TraitsPlayerAdapter(it)
+        }
+
+        viewModel.imageForEnemy.observe(viewLifecycleOwner) {
+            binding.ivSelectionEnemy?.visibility = View.VISIBLE
+            binding.ivSelectionEnemy?.setImageResource(it)
+        }
+
+        viewModel.characterNameForEnemy.observe(viewLifecycleOwner) {
+            binding.tvCharacterNameEnemy?.visibility = View.VISIBLE
+            binding.tvCharacterNameEnemy?.text = it
         }
 
         viewModel.jutsuListForEnemy.observe(viewLifecycleOwner) {
-            binding.rvSelectionJutsusCom?.adapter = JutsuEnemyAdapter(it)
+            binding.tvTitleJutsusEnemy?.visibility = View.VISIBLE
+            binding.rvJutsusEnemy?.visibility = View.VISIBLE
+            binding.rvJutsusEnemy?.adapter = JutsuEnemyAdapter(it)
+        }
+
+        viewModel.uniqueTraitsListForEnemy.observe(viewLifecycleOwner) {
+            binding.tvTitleTraitsEnemy?.visibility = View.VISIBLE
+            binding.rvTraitsEnemy?.visibility = View.VISIBLE
+            binding.rvTraitsEnemy?.adapter = TraitsEnemyAdapter(it)
         }
 
 
 
-        if (viewModel.imageForPlayer?.value != null && viewModel.imageForPlayer.value != 0) {
-            binding.tvCharacterNamePlayer?.setText(viewModel.characterNameForPlayer.value)
-            binding.rvSelectionJutsusPlayer?.visibility = View.VISIBLE
-        }
-
-        if (viewModel.imageForEnemy?.value != null && viewModel.imageForEnemy.value != 0) {
-            binding.ivSelectionEnemy?.setImageResource(viewModel.image2ForEnemy.value!!)
-            binding.tvCharacterNameEnemy?.setText(viewModel.characterNameForEnemy.value)
-            binding.rvSelectionJutsusCom?.visibility = View.VISIBLE
-        }
-
-        binding.btnReset?.setOnClickListener {
-
-        }
+        // OnClickListerner & Navigation
 
         binding.btnOk?.setOnClickListener {
+            binding.ivSelectionPlayer?.setImageResource(viewModel.image2ForPlayer.value!!)
+            binding.rvCharactersPlayer?.isClickable = false     // TODO: Warum funktioniert nicht
             binding.rvCharactersEnemy?.isClickable = true
-        }
-
-
-        // Navigation
-
-        binding.ivBack?.setOnClickListener {
-            findNavController().navigateUp()
         }
 
         binding.btnRandom?.setOnClickListener {
@@ -93,6 +123,10 @@ class CharacterSelectionFragment : Fragment() {
 
         binding.btnReset?.setOnClickListener {
             viewModel.resetSelectionData()
+        }
+
+        binding.ivBack?.setOnClickListener {
+            findNavController().navigateUp()
         }
 
         binding.btnFurther?.setOnClickListener {

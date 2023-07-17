@@ -3,20 +3,19 @@ package com.example.abschlussaufgabe.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.abschlussaufgabe.databinding.JutsuEnemyItemBinding
+import com.example.abschlussaufgabe.databinding.TraitsPlayerItemBinding
+
+class TraitsPlayerAdapter(private var dataset: Map<String, Int>
+): RecyclerView.Adapter<TraitsPlayerAdapter.ItemViewHolder>() {
 
 
-class JutsuEnemyAdapter(private var dataset: Map<String, Int>
-): RecyclerView.Adapter<JutsuEnemyAdapter.ItemViewHolder>() {
-
-
-    inner class ItemViewHolder(val binding: JutsuEnemyItemBinding) :
+    inner class ItemViewHolder(val binding: TraitsPlayerItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val binding =
-            JutsuEnemyItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            TraitsPlayerItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         return ItemViewHolder(binding)
     }
@@ -27,8 +26,8 @@ class JutsuEnemyAdapter(private var dataset: Map<String, Int>
 
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val jutsuEnemy = dataset.keys.elementAt(position)
+        val traitsPlayer = dataset.keys.elementAt(position)
 
-        holder.binding.tvJutsuEnemy.text = jutsuEnemy
+        holder.binding.tvTraitsPlayer.text = traitsPlayer
     }
 }
