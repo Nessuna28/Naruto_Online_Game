@@ -11,7 +11,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.abschlussaufgabe.data.AppRepository
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.CharacterForFight
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.FightDataForDatabase.Player
-import com.example.abschlussaufgabe.data.datamodels.modelForFight.characterData.CharacterListForFight
+import com.example.abschlussaufgabe.data.datamodels.modelForFight.dataLists.CharacterListForFight
+import com.example.abschlussaufgabe.data.datamodels.modelForFight.dataLists.LocationList
 import com.example.abschlussaufgabe.data.local.PlayerDatabase
 import com.example.abschlussaufgabe.data.remote.CharacterApi
 import kotlinx.coroutines.launch
@@ -26,6 +27,23 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     private val repository = AppRepository(CharacterApi, database)
 
     var characters = repository.characters
+
+
+
+    val _imageTitle = MutableLiveData<ImageView>()
+    val imageTitle: LiveData<ImageView>
+        get() = _imageTitle
+
+
+    val _imageHome = MutableLiveData<ImageView>()
+    val imageHome: LiveData<ImageView>
+        get() = _imageHome
+
+
+    val _imageBackground = MutableLiveData<ImageView>()
+    val imageBackground: LiveData<ImageView>
+        get() = _imageBackground
+
 
 
     // für die Datenbank
@@ -96,27 +114,18 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _uniqueTraitsListForEnemy
 
 
+    private val _locationList = MutableLiveData<Map<String, Int>>()
+    val locationList: LiveData<Map<String, Int>>
+        get() = _locationList
 
 
-    val _imageTitle = MutableLiveData<ImageView>()
-    val imageTitle: LiveData<ImageView>
-        get() = _imageTitle
-
-
-    val _imageHome = MutableLiveData<ImageView>()
-    val imageHome: LiveData<ImageView>
-        get() = _imageHome
-
-
-    val _imageBackground = MutableLiveData<ImageView>()
-    val imageBackground: LiveData<ImageView>
-        get() = _imageBackground
 
 
     init {
         loadCharacters()
         searchCharacter("")
         _characterForFight.value = CharacterListForFight().characterList
+        _locationList.value = LocationList().locationList
     }
 
 
@@ -214,6 +223,13 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     fun setUniqueTraitForEnemy(uniqueTraits: Map<String, Int>) {
 
         _uniqueTraitsListForEnemy.value = uniqueTraits
+    }
+
+    fun setLocation(locationName: String, locationImage: Int) {
+
+        val locationMap = mapOf(locationName to locationImage)
+
+        _locationList.value = locationMap
     }
 
 

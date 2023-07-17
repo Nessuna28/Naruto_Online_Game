@@ -1,11 +1,11 @@
-package com.example.abschlussaufgabe.data.datamodels.modelForFight.characterData
+package com.example.abschlussaufgabe.data.datamodels.modelForFight.dataLists
 
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.CharacterForFight
 
 class CharacterListForFight {
 
-    val characterList = mutableListOf<CharacterForFight>(
+    val characterList = mutableListOf(
         CharacterForFight(
             R.drawable.naruto,
             R.drawable.naruto2,

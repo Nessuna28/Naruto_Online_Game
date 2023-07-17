@@ -2,7 +2,6 @@ package com.example.abschlussaufgabe.ui
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -34,10 +33,11 @@ class CharacterSelectionFragment : Fragment() {
 
         viewModel.imageBackground.value?.let { viewModel.hideImages(it) }
 
-        binding.tvCharacterNamePlayer?.visibility = View.GONE
-        binding.tvCharacterNameEnemy?.visibility = View.GONE
-        binding.ivSelectionPlayer?.visibility = View.GONE
-        binding.ivSelectionEnemy?.visibility = View.GONE
+        val firstCharacter = viewModel.characterForFight.value!!.first()
+        binding.tvCharacterNamePlayer?.text = firstCharacter.name
+        binding.tvCharacterNameEnemy?.text = firstCharacter.name
+        binding.ivSelectionPlayer?.setImageResource(firstCharacter.image)
+        binding.ivSelectionEnemy?.setImageResource(firstCharacter.image)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
