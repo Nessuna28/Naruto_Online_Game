@@ -111,18 +111,32 @@ class CharacterSelectionFragment : Fragment() {
 
         // OnClickListerner & Navigation
 
-        binding.btnOk?.setOnClickListener {
+        binding.btnOkPlayer?.setOnClickListener {
             binding.ivSelectionPlayer?.setImageResource(viewModel.image2ForPlayer.value!!)
             binding.rvCharactersPlayer?.isClickable = false     // TODO: Warum funktioniert nicht
             binding.rvCharactersEnemy?.isClickable = true
         }
 
-        binding.btnRandom?.setOnClickListener {
+        binding.btnRandomPlayer?.setOnClickListener {
             viewModel.randomCharacterForPlayer()
         }
 
         binding.btnReset?.setOnClickListener {
             viewModel.resetSelectionData()
+            binding.tvTitleJutsusPlayer?.visibility = View.INVISIBLE
+            binding.tvTitleTraitsPlayer?.visibility = View.INVISIBLE
+            binding.tvTitleJutsusEnemy?.visibility = View.INVISIBLE
+            binding.tvTitleTraitsEnemy?.visibility = View.INVISIBLE
+        }
+
+        binding.btnOkEnemy?.setOnClickListener {
+            binding.ivSelectionEnemy?.setImageResource(viewModel.image2ForEnemy.value!!)
+            binding.rvCharactersEnemy?.isClickable = false
+            binding.btnFurther?.isClickable = true
+        }
+
+        binding.btnRandomEnemy?.setOnClickListener {
+            viewModel.randomCharacterForEnemy()
         }
 
         binding.ivBack?.setOnClickListener {

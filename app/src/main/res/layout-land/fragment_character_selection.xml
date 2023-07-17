@@ -12,19 +12,6 @@
         android:layout_height="match_parent"
         tools:context=".ui.CharacterSelectionFragment">
 
-        <Button
-            android:id="@+id/btn_reset"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:backgroundTint="@color/grey"
-            android:text="@string/reset"
-            android:textColor="@color/primary"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_ok"
-            app:layout_constraintEnd_toStartOf="@+id/btn_random"
-            app:layout_constraintTop_toTopOf="@+id/btn_ok"
-            app:layout_constraintVertical_bias="1.0" />
-
         <TextView
             android:id="@+id/tv_playerName"
             android:layout_width="wrap_content"
@@ -255,28 +242,69 @@
             tools:listitem="@layout/traits_enemy_item" />
 
         <Button
-            android:id="@+id/btn_random"
+            android:id="@+id/btn_randomPlayer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/grey"
+            android:text="@string/random"
+            android:textColor="@color/primary"
+            android:textSize="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_okPlayer"
+            app:layout_constraintEnd_toStartOf="@+id/btn_okPlayer"
+            app:layout_constraintTop_toTopOf="@+id/btn_okPlayer" />
+
+        <Button
+            android:id="@+id/btn_okPlayer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
+            android:text="@string/ok"
             android:backgroundTint="@color/grey"
-            android:text="@string/zufall"
             android:textColor="@color/primary"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_ok"
-            app:layout_constraintEnd_toStartOf="@+id/btn_ok"
-            app:layout_constraintTop_toTopOf="@+id/btn_ok" />
+            android:textSize="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_reset"
+            app:layout_constraintEnd_toStartOf="@+id/btn_reset"
+            app:layout_constraintTop_toTopOf="@+id/btn_reset" />
 
         <Button
-            android:id="@+id/btn_ok"
+            android:id="@+id/btn_reset"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/grey"
+            android:text="@string/reset"
+            android:textColor="@color/primary"
+            android:textSize="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btn_randomEnemy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:backgroundTint="@color/grey"
+            android:text="@string/random"
+            android:textColor="@color/primary"
+            android:textSize="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_reset"
+            app:layout_constraintStart_toEndOf="@+id/btn_reset"
+            app:layout_constraintTop_toTopOf="@+id/btn_reset" />
+
+        <Button
+            android:id="@+id/btn_okEnemy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:backgroundTint="@color/grey"
             android:text="@string/ok"
             android:textColor="@color/primary"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_further"
-            app:layout_constraintEnd_toStartOf="@+id/btn_further"
-            app:layout_constraintTop_toTopOf="@+id/btn_further" />
+            android:textSize="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_randomEnemy"
+            app:layout_constraintStart_toEndOf="@+id/btn_randomEnemy"
+            app:layout_constraintTop_toTopOf="@+id/btn_randomEnemy" />
 
         <Button
             android:id="@+id/btn_further"
