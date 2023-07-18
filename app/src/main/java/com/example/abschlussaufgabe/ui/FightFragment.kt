@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.databinding.FragmentFightBinding
 
@@ -27,8 +28,6 @@ class FightFragment : Fragment() {
         viewModel.imageBackground.value?.let { viewModel.hideImages(it) }
         viewModel.materialCard.value?.let { viewModel.hideMaterialCard(it) }
 
-        // TODO: Background setzen
-
         binding.ivImage2Player?.visibility = View.INVISIBLE
         binding.ivImage2Enemy?.visibility = View.INVISIBLE
     }
@@ -44,6 +43,12 @@ class FightFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.location.observe(viewLifecycleOwner) {
+            binding.ivBackgroundFight?.setImageResource(it.image)
+        }
+
+        binding.tvNamePlayer?.text = viewModel.profile.value?.userName
 
         viewModel.player.observe(viewLifecycleOwner) {
             binding.ivCharacterImagePlayer?.setImageResource(it.image)
@@ -71,6 +76,12 @@ class FightFragment : Fragment() {
             binding.ivImage1Enemy?.setImageResource(it.image)
             binding.ivImage2Enemy?.setImageResource(it.image2)
             binding.tvCharacterNameEnemy?.text = it.name
+        }
+
+        //
+        // Navigation
+        binding.ivBack?.setOnClickListener {
+            findNavController().navigate(FightFragmentDirections.actionFightFragmentToCharacterSelectionFragment())
         }
     }
 }

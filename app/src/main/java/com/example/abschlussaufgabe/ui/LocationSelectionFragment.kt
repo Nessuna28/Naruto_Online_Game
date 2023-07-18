@@ -32,10 +32,6 @@ class LocationSelectionFragment : Fragment() {
         requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
 
         viewModel.imageBackground.value?.let { viewModel.hideImages(it) }
-
-        val firstLocation = viewModel.locationList.value!!
-        binding.tvLocationName?.text = firstLocation.keys.first()
-        binding.ivLocatinImage?.setImageResource(firstLocation.values.first())
     }
 
     override fun onCreateView(
@@ -53,8 +49,11 @@ class LocationSelectionFragment : Fragment() {
 
         viewModel.locationList.observe(viewLifecycleOwner) {
             binding.rvLocation?.adapter = LocationAdapter(it, viewModel)
-            binding.tvLocationName?.text = it.keys.toString()
-            // binding.ivLocatinImage?.setImageResource(it.values) TODO: Type mismatch
+        }
+
+        viewModel.location.observe(viewLifecycleOwner) {
+            binding.tvLocationName?.text = it.name
+            binding.ivLocatinImage?.setImageResource(it.image)
         }
 
         binding.btnOk?.setOnClickListener {

@@ -1,8 +1,12 @@
 package com.example.abschlussaufgabe.data
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.abschlussaufgabe.data.datamodels.modelForFight.FightDataForDatabase.Player
+import com.example.abschlussaufgabe.R
+import com.example.abschlussaufgabe.data.datamodels.modelForFight.dataLists.LocationList
+import com.example.abschlussaufgabe.data.datamodels.modelForFight.fightDataForDatabase.Location
+import com.example.abschlussaufgabe.data.datamodels.modelForFight.fightDataForDatabase.Player
 import com.example.abschlussaufgabe.data.datamodels.modelsApi.Character
 import com.example.abschlussaufgabe.data.local.PlayerDatabase
 import com.example.abschlussaufgabe.data.remote.CharacterApi
@@ -15,6 +19,7 @@ class AppRepository(private val api: CharacterApi, private val database: PlayerD
     private val _characters = MutableLiveData<List<Character>>()
     val characters: MutableLiveData<List<Character>>
         get() = _characters
+
 
     suspend fun getCharacter(name: String) {
 
@@ -40,14 +45,10 @@ class AppRepository(private val api: CharacterApi, private val database: PlayerD
 
 
 
+
     private val _dataList = MutableLiveData<List<Player>>()
             val dataList: MutableLiveData<List<Player>>
                 get() = _dataList
-
-
-    fun loadExampleData() {
-
-    }
 
 
     suspend fun insertData(player: Player) {

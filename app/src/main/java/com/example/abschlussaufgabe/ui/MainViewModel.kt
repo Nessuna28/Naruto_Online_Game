@@ -9,10 +9,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.abschlussaufgabe.data.AppRepository
+import com.example.abschlussaufgabe.data.datamodels.Profile
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.CharacterForFight
-import com.example.abschlussaufgabe.data.datamodels.modelForFight.FightDataForDatabase.Player
+import com.example.abschlussaufgabe.data.datamodels.modelForFight.fightDataForDatabase.Player
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.dataLists.CharacterListForFight
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.dataLists.LocationList
+import com.example.abschlussaufgabe.data.datamodels.modelForFight.fightDataForDatabase.Location
 import com.example.abschlussaufgabe.data.local.PlayerDatabase
 import com.example.abschlussaufgabe.data.remote.CharacterApi
 import com.google.android.material.card.MaterialCardView
@@ -28,6 +30,11 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     private val repository = AppRepository(CharacterApi, database)
 
     var characters = repository.characters
+
+
+    private val _profile = MutableLiveData<Profile>()
+    val profile: LiveData<Profile>
+        get() = _profile
 
 
 
@@ -120,9 +127,14 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _uniqueTraitsListForEnemy
 
 
-    private val _locationList = MutableLiveData<Map<String, Int>>()
-    val locationList: LiveData<Map<String, Int>>
+    private val _locationList = MutableLiveData<List<Location>>()
+    val locationList: LiveData<List<Location>>
         get() = _locationList
+
+
+    private val _location = MutableLiveData<Location>()
+    val location: LiveData<Location>
+        get() = _location
 
 
 
@@ -132,6 +144,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         searchCharacter("")
         _characterForFight.value = CharacterListForFight().characterList
         _locationList.value = LocationList().locationList
+        _location.value = locationList.value?.get(0)
     }
 
 
@@ -248,11 +261,9 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         _uniqueTraitsListForEnemy.value = uniqueTraits
     }
 
-    fun setLocation(locationName: String, locationImage: Int) {
+    fun setLocation(location: Location) {
 
-        val locationMap = mapOf(locationName to locationImage)
-
-        _locationList.value = locationMap
+        _location.value = location
     }
 
 
@@ -260,7 +271,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
         val randomCharacter = characterForFight.value?.random()
 
-        setImageForPlayer(randomCharacter!!.image, randomCharacter!!.image2)
+        setImageForPlayer(randomCharacter!!.image, randomCharacter.image2)
         setCharacterNameForPlayer(randomCharacter.name)
         setJutsuForPlayer(randomCharacter.jutsus)
         setUniqueTraitForPlayer(randomCharacter.uniqueTraits)
@@ -270,7 +281,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
         val randomCharacter = characterForFight.value?.random()
 
-        setImageForEnemy(randomCharacter!!.image, randomCharacter!!.image2)
+        setImageForEnemy(randomCharacter!!.image, randomCharacter.image2)
         setCharacterNameForEnemy(randomCharacter.name)
         setJutsuForEnemy(randomCharacter.jutsus)
         setUniqueTraitForEnemy(randomCharacter.uniqueTraits)

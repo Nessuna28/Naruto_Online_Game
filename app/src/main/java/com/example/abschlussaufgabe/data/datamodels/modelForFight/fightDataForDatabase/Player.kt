@@ -1,10 +1,10 @@
-package com.example.abschlussaufgabe.data.datamodels.modelForFight.FightDataForDatabase
+package com.example.abschlussaufgabe.data.datamodels.modelForFight.fightDataForDatabase
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "enemy_table")
-data class Enemy(
+@Entity(tableName = "player_table")
+data class Player(
 
     @PrimaryKey(autoGenerate = true)
     val id: Int,
@@ -12,5 +12,5 @@ data class Enemy(
     val characterName: String,
     val characterImage: Int,
     val victories: Int,
-    val defeats: Int
+    val defeats: Int,
 )

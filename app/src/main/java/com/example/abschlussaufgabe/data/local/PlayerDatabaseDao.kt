@@ -6,8 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.example.abschlussaufgabe.data.datamodels.modelForFight.CharacterForFight
-import com.example.abschlussaufgabe.data.datamodels.modelForFight.FightDataForDatabase.Player
+import com.example.abschlussaufgabe.data.datamodels.modelForFight.fightDataForDatabase.Player
 
 @Dao
 interface PlayerDatabaseDao {
