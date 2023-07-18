@@ -127,14 +127,29 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _uniqueTraitsListForEnemy
 
 
+    private val _selectionConfirmedPlayer = MutableLiveData<Boolean>()
+    val selectionConfirmedPlayer: LiveData<Boolean>
+        get() = _selectionConfirmedPlayer
+
+
+    private val _selectionConfirmedEnemy = MutableLiveData<Boolean>()
+    val selectionConfirmedEnemy: LiveData<Boolean>
+        get() = _selectionConfirmedEnemy
+
+
     private val _locationList = MutableLiveData<List<Location>>()
     val locationList: LiveData<List<Location>>
         get() = _locationList
 
 
-    private val _location = MutableLiveData<Location>()
-    val location: LiveData<Location>
+    private val _location = MutableLiveData<Location?>()
+    val location: LiveData<Location?>
         get() = _location
+
+
+    private val _selectionConfirmLocation = MutableLiveData<Boolean>()
+    val selectionConfirmLocation: LiveData<Boolean>
+        get() = _selectionConfirmLocation
 
 
 
@@ -261,9 +276,24 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         _uniqueTraitsListForEnemy.value = uniqueTraits
     }
 
+    fun confirmSelectionPlayer(check: Boolean) {
+
+        _selectionConfirmedPlayer.value = check
+    }
+
+    fun confirmSelectionEnemy(check: Boolean) {
+
+        _selectionConfirmedEnemy.value = check
+    }
+
     fun setLocation(location: Location) {
 
         _location.value = location
+    }
+
+    fun confirmSelectionLocation(check: Boolean) {
+
+        _selectionConfirmLocation.value = check
     }
 
 
@@ -287,17 +317,24 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         setUniqueTraitForEnemy(randomCharacter.uniqueTraits)
     }
 
+    fun randomLocation() {
+
+        val randomLocation = locationList.value?.random()
+
+        _location.value = randomLocation
+    }
+
     fun resetSelectionData() {
 
-        _imageForPlayer.value = 0
-        _image2ForPlayer.value = 0
-        _imageForEnemy.value = 0
-        _image2ForEnemy.value = 0
-        _characterNameForPlayer.value = ""
-        _characterNameForEnemy.value = ""
-        _jutsuListForPlayer.value = mapOf()
-        _uniqueTraitsListForPlayer.value = mapOf()
-        _jutsuListForEnemy.value = mapOf()
-        _uniqueTraitsListForEnemy.value = mapOf()
+        _imageForPlayer.value = characterForFight.value?.get(0)?.image
+        _image2ForPlayer.value = characterForFight.value?.get(0)?.image2
+        _imageForEnemy.value = characterForFight.value?.get(0)?.image
+        _image2ForEnemy.value = characterForFight.value?.get(0)?.image2
+        _characterNameForPlayer.value = characterForFight.value?.get(0)?.name
+        _characterNameForEnemy.value = characterForFight.value?.get(0)?.name
+        _jutsuListForPlayer.value = characterForFight.value?.get(0)?.jutsus
+        _uniqueTraitsListForPlayer.value = characterForFight.value?.get(0)?.uniqueTraits
+        _jutsuListForEnemy.value = characterForFight.value?.get(0)?.jutsus
+        _uniqueTraitsListForEnemy.value = characterForFight.value?.get(0)?.uniqueTraits
     }
 }

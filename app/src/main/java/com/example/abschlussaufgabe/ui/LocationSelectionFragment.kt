@@ -52,15 +52,24 @@ class LocationSelectionFragment : Fragment() {
         }
 
         viewModel.location.observe(viewLifecycleOwner) {
-            binding.tvLocationName?.text = it.name
-            binding.ivLocatinImage?.setImageResource(it.image)
+            if (it != null) {
+                binding.tvLocationName?.text = it.name
+            }
+            if (it != null) {
+                binding.ivLocatinImage?.setImageResource(it.image)
+            }
         }
 
         binding.btnOk?.setOnClickListener {
             binding.btnOk!!.setBackgroundColor(R.color.green)
             binding.btnOk!!.setTextColor(R.color.white)
+            viewModel.confirmSelectionLocation(true)
             binding.rvLocation?.isClickable = false
             binding.btnFurther?.isClickable = true
+        }
+
+        binding.btnRandom?.setOnClickListener {
+            viewModel.randomLocation()
         }
 
         binding.ivBack?.setOnClickListener {
@@ -68,7 +77,9 @@ class LocationSelectionFragment : Fragment() {
         }
 
         binding.btnFurther?.setOnClickListener {
-            findNavController().navigate(LocationSelectionFragmentDirections.actionLocationSelectionFragmentToFightFragment())
+            if (viewModel.selectionConfirmLocation.value == true) {
+                findNavController().navigate(LocationSelectionFragmentDirections.actionLocationSelectionFragmentToFightFragment())
+            } // TODO: Toast schreiben
         }
 
         viewModel.imageHome.value?.setOnClickListener {

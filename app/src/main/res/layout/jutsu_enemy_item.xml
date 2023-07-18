@@ -16,6 +16,7 @@
             android:layout_height="wrap_content"
             android:text="@string/jutsus"
             android:textSize="12dp"
+            android:fontFamily="@font/akaya_telivigala"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

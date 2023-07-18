@@ -12,8 +12,8 @@
 
         <ImageView
             android:id="@+id/iv_location"
-            android:layout_width="130dp"
-            android:layout_height="70dp"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/naruto_background" />

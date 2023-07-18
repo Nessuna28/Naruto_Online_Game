@@ -45,7 +45,7 @@
             android:fontFamily="@font/akaya_telivigala"
             android:text="@string/name"
             android:textColor="@color/primary"
-            android:textSize="30dp"
+            android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/iv_back"
             app:layout_constraintEnd_toEndOf="@+id/iv_selectionPlayer"
@@ -75,6 +75,7 @@
             android:text="@string/titleJutsus"
             android:textSize="12dp"
             android:textStyle="bold"
+            android:fontFamily="@font/akaya_telivigala"
             android:visibility="invisible"
             app:layout_constraintStart_toStartOf="@+id/iv_selectionPlayer"
             app:layout_constraintTop_toTopOf="@+id/iv_selectionPlayer" />
@@ -100,6 +101,7 @@
             android:text="@string/titleUniqueTraits"
             android:textSize="12dp"
             android:textStyle="bold"
+            android:fontFamily="@font/akaya_telivigala"
             android:visibility="invisible"
             app:layout_constraintStart_toStartOf="@+id/iv_selectionPlayer"
             app:layout_constraintTop_toBottomOf="@+id/rv_jutsusPlayer" />
@@ -143,7 +145,7 @@
             android:fontFamily="@font/akaya_telivigala"
             android:text="@string/name"
             android:textColor="@color/primary"
-            android:textSize="30dp"
+            android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/tv_characterNamePlayer"
             app:layout_constraintEnd_toEndOf="@+id/iv_selectionEnemy"
@@ -198,6 +200,7 @@
             android:text="@string/titleJutsus"
             android:textSize="12dp"
             android:textStyle="bold"
+            android:fontFamily="@font/akaya_telivigala"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="@+id/iv_selectionEnemy"
             app:layout_constraintTop_toTopOf="@+id/iv_selectionEnemy" />
@@ -224,6 +227,7 @@
             android:text="@string/titleUniqueTraits"
             android:textSize="12dp"
             android:textStyle="bold"
+            android:fontFamily="@font/akaya_telivigala"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="@+id/iv_selectionEnemy"
             app:layout_constraintTop_toBottomOf="@+id/rv_jutsusEnemy" />
@@ -243,65 +247,65 @@
 
         <Button
             android:id="@+id/btn_randomPlayer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
             android:layout_marginEnd="8dp"
             android:backgroundTint="@color/grey"
             android:text="@string/random"
             android:textColor="@color/primary"
-            android:textSize="10dp"
+            android:textSize="8sp"
             app:layout_constraintBottom_toBottomOf="@+id/btn_okPlayer"
             app:layout_constraintEnd_toStartOf="@+id/btn_okPlayer"
             app:layout_constraintTop_toTopOf="@+id/btn_okPlayer" />
 
         <Button
             android:id="@+id/btn_okPlayer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
             android:layout_marginEnd="24dp"
             android:text="@string/ok"
             android:backgroundTint="@color/grey"
             android:textColor="@color/primary"
-            android:textSize="10dp"
+            android:textSize="8sp"
             app:layout_constraintBottom_toBottomOf="@+id/btn_reset"
             app:layout_constraintEnd_toStartOf="@+id/btn_reset"
             app:layout_constraintTop_toTopOf="@+id/btn_reset" />
 
         <Button
             android:id="@+id/btn_reset"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
             android:layout_marginBottom="8dp"
             android:backgroundTint="@color/grey"
             android:text="@string/reset"
             android:textColor="@color/primary"
-            android:textSize="10dp"
+            android:textSize="8sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/btn_randomEnemy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
             android:layout_marginStart="24dp"
             android:backgroundTint="@color/grey"
             android:text="@string/random"
             android:textColor="@color/primary"
-            android:textSize="10dp"
+            android:textSize="8sp"
             app:layout_constraintBottom_toBottomOf="@+id/btn_reset"
             app:layout_constraintStart_toEndOf="@+id/btn_reset"
             app:layout_constraintTop_toTopOf="@+id/btn_reset" />
 
         <Button
             android:id="@+id/btn_okEnemy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
             android:layout_marginStart="8dp"
             android:backgroundTint="@color/grey"
             android:text="@string/ok"
             android:textColor="@color/primary"
-            android:textSize="10dp"
+            android:textSize="8sp"
             app:layout_constraintBottom_toBottomOf="@+id/btn_randomEnemy"
             app:layout_constraintStart_toEndOf="@+id/btn_randomEnemy"
             app:layout_constraintTop_toTopOf="@+id/btn_randomEnemy" />

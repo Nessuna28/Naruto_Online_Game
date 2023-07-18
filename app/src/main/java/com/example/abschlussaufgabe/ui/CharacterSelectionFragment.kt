@@ -1,5 +1,6 @@
 package com.example.abschlussaufgabe.ui
 
+import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -55,6 +56,7 @@ class CharacterSelectionFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("ResourceAsColor")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -113,6 +115,8 @@ class CharacterSelectionFragment : Fragment() {
 
         binding.btnOkPlayer?.setOnClickListener {
             binding.ivSelectionPlayer?.setImageResource(viewModel.image2ForPlayer.value!!)
+            binding.btnOkPlayer?.setBackgroundColor(R.color.green)
+            viewModel.confirmSelectionPlayer(true)
             binding.rvCharactersPlayer?.isClickable = false     // TODO: Warum funktioniert nicht
             binding.rvCharactersEnemy?.isClickable = true
         }
@@ -124,13 +128,21 @@ class CharacterSelectionFragment : Fragment() {
         binding.btnReset?.setOnClickListener {
             viewModel.resetSelectionData()
             binding.tvTitleJutsusPlayer?.visibility = View.INVISIBLE
+            binding.rvJutsusPlayer?.visibility = View.INVISIBLE
             binding.tvTitleTraitsPlayer?.visibility = View.INVISIBLE
+            binding.rvTraitsPlayer?.visibility = View.INVISIBLE
             binding.tvTitleJutsusEnemy?.visibility = View.INVISIBLE
+            binding.rvJutsusEnemy?.visibility = View.INVISIBLE
             binding.tvTitleTraitsEnemy?.visibility = View.INVISIBLE
+            binding.rvTraitsEnemy?.visibility = View.INVISIBLE
+            binding.btnOkPlayer?.setBackgroundColor(R.color.grey) // TODO: funktioniert nicht
+            binding.btnOkEnemy?.setBackgroundColor(R.color.grey)
         }
 
         binding.btnOkEnemy?.setOnClickListener {
             binding.ivSelectionEnemy?.setImageResource(viewModel.image2ForEnemy.value!!)
+            binding.btnOkEnemy?.setBackgroundColor(R.color.green)
+            viewModel.confirmSelectionEnemy(true)
             binding.rvCharactersEnemy?.isClickable = false
             binding.btnFurther?.isClickable = true
         }
@@ -144,7 +156,9 @@ class CharacterSelectionFragment : Fragment() {
         }
 
         binding.btnFurther?.setOnClickListener {
-            findNavController().navigate(CharacterSelectionFragmentDirections.actionCharacterSelectionFragmentToLocationSelectionFragment())
+            if (viewModel.selectionConfirmedPlayer.value == true && viewModel.selectionConfirmedEnemy.value == true) {
+                findNavController().navigate(CharacterSelectionFragmentDirections.actionCharacterSelectionFragmentToLocationSelectionFragment())
+            } // TODO: Toast schreiben
         }
 
         viewModel.imageHome.value?.setOnClickListener {

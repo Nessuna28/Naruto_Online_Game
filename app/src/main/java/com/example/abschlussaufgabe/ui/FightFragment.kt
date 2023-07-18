@@ -45,7 +45,9 @@ class FightFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.location.observe(viewLifecycleOwner) {
-            binding.ivBackgroundFight?.setImageResource(it.image)
+            if (it != null) {
+                binding.ivBackgroundFight?.setImageResource(it.image)
+            }
         }
 
         binding.tvNamePlayer?.text = viewModel.profile.value?.userName

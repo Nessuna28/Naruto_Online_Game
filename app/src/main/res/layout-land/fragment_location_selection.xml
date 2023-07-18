@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="70dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/baseline_arrow_back_24" />
@@ -25,9 +25,9 @@
 
         <ImageView
             android:id="@+id/iv_locatinImage"
-            android:layout_width="290dp"
-            android:layout_height="156dp"
-            android:layout_marginTop="50dp"
+            android:layout_width="280dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="70dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -75,16 +75,27 @@
 
         <Button
             android:id="@+id/btn_ok"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:backgroundTint="@color/grey"
             android:text="@string/ok"
             android:textColor="@color/primary"
-            android:textSize="10dp"
-            android:backgroundTint="@color/grey"
+            android:textSize="8sp"
             app:layout_constraintBottom_toBottomOf="@+id/btn_further"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/iv_locatinImage"
             app:layout_constraintTop_toTopOf="@+id/btn_further" />
+
+        <Button
+            android:id="@+id/btn_random"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:backgroundTint="@color/grey"
+            android:text="@string/random"
+            android:textColor="@color/primary"
+            android:textSize="8sp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_ok"
+            app:layout_constraintStart_toStartOf="@+id/iv_locatinImage"
+            app:layout_constraintTop_toTopOf="@+id/btn_ok" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
