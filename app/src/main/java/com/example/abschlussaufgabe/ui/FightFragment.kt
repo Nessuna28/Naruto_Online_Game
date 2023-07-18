@@ -28,6 +28,9 @@ class FightFragment : Fragment() {
         viewModel.materialCard.value?.let { viewModel.hideMaterialCard(it) }
 
         // TODO: Background setzen
+
+        binding.ivImage2Player?.visibility = View.INVISIBLE
+        binding.ivImage2Enemy?.visibility = View.INVISIBLE
     }
 
     override fun onCreateView(
