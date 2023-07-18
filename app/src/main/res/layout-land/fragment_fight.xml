@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
@@ -7,7 +9,309 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/naruto_background"
+        android:alpha="0.5">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mc_characterImagePlayer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:cardCornerRadius="50dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_chakraPlayer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_characterNamePlayer">
+
+            <ImageView
+                android:id="@+id/iv_characterImagePlayer"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/naruto" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/tv_characterNamePlayer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/akaya_telivigala"
+            android:text="@string/name"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/mc_characterImagePlayer"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_lifePlayer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lifePoints"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@+id/tv_characterNamePlayer"
+            app:layout_constraintTop_toBottomOf="@+id/tv_characterNamePlayer" />
+
+        <TextView
+            android:id="@+id/tv_chakraPlayer"
+            android:layout_width="66dp"
+            android:layout_height="15dp"
+            android:text="@string/chakraPoints"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@+id/tv_lifePlayer"
+            app:layout_constraintTop_toBottomOf="@+id/tv_lifePlayer" />
+
+        <TextView
+            android:id="@+id/tv_lifeValuePlayer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="100%"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_lifePlayer"
+            app:layout_constraintStart_toEndOf="@+id/tv_lifePlayer"
+            app:layout_constraintTop_toTopOf="@+id/tv_lifePlayer" />
+
+        <TextView
+            android:id="@+id/tv_chakraValuePlayer"
+            android:layout_width="66dp"
+            android:layout_height="15dp"
+            android:text="100%"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_chakraPlayer"
+            app:layout_constraintStart_toStartOf="@+id/tv_lifeValuePlayer"
+            app:layout_constraintTop_toTopOf="@+id/tv_chakraPlayer" />
+
+        <ImageView
+            android:id="@+id/iv_image1Player"
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="90dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/naruto" />
+
+        <ImageView
+            android:id="@+id/iv_image2Player"
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_image1Player"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="@+id/iv_image1Player"
+            app:srcCompat="@drawable/naruto" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="366dp"
+            android:layout_marginEnd="365dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_begin="366dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mc_characterImageEnemy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            app:cardCornerRadius="50dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_chakraEnemy"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_characterNameEnemy">
+
+            <ImageView
+                android:id="@+id/iv_characterImageEnemy"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/naruto" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <ImageView
+            android:id="@+id/iv_image2Enemy"
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_image2Player"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="@+id/iv_image2Player"
+            app:srcCompat="@drawable/naruto" />
+
+        <ImageView
+            android:id="@+id/iv_image1Enemy"
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            android:layout_marginEnd="40dp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_image2Enemy"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/iv_image2Enemy"
+            app:srcCompat="@drawable/naruto" />
+
+        <TextView
+            android:id="@+id/tv_characterNameEnemy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:fontFamily="@font/akaya_telivigala"
+            android:text="@string/name"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/mc_characterImageEnemy"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_lifeEnemy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lifePoints"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/tv_characterNameEnemy"
+            app:layout_constraintTop_toBottomOf="@+id/tv_characterNameEnemy" />
+
+        <TextView
+            android:id="@+id/tv_chakraEnemy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/chakraPoints"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/tv_lifeEnemy"
+            app:layout_constraintTop_toBottomOf="@+id/tv_lifeEnemy" />
+
+        <TextView
+            android:id="@+id/tv_lifeValueEnemy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="100%"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_lifeEnemy"
+            app:layout_constraintEnd_toStartOf="@+id/tv_lifeEnemy"
+            app:layout_constraintTop_toTopOf="@+id/tv_lifeEnemy" />
+
+        <TextView
+            android:id="@+id/tv_chakraValueEnemy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="100%"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_chakraEnemy"
+            app:layout_constraintEnd_toEndOf="@+id/tv_lifeValueEnemy"
+            app:layout_constraintTop_toTopOf="@+id/tv_chakraEnemy" />
+
+        <TextView
+            android:id="@+id/tv_defense1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginBottom="24dp"
+            android:text="@string/defense"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_defense2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/defense"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/tv_defense1"
+            app:layout_constraintStart_toStartOf="@+id/tv_defense1" />
+
+        <TextView
+            android:id="@+id/tv_uniqueTraits1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:layout_marginBottom="24dp"
+            android:text="@string/traits"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_tool1" />
+
+        <TextView
+            android:id="@+id/tv_uniqueTraits2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/traits"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/tv_uniqueTraits1"
+            app:layout_constraintStart_toStartOf="@+id/tv_uniqueTraits1" />
+
+        <TextView
+            android:id="@+id/tv_jutsu1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/jutsus"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_jutsu2" />
+
+        <TextView
+            android:id="@+id/tv_jutsu2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/jutsus"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/tv_jutsu1"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_jutsu3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/jutsus"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/tv_jutsu2"
+            app:layout_constraintStart_toStartOf="@+id/tv_jutsu1" />
+
+        <TextView
+            android:id="@+id/tv_jutsu4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:text="@string/jutsus"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@+id/tv_jutsu3"
+            app:layout_constraintTop_toBottomOf="@+id/tv_jutsu3" />
+
+        <TextView
+            android:id="@+id/tv_tool1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:layout_marginBottom="24dp"
+            android:text="@string/tools"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_defense1" />
+
+        <TextView
+            android:id="@+id/tv_tool2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/tools"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/tv_tool1"
+            app:layout_constraintStart_toStartOf="@+id/tv_tool1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

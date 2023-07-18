@@ -24,4 +24,7 @@
     <string name="reset">Reset</string>
     <string name="jutsus">Jutsus</string>
     <string name="traits">Fähigkeiten</string>
+    <string name="lifePoints">Lebenspunkte</string>
+    <string name="chakraPoints">Chakra</string>
+    <string name="defense">Abwehr</string>
 </resources>
