@@ -15,6 +15,7 @@ import com.example.abschlussaufgabe.data.datamodels.modelForFight.dataLists.Char
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.dataLists.LocationList
 import com.example.abschlussaufgabe.data.local.PlayerDatabase
 import com.example.abschlussaufgabe.data.remote.CharacterApi
+import com.google.android.material.card.MaterialCardView
 import kotlinx.coroutines.launch
 
 
@@ -43,6 +44,11 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     val _imageBackground = MutableLiveData<ImageView>()
     val imageBackground: LiveData<ImageView>
         get() = _imageBackground
+
+
+    val _materialCard = MutableLiveData<MaterialCardView>()
+    val materialCard: LiveData<MaterialCardView>
+        get() = _materialCard
 
 
 
@@ -139,6 +145,12 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         image.visibility = View.VISIBLE
     }
 
+    fun hideMaterialCard(card: MaterialCardView) {
+
+        card.visibility = View.INVISIBLE
+    }
+
+
     // Alles für die Charakterinformationen
 
     fun loadCharacters() {
@@ -166,6 +178,17 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
 
     // Funktionen für das Kampfgeschehen
+
+    // speichert den ausgewählten Charakter für den Kampf
+    fun setPlayer(character: CharacterForFight) {
+
+        _player.value = character
+    }
+
+    fun setEnemy(character: CharacterForFight) {
+
+        _enemy.value = character
+    }
 
 
     // speichert Daten des Spielers in der Datenbank

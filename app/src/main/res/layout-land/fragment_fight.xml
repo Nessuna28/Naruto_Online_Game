@@ -9,15 +9,34 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/naruto_background"
-        android:alpha="0.5">
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.5"
+            android:background="@drawable/naruto_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/baseline_arrow_back_24" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/mc_characterImagePlayer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="50dp"
             app:cardCornerRadius="50dp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_chakraPlayer"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:fontFamily="@font/akaya_telivigala"
             android:text="@string/name"
             android:textColor="@color/black"
@@ -120,7 +139,7 @@
             android:id="@+id/mc_characterImageEnemy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="50dp"
             app:cardCornerRadius="50dp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_chakraEnemy"
             app:layout_constraintEnd_toEndOf="parent"
@@ -158,7 +177,7 @@
             android:id="@+id/tv_characterNameEnemy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="24dp"
             android:fontFamily="@font/akaya_telivigala"
             android:text="@string/name"
@@ -212,7 +231,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="8dp"
             android:text="@string/defense"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -233,7 +252,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="100dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="8dp"
             android:text="@string/traits"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -254,7 +273,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="8dp"
             android:text="@string/jutsus"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -297,7 +316,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="100dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="8dp"
             android:text="@string/tools"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"

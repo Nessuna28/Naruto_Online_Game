@@ -40,6 +40,7 @@ class SelectionCharacterEnemyAdapter(
             viewModel.setCharacterNameForEnemy(characterForFight.name)
             viewModel.setJutsuForEnemy(characterForFight.jutsus)
             viewModel.setUniqueTraitForEnemy(characterForFight.uniqueTraits)
+            viewModel.setEnemy(characterForFight)
         }
     }
 }

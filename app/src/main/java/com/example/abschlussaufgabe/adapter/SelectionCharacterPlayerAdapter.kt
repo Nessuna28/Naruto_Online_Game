@@ -40,6 +40,7 @@ class SelectionCharacterPlayerAdapter(
             viewModel.setCharacterNameForPlayer(characterForFight.name)
             viewModel.setJutsuForPlayer(characterForFight.jutsus)
             viewModel.setUniqueTraitForPlayer(characterForFight.uniqueTraits)
+            viewModel.setPlayer(characterForFight)
         }
     }
 }
