@@ -58,6 +58,7 @@
             android:layout_marginTop="8dp"
             android:text="@string/name"
             android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/mc_characterImagePlayer"
             app:layout_constraintStart_toStartOf="@+id/mc_characterImagePlayer"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -189,6 +190,7 @@
             android:layout_marginTop="8dp"
             android:text="@string/name"
             android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/mc_characterImageEnemy"
             app:layout_constraintStart_toStartOf="@+id/mc_characterImageEnemy"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -260,7 +262,7 @@
             android:id="@+id/tv_defense2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="32dp"
             android:text="@string/defense"
             android:textColor="@color/black"
             app:layout_constraintBottom_toTopOf="@+id/tv_defense1"
@@ -281,7 +283,7 @@
             android:id="@+id/tv_uniqueTraits2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="32dp"
             android:text="@string/traits"
             android:textColor="@color/black"
             app:layout_constraintBottom_toTopOf="@+id/tv_uniqueTraits1"
@@ -296,14 +298,14 @@
             android:text="@string/jutsus"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tv_jutsu2" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/tv_jutsu2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="50dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="32dp"
             android:text="@string/jutsus"
             android:textColor="@color/black"
             app:layout_constraintBottom_toTopOf="@+id/tv_jutsu1"
@@ -313,22 +315,22 @@
             android:id="@+id/tv_jutsu3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="32dp"
             android:text="@string/jutsus"
             android:textColor="@color/black"
-            app:layout_constraintBottom_toTopOf="@+id/tv_jutsu2"
-            app:layout_constraintEnd_toStartOf="@+id/tv_jutsu2"
-            app:layout_constraintStart_toStartOf="@+id/tv_jutsu1" />
+            app:layout_constraintBottom_toBottomOf="@+id/tv_jutsu1"
+            app:layout_constraintEnd_toStartOf="@+id/tv_jutsu1" />
 
         <TextView
             android:id="@+id/tv_jutsu4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp"
             android:text="@string/jutsus"
             android:textColor="@color/black"
-            app:layout_constraintEnd_toStartOf="@+id/tv_jutsu1"
-            app:layout_constraintTop_toBottomOf="@+id/tv_jutsu3" />
+            app:layout_constraintBottom_toTopOf="@+id/tv_jutsu3"
+            app:layout_constraintEnd_toStartOf="@+id/tv_jutsu2" />
 
         <TextView
             android:id="@+id/tv_tool1"
@@ -336,7 +338,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="100dp"
             android:layout_marginBottom="16dp"
-            android:text="@string/tools"
+            android:text="@string/tool"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_defense1" />
@@ -345,11 +347,53 @@
             android:id="@+id/tv_tool2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="@string/tools"
+            android:layout_marginBottom="32dp"
+            android:text="@string/tool"
             android:textColor="@color/black"
             app:layout_constraintBottom_toTopOf="@+id/tv_tool1"
             app:layout_constraintStart_toStartOf="@+id/tv_tool1" />
+
+        <TextView
+            android:id="@+id/tv_titleDefense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/akaya_telivigala"
+            android:text="@string/titleDefense"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/tv_defense2"
+            app:layout_constraintStart_toStartOf="@+id/tv_defense2" />
+
+        <TextView
+            android:id="@+id/tv_titleTools"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/akaya_telivigala"
+            android:text="@string/titleTools"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_titleDefense"
+            app:layout_constraintStart_toStartOf="@+id/tv_tool1" />
+
+        <TextView
+            android:id="@+id/tv_titleTraits"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/akaya_telivigala"
+            android:text="@string/titleUniqueTraits"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_titleTools"
+            app:layout_constraintStart_toStartOf="@+id/tv_uniqueTraits1" />
+
+        <TextView
+            android:id="@+id/tv_titleJutsus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/akaya_telivigala"
+            android:text="@string/titleJutsus"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_titleTraits"
+            app:layout_constraintEnd_toEndOf="@+id/tv_jutsu1"
+            app:layout_constraintStart_toStartOf="@+id/tv_jutsu3" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

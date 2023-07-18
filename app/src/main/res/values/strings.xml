@@ -13,7 +13,7 @@
     <string name="natureType">Naturtyp:</string>
     <string name="titleJutsus">Jutsus:</string>
     <string name="titleUniqueTraits">einzigartige Eigenschaften:</string>
-    <string name="tools">Werkzeug:</string>
+    <string name="titleTools">Werkzeug:</string>
     <string name="personal">persönliches:</string>
     <string name="family">Familie:</string>
     <string name="further">Weiter</string>
@@ -27,4 +27,6 @@
     <string name="lifePoints">Lebenspunkte</string>
     <string name="chakraPoints">Chakra</string>
     <string name="defense">Abwehr</string>
+    <string name="tool">Waffe</string>
+    <string name="titleDefense">Abwehr:</string>
 </resources>
