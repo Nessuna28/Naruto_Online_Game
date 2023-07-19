@@ -11,5 +11,7 @@ data class CharacterForFight(
     val uniqueTraits: Map<String, Int>,
     val defense: List<String>,
     val sound: String,
-    val video: Int
+    val video: Int,
+    val lifePoints: Int,
+    val chakraPoints: Int
 )

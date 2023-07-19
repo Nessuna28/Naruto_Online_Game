@@ -29,4 +29,8 @@
     <string name="defense">Abwehr</string>
     <string name="tool">Waffe</string>
     <string name="titleDefense">Abwehr:</string>
+    <string name="value">50</string>
+    <string name="result">Ergebniss</string>
+    <string name="userName">UserName</string>
+    <string name="date">18/07/2023</string>
 </resources>

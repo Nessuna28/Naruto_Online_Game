@@ -14,7 +14,7 @@ import com.example.abschlussaufgabe.data.datamodels.modelForFight.CharacterForFi
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.fightDataForDatabase.Player
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.dataLists.CharacterListForFight
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.dataLists.LocationList
-import com.example.abschlussaufgabe.data.datamodels.modelForFight.fightDataForDatabase.Location
+import com.example.abschlussaufgabe.data.datamodels.modelForFight.Location
 import com.example.abschlussaufgabe.data.local.PlayerDatabase
 import com.example.abschlussaufgabe.data.remote.CharacterApi
 import com.google.android.material.card.MaterialCardView
@@ -142,8 +142,8 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _locationList
 
 
-    private val _location = MutableLiveData<Location?>()
-    val location: LiveData<Location?>
+    private val _location = MutableLiveData<Location>()
+    val location: LiveData<Location>
         get() = _location
 
 
@@ -305,6 +305,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         setCharacterNameForPlayer(randomCharacter.name)
         setJutsuForPlayer(randomCharacter.jutsus)
         setUniqueTraitForPlayer(randomCharacter.uniqueTraits)
+        setPlayer(randomCharacter)
     }
 
     fun randomCharacterForEnemy() {
@@ -315,6 +316,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         setCharacterNameForEnemy(randomCharacter.name)
         setJutsuForEnemy(randomCharacter.jutsus)
         setUniqueTraitForEnemy(randomCharacter.uniqueTraits)
+        setEnemy(randomCharacter)
     }
 
     fun randomLocation() {

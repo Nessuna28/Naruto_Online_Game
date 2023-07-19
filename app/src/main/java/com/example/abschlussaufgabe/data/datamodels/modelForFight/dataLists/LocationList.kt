@@ -1,7 +1,7 @@
 package com.example.abschlussaufgabe.data.datamodels.modelForFight.dataLists
 
 import com.example.abschlussaufgabe.R
-import com.example.abschlussaufgabe.data.datamodels.modelForFight.fightDataForDatabase.Location
+import com.example.abschlussaufgabe.data.datamodels.modelForFight.Location
 
 
 class LocationList {

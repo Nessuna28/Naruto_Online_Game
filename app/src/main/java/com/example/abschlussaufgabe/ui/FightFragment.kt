@@ -45,9 +45,7 @@ class FightFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.location.observe(viewLifecycleOwner) {
-            if (it != null) {
-                binding.ivBackgroundFight?.setImageResource(it.image)
-            }
+            binding.ivBackgroundFight?.setImageResource(it.image)
         }
 
         binding.tvNamePlayer?.text = viewModel.profile.value?.userName
@@ -57,6 +55,8 @@ class FightFragment : Fragment() {
             binding.ivImage1Player?.setImageResource(it.image)
             binding.ivImage2Player?.setImageResource(it.image2)
             binding.tvCharacterNamePlayer?.text = it.name
+            binding.tvLifeValuePlayer?.text = it.lifePoints.toString()
+            binding.tvChakraValuePlayer?.text = it.chakraPoints.toString()
             binding.tvDefense1?.text = it.defense[0]
             binding.tvDefense2?.text = it.defense[1]
             binding.tvTool1?.text = it.tools.keys.elementAt(0)
@@ -78,6 +78,8 @@ class FightFragment : Fragment() {
             binding.ivImage1Enemy?.setImageResource(it.image)
             binding.ivImage2Enemy?.setImageResource(it.image2)
             binding.tvCharacterNameEnemy?.text = it.name
+            binding.tvLifeValueEnemy?.text = it.lifePoints.toString()
+            binding.tvChakraValueEnemy?.text = it.chakraPoints.toString()
         }
 
         //

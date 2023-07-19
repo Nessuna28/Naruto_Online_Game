@@ -1,11 +1,7 @@
 package com.example.abschlussaufgabe.data
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.abschlussaufgabe.R
-import com.example.abschlussaufgabe.data.datamodels.modelForFight.dataLists.LocationList
-import com.example.abschlussaufgabe.data.datamodels.modelForFight.fightDataForDatabase.Location
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.fightDataForDatabase.Player
 import com.example.abschlussaufgabe.data.datamodels.modelsApi.Character
 import com.example.abschlussaufgabe.data.local.PlayerDatabase

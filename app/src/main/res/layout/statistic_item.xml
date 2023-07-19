@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grey"
+        android:layout_margin="10sp">
+
+        <ImageView
+            android:id="@+id/iv_characterImagePlayer"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="70dp"
+            android:src="@drawable/naruto2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_characterNamePlayer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/akaya_telivigala"
+            android:text="@string/name"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_characterImagePlayer"
+            app:layout_constraintStart_toEndOf="@+id/iv_characterImagePlayer"
+            app:layout_constraintTop_toTopOf="@+id/iv_characterImagePlayer" />
+
+        <TextView
+            android:id="@+id/tv_lifeValuePlayer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/akaya_telivigala"
+            android:text="@string/value"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_characterNamePlayer"
+            app:layout_constraintStart_toEndOf="@+id/tv_characterNamePlayer"
+            app:layout_constraintTop_toTopOf="@+id/tv_characterNamePlayer" />
+
+        <TextView
+            android:id="@+id/tv_resultPlayer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/akaya_telivigala"
+            android:text="@string/result"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_lifeValuePlayer"
+            app:layout_constraintStart_toEndOf="@+id/tv_lifeValuePlayer"
+            app:layout_constraintTop_toTopOf="@+id/tv_lifeValuePlayer" />
+
+        <TextView
+            android:id="@+id/tv_userNamePlayer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/akaya_telivigala"
+            android:text="@string/userName"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_resultPlayer"
+            app:layout_constraintStart_toEndOf="@+id/tv_resultPlayer"
+            app:layout_constraintTop_toTopOf="@+id/tv_resultPlayer" />
+
+        <ImageView
+            android:id="@+id/iv_vs"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/tv_userNameEnemy"
+            app:layout_constraintStart_toStartOf="@+id/tv_userNamePlayer"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/naruto_vs" />
+
+        <TextView
+            android:id="@+id/tv_userNameEnemy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/akaya_telivigala"
+            android:text="@string/userName"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_resultEnemy"
+            app:layout_constraintEnd_toStartOf="@+id/tv_resultEnemy"
+            app:layout_constraintTop_toTopOf="@+id/tv_resultEnemy" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="70dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/sakura2" />
+
+        <TextView
+            android:id="@+id/tv_characterNameEnemy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/akaya_telivigala"
+            android:text="@string/name"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+            app:layout_constraintEnd_toStartOf="@+id/imageView2"
+            app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+        <TextView
+            android:id="@+id/tv_lifeValueEnemy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/akaya_telivigala"
+            android:text="@string/value"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_characterNameEnemy"
+            app:layout_constraintEnd_toStartOf="@+id/tv_characterNameEnemy"
+            app:layout_constraintTop_toTopOf="@+id/tv_characterNameEnemy" />
+
+        <TextView
+            android:id="@+id/tv_resultEnemy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/akaya_telivigala"
+            android:text="@string/result"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_lifeValueEnemy"
+            app:layout_constraintEnd_toStartOf="@+id/tv_lifeValueEnemy"
+            app:layout_constraintTop_toTopOf="@+id/tv_lifeValueEnemy" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/date"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

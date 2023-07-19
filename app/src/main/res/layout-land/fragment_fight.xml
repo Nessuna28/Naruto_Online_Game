@@ -254,6 +254,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginBottom="16dp"
             android:text="@string/defense"
+            android:fontFamily="@font/akaya_telivigala"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -264,6 +265,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
             android:text="@string/defense"
+            android:fontFamily="@font/akaya_telivigala"
             android:textColor="@color/black"
             app:layout_constraintBottom_toTopOf="@+id/tv_defense1"
             app:layout_constraintStart_toStartOf="@+id/tv_defense1" />
@@ -275,6 +277,7 @@
             android:layout_marginStart="100dp"
             android:layout_marginBottom="16dp"
             android:text="@string/traits"
+            android:fontFamily="@font/akaya_telivigala"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_tool1" />
@@ -285,6 +288,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
             android:text="@string/traits"
+            android:fontFamily="@font/akaya_telivigala"
             android:textColor="@color/black"
             app:layout_constraintBottom_toTopOf="@+id/tv_uniqueTraits1"
             app:layout_constraintStart_toStartOf="@+id/tv_uniqueTraits1" />
@@ -296,6 +300,7 @@
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="16dp"
             android:text="@string/jutsus"
+            android:fontFamily="@font/akaya_telivigala"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -307,6 +312,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="32dp"
             android:text="@string/jutsus"
+            android:fontFamily="@font/akaya_telivigala"
             android:textColor="@color/black"
             app:layout_constraintBottom_toTopOf="@+id/tv_jutsu1"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -317,6 +323,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
             android:text="@string/jutsus"
+            android:fontFamily="@font/akaya_telivigala"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="@+id/tv_jutsu1"
             app:layout_constraintEnd_toStartOf="@+id/tv_jutsu1" />
@@ -328,6 +335,7 @@
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="32dp"
             android:text="@string/jutsus"
+            android:fontFamily="@font/akaya_telivigala"
             android:textColor="@color/black"
             app:layout_constraintBottom_toTopOf="@+id/tv_jutsu3"
             app:layout_constraintEnd_toStartOf="@+id/tv_jutsu2" />
@@ -339,6 +347,7 @@
             android:layout_marginStart="100dp"
             android:layout_marginBottom="16dp"
             android:text="@string/tool"
+            android:fontFamily="@font/akaya_telivigala"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_defense1" />
@@ -349,6 +358,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
             android:text="@string/tool"
+            android:fontFamily="@font/akaya_telivigala"
             android:textColor="@color/black"
             app:layout_constraintBottom_toTopOf="@+id/tv_tool1"
             app:layout_constraintStart_toStartOf="@+id/tv_tool1" />

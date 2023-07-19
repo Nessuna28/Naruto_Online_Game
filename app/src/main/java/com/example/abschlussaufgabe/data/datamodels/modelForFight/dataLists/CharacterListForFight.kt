@@ -15,7 +15,8 @@ class CharacterListForFight {
     mapOf("Weisenmodus" to 80, "Kiubimodus" to 100),
     listOf("Schattendoppelgänger", "Jutsu des Tausches"),
     "",
-    R.drawable.naruto_all
+    R.drawable.naruto_all,
+            500, 500
     ),
 
     CharacterForFight(
@@ -27,7 +28,8 @@ class CharacterListForFight {
         mapOf("Susanoo" to 100),
         listOf("Schattendoppelgänger", "Jutsu des Tausches"),
         "",
-        R.drawable.naruto_all
+        R.drawable.naruto_all,
+        500, 500
     ),
 
     CharacterForFight(
@@ -39,7 +41,8 @@ class CharacterListForFight {
         mapOf("Heilung" to 80),
         listOf("Schattendoppelgänger", "Jutsu des Tausches"),
         "",
-        R.drawable.naruto_all
+        R.drawable.naruto_all,
+        500, 500
     )
     )
 }
