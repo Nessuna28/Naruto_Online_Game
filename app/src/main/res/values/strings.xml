@@ -33,4 +33,10 @@
     <string name="result">Ergebniss</string>
     <string name="userName">UserName</string>
     <string name="date">18/07/2023</string>
+    <string name="titleRounds">Runden</string>
+    <string name="roundWon">2</string>
+    <string name="rounds">5</string>
+    <string name="home">Hauptmenü</string>
+    <string name="selectionCharacter">zur Charakterauswahl</string>
+    <string name="again">Nochmal</string>
 </resources>

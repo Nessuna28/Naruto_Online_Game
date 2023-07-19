@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_backgroundResult"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/naruto_location_arena" />
+
+        <VideoView
+            android:id="@+id/vv_characterWhoWon"
+            android:layout_width="500dp"
+            android:layout_height="300dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_characterWhoWon"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="150dp"
+            android:rotation="9"
+            app:layout_constraintEnd_toEndOf="@+id/vv_characterWhoWon"
+            app:layout_constraintTop_toTopOf="@+id/vv_characterWhoWon"
+            app:srcCompat="@drawable/naruto2" />
+
+        <ImageView
+            android:id="@+id/iv_titleWonOrLost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="50dp"
+            android:rotation="-13"
+            android:rotationX="13"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/naruto_winner" />
+
+        <TextView
+            android:id="@+id/tv_userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/akaya_telivigala"
+            android:text="@string/userName"
+            android:textColor="@color/primary"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/iv_titleWonOrLost"
+            app:layout_constraintStart_toStartOf="@+id/iv_titleWonOrLost"
+            app:layout_constraintTop_toBottomOf="@+id/iv_titleWonOrLost" />
+
+        <TextView
+            android:id="@+id/tv_characterName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:rotation="9"
+            android:text="@string/name"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/akaya_telivigala"
+            android:textColor="@color/primary"
+            app:layout_constraintEnd_toEndOf="@+id/iv_characterWhoWon"
+            app:layout_constraintStart_toStartOf="@+id/iv_characterWhoWon"
+            app:layout_constraintTop_toBottomOf="@+id/iv_characterWhoWon" />
+
+        <TextView
+            android:id="@+id/tv_titleRounds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="70dp"
+            android:fontFamily="@font/akaya_telivigala"
+            android:text="@string/titleRounds"
+            android:textColor="@color/primary"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_userName" />
+
+        <TextView
+            android:id="@+id/tv_roundsWon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/akaya_telivigala"
+            android:text="@string/roundWon"
+            android:textColor="@color/primary"
+            android:textSize="25sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_titleRounds" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/akaya_telivigala"
+            android:text="/"
+            android:textColor="@color/primary"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_roundsWon"
+            app:layout_constraintStart_toEndOf="@+id/tv_roundsWon"
+            app:layout_constraintTop_toTopOf="@+id/tv_roundsWon"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/tv_rounds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/akaya_telivigala"
+            android:text="@string/rounds"
+            android:textColor="@color/primary"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView15"
+            app:layout_constraintStart_toEndOf="@+id/textView15"
+            app:layout_constraintTop_toTopOf="@+id/textView15" />
+
+        <Button
+            android:id="@+id/btn_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/home"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/btn_selection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="@string/selectionCharacter"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_home"
+            app:layout_constraintEnd_toStartOf="@+id/btn_home"
+            app:layout_constraintTop_toTopOf="@+id/btn_home" />
+
+        <Button
+            android:id="@+id/btn_again"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="@string/again"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_selection"
+            app:layout_constraintEnd_toStartOf="@+id/btn_selection"
+            app:layout_constraintTop_toTopOf="@+id/btn_selection" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
