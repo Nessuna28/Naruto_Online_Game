@@ -42,7 +42,7 @@
             android:rotation="9"
             app:layout_constraintEnd_toEndOf="@+id/vv_characterWhoWon"
             app:layout_constraintTop_toTopOf="@+id/vv_characterWhoWon"
-            app:srcCompat="@drawable/naruto2" />
+            app:srcCompat="@drawable/naruto_pose" />
 
         <ImageView
             android:id="@+id/iv_titleWonOrLost"

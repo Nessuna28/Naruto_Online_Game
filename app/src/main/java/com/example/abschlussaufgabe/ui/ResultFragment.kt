@@ -44,7 +44,7 @@ class ResultFragment : Fragment() {
         val character = viewModel.player.value!!
 
         binding.ivBackgroundResult?.setImageResource(viewModel.location.value!!.image)
-        binding.ivCharacterWhoWon?.setImageResource(character.image2)
+        binding.ivCharacterWhoWon?.setImageResource(character.imagePose)
         binding.tvCharacterName?.text = character.name
 
         if (viewModel.result.value == "Sieg") {

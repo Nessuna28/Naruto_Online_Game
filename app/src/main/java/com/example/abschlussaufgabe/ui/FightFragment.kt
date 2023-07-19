@@ -53,7 +53,7 @@ class FightFragment : Fragment() {
         viewModel.player.observe(viewLifecycleOwner) {
             binding.ivCharacterImagePlayer?.setImageResource(it.image)
             binding.ivImage1Player?.setImageResource(it.image)
-            binding.ivImage2Player?.setImageResource(it.image2)
+            binding.ivImage2Player?.setImageResource(it.imageAttack)
             binding.tvCharacterNamePlayer?.text = it.name
             binding.tvLifeValuePlayer?.text = it.lifePoints.toString()
             binding.tvChakraValuePlayer?.text = it.chakraPoints.toString()
@@ -76,7 +76,7 @@ class FightFragment : Fragment() {
         viewModel.enemy.observe(viewLifecycleOwner) {
             binding.ivCharacterImageEnemy?.setImageResource(it.image)
             binding.ivImage1Enemy?.setImageResource(it.image)
-            binding.ivImage2Enemy?.setImageResource(it.image2)
+            binding.ivImage2Enemy?.setImageResource(it.imageAttack)
             binding.tvCharacterNameEnemy?.text = it.name
             binding.tvLifeValueEnemy?.text = it.lifePoints.toString()
             binding.tvChakraValueEnemy?.text = it.chakraPoints.toString()
