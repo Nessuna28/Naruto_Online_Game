@@ -33,7 +33,9 @@ class CharacterSelectionFragment : Fragment() {
 
         requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
 
+        viewModel.materialCard.value?.let { viewModel.showMaterialCard(it) }
         viewModel.imageBackground.value?.let { viewModel.hideImages(it) }
+        viewModel.imageTitle.value?.let { viewModel.hideImages(it) }
 
         val firstCharacter = viewModel.characterForFight.value!!.first()
         binding.tvCharacterNamePlayer?.text = firstCharacter.name

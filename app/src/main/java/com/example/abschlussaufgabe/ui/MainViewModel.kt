@@ -207,6 +207,11 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         card.visibility = View.INVISIBLE
     }
 
+    fun showMaterialCard(card: MaterialCardView) {
+
+        card.visibility = View.VISIBLE
+    }
+
 
     // Alles für die Charakterinformationen
 

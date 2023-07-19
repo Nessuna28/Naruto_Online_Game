@@ -32,6 +32,7 @@ class LocationSelectionFragment : Fragment() {
         requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
 
         viewModel.imageBackground.value?.let { viewModel.hideImages(it) }
+        viewModel.imageTitle.value?.let { viewModel.hideImages(it) }
     }
 
     override fun onCreateView(

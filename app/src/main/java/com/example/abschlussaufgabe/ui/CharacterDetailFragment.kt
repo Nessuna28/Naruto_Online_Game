@@ -1,5 +1,6 @@
 package com.example.abschlussaufgabe.ui
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -34,6 +35,12 @@ class CharacterDetailFragment : Fragment() {
     private var personal = ""
     private var family = ""
 
+
+    override fun onStart() {
+        super.onStart()
+
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
