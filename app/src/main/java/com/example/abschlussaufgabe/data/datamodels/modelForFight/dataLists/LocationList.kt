@@ -7,7 +7,8 @@ import com.example.abschlussaufgabe.data.datamodels.modelForFight.Location
 class LocationList {
 
     val locationList = listOf(
-        Location(R.drawable.naruto_all, "CrazyTown"),
-        Location(R.drawable.naruto_background, "LazyTown")
+        Location(R.drawable.naruto_location_arena, "Arena"),
+        Location(R.drawable.naruto_location_uebungsplatz, "Übungsplatz"),
+        Location(R.drawable.naruto_location_wald, "Wald")
     )
 }

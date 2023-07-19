@@ -12,6 +12,27 @@
         android:layout_height="match_parent"
         tools:context=".ui.CharacterSelectionFragment">
 
+        <ImageView
+            android:id="@+id/iv_backgroundSelection"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/naruto_background_selection" />
+
+        <ImageView
+            android:id="@+id/iv_vs"
+            android:layout_width="476dp"
+            android:layout_height="260dp"
+            android:layout_marginTop="80dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/naruto_vs" />
+
         <TextView
             android:id="@+id/tv_playerName"
             android:layout_width="wrap_content"
@@ -186,7 +207,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/baseline_arrow_back_24" />

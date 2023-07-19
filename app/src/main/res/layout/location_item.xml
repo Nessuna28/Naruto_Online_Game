@@ -16,6 +16,6 @@
             android:layout_height="50dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/naruto_background" />
+            app:srcCompat="@drawable/naruto_location_uebungsplatz" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
