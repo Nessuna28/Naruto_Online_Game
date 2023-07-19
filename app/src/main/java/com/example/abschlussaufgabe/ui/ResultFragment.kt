@@ -10,7 +10,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.R
-import com.example.abschlussaufgabe.databinding.FragmentFightBinding
 import com.example.abschlussaufgabe.databinding.FragmentResultBinding
 
 
@@ -49,9 +48,9 @@ class ResultFragment : Fragment() {
         binding.tvCharacterName?.text = character.name
 
         if (viewModel.result.value == "Sieg") {
-            binding.ivTitleWonOrLost?.setImageResource(R.drawable.naruto_winner)
+            binding.ivTitleWonOrLost?.setImageResource(R.drawable.winner)
         } else {
-            binding.ivTitleWonOrLost?.setImageResource(R.drawable.naruto_loser)
+            binding.ivTitleWonOrLost?.setImageResource(R.drawable.loser)
         }
 
         binding.tvUserName?.text = viewModel.profile.value?.userName

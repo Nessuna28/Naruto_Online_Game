@@ -30,7 +30,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/iv_back"
-            app:srcCompat="@drawable/naruto_location_arena" />
+            app:srcCompat="@drawable/location_arena" />
 
         <TextView
             android:id="@+id/tv_locationName"

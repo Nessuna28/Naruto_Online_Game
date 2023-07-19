@@ -22,7 +22,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/naruto_location_arena" />
+            app:srcCompat="@drawable/location_arena" />
 
         <VideoView
             android:id="@+id/vv_characterWhoWon"
@@ -54,7 +54,7 @@
             android:rotationX="13"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/naruto_winner" />
+            app:srcCompat="@drawable/winner" />
 
         <TextView
             android:id="@+id/tv_userName"

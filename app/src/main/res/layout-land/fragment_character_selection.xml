@@ -21,7 +21,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/naruto_background_selection" />
+            app:srcCompat="@drawable/background_selection" />
 
         <ImageView
             android:id="@+id/iv_vs"
@@ -31,7 +31,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/naruto_vs" />
+            app:srcCompat="@drawable/vs" />
 
         <TextView
             android:id="@+id/tv_playerName"

@@ -35,7 +35,7 @@
             app:layout_constraintHorizontal_bias="0.355"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/naruto_title" />
+            app:srcCompat="@drawable/title" />
 
 
         <TextView
