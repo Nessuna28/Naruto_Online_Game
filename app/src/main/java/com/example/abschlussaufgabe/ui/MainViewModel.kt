@@ -76,9 +76,19 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _imageForPlayer
 
 
-    private val _image2ForPlayer = MutableLiveData<Int>()
-    val image2ForPlayer: LiveData<Int>
-        get() = _image2ForPlayer
+    private val _imagePoseForPlayer = MutableLiveData<Int>()
+    val imagePoseForPlayer: LiveData<Int>
+        get() = _imagePoseForPlayer
+
+
+    private val _imageFaceForPlayer = MutableLiveData<Int>()
+    val imageFaceForPlayer: LiveData<Int>
+        get() = _imageFaceForPlayer
+
+
+    private val _imageAttackForPlayer = MutableLiveData<Int>()
+    val imageAttackForPlayer: LiveData<Int>
+        get() = _imageAttackForPlayer
 
 
     private val _characterNameForPlayer = MutableLiveData<String>()
@@ -102,9 +112,19 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _imageForEnemy
 
 
-    private val _image2ForEnemy = MutableLiveData<Int>()
-    val image2ForEnemy: LiveData<Int>
-        get() = _image2ForEnemy
+    private val _imagePoseForEnemy = MutableLiveData<Int>()
+    val imagePoseForEnemy: LiveData<Int>
+        get() = _imagePoseForEnemy
+
+
+    private val _imageFaceForEnemy = MutableLiveData<Int>()
+    val imageFaceForEnemy: LiveData<Int>
+        get() = _imageFaceForEnemy
+
+
+    private val _imageAttackForEnemy = MutableLiveData<Int>()
+    val imageAttackForEnemy: LiveData<Int>
+        get() = _imageAttackForEnemy
 
 
     private val _characterNameForEnemy = MutableLiveData<String>()
@@ -256,10 +276,12 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     // in mehreren Funktionen werden die Daten für die Anzeigen im Screen bei der Charakterauswahl gesetzt
 
-    fun setImageForPlayer(image: Int, image2: Int) {
+    fun setImageForPlayer(image: Int, imagePose: Int, imageFace: Int, imageAttack: Int) {
 
         _imageForPlayer.value = image
-        _image2ForPlayer.value = image2
+        _imagePoseForPlayer.value = imagePose
+        _imageFaceForPlayer.value = imageFace
+        _imageAttackForPlayer.value = imageAttack
     }
 
     fun setCharacterNameForPlayer(characterName: String) {
@@ -277,10 +299,12 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         _uniqueTraitsListForPlayer.value = uniqueTraits
     }
 
-    fun setImageForEnemy(image: Int, image2: Int) {
+    fun setImageForEnemy(image: Int, imagePose: Int, imageFace: Int, imageAttack: Int) {
 
         _imageForEnemy.value = image
-        _image2ForEnemy.value = image2
+        _imagePoseForEnemy.value = imagePose
+        _imageFaceForEnemy.value = imageFace
+        _imageAttackForEnemy.value = imageAttack
     }
 
     fun setCharacterNameForEnemy(characterName: String) {
@@ -328,7 +352,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
         val randomCharacter = characterForFight.value?.random()
 
-        setImageForPlayer(randomCharacter!!.image, randomCharacter.image2)
+        setImageForPlayer(randomCharacter!!.image, randomCharacter.imagePose, randomCharacter.imageFace, randomCharacter.imageAttack)
         setCharacterNameForPlayer(randomCharacter.name)
         setJutsuForPlayer(randomCharacter.jutsus)
         setUniqueTraitForPlayer(randomCharacter.uniqueTraits)
@@ -339,7 +363,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
         val randomCharacter = characterForFight.value?.random()
 
-        setImageForEnemy(randomCharacter!!.image, randomCharacter.image2)
+        setImageForEnemy(randomCharacter!!.image, randomCharacter.imagePose, randomCharacter.imageFace, randomCharacter.imageAttack)
         setCharacterNameForEnemy(randomCharacter.name)
         setJutsuForEnemy(randomCharacter.jutsus)
         setUniqueTraitForEnemy(randomCharacter.uniqueTraits)
@@ -358,9 +382,11 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     fun resetSelectionData() {
 
         _imageForPlayer.value = characterForFight.value?.get(0)?.image
-        _image2ForPlayer.value = characterForFight.value?.get(0)?.image2
+        _imagePoseForPlayer.value = characterForFight.value?.get(0)?.imagePose
+        _imagePoseForPlayer.value = characterForFight.value?.get(0)?.imageFace
         _imageForEnemy.value = characterForFight.value?.get(0)?.image
-        _image2ForEnemy.value = characterForFight.value?.get(0)?.image2
+        _imagePoseForEnemy.value = characterForFight.value?.get(0)?.imagePose
+        _imagePoseForEnemy.value = characterForFight.value?.get(0)?.imageFace
         _characterNameForPlayer.value = characterForFight.value?.get(0)?.name
         _characterNameForEnemy.value = characterForFight.value?.get(0)?.name
         _jutsuListForPlayer.value = characterForFight.value?.get(0)?.jutsus

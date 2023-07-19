@@ -44,7 +44,9 @@ class CharacterSelectionFragment : Fragment() {
         binding.ivSelectionEnemy?.setImageResource(firstCharacter.image)
 
         binding.btnOkPlayer?.setBackgroundColor(R.color.grey)
+        binding.btnOkPlayer?.setTextColor(R.color.white)
         binding.btnOkEnemy?.setBackgroundColor(R.color.grey)
+        binding.btnOkEnemy?.setTextColor(R.color.white)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -120,7 +122,7 @@ class CharacterSelectionFragment : Fragment() {
         // OnClickListerner & Navigation
 
         binding.btnOkPlayer?.setOnClickListener {
-            binding.ivSelectionPlayer?.setImageResource(viewModel.image2ForPlayer.value!!)
+            binding.ivSelectionPlayer?.setImageResource(viewModel.imagePoseForPlayer.value!!)
             binding.btnOkPlayer?.setBackgroundColor(R.color.green)
             viewModel.confirmSelectionPlayer(true)
             binding.rvCharactersPlayer?.isClickable = false     // TODO: Warum funktioniert nicht
@@ -146,7 +148,7 @@ class CharacterSelectionFragment : Fragment() {
         }
 
         binding.btnOkEnemy?.setOnClickListener {
-            binding.ivSelectionEnemy?.setImageResource(viewModel.image2ForEnemy.value!!)
+            binding.ivSelectionEnemy?.setImageResource(viewModel.imagePoseForEnemy.value!!)
             binding.btnOkEnemy?.setBackgroundColor(R.color.green)
             viewModel.confirmSelectionEnemy(true)
             binding.rvCharactersEnemy?.isClickable = false

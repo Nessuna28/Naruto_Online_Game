@@ -21,7 +21,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/background" />
+            app:srcCompat="@drawable/location_uebungsplatz" />
 
         <ImageView
             android:id="@+id/iv_back"
@@ -47,7 +47,7 @@
                 android:id="@+id/iv_characterImagePlayer"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                app:srcCompat="@drawable/naruto" />
+                app:srcCompat="@drawable/naruto_face" />
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -133,7 +133,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/iv_image1Player"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toTopOf="@+id/iv_image1Player"
-            app:srcCompat="@drawable/naruto" />
+            app:srcCompat="@drawable/naruto_attack" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"
@@ -159,7 +159,7 @@
                 android:id="@+id/iv_characterImageEnemy"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                app:srcCompat="@drawable/naruto" />
+                app:srcCompat="@drawable/naruto_face" />
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -171,7 +171,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/iv_image2Player"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toTopOf="@+id/iv_image2Player"
-            app:srcCompat="@drawable/naruto" />
+            app:srcCompat="@drawable/naruto_attack" />
 
         <ImageView
             android:id="@+id/iv_image1Enemy"

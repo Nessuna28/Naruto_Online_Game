@@ -33,10 +33,10 @@ class SelectionCharacterEnemyAdapter(
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val characterForFight = dataset[position]
 
-        holder.binding.ivCharacter.setImageResource(characterForFight.image)
+        holder.binding.ivCharacter.setImageResource(characterForFight.imageFace)
 
         holder.binding.ivCharacter.setOnClickListener {
-            viewModel.setImageForEnemy(characterForFight.image, characterForFight.image2)
+            viewModel.setImageForEnemy(characterForFight.image, characterForFight.imagePose, characterForFight.imageFace, characterForFight.imageAttack)
             viewModel.setCharacterNameForEnemy(characterForFight.name)
             viewModel.setJutsuForEnemy(characterForFight.jutsus)
             viewModel.setUniqueTraitForEnemy(characterForFight.uniqueTraits)

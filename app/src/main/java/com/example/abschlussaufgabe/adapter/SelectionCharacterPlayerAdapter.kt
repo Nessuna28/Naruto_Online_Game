@@ -33,10 +33,10 @@ class SelectionCharacterPlayerAdapter(
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val characterForFight = dataset[position]
 
-        holder.binding.ivCharacter.setImageResource(characterForFight.image)
+        holder.binding.ivCharacter.setImageResource(characterForFight.imageFace)
 
         holder.binding.ivCharacter.setOnClickListener {
-            viewModel.setImageForPlayer(characterForFight.image, characterForFight.image2)
+            viewModel.setImageForPlayer(characterForFight.image, characterForFight.imagePose, characterForFight.imageFace, characterForFight.imageAttack)
             viewModel.setCharacterNameForPlayer(characterForFight.name)
             viewModel.setJutsuForPlayer(characterForFight.jutsus)
             viewModel.setUniqueTraitForPlayer(characterForFight.uniqueTraits)
