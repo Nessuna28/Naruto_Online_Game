@@ -149,6 +149,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _selectionConfirmLocation
 
 
+
     // für den Kampf (FightFragment)
 
     private val _player = MutableLiveData<CharacterForFight>()
@@ -159,6 +160,17 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     private val _enemy = MutableLiveData<CharacterForFight>()
     val enemy: LiveData<CharacterForFight>
         get() = _enemy
+
+
+    private val _result = MutableLiveData<String>()
+    val result: LiveData<String>
+        get() = _result
+
+
+    private val _roundsWon = MutableLiveData<Int>()
+    val roundsWon: LiveData<Int>
+        get() = _roundsWon
+
 
 
     // für die Statistik
@@ -350,6 +362,16 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         _uniqueTraitsListForPlayer.value = characterForFight.value?.get(0)?.uniqueTraits
         _jutsuListForEnemy.value = characterForFight.value?.get(0)?.jutsus
         _uniqueTraitsListForEnemy.value = characterForFight.value?.get(0)?.uniqueTraits
+    }
+
+    // ändert den Wert des Ergebniss (gewonnen oder Verloren)
+    fun setResult(check: Boolean) {
+
+        if (check) {
+            _result.value = "Sieg"
+        } else {
+            _result.value = "Niederlage"
+        }
     }
 
 

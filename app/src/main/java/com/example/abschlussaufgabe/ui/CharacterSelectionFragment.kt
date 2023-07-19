@@ -27,6 +27,7 @@ class CharacterSelectionFragment : Fragment() {
     private lateinit var binding: FragmentCharacterSelectionBinding
 
 
+    @SuppressLint("ResourceAsColor")
     override fun onStart() {
         super.onStart()
 
@@ -39,6 +40,9 @@ class CharacterSelectionFragment : Fragment() {
         binding.tvCharacterNameEnemy?.text = firstCharacter.name
         binding.ivSelectionPlayer?.setImageResource(firstCharacter.image)
         binding.ivSelectionEnemy?.setImageResource(firstCharacter.image)
+
+        binding.btnOkPlayer?.setBackgroundColor(R.color.grey)
+        binding.btnOkEnemy?.setBackgroundColor(R.color.grey)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

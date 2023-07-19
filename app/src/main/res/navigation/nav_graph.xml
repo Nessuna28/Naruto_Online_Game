@@ -57,6 +57,9 @@
         <action
             android:id="@+id/action_fightFragment_to_characterSelectionFragment"
             app:destination="@id/characterSelectionFragment" />
+        <action
+            android:id="@+id/action_fightFragment_to_resultFragment"
+            app:destination="@id/resultFragment" />
     </fragment>
     <fragment
         android:id="@+id/aboutTheCharactersFragment"
@@ -104,5 +107,19 @@
         <argument
             android:name="tools"
             app:argType="string[]" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="com.example.abschlussaufgabe.ui.ResultFragment"
+        android:label="ResultFragment" >
+        <action
+            android:id="@+id/action_resultFragment_to_fightFragment"
+            app:destination="@id/fightFragment" />
+        <action
+            android:id="@+id/action_resultFragment_to_characterSelectionFragment"
+            app:destination="@id/characterSelectionFragment" />
+        <action
+            android:id="@+id/action_resultFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>
