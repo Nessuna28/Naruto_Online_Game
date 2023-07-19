@@ -89,7 +89,7 @@
             app:layout_constraintTop_toTopOf="@+id/tv_resultEnemy" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/iv_characterImageEnemy"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginTop="70dp"
@@ -105,9 +105,9 @@
             android:layout_marginEnd="8dp"
             android:fontFamily="@font/akaya_telivigala"
             android:text="@string/name"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-            app:layout_constraintEnd_toStartOf="@+id/imageView2"
-            app:layout_constraintTop_toTopOf="@+id/imageView2" />
+            app:layout_constraintBottom_toBottomOf="@+id/iv_characterImageEnemy"
+            app:layout_constraintEnd_toStartOf="@+id/iv_characterImageEnemy"
+            app:layout_constraintTop_toTopOf="@+id/iv_characterImageEnemy" />
 
         <TextView
             android:id="@+id/tv_lifeValueEnemy"

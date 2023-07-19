@@ -11,7 +11,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.abschlussaufgabe.data.AppRepository
 import com.example.abschlussaufgabe.data.datamodels.Profile
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.CharacterForFight
-import com.example.abschlussaufgabe.data.datamodels.modelForFight.fightDataForDatabase.Player
+import com.example.abschlussaufgabe.data.datamodels.modelForFight.fightDataForDatabase.DataPlayer
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.dataLists.CharacterListForFight
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.dataLists.LocationList
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.Location
@@ -37,6 +37,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _profile
 
 
+    // für den Homescreen
 
     val _imageTitle = MutableLiveData<ImageView>()
     val imageTitle: LiveData<ImageView>
@@ -60,9 +61,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
 
     // für die Datenbank
-    private val _player = MutableLiveData<CharacterForFight>()
-    val player: LiveData<CharacterForFight>
-        get() = _player
+
 
 
     // für die Charakterauswahl (CharacterSelectionFragment)
@@ -96,10 +95,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     val uniqueTraitsListForPlayer: LiveData<Map<String, Int>>
         get() = _uniqueTraitsListForPlayer
 
-
-    private val _enemy = MutableLiveData<CharacterForFight>()
-    val enemy: LiveData<CharacterForFight>
-        get() = _enemy
 
 
     private val _imageForEnemy = MutableLiveData<Int>()
@@ -137,6 +132,8 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _selectionConfirmedEnemy
 
 
+    // für die Auswahl der Location (LocationSelectionFragment)
+
     private val _locationList = MutableLiveData<List<Location>>()
     val locationList: LiveData<List<Location>>
         get() = _locationList
@@ -152,16 +149,36 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _selectionConfirmLocation
 
 
+    // für den Kampf (FightFragment)
+
+    private val _player = MutableLiveData<CharacterForFight>()
+    val player: LiveData<CharacterForFight>
+        get() = _player
 
 
+    private val _enemy = MutableLiveData<CharacterForFight>()
+    val enemy: LiveData<CharacterForFight>
+        get() = _enemy
+
+
+    // für die Statistik
+
+    val dataList: LiveData<List<DataPlayer>>
+        get() = repository.dataList
+
+
+    // Initialisierung
     init {
         loadCharacters()
         searchCharacter("")
         _characterForFight.value = CharacterListForFight().characterList
         _locationList.value = LocationList().locationList
         _location.value = locationList.value?.get(0)
+        repository.dataList
     }
 
+
+    // Anzeigen und Ausblenden gewisser Images
 
     fun hideImages(image: ImageView) {
 
@@ -208,6 +225,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     // Funktionen für das Kampfgeschehen
 
     // speichert den ausgewählten Charakter für den Kampf
+
     fun setPlayer(character: CharacterForFight) {
 
         _player.value = character
@@ -219,19 +237,8 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     }
 
 
-    // speichert Daten des Spielers in der Datenbank
-    fun updateDatabase(player: Player) {
+    // in mehreren Funktionen werden die Daten für die Anzeigen im Screen bei der Charakterauswahl gesetzt
 
-        viewModelScope.launch {
-            try {
-                repository.insertData(player)
-            } catch (e: Exception) {
-                Log.e(TAGVIEWMODEL, "Error loading Data from Database: $e")
-            }
-        }
-    }
-
-    // setzt die Daten für die Anzeigen im Screen
     fun setImageForPlayer(image: Int, image2: Int) {
 
         _imageForPlayer.value = image
@@ -253,13 +260,11 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         _uniqueTraitsListForPlayer.value = uniqueTraits
     }
 
-
     fun setImageForEnemy(image: Int, image2: Int) {
 
         _imageForEnemy.value = image
         _image2ForEnemy.value = image2
     }
-
 
     fun setCharacterNameForEnemy(characterName: String) {
 
@@ -276,6 +281,14 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         _uniqueTraitsListForEnemy.value = uniqueTraits
     }
 
+    fun setLocation(location: Location) {
+
+        _location.value = location
+    }
+
+
+    // für die Prüfung ob der Nutzer den Weiter-Button drücken darf
+
     fun confirmSelectionPlayer(check: Boolean) {
 
         _selectionConfirmedPlayer.value = check
@@ -286,16 +299,13 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         _selectionConfirmedEnemy.value = check
     }
 
-    fun setLocation(location: Location) {
-
-        _location.value = location
-    }
-
     fun confirmSelectionLocation(check: Boolean) {
 
         _selectionConfirmLocation.value = check
     }
 
+
+    // hier wird per Random eine zufällige Auswahl getroffen und die dazugehörigen Daten werden gesetzt
 
     fun randomCharacterForPlayer() {
 
@@ -321,11 +331,13 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     fun randomLocation() {
 
-        val randomLocation = locationList.value?.random()
+        val randomLocation = locationList.value!!.random()
 
         _location.value = randomLocation
     }
 
+
+    // setzt die Daten wieder zurück zum Ursprung
     fun resetSelectionData() {
 
         _imageForPlayer.value = characterForFight.value?.get(0)?.image
@@ -338,5 +350,18 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         _uniqueTraitsListForPlayer.value = characterForFight.value?.get(0)?.uniqueTraits
         _jutsuListForEnemy.value = characterForFight.value?.get(0)?.jutsus
         _uniqueTraitsListForEnemy.value = characterForFight.value?.get(0)?.uniqueTraits
+    }
+
+
+    // speichert Daten des Spielers in der Datenbank
+    fun updateDatabase(dataPlayer: DataPlayer) {
+
+        viewModelScope.launch {
+            try {
+                repository.insertData(dataPlayer)
+            } catch (e: Exception) {
+                Log.e(TAGVIEWMODEL, "Error loading Data from Database: $e")
+            }
+        }
     }
 }

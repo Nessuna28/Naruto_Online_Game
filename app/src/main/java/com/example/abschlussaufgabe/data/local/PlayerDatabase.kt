@@ -4,9 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.abschlussaufgabe.data.datamodels.modelForFight.fightDataForDatabase.Player
+import com.example.abschlussaufgabe.data.datamodels.modelForFight.fightDataForDatabase.DataPlayer
 
-@Database(entities = [Player::class], version = 1)
+@Database(entities = [DataPlayer::class], version = 1)
 abstract class PlayerDatabase: RoomDatabase() {
 
     abstract val playerDao: PlayerDatabaseDao

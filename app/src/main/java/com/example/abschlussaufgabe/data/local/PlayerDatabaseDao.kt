@@ -6,29 +6,29 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.example.abschlussaufgabe.data.datamodels.modelForFight.fightDataForDatabase.Player
+import com.example.abschlussaufgabe.data.datamodels.modelForFight.fightDataForDatabase.DataPlayer
 
 @Dao
 interface PlayerDatabaseDao {
 
     // Funktion die die Daten in die Tabelle einfügt
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertData(playerData: Player)
+    suspend fun insertData(dataUserData: DataPlayer)
 
 
     // Funktion die alle Daten aus der Tabelle zurück gibt
     @Query("SELECT * FROM player_table")
-    fun getAllData(): LiveData<List<Player>>
+    fun getAllData(): LiveData<List<DataPlayer>>
 
 
     // Funktion mit der Daten anhand des Namen aus der Tabelle zurückgegeben werden
     @Query("SELECT * FROM player_table WHERE characterName = :name")
-    fun getDataByName(name: String): LiveData<Player>
+    fun getDataByName(name: String): LiveData<DataPlayer>
 
 
     // Funktion mit der Daten in die Tabelle eingefügt werden können
     @Update
-    fun updateData(data: Player)
+    fun updateData(data: DataPlayer)
 
 
     // Funktion mit der Daten anhand des Namen aus der Tabelle gelöscht werden können
