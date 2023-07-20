@@ -90,9 +90,11 @@ class FightFragment : Fragment() {
         // Attackenauswahl
         binding.tvDefense1?.setOnClickListener {
 
-            viewModel.setAttackPlayer(player.defense.elementAt(0))
-            actionOfSelection()
+                viewModel.setAttackPlayer(player.defense.elementAt(0))
+                actionOfSelection()
         }
+
+
 
         binding.tvDefense2?.setOnClickListener {
 

@@ -437,11 +437,9 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         mediaPlayer = null
     }
 
-    fun stopSound(context: Context, sound: Int) {
+    fun stopSound() {
 
-        val mediaPlayer = MediaPlayer.create(context, sound)
-
-        mediaPlayer.stop()
+        mediaPlayer?.stop()
     }
 
 
@@ -453,6 +451,9 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     }
 
     fun setAttackEnemy(attack: String) {
+
+        val jutsuList = enemy.value!!.jutsus
+        val toolList = enemy.value!!.tools
 
     }
 
