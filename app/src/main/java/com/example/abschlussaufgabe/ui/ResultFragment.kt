@@ -47,6 +47,10 @@ class ResultFragment : Fragment() {
         binding.ivCharacterWhoWon?.setImageResource(character.imagePose)
         binding.tvCharacterName?.text = character.name
 
+        binding.vvCharacterWhoWon?.setVideoPath(character.video.toString())
+        binding.vvCharacterWhoWon?.start()
+        context?.let { viewModel.setSound(it, character.sound) }
+
         if (viewModel.result.value == "Sieg") {
             binding.ivTitleWonOrLost?.setImageResource(R.drawable.winner)
         } else {

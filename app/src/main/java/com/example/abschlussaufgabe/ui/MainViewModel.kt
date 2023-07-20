@@ -1,6 +1,8 @@
 package com.example.abschlussaufgabe.ui
 
 import android.app.Application
+import android.media.MediaDataSource
+import android.media.MediaPlayer
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
@@ -19,6 +21,7 @@ import com.example.abschlussaufgabe.data.local.PlayerDatabase
 import com.example.abschlussaufgabe.data.remote.CharacterApi
 import com.google.android.material.card.MaterialCardView
 import kotlinx.coroutines.launch
+import android.content.Context
 
 
 const val TAGVIEWMODEL = "MainViewModel"
@@ -28,6 +31,8 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     private val database = PlayerDatabase.getDatabase(application)
     private val repository = AppRepository(CharacterApi, database)
+
+    private var mediaPlayer: MediaPlayer? = null
 
     var characters = repository.characters
 
@@ -394,6 +399,36 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         _jutsuListForEnemy.value = characterForFight.value?.get(0)?.jutsus
         _uniqueTraitsListForEnemy.value = characterForFight.value?.get(0)?.uniqueTraits
     }
+
+    fun setSound(context: Context, sound: Int) {
+
+        mediaPlayer?.release()
+
+        mediaPlayer = MediaPlayer.create(context, sound)
+
+        mediaPlayer?.setOnCompletionListener {
+           releaseMediaPlayer()
+        }
+
+        // Lautstärke erhöhen (auf 90% der vollen Lautstärke)
+        mediaPlayer?.setVolume(0.9f, 0.9f)
+
+        mediaPlayer?.start()
+    }
+
+    fun releaseMediaPlayer() {
+
+        mediaPlayer?.release()
+        mediaPlayer = null
+    }
+
+    fun stopSound(context: Context, sound: Int) {
+
+        val mediaPlayer = MediaPlayer.create(context, sound)
+
+        mediaPlayer.stop()
+    }
+
 
     // ändert den Wert des Ergebniss (gewonnen oder Verloren)
     fun setResult(check: Boolean) {

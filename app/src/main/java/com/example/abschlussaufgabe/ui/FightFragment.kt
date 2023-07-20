@@ -25,6 +25,8 @@ class FightFragment : Fragment() {
 
         requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
 
+        context?.let { viewModel.setSound(it, R.raw.song_theme) }
+
         viewModel.imageBackground.value?.let { viewModel.hideImages(it) }
         viewModel.materialCard.value?.let { viewModel.hideMaterialCard(it) }
 
@@ -82,7 +84,9 @@ class FightFragment : Fragment() {
             binding.tvChakraValueEnemy?.text = it.chakraPoints.toString()
         }
 
-        //
+        // Attackenauswahl
+
+
         // Navigation
         binding.ivBack?.setOnClickListener {
             findNavController().navigate(FightFragmentDirections.actionFightFragmentToCharacterSelectionFragment())
