@@ -1,7 +1,6 @@
 package com.example.abschlussaufgabe.ui
 
 import android.app.Application
-import android.media.MediaDataSource
 import android.media.MediaPlayer
 import android.util.Log
 import android.view.View
@@ -186,6 +185,19 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     val enemy: LiveData<CharacterForFight>
         get() = _enemy
 
+
+    private val _attackPlayer = MutableLiveData<String>()
+    val attackPlayer: LiveData<String>
+        get() = _attackPlayer
+
+
+    private val _attackEnemy = MutableLiveData<String>()
+    val attackEnemy: LiveData<String>
+        get() = _attackEnemy
+
+
+
+    // für das Ergebniss (ResultFragment)
 
     private val _result = MutableLiveData<String>()
     val result: LiveData<String>
@@ -400,6 +412,9 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         _uniqueTraitsListForEnemy.value = characterForFight.value?.get(0)?.uniqueTraits
     }
 
+
+    // setzt die jeweiligen Sounds und spielt sie ab
+
     fun setSound(context: Context, sound: Int) {
 
         mediaPlayer?.release()
@@ -427,6 +442,18 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         val mediaPlayer = MediaPlayer.create(context, sound)
 
         mediaPlayer.stop()
+    }
+
+
+    // setzt die ausgewählte Attacke
+
+    fun setAttackPlayer(attack: String) {
+
+        _attackPlayer.value = attack
+    }
+
+    fun setAttackEnemy(attack: String) {
+
     }
 
 

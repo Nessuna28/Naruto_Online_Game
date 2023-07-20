@@ -126,6 +126,28 @@
             app:srcCompat="@drawable/naruto" />
 
         <ImageView
+            android:id="@+id/iv_imageDouble1Player"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="76dp"
+            android:layout_marginEnd="180dp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/naruto" />
+
+        <ImageView
+            android:id="@+id/iv_imageDouble2Player"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="152dp"
+            android:layout_marginEnd="52dp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/naruto" />
+
+        <ImageView
             android:id="@+id/iv_image2Player"
             android:layout_width="100dp"
             android:layout_height="150dp"
@@ -168,9 +190,9 @@
             android:layout_width="100dp"
             android:layout_height="150dp"
             android:layout_marginStart="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_image2Player"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_image1Enemy"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toTopOf="@+id/iv_image2Player"
+            app:layout_constraintTop_toTopOf="@+id/iv_image1Enemy"
             app:srcCompat="@drawable/naruto_attack" />
 
         <ImageView
@@ -178,9 +200,31 @@
             android:layout_width="100dp"
             android:layout_height="150dp"
             android:layout_marginStart="100dp"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_image2Enemy"
+            android:layout_marginTop="100dp"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toTopOf="@+id/iv_image2Enemy"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/naruto" />
+
+        <ImageView
+            android:id="@+id/iv_imageDouble1Enemy"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="180dp"
+            android:layout_marginTop="76dp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/naruto" />
+
+        <ImageView
+            android:id="@+id/iv_imageDouble2Enemy"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="152dp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/naruto" />
 
         <TextView

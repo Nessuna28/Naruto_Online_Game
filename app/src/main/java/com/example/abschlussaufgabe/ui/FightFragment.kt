@@ -19,6 +19,9 @@ class FightFragment : Fragment() {
 
     private lateinit var binding: FragmentFightBinding
 
+    private val player = viewModel.player.value!!
+    private val enemy = viewModel.enemy.value!!
+
 
     override fun onStart() {
         super.onStart()
@@ -53,7 +56,7 @@ class FightFragment : Fragment() {
         binding.tvNamePlayer?.text = viewModel.profile.value?.userName
 
         viewModel.player.observe(viewLifecycleOwner) {
-            binding.ivCharacterImagePlayer?.setImageResource(it.image)
+            binding.ivCharacterImagePlayer?.setImageResource(it.imageFace)
             binding.ivImage1Player?.setImageResource(it.image)
             binding.ivImage2Player?.setImageResource(it.imageAttack)
             binding.tvCharacterNamePlayer?.text = it.name
@@ -76,7 +79,7 @@ class FightFragment : Fragment() {
         }
 
         viewModel.enemy.observe(viewLifecycleOwner) {
-            binding.ivCharacterImageEnemy?.setImageResource(it.image)
+            binding.ivCharacterImageEnemy?.setImageResource(it.imageFace)
             binding.ivImage1Enemy?.setImageResource(it.image)
             binding.ivImage2Enemy?.setImageResource(it.imageAttack)
             binding.tvCharacterNameEnemy?.text = it.name
@@ -85,11 +88,146 @@ class FightFragment : Fragment() {
         }
 
         // Attackenauswahl
+        binding.tvDefense1?.setOnClickListener {
+
+            viewModel.setAttackPlayer(player.defense.elementAt(0))
+            actionOfSelection()
+        }
+
+        binding.tvDefense2?.setOnClickListener {
+
+            viewModel.setAttackPlayer(player.defense.elementAt(1))
+            actionOfSelection()
+        }
+
+        binding.tvTool1?.setOnClickListener {
+
+            viewModel.setAttackPlayer(player.tools.keys.elementAt(0))
+            actionOfSelection()
+        }
+
+        binding.tvTool2?.setOnClickListener {
+
+            viewModel.setAttackPlayer(player.tools.keys.elementAt(1))
+            actionOfSelection()
+        }
+
+        binding.tvUniqueTraits1?.setOnClickListener {
+
+            viewModel.setAttackPlayer(player.uniqueTraits.keys.elementAt(0))
+            actionOfSelection()
+        }
+
+        binding.tvUniqueTraits2?.setOnClickListener {
+
+            viewModel.setAttackPlayer(player.uniqueTraits.keys.elementAt(1))
+            actionOfSelection()
+        }
+
+        binding.tvJutsu1?.setOnClickListener {
+
+            viewModel.setAttackPlayer(player.jutsus.keys.elementAt(0))
+            actionOfSelection()
+        }
+
+        binding.tvJutsu2?.setOnClickListener {
+
+            viewModel.setAttackPlayer(player.jutsus.keys.elementAt(1))
+            actionOfSelection()
+        }
+
+        binding.tvJutsu3?.setOnClickListener {
+
+            viewModel.setAttackPlayer(player.jutsus.keys.elementAt(2))
+            actionOfSelection()
+        }
+
+        binding.tvJutsu4?.setOnClickListener {
+
+            viewModel.setAttackPlayer(player.jutsus.keys.elementAt(3))
+            actionOfSelection()
+        }
 
 
         // Navigation
         binding.ivBack?.setOnClickListener {
             findNavController().navigate(FightFragmentDirections.actionFightFragmentToCharacterSelectionFragment())
+        }
+    }
+
+    fun actionOfSelection() {
+
+        val character = viewModel.player.value
+
+        when(viewModel.attackPlayer.value) {
+            player.defense.elementAt(0) -> {
+                binding.ivImage1Player?.setImageResource(R.drawable.baumstamm)
+                Thread.sleep(4000)
+                binding.ivImage1Player?.setImageResource(viewModel.player.value!!.image)
+            }
+            player.defense.elementAt(1) -> {
+                binding.ivImageDouble1Player?.visibility = View.VISIBLE
+                binding.ivImageDouble2Player?.visibility = View.VISIBLE
+                Thread.sleep(4000)
+                binding.ivImageDouble1Player?.visibility = View.INVISIBLE
+                binding.ivImageDouble2Player?.visibility = View.INVISIBLE
+            }
+            player.tools.keys.elementAt(0) -> {
+                binding.ivImage1Player?.visibility = View.INVISIBLE
+                binding.ivImage2Player?.visibility = View.VISIBLE
+                Thread.sleep(4000)
+                binding.ivImage1Player?.visibility = View.VISIBLE
+                binding.ivImage2Player?.visibility = View.INVISIBLE
+            }
+            player.tools.keys.elementAt(1) -> {
+                binding.ivImage1Player?.visibility = View.INVISIBLE
+                binding.ivImage2Player?.visibility = View.VISIBLE
+                Thread.sleep(4000)
+                binding.ivImage1Player?.visibility = View.VISIBLE
+                binding.ivImage2Player?.visibility = View.INVISIBLE
+            }
+            player.uniqueTraits.keys.elementAt(0) -> {
+                binding.ivImage1Player?.visibility = View.INVISIBLE
+                binding.ivImage2Player?.visibility = View.VISIBLE
+                Thread.sleep(4000)
+                binding.ivImage1Player?.visibility = View.VISIBLE
+                binding.ivImage2Player?.visibility = View.INVISIBLE
+            }
+            player.uniqueTraits.keys.elementAt(1) -> {
+                binding.ivImage1Player?.visibility = View.INVISIBLE
+                binding.ivImage2Player?.visibility = View.VISIBLE
+                Thread.sleep(4000)
+                binding.ivImage1Player?.visibility = View.VISIBLE
+                binding.ivImage2Player?.visibility = View.INVISIBLE
+            }
+            player.jutsus.keys.elementAt(0) -> {
+                binding.ivImage1Player?.visibility = View.INVISIBLE
+                binding.ivImage2Player?.visibility = View.VISIBLE
+                Thread.sleep(4000)
+                binding.ivImage1Player?.visibility = View.VISIBLE
+                binding.ivImage2Player?.visibility = View.INVISIBLE
+            }
+            player.jutsus.keys.elementAt(1) -> {
+                binding.ivImage1Player?.visibility = View.INVISIBLE
+                binding.ivImage2Player?.visibility = View.VISIBLE
+                Thread.sleep(4000)
+                binding.ivImage1Player?.visibility = View.VISIBLE
+                binding.ivImage2Player?.visibility = View.INVISIBLE
+            }
+            player.jutsus.keys.elementAt(2) -> {
+                binding.ivImage1Player?.visibility = View.INVISIBLE
+                binding.ivImage2Player?.visibility = View.VISIBLE
+                Thread.sleep(4000)
+                binding.ivImage1Player?.visibility = View.VISIBLE
+                binding.ivImage2Player?.visibility = View.INVISIBLE
+            }
+            player.jutsus.keys.elementAt(3) -> {
+                binding.ivImage1Player?.visibility = View.INVISIBLE
+                binding.ivImage2Player?.visibility = View.VISIBLE
+                Thread.sleep(4000)
+                binding.ivImage1Player?.visibility = View.VISIBLE
+                binding.ivImage2Player?.visibility = View.INVISIBLE
+            }
         }
     }
 }
