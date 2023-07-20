@@ -80,7 +80,6 @@ class LocationSelectionFragment : Fragment() {
         binding.btnFurther?.setOnClickListener {
             if (viewModel.selectionConfirmLocation.value == true) {
                 findNavController().navigate(LocationSelectionFragmentDirections.actionLocationSelectionFragmentToFightFragment())
-                viewModel.stopSound()
             } // TODO: Toast schreiben
         }
 

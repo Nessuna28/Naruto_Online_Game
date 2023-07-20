@@ -2,6 +2,7 @@ package com.example.abschlussaufgabe.ui
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.R
+import com.example.abschlussaufgabe.data.datamodels.modelForFight.CharacterForFight
 import com.example.abschlussaufgabe.databinding.FragmentFightBinding
 
 
@@ -19,8 +21,8 @@ class FightFragment : Fragment() {
 
     private lateinit var binding: FragmentFightBinding
 
-    private val player = viewModel.player.value!!
-    private val enemy = viewModel.enemy.value!!
+    private lateinit var player: CharacterForFight
+    private lateinit var enemy: CharacterForFight
 
 
     override fun onStart() {
@@ -37,6 +39,8 @@ class FightFragment : Fragment() {
         binding.ivImage2Enemy?.visibility = View.INVISIBLE
     }
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -49,6 +53,9 @@ class FightFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        player = viewModel.player.value!!
+        enemy = viewModel.enemy.value!!
+
         viewModel.location.observe(viewLifecycleOwner) {
             binding.ivBackgroundFight?.setImageResource(it.image)
         }
@@ -59,6 +66,8 @@ class FightFragment : Fragment() {
             binding.ivCharacterImagePlayer?.setImageResource(it.imageFace)
             binding.ivImage1Player?.setImageResource(it.image)
             binding.ivImage2Player?.setImageResource(it.imageAttack)
+            binding.ivImageDouble1Player?.setImageResource(it.image)
+            binding.ivImageDouble2Player?.setImageResource(it.imageAttack)
             binding.tvCharacterNamePlayer?.text = it.name
             binding.tvLifeValuePlayer?.text = it.lifePoints.toString()
             binding.tvChakraValuePlayer?.text = it.chakraPoints.toString()
@@ -82,6 +91,8 @@ class FightFragment : Fragment() {
             binding.ivCharacterImageEnemy?.setImageResource(it.imageFace)
             binding.ivImage1Enemy?.setImageResource(it.image)
             binding.ivImage2Enemy?.setImageResource(it.imageAttack)
+            binding.ivImageDouble1Enemy?.setImageResource(it.image)
+            binding.ivImageDouble2Enemy?.setImageResource(it.imageAttack)
             binding.tvCharacterNameEnemy?.text = it.name
             binding.tvLifeValueEnemy?.text = it.lifePoints.toString()
             binding.tvChakraValueEnemy?.text = it.chakraPoints.toString()
@@ -151,85 +162,58 @@ class FightFragment : Fragment() {
         }
 
 
+
+
         // Navigation
         binding.ivBack?.setOnClickListener {
             findNavController().navigate(FightFragmentDirections.actionFightFragmentToCharacterSelectionFragment())
         }
     }
 
+    // Funktionen um Änderungen am Design während der Ausführung vorzunehmen
+
+    // je nach Wahl der Attacke wird eine bestimmt Funktion aufgerufen (Änderung, Ein- oder Ausblenden eines Bildes)
     fun actionOfSelection() {
 
-        val character = viewModel.player.value
+        viewModel.attackPlayer.observe(viewLifecycleOwner) {
 
-        when(viewModel.attackPlayer.value) {
-            player.defense.elementAt(0) -> {
-                binding.ivImage1Player?.setImageResource(R.drawable.baumstamm)
-                Thread.sleep(4000)
-                binding.ivImage1Player?.setImageResource(viewModel.player.value!!.image)
-            }
-            player.defense.elementAt(1) -> {
-                binding.ivImageDouble1Player?.visibility = View.VISIBLE
-                binding.ivImageDouble2Player?.visibility = View.VISIBLE
-                Thread.sleep(4000)
-                binding.ivImageDouble1Player?.visibility = View.INVISIBLE
-                binding.ivImageDouble2Player?.visibility = View.INVISIBLE
-            }
-            player.tools.keys.elementAt(0) -> {
-                binding.ivImage1Player?.visibility = View.INVISIBLE
-                binding.ivImage2Player?.visibility = View.VISIBLE
-                Thread.sleep(4000)
-                binding.ivImage1Player?.visibility = View.VISIBLE
-                binding.ivImage2Player?.visibility = View.INVISIBLE
-            }
-            player.tools.keys.elementAt(1) -> {
-                binding.ivImage1Player?.visibility = View.INVISIBLE
-                binding.ivImage2Player?.visibility = View.VISIBLE
-                Thread.sleep(4000)
-                binding.ivImage1Player?.visibility = View.VISIBLE
-                binding.ivImage2Player?.visibility = View.INVISIBLE
-            }
-            player.uniqueTraits.keys.elementAt(0) -> {
-                binding.ivImage1Player?.visibility = View.INVISIBLE
-                binding.ivImage2Player?.visibility = View.VISIBLE
-                Thread.sleep(4000)
-                binding.ivImage1Player?.visibility = View.VISIBLE
-                binding.ivImage2Player?.visibility = View.INVISIBLE
-            }
-            player.uniqueTraits.keys.elementAt(1) -> {
-                binding.ivImage1Player?.visibility = View.INVISIBLE
-                binding.ivImage2Player?.visibility = View.VISIBLE
-                Thread.sleep(4000)
-                binding.ivImage1Player?.visibility = View.VISIBLE
-                binding.ivImage2Player?.visibility = View.INVISIBLE
-            }
-            player.jutsus.keys.elementAt(0) -> {
-                binding.ivImage1Player?.visibility = View.INVISIBLE
-                binding.ivImage2Player?.visibility = View.VISIBLE
-                Thread.sleep(4000)
-                binding.ivImage1Player?.visibility = View.VISIBLE
-                binding.ivImage2Player?.visibility = View.INVISIBLE
-            }
-            player.jutsus.keys.elementAt(1) -> {
-                binding.ivImage1Player?.visibility = View.INVISIBLE
-                binding.ivImage2Player?.visibility = View.VISIBLE
-                Thread.sleep(4000)
-                binding.ivImage1Player?.visibility = View.VISIBLE
-                binding.ivImage2Player?.visibility = View.INVISIBLE
-            }
-            player.jutsus.keys.elementAt(2) -> {
-                binding.ivImage1Player?.visibility = View.INVISIBLE
-                binding.ivImage2Player?.visibility = View.VISIBLE
-                Thread.sleep(4000)
-                binding.ivImage1Player?.visibility = View.VISIBLE
-                binding.ivImage2Player?.visibility = View.INVISIBLE
-            }
-            player.jutsus.keys.elementAt(3) -> {
-                binding.ivImage1Player?.visibility = View.INVISIBLE
-                binding.ivImage2Player?.visibility = View.VISIBLE
-                Thread.sleep(4000)
-                binding.ivImage1Player?.visibility = View.VISIBLE
-                binding.ivImage2Player?.visibility = View.INVISIBLE
+            when(it) {
+                player.defense.elementAt(0) -> changeImageForDuration(2000)
+                player.defense.elementAt(1) -> changeVisibilityForDefense(3000)
+                player.tools.keys.elementAt(0) -> changeVisibilityForDuration(2000)
+                player.tools.keys.elementAt(1) -> changeVisibilityForDuration(2000)
+                player.uniqueTraits.keys.elementAt(0) -> changeVisibilityForDuration(2000)
+                player.uniqueTraits.keys.elementAt(1) -> changeVisibilityForDuration(2000)
+                player.jutsus.keys.elementAt(0) -> changeVisibilityForDuration(2000)
+                player.jutsus.keys.elementAt(1) -> changeVisibilityForDuration(2000)
+                player.jutsus.keys.elementAt(2) -> changeVisibilityForDuration(2000)
+                player.jutsus.keys.elementAt(3) -> changeVisibilityForDuration(2000)
             }
         }
+    }
+
+    // wechselt ein Bild für eine bestimmte Zeit
+    private fun changeImageForDuration(duration: Long) {
+        binding.ivImage1Player?.setImageResource(R.drawable.baumstamm)
+
+        // Handler verwenden, um nach der angegebenen Dauer das Bild wieder zurückzusetzen
+        Handler().postDelayed({ binding.ivImage1Player?.setImageResource(player.image) }, duration)
+    }
+
+    // ändert die Visibility der Views
+    private fun changeVisibilityForDuration(duration: Long) {
+        binding.ivImage1Player?.visibility = View.INVISIBLE
+        binding.ivImage2Player?.visibility = View.VISIBLE
+
+        Handler().postDelayed({binding.ivImage1Player?.visibility = View.VISIBLE}, duration)
+        Handler().postDelayed({binding.ivImage2Player?.visibility = View.INVISIBLE}, duration)
+    }
+
+    private fun changeVisibilityForDefense(duration: Long) {
+        binding.ivImageDouble1Player?.visibility = View.VISIBLE
+        binding.ivImageDouble2Player?.visibility = View.VISIBLE
+
+        Handler().postDelayed({binding.ivImageDouble1Player?.visibility = View.INVISIBLE}, duration)
+        Handler().postDelayed({binding.ivImageDouble2Player?.visibility = View.INVISIBLE}, duration)
     }
 }
