@@ -65,8 +65,8 @@ class LocationSelectionFragment : Fragment() {
             binding.btnOk!!.setBackgroundColor(R.color.green)
             binding.btnOk!!.setTextColor(R.color.white)
             viewModel.confirmSelectionLocation(true)
-            binding.rvLocation?.isClickable = false
-            binding.btnFurther?.isClickable = true
+            binding.rvLocation?.isEnabled = false
+            binding.btnFurther?.isEnabled = true
         }
 
         binding.btnRandom?.setOnClickListener {

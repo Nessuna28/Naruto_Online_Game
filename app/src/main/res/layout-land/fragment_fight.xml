@@ -86,15 +86,6 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_characterNamePlayer" />
 
         <TextView
-            android:id="@+id/tv_chakraPlayer"
-            android:layout_width="66dp"
-            android:layout_height="15dp"
-            android:text="@string/chakraPoints"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="@+id/tv_lifePlayer"
-            app:layout_constraintTop_toBottomOf="@+id/tv_lifePlayer" />
-
-        <TextView
             android:id="@+id/tv_lifeValuePlayer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -104,16 +95,6 @@
             app:layout_constraintBottom_toBottomOf="@+id/tv_lifePlayer"
             app:layout_constraintStart_toEndOf="@+id/tv_lifePlayer"
             app:layout_constraintTop_toTopOf="@+id/tv_lifePlayer" />
-
-        <TextView
-            android:id="@+id/tv_chakraValuePlayer"
-            android:layout_width="66dp"
-            android:layout_height="15dp"
-            android:text="100%"
-            android:textColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_chakraPlayer"
-            app:layout_constraintStart_toStartOf="@+id/tv_lifeValuePlayer"
-            app:layout_constraintTop_toTopOf="@+id/tv_chakraPlayer" />
 
         <ImageView
             android:id="@+id/iv_image1Player"
@@ -156,6 +137,25 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toTopOf="@+id/iv_image1Player"
             app:srcCompat="@drawable/naruto_attack" />
+
+        <TextView
+            android:id="@+id/tv_chakraPlayer"
+            android:layout_width="66dp"
+            android:layout_height="15dp"
+            android:text="@string/chakraPoints"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/tv_lifePlayer"
+            app:layout_constraintTop_toBottomOf="@+id/tv_lifePlayer" />
+
+        <TextView
+            android:id="@+id/tv_chakraValuePlayer"
+            android:layout_width="66dp"
+            android:layout_height="15dp"
+            android:text="100%"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_chakraPlayer"
+            app:layout_constraintStart_toStartOf="@+id/tv_lifeValuePlayer"
+            app:layout_constraintTop_toTopOf="@+id/tv_chakraPlayer" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"

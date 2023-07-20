@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.graphics.drawable.toDrawable
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -25,6 +26,11 @@ class CharacterSelectionFragment : Fragment() {
     private val viewModel: MainViewModel by activityViewModels()
 
     private lateinit var binding: FragmentCharacterSelectionBinding
+
+    private val darkgrey = R.color.darkgrey
+    private val grey = R.color.grey
+    private val green = R.color.green
+    private val primary = R.color.primary
 
 
     @SuppressLint("ResourceAsColor")
@@ -46,10 +52,7 @@ class CharacterSelectionFragment : Fragment() {
         binding.ivSelectionPlayer?.setImageResource(firstCharacter.image)
         binding.ivSelectionEnemy?.setImageResource(firstCharacter.image)
 
-        binding.btnOkPlayer?.setBackgroundColor(R.color.grey)
-        binding.btnOkPlayer?.setTextColor(R.color.white)
-        binding.btnOkEnemy?.setBackgroundColor(R.color.grey)
-        binding.btnOkEnemy?.setTextColor(R.color.white)
+        resetToDefault()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -125,46 +128,37 @@ class CharacterSelectionFragment : Fragment() {
         // OnClickListerner & Navigation
 
         binding.btnOkPlayer?.setOnClickListener {
-            binding.ivSelectionPlayer?.setImageResource(viewModel.imagePoseForPlayer.value!!)
-            binding.btnOkPlayer?.setBackgroundColor(R.color.green)
-            viewModel.confirmSelectionPlayer(true)
-            binding.rvCharactersPlayer?.isClickable = false     // TODO: Warum funktioniert nicht
-            binding.rvCharactersEnemy?.isClickable = true
+            if (viewModel.player.isInitialized) {
+                binding.ivSelectionPlayer?.setImageResource(viewModel.imagePoseForPlayer.value!!)
+                it.background = green.toDrawable()
+                viewModel.confirmSelectionPlayer(true)
+                binding.rvCharactersPlayer?.isEnabled = false
+                binding.rvCharactersEnemy?.isEnabled = true
+                check()
+            }
         }
 
         binding.btnRandomPlayer?.setOnClickListener {
             viewModel.randomCharacterForPlayer()
+            viewModel.confirmSelectionPlayer(true)
         }
 
-        binding.btnReset?.setOnClickListener {
-            viewModel.resetSelectionData()
-            binding.tvTitleJutsusPlayer?.visibility = View.INVISIBLE
-            binding.rvJutsusPlayer?.visibility = View.INVISIBLE
-            binding.tvTitleTraitsPlayer?.visibility = View.INVISIBLE
-            binding.rvTraitsPlayer?.visibility = View.INVISIBLE
-            binding.tvTitleJutsusEnemy?.visibility = View.INVISIBLE
-            binding.rvJutsusEnemy?.visibility = View.INVISIBLE
-            binding.tvTitleTraitsEnemy?.visibility = View.INVISIBLE
-            binding.rvTraitsEnemy?.visibility = View.INVISIBLE
-            binding.btnOkPlayer?.setBackgroundColor(R.color.grey) // TODO: funktioniert nicht
-            binding.btnOkEnemy?.setBackgroundColor(R.color.grey)
-        }
 
         binding.btnOkEnemy?.setOnClickListener {
-            binding.ivSelectionEnemy?.setImageResource(viewModel.imagePoseForEnemy.value!!)
-            binding.btnOkEnemy?.setBackgroundColor(R.color.green)
-            viewModel.confirmSelectionEnemy(true)
-            binding.rvCharactersEnemy?.isClickable = false
-            binding.btnFurther?.isClickable = true
+            if (viewModel.enemy.isInitialized) {
+                binding.ivSelectionEnemy?.setImageResource(viewModel.imagePoseForEnemy.value!!)
+                it.setBackgroundColor(green)
+                viewModel.confirmSelectionEnemy(true)
+                binding.rvCharactersEnemy?.isEnabled = false
+                check()
+            }
         }
 
         binding.btnRandomEnemy?.setOnClickListener {
             viewModel.randomCharacterForEnemy()
+            viewModel.confirmSelectionEnemy(true)
         }
 
-        binding.ivBack?.setOnClickListener {
-            findNavController().navigateUp()
-        }
 
         binding.btnFurther?.setOnClickListener {
             if (viewModel.selectionConfirmedPlayer.value == true && viewModel.selectionConfirmedEnemy.value == true) {
@@ -172,8 +166,44 @@ class CharacterSelectionFragment : Fragment() {
             } // TODO: Toast schreiben
         }
 
+        binding.btnReset?.setOnClickListener {
+            viewModel.resetSelectionData()
+            resetToDefault()
+        }
+
+        binding.ivBack?.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
         viewModel.imageHome.value?.setOnClickListener {
             findNavController().navigate(CharacterSelectionFragmentDirections.actionCharacterSelectionFragmentToHomeFragment())
         }
+    }
+
+    private fun check() {
+
+        if (viewModel.selectionConfirmedPlayer.value == true && viewModel.selectionConfirmedEnemy.value == true) {
+            binding.btnFurther?.background = primary.toDrawable()
+            binding.btnFurther?.isEnabled = true
+        }
+    }
+
+    @SuppressLint("ResourceAsColor")
+    private fun resetToDefault() {
+
+        binding.rvCharactersPlayer?.isEnabled = true
+        binding.rvCharactersEnemy?.isEnabled = true
+        binding.tvTitleJutsusPlayer?.visibility = View.INVISIBLE
+        binding.rvJutsusPlayer?.visibility = View.INVISIBLE
+        binding.tvTitleTraitsPlayer?.visibility = View.INVISIBLE
+        binding.rvTraitsPlayer?.visibility = View.INVISIBLE
+        binding.tvTitleJutsusEnemy?.visibility = View.INVISIBLE
+        binding.rvJutsusEnemy?.visibility = View.INVISIBLE
+        binding.tvTitleTraitsEnemy?.visibility = View.INVISIBLE
+        binding.rvTraitsEnemy?.visibility = View.INVISIBLE
+        binding.btnOkPlayer?.background = grey.toDrawable() // TODO: funktioniert nicht
+        binding.btnOkEnemy?.background = grey.toDrawable()
+        binding.btnFurther?.background = darkgrey.toDrawable()
+        binding.btnFurther?.isEnabled = false
     }
 }
