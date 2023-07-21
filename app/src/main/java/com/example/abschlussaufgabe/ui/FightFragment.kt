@@ -149,12 +149,26 @@ class FightFragment : Fragment() {
             incorporatesTheLogic(player.jutsus.keys.elementAt(3), player.jutsus.values.elementAt(3))
         }
 
-
-
-
         // Navigation
+
         binding.ivBack?.setOnClickListener {
             findNavController().navigate(FightFragmentDirections.actionFightFragmentToCharacterSelectionFragment())
+        }
+
+        viewModel.player.observe(viewLifecycleOwner) {
+            if (player.lifePoints <= 0) {
+                findNavController().navigate(FightFragmentDirections.actionFightFragmentToResultFragment())
+                println(player.lifePoints)
+                println(enemy.lifePoints)
+            }
+        }
+
+        viewModel.enemy.observe(viewLifecycleOwner) {
+            if (enemy.lifePoints <= 0) {
+                findNavController().navigate(FightFragmentDirections.actionFightFragmentToResultFragment())
+                println(player.lifePoints)
+                println(enemy.lifePoints)
+            }
         }
     }
 
@@ -224,7 +238,8 @@ class FightFragment : Fragment() {
         viewModel.setAttackStringPlayer(attack)
         viewModel.setAttackValuePlayer(value)
         viewModel.setAttackEnemy()
-        viewModel.subtractPoints()
+        viewModel.subtractPointsPlayer()
+        viewModel.subtractPointsEnemy()
         actionOfSelection()
 
     }

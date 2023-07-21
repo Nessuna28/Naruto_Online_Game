@@ -494,38 +494,59 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
         _attackEnemy.value?.clear()
         _attackEnemy.value?.put(attackEnemy.key, attackEnemy.value)
-        println(_attackEnemy.value)
     }
 
-    fun subtractPoints() {
+    fun subtractPointsPlayer() {
 
-        if (attackStringPlayer.value!! != player.value!!.defense.keys.toString()) {
-            _player.value?.lifePoints = player.value!!.lifePoints.minus(attackEnemy.value!!.values.first())
-            _player.value?.chakraPoints = player.value!!.chakraPoints.minus(attackValuePlayer.value!!)
-        } else {
-            if (attackStringPlayer.value!! == "Heilung") {
-                _player.value!!.lifePoints.plus(attackValuePlayer.value!!)
-                _player.value?.chakraPoints = player.value!!.chakraPoints.minus(attackValuePlayer.value!!)
+        val attack = attackStringPlayer.value!!
+        val value = attackValuePlayer.value!!
+        val player = player.value!!
+
+        val enemy = enemy.value!!
+
+        if (attack != player.defense.keys.elementAt(0) && attack != player.defense.keys.elementAt(1)) {
+            _enemy.value!!.lifePoints = enemy.lifePoints.minus(value)
+            if (attack != player.tools.keys.elementAt(0) && attack != player.tools.keys.elementAt(1)) {
+                _player.value!!.chakraPoints = player.chakraPoints.minus(value)
             } else {
-                _player.value?.chakraPoints = player.value!!.chakraPoints.minus(attackValuePlayer.value!!)
+                _player.value!!.chakraPoints.plus(20)
+            }
+        } else {
+            if (attack == "Heilung") {
+                _player.value!!.lifePoints.plus(value)
+                _player.value!!.chakraPoints = player.chakraPoints.minus(value)
+            } else {
+                _player.value!!.chakraPoints = player.chakraPoints.minus(value)
             }
         }
 
+        _player.value = player
+    }
 
-        if (attackEnemy.value!! != enemy.value!!.defense) {
-            _enemy.value?.lifePoints = enemy.value!!.lifePoints.minus(attackValuePlayer.value!!)
-            _enemy.value?.chakraPoints = enemy.value!!.chakraPoints.minus(attackEnemy.value!!.values.first())
-        } else {
-            if (attackEnemy.value!!.keys.toString() == "Heilung") {
-                _enemy.value!!.lifePoints.plus(attackEnemy.value!!.values.first())
-                _enemy.value?.chakraPoints = enemy.value!!.chakraPoints.minus(attackEnemy.value!!.values.first())
+    fun subtractPointsEnemy() {
+
+        val attack = attackEnemy.value!!
+        val enemy = enemy.value!!
+
+        val player = player.value!!
+
+        if (attack != enemy.defense.entries.elementAt(0) && attack != enemy.defense.entries.elementAt(1)) {
+            _player.value!!.lifePoints = player.lifePoints.minus(attack.values.first())
+            if (attack != enemy.tools.entries.elementAt(0) && attack != enemy.tools.entries.elementAt(1)) {
+                _enemy.value!!.chakraPoints = enemy.chakraPoints.minus(attack.values.first())
             } else {
-                _enemy.value?.chakraPoints = enemy.value!!.chakraPoints.minus(attackEnemy.value!!.values.first())
+                _enemy.value!!.chakraPoints = enemy.chakraPoints.plus(20)
+            }
+        } else {
+            if (attack.keys.toString() == "Heilung") {
+                _enemy.value!!.lifePoints.plus(attack.values.first())
+                _enemy.value!!.chakraPoints = enemy.chakraPoints.minus(attack.values.first())
+            } else {
+                _enemy.value!!.chakraPoints = enemy.chakraPoints.minus(attack.values.first())
             }
         }
 
-        println(player.value!!.lifePoints)
-        println(enemy.value!!.lifePoints)
+        _enemy.value = _enemy.value
     }
 
 
