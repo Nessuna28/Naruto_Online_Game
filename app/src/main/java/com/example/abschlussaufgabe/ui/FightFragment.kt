@@ -101,72 +101,52 @@ class FightFragment : Fragment() {
         // Attackenauswahl
         binding.tvDefense1?.setOnClickListener {
 
-                viewModel.setAttackStringPlayer(player.defense.keys.elementAt(0))
-                viewModel.setAttackValuePlayer(player.defense.values.elementAt(0))
-                actionOfSelection()
+            incorporatesTheLogic(player.defense.keys.elementAt(0), player.defense.values.elementAt(0))
         }
 
         binding.tvDefense2?.setOnClickListener {
 
-            viewModel.setAttackStringPlayer(player.defense.keys.elementAt(1))
-            viewModel.setAttackValuePlayer(player.defense.values.elementAt(1))
-            actionOfSelection()
+            incorporatesTheLogic(player.defense.keys.elementAt(1), player.defense.values.elementAt(1))
         }
 
         binding.tvTool1?.setOnClickListener {
 
-            viewModel.setAttackStringPlayer(player.tools.keys.elementAt(0))
-            viewModel.setAttackValuePlayer(player.tools.values.elementAt(0))
-            actionOfSelection()
+            incorporatesTheLogic(player.tools.keys.elementAt(0), player.tools.values.elementAt(0))
         }
 
         binding.tvTool2?.setOnClickListener {
 
-            viewModel.setAttackStringPlayer(player.tools.keys.elementAt(1))
-            viewModel.setAttackValuePlayer(player.tools.values.elementAt(1))
-            actionOfSelection()
+            incorporatesTheLogic(player.tools.keys.elementAt(1), player.tools.values.elementAt(1))
         }
 
         binding.tvUniqueTraits1?.setOnClickListener {
 
-            viewModel.setAttackStringPlayer(player.uniqueTraits.keys.elementAt(0))
-            viewModel.setAttackValuePlayer(player.uniqueTraits.values.elementAt(0))
-            actionOfSelection()
+            incorporatesTheLogic(player.uniqueTraits.keys.elementAt(0), player.uniqueTraits.values.elementAt(0))
         }
 
         binding.tvUniqueTraits2?.setOnClickListener {
 
-            viewModel.setAttackStringPlayer(player.uniqueTraits.keys.elementAt(1))
-            viewModel.setAttackValuePlayer(player.uniqueTraits.values.elementAt(1))
-            actionOfSelection()
+            incorporatesTheLogic(player.uniqueTraits.keys.elementAt(1), player.uniqueTraits.values.elementAt(1))
         }
 
         binding.tvJutsu1?.setOnClickListener {
 
-            viewModel.setAttackStringPlayer(player.jutsus.keys.elementAt(0))
-            viewModel.setAttackValuePlayer(player.jutsus.values.elementAt(0))
-            actionOfSelection()
+            incorporatesTheLogic(player.jutsus.keys.elementAt(0), player.jutsus.values.elementAt(0))
         }
 
         binding.tvJutsu2?.setOnClickListener {
 
-            viewModel.setAttackStringPlayer(player.jutsus.keys.elementAt(1))
-            viewModel.setAttackValuePlayer(player.jutsus.values.elementAt(1))
-            actionOfSelection()
+            incorporatesTheLogic(player.jutsus.keys.elementAt(1), player.jutsus.values.elementAt(1))
         }
 
         binding.tvJutsu3?.setOnClickListener {
 
-            viewModel.setAttackStringPlayer(player.jutsus.keys.elementAt(2))
-            viewModel.setAttackValuePlayer(player.jutsus.values.elementAt(2))
-            actionOfSelection()
+            incorporatesTheLogic(player.jutsus.keys.elementAt(2), player.jutsus.values.elementAt(2))
         }
 
         binding.tvJutsu4?.setOnClickListener {
 
-            viewModel.setAttackStringPlayer(player.jutsus.keys.elementAt(3))
-            viewModel.setAttackValuePlayer(player.jutsus.values.elementAt(3))
-            actionOfSelection()
+            incorporatesTheLogic(player.jutsus.keys.elementAt(3), player.jutsus.values.elementAt(3))
         }
 
 
@@ -237,5 +217,15 @@ class FightFragment : Fragment() {
 
         Handler().postDelayed({binding.ivImageDouble1Player?.visibility = View.INVISIBLE}, duration)
         Handler().postDelayed({binding.ivImageDouble2Player?.visibility = View.INVISIBLE}, duration)
+    }
+
+    private fun incorporatesTheLogic(attack: String, value: Int) {
+
+        viewModel.setAttackStringPlayer(attack)
+        viewModel.setAttackValuePlayer(value)
+        viewModel.setAttackEnemy()
+        viewModel.subtractPoints()
+        actionOfSelection()
+
     }
 }
