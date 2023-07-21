@@ -196,8 +196,8 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _attackStringPlayer
 
 
-    private val _attackEnemy = MutableLiveData<Map<String, Int>>()
-    val attackEnemy: LiveData<Map<String, Int>>
+    private val _attackEnemy = MutableLiveData<MutableMap<String, Int>>(mutableMapOf())
+    val attackEnemy: LiveData<MutableMap<String, Int>>
         get() = _attackEnemy
 
 
@@ -467,37 +467,34 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     fun setAttackEnemy() {
 
-        val jutsuList = enemy.value!!.jutsus.keys
-        val toolList = enemy.value!!.tools.keys
-        val traitsList = enemy.value!!.uniqueTraits.keys
+        val jutsuList = enemy.value!!.jutsus
+        val toolList = enemy.value!!.tools
+        val traitsList = enemy.value!!.uniqueTraits
         val defenseList = enemy.value!!.defense
 
-
-        var listOfAllAttacks = mutableListOf<String>()
+        var listOfAllAttacks = mutableMapOf<String, Int>()
 
         for (attack in jutsuList) {
-            listOfAllAttacks.plus(attack)
+            listOfAllAttacks[attack.key] = attack.value
         }
 
         for (attack in toolList) {
-            listOfAllAttacks.plus(attack)
+            listOfAllAttacks[attack.key] = attack.value
         }
 
         for (attack in traitsList) {
-            listOfAllAttacks.plus(attack)
+            listOfAllAttacks[attack.key] = attack.value
         }
 
-        listOfAllAttacks.plus(defenseList)
-
-
-
-        _attackStringEnemy.value = listOfAllAttacks.random()
-
-        for (attack in enemy.value!!.jutsus) {
-            if (attack.key == attackStringEnemy.value) {
-                //_attackEnemy.value = attack
-            }
+        for (attack in defenseList) {
+            listOfAllAttacks[attack.key] = attack.value
         }
+
+        val attackEnemy = listOfAllAttacks.entries.random()
+
+        _attackEnemy.value?.clear()
+        _attackEnemy.value?.put(attackEnemy.key, attackEnemy.value)
+        println(_attackEnemy.value)
     }
 
     fun subtractPoints() {
@@ -526,6 +523,9 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
                 _enemy.value?.chakraPoints = enemy.value!!.chakraPoints.minus(attackEnemy.value!!.values.first())
             }
         }
+
+        println(player.value!!.lifePoints)
+        println(enemy.value!!.lifePoints)
     }
 
 
