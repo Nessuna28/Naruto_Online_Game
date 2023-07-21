@@ -27,6 +27,8 @@ class HomeFragment : Fragment() {
 
         viewModel.imageTitle.value?.let { viewModel.hideImages(it) }
         viewModel.imageHome.value?.let { viewModel.hideImages(it) }
+
+        context?.let { viewModel.stopSound() }
     }
 
     override fun onCreateView(

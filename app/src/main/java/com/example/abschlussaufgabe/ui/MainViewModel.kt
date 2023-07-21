@@ -186,14 +186,24 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _enemy
 
 
-    private val _attackPlayer = MutableLiveData<String>()
-    val attackPlayer: LiveData<String>
-        get() = _attackPlayer
+    private val _attackValuePlayer = MutableLiveData<Int>()
+    val attackValuePlayer: LiveData<Int>
+        get() = _attackValuePlayer
 
 
-    private val _attackEnemy = MutableLiveData<String>()
-    val attackEnemy: LiveData<String>
+    private val _attackStringPlayer = MutableLiveData<String>()
+    val attackStringPlayer: LiveData<String>
+        get() = _attackStringPlayer
+
+
+    private val _attackEnemy = MutableLiveData<Map<String, Int>>()
+    val attackEnemy: LiveData<Map<String, Int>>
         get() = _attackEnemy
+
+
+    private val _attackStringEnemy = MutableLiveData<String>()
+    val attackStringEnemy: LiveData<String>
+        get() = _attackStringEnemy
 
 
 
@@ -445,16 +455,77 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     // setzt die ausgewählte Attacke
 
-    fun setAttackPlayer(attack: String) {
+    fun setAttackStringPlayer(attack: String) {
 
-        _attackPlayer.value = attack
+        _attackStringPlayer.value  = attack
     }
 
-    fun setAttackEnemy(attack: String) {
+    fun setAttackValuePlayer(attack: Int) {
 
-        val jutsuList = enemy.value!!.jutsus
-        val toolList = enemy.value!!.tools
+        _attackValuePlayer.value = attack
+    }
 
+    fun setAttackEnemy() {
+
+        val jutsuList = enemy.value!!.jutsus.keys
+        val toolList = enemy.value!!.tools.keys
+        val traitsList = enemy.value!!.uniqueTraits.keys
+        val defenseList = enemy.value!!.defense
+
+
+        var listOfAllAttacks = mutableListOf<String>()
+
+        for (attack in jutsuList) {
+            listOfAllAttacks.plus(attack)
+        }
+
+        for (attack in toolList) {
+            listOfAllAttacks.plus(attack)
+        }
+
+        for (attack in traitsList) {
+            listOfAllAttacks.plus(attack)
+        }
+
+        listOfAllAttacks.plus(defenseList)
+
+
+
+        _attackStringEnemy.value = listOfAllAttacks.random()
+
+        for (attack in enemy.value!!.jutsus) {
+            if (attack.key == attackStringEnemy.value) {
+                //_attackEnemy.value = attack
+            }
+        }
+    }
+
+    fun subtractPoints() {
+
+        if (attackStringPlayer.value!! != player.value!!.defense.keys.toString()) {
+            _player.value?.lifePoints = player.value!!.lifePoints.minus(attackEnemy.value!!.values.first())
+            _player.value?.chakraPoints = player.value!!.chakraPoints.minus(attackValuePlayer.value!!)
+        } else {
+            if (attackStringPlayer.value!! == "Heilung") {
+                _player.value!!.lifePoints.plus(attackValuePlayer.value!!)
+                _player.value?.chakraPoints = player.value!!.chakraPoints.minus(attackValuePlayer.value!!)
+            } else {
+                _player.value?.chakraPoints = player.value!!.chakraPoints.minus(attackValuePlayer.value!!)
+            }
+        }
+
+
+        if (attackEnemy.value!! != enemy.value!!.defense) {
+            _enemy.value?.lifePoints = enemy.value!!.lifePoints.minus(attackValuePlayer.value!!)
+            _enemy.value?.chakraPoints = enemy.value!!.chakraPoints.minus(attackEnemy.value!!.values.first())
+        } else {
+            if (attackEnemy.value!!.keys.toString() == "Heilung") {
+                _enemy.value!!.lifePoints.plus(attackEnemy.value!!.values.first())
+                _enemy.value?.chakraPoints = enemy.value!!.chakraPoints.minus(attackEnemy.value!!.values.first())
+            } else {
+                _enemy.value?.chakraPoints = enemy.value!!.chakraPoints.minus(attackEnemy.value!!.values.first())
+            }
+        }
     }
 
 
@@ -467,6 +538,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
             _result.value = "Niederlage"
         }
     }
+
 
 
     // speichert Daten des Spielers in der Datenbank

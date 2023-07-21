@@ -71,8 +71,8 @@ class FightFragment : Fragment() {
             binding.tvCharacterNamePlayer?.text = it.name
             binding.tvLifeValuePlayer?.text = it.lifePoints.toString()
             binding.tvChakraValuePlayer?.text = it.chakraPoints.toString()
-            binding.tvDefense1?.text = it.defense[0]
-            binding.tvDefense2?.text = it.defense[1]
+            binding.tvDefense1?.text = it.defense.keys.elementAt(0)
+            binding.tvDefense2?.text = it.defense.keys.elementAt(1)
             binding.tvTool1?.text = it.tools.keys.elementAt(0)
             binding.tvTool2?.text = it.tools.keys.elementAt(1)
             binding.tvUniqueTraits1?.text = it.uniqueTraits.keys.elementAt(0)
@@ -101,63 +101,71 @@ class FightFragment : Fragment() {
         // Attackenauswahl
         binding.tvDefense1?.setOnClickListener {
 
-                viewModel.setAttackPlayer(player.defense.elementAt(0))
+                viewModel.setAttackStringPlayer(player.defense.keys.elementAt(0))
+                viewModel.setAttackValuePlayer(player.defense.values.elementAt(0))
                 actionOfSelection()
         }
 
-
-
         binding.tvDefense2?.setOnClickListener {
 
-            viewModel.setAttackPlayer(player.defense.elementAt(1))
+            viewModel.setAttackStringPlayer(player.defense.keys.elementAt(1))
+            viewModel.setAttackValuePlayer(player.defense.values.elementAt(1))
             actionOfSelection()
         }
 
         binding.tvTool1?.setOnClickListener {
 
-            viewModel.setAttackPlayer(player.tools.keys.elementAt(0))
+            viewModel.setAttackStringPlayer(player.tools.keys.elementAt(0))
+            viewModel.setAttackValuePlayer(player.tools.values.elementAt(0))
             actionOfSelection()
         }
 
         binding.tvTool2?.setOnClickListener {
 
-            viewModel.setAttackPlayer(player.tools.keys.elementAt(1))
+            viewModel.setAttackStringPlayer(player.tools.keys.elementAt(1))
+            viewModel.setAttackValuePlayer(player.tools.values.elementAt(1))
             actionOfSelection()
         }
 
         binding.tvUniqueTraits1?.setOnClickListener {
 
-            viewModel.setAttackPlayer(player.uniqueTraits.keys.elementAt(0))
+            viewModel.setAttackStringPlayer(player.uniqueTraits.keys.elementAt(0))
+            viewModel.setAttackValuePlayer(player.uniqueTraits.values.elementAt(0))
             actionOfSelection()
         }
 
         binding.tvUniqueTraits2?.setOnClickListener {
 
-            viewModel.setAttackPlayer(player.uniqueTraits.keys.elementAt(1))
+            viewModel.setAttackStringPlayer(player.uniqueTraits.keys.elementAt(1))
+            viewModel.setAttackValuePlayer(player.uniqueTraits.values.elementAt(1))
             actionOfSelection()
         }
 
         binding.tvJutsu1?.setOnClickListener {
 
-            viewModel.setAttackPlayer(player.jutsus.keys.elementAt(0))
+            viewModel.setAttackStringPlayer(player.jutsus.keys.elementAt(0))
+            viewModel.setAttackValuePlayer(player.jutsus.values.elementAt(0))
             actionOfSelection()
         }
 
         binding.tvJutsu2?.setOnClickListener {
 
-            viewModel.setAttackPlayer(player.jutsus.keys.elementAt(1))
+            viewModel.setAttackStringPlayer(player.jutsus.keys.elementAt(1))
+            viewModel.setAttackValuePlayer(player.jutsus.values.elementAt(1))
             actionOfSelection()
         }
 
         binding.tvJutsu3?.setOnClickListener {
 
-            viewModel.setAttackPlayer(player.jutsus.keys.elementAt(2))
+            viewModel.setAttackStringPlayer(player.jutsus.keys.elementAt(2))
+            viewModel.setAttackValuePlayer(player.jutsus.values.elementAt(2))
             actionOfSelection()
         }
 
         binding.tvJutsu4?.setOnClickListener {
 
-            viewModel.setAttackPlayer(player.jutsus.keys.elementAt(3))
+            viewModel.setAttackStringPlayer(player.jutsus.keys.elementAt(3))
+            viewModel.setAttackValuePlayer(player.jutsus.values.elementAt(3))
             actionOfSelection()
         }
 
@@ -175,19 +183,33 @@ class FightFragment : Fragment() {
     // je nach Wahl der Attacke wird eine bestimmt Funktion aufgerufen (Änderung, Ein- oder Ausblenden eines Bildes)
     fun actionOfSelection() {
 
-        viewModel.attackPlayer.observe(viewLifecycleOwner) {
+        viewModel.attackStringPlayer.observe(viewLifecycleOwner) {
 
-            when(it) {
-                player.defense.elementAt(0) -> changeImageForDuration(2000)
-                player.defense.elementAt(1) -> changeVisibilityForDefense(3000)
-                player.tools.keys.elementAt(0) -> changeVisibilityForDuration(2000)
-                player.tools.keys.elementAt(1) -> changeVisibilityForDuration(2000)
-                player.uniqueTraits.keys.elementAt(0) -> changeVisibilityForDuration(2000)
-                player.uniqueTraits.keys.elementAt(1) -> changeVisibilityForDuration(2000)
-                player.jutsus.keys.elementAt(0) -> changeVisibilityForDuration(2000)
-                player.jutsus.keys.elementAt(1) -> changeVisibilityForDuration(2000)
-                player.jutsus.keys.elementAt(2) -> changeVisibilityForDuration(2000)
-                player.jutsus.keys.elementAt(3) -> changeVisibilityForDuration(2000)
+            if (player.uniqueTraits.size >= 2) {
+                when(it) {
+                    player.defense.keys.elementAt(0) -> changeImageForDuration(2000)
+                    player.defense.keys.elementAt(1) -> changeVisibilityForDefense(3000)
+                    player.tools.keys.elementAt(0) -> changeVisibilityForDuration(2000)
+                    player.tools.keys.elementAt(1) -> changeVisibilityForDuration(2000)
+                    player.uniqueTraits.keys.elementAt(0) -> changeVisibilityForDuration(2000)
+                    player.uniqueTraits.keys.elementAt(1) -> changeVisibilityForDuration(2000)
+                    player.jutsus.keys.elementAt(0) -> changeVisibilityForDuration(2000)
+                    player.jutsus.keys.elementAt(1) -> changeVisibilityForDuration(2000)
+                    player.jutsus.keys.elementAt(2) -> changeVisibilityForDuration(2000)
+                    player.jutsus.keys.elementAt(3) -> changeVisibilityForDuration(2000)
+                }
+            } else {
+                when(it) {
+                    player.defense.keys.elementAt(0) -> changeImageForDuration(2000)
+                    player.defense.keys.elementAt(1) -> changeVisibilityForDefense(3000)
+                    player.tools.keys.elementAt(0) -> changeVisibilityForDuration(2000)
+                    player.tools.keys.elementAt(1) -> changeVisibilityForDuration(2000)
+                    player.uniqueTraits.keys.elementAt(0) -> changeVisibilityForDuration(2000)
+                    player.jutsus.keys.elementAt(0) -> changeVisibilityForDuration(2000)
+                    player.jutsus.keys.elementAt(1) -> changeVisibilityForDuration(2000)
+                    player.jutsus.keys.elementAt(2) -> changeVisibilityForDuration(2000)
+                    player.jutsus.keys.elementAt(3) -> changeVisibilityForDuration(2000)
+                }
             }
         }
     }
