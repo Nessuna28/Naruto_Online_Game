@@ -180,7 +180,7 @@ class FightFragment : Fragment() {
             if (player.uniqueTraits.size >= 2) {
                 when(it) {
                     player.defense.keys.elementAt(0) -> changeImageForDuration(2000)
-                    player.defense.keys.elementAt(1) -> changeVisibilityForDefense(3000)
+                    player.defense.keys.elementAt(1) -> changeVisibilityForDefense(it, 3000)
                     player.tools.keys.elementAt(0) -> changeVisibilityForDuration(2000)
                     player.tools.keys.elementAt(1) -> changeVisibilityForDuration(2000)
                     player.uniqueTraits.keys.elementAt(0) -> changeVisibilityForDuration(2000)
@@ -193,7 +193,7 @@ class FightFragment : Fragment() {
             } else {
                 when(it) {
                     player.defense.keys.elementAt(0) -> changeImageForDuration(2000)
-                    player.defense.keys.elementAt(1) -> changeVisibilityForDefense(3000)
+                    player.defense.keys.elementAt(1) -> changeVisibilityForDefense(it, 3000)
                     player.tools.keys.elementAt(0) -> changeVisibilityForDuration(2000)
                     player.tools.keys.elementAt(1) -> changeVisibilityForDuration(2000)
                     player.uniqueTraits.keys.elementAt(0) -> changeVisibilityForDuration(2000)
@@ -225,12 +225,20 @@ class FightFragment : Fragment() {
         Handler().postDelayed({binding.ivImage2Player?.visibility = View.INVISIBLE}, duration)
     }
 
-    private fun changeVisibilityForDefense(duration: Long) {
-        binding.ivImageDouble1Player?.visibility = View.VISIBLE
-        binding.ivImageDouble2Player?.visibility = View.VISIBLE
+    private fun changeVisibilityForDefense(attack: String, duration: Long) {
 
-        Handler().postDelayed({binding.ivImageDouble1Player?.visibility = View.INVISIBLE}, duration)
-        Handler().postDelayed({binding.ivImageDouble2Player?.visibility = View.INVISIBLE}, duration)
+        if (attack == "Schattendoppelgänger") {
+            binding.ivImageDouble1Player?.visibility = View.VISIBLE
+            binding.ivImageDouble2Player?.visibility = View.VISIBLE
+
+            Handler().postDelayed({binding.ivImageDouble1Player?.visibility = View.INVISIBLE}, duration)
+            Handler().postDelayed({binding.ivImageDouble2Player?.visibility = View.INVISIBLE}, duration)
+        } else {
+            binding.ivImageHealPlayer?.visibility = View.VISIBLE
+
+            Handler().postDelayed({binding.ivImageHealPlayer?.visibility = View.INVISIBLE}, duration)
+        }
+
     }
 
     // fügt die einzelnen Funktionen der Logik zusammen, die nach jedem Klick auf eine Attacke ausgeführt werden

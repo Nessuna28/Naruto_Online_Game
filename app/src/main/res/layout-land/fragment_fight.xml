@@ -97,6 +97,17 @@
             app:layout_constraintTop_toTopOf="@+id/tv_lifePlayer" />
 
         <ImageView
+            android:id="@+id/iv_imageHealPlayer"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="100dp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/heal" />
+
+        <ImageView
             android:id="@+id/iv_image1Player"
             android:layout_width="100dp"
             android:layout_height="150dp"
@@ -194,6 +205,17 @@
             app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toTopOf="@+id/iv_image1Enemy"
             app:srcCompat="@drawable/naruto_attack" />
+
+        <ImageView
+            android:id="@+id/iv_imageHealEnemy"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="100dp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/heal" />
 
         <ImageView
             android:id="@+id/iv_image1Enemy"
