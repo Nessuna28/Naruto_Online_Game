@@ -156,17 +156,15 @@ class FightFragment : Fragment() {
         }
 
         viewModel.player.observe(viewLifecycleOwner) {
-            if (player.lifePoints <= 0) {
+            if (it.lifePoints <= 0) {
                 findNavController().navigate(FightFragmentDirections.actionFightFragmentToResultFragment())
                 println(player.lifePoints)
-                println(enemy.lifePoints)
             }
         }
 
         viewModel.enemy.observe(viewLifecycleOwner) {
-            if (enemy.lifePoints <= 0) {
+            if (it.lifePoints <= 0) {
                 findNavController().navigate(FightFragmentDirections.actionFightFragmentToResultFragment())
-                println(player.lifePoints)
                 println(enemy.lifePoints)
             }
         }
@@ -216,7 +214,9 @@ class FightFragment : Fragment() {
         Handler().postDelayed({ binding.ivImage1Player?.setImageResource(player.image) }, duration)
     }
 
+
     // ändert die Visibility der Views
+
     private fun changeVisibilityForDuration(duration: Long) {
         binding.ivImage1Player?.visibility = View.INVISIBLE
         binding.ivImage2Player?.visibility = View.VISIBLE
@@ -233,14 +233,13 @@ class FightFragment : Fragment() {
         Handler().postDelayed({binding.ivImageDouble2Player?.visibility = View.INVISIBLE}, duration)
     }
 
+    // fügt die einzelnen Funktionen der Logik zusammen, die nach jedem Klick auf eine Attacke ausgeführt werden
     private fun incorporatesTheLogic(attack: String, value: Int) {
 
         viewModel.setAttackStringPlayer(attack)
         viewModel.setAttackValuePlayer(value)
         viewModel.setAttackEnemy()
-        viewModel.subtractPointsPlayer()
-        viewModel.subtractPointsEnemy()
+        viewModel.subtractPoints()
         actionOfSelection()
-
     }
 }
