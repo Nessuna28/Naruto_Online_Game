@@ -7,7 +7,7 @@ class CharacterListForFight {
 
     val characterList = mutableListOf(
         CharacterForFight(
-            R.drawable.naruto, R.drawable.naruto_pose, R.drawable.naruto_face, R.drawable.naruto_attack,
+            R.drawable.naruto, R.drawable.naruto_pose, R.drawable.naruto_face, R.drawable.naruto_attack, R.drawable.naruto_sad,
     "Naruto",
         mapOf("Rasengan" to 50, "Rasenshuriken" to 70, "Jutsu des vertrauten Geistes" to 80, "Taijutsu" to 20),
         mapOf("Shuriken" to 20, "Kunai" to 15),
@@ -18,7 +18,7 @@ class CharacterListForFight {
     ),
 
     CharacterForFight(
-        R.drawable.sasuke, R.drawable.sasuke_pose, R.drawable.sasuke_face, R.drawable.sasuke_attack,
+        R.drawable.sasuke, R.drawable.sasuke_pose, R.drawable.sasuke_face, R.drawable.sasuke_attack, R.drawable.sasuke_sad,
         "Sasuke",
         mapOf("Chidori" to 50, "Feuerversteck" to 40, "Jutsu des vertrauten Geistes" to 80, "Taijutsu" to 30),
         mapOf("Shuriken" to 20, "Schwert" to 30),
@@ -29,7 +29,7 @@ class CharacterListForFight {
     ),
 
     CharacterForFight(
-        R.drawable.sakura, R.drawable.sakura_pose, R.drawable.sakura_face, R.drawable.sakura_attack,
+        R.drawable.sakura, R.drawable.sakura_pose, R.drawable.sakura_face, R.drawable.sakura_attack, R.drawable.sakura_sad,
         "Sakura",
         mapOf("große Sakura" to 20, "Kirschblütenschlag" to 50, "Kirschblütenformation" to 70, "Jutsu des vertrauten Geistes" to 80, "Taijutsu" to 15),
         mapOf("Shuriken" to 20, "Kunai" to 15),

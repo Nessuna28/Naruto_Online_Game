@@ -45,7 +45,6 @@ class ResultFragment : Fragment() {
         val character = viewModel.player.value!!
 
         binding.ivBackgroundResult?.setImageResource(viewModel.location.value!!.image)
-        binding.ivCharacterWhoWon?.setImageResource(character.imagePose)
         binding.tvCharacterName?.text = character.name
 
         binding.vvCharacterWhoWon?.setVideoPath(character.video.toString())
@@ -54,8 +53,10 @@ class ResultFragment : Fragment() {
 
         if (viewModel.result.value == "Sieg") {
             binding.ivTitleWonOrLost?.setImageResource(R.drawable.winner)
+            binding.ivCharacterWhoWon?.setImageResource(character.imagePose)
         } else {
             binding.ivTitleWonOrLost?.setImageResource(R.drawable.loser)
+            binding.ivCharacterWhoWon?.setImageResource(character.imageSad)
         }
 
         binding.tvUserName?.text = viewModel.profile.value?.userName

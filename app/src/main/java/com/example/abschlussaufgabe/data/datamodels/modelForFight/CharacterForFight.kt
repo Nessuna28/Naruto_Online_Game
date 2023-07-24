@@ -7,6 +7,7 @@ data class CharacterForFight(
     val imagePose: Int,
     val imageFace: Int,
     val imageAttack: Int,
+    val imageSad: Int,
     val name: String,
     var jutsus: Map<String, Int>,
     val tools: Map<String, Int>,
