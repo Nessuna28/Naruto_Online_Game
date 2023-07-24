@@ -25,7 +25,7 @@
             app:srcCompat="@drawable/location_arena" />
 
         <VideoView
-            android:id="@+id/vv_characterWhoWon"
+            android:id="@+id/vv_characterVideo"
             android:layout_width="500dp"
             android:layout_height="300dp"
             android:layout_marginTop="24dp"
@@ -34,14 +34,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/iv_characterWhoWon"
+            android:id="@+id/iv_characterImage"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginTop="100dp"
             android:layout_marginEnd="150dp"
             android:rotation="9"
-            app:layout_constraintEnd_toEndOf="@+id/vv_characterWhoWon"
-            app:layout_constraintTop_toTopOf="@+id/vv_characterWhoWon"
+            app:layout_constraintEnd_toEndOf="@+id/vv_characterVideo"
+            app:layout_constraintTop_toTopOf="@+id/vv_characterVideo"
             app:srcCompat="@drawable/naruto_pose" />
 
         <ImageView
@@ -81,9 +81,9 @@
             android:textStyle="bold"
             android:fontFamily="@font/akaya_telivigala"
             android:textColor="@color/primary"
-            app:layout_constraintEnd_toEndOf="@+id/iv_characterWhoWon"
-            app:layout_constraintStart_toStartOf="@+id/iv_characterWhoWon"
-            app:layout_constraintTop_toBottomOf="@+id/iv_characterWhoWon" />
+            app:layout_constraintEnd_toEndOf="@+id/iv_characterImage"
+            app:layout_constraintStart_toStartOf="@+id/iv_characterImage"
+            app:layout_constraintTop_toBottomOf="@+id/iv_characterImage" />
 
         <TextView
             android:id="@+id/tv_titleRounds"

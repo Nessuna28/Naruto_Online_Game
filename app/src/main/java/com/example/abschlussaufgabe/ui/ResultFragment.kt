@@ -47,16 +47,16 @@ class ResultFragment : Fragment() {
         binding.ivBackgroundResult?.setImageResource(viewModel.location.value!!.image)
         binding.tvCharacterName?.text = character.name
 
-        binding.vvCharacterWhoWon?.setVideoPath(character.video.toString())
-        binding.vvCharacterWhoWon?.start()
+        binding.vvCharacterVideo?.setVideoPath(character.video.toString())
+        binding.vvCharacterVideo?.start()
         context?.let { viewModel.setSound(it, character.sound) }
 
         if (viewModel.result.value == "Sieg") {
             binding.ivTitleWonOrLost?.setImageResource(R.drawable.winner)
-            binding.ivCharacterWhoWon?.setImageResource(character.imagePose)
+            binding.ivCharacterImage?.setImageResource(character.imagePose)
         } else {
             binding.ivTitleWonOrLost?.setImageResource(R.drawable.loser)
-            binding.ivCharacterWhoWon?.setImageResource(character.imageSad)
+            binding.ivCharacterImage?.setImageResource(character.imageSad)
         }
 
         binding.tvUserName?.text = viewModel.profile.value?.userName
