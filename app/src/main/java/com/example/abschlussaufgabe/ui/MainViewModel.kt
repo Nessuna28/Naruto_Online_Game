@@ -492,37 +492,30 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         _attackEnemy.value?.put(attackEnemy.key, attackEnemy.value)
     }
 
-    fun subtractPoints() {
+    fun subtractPoints(person: CharacterForFight, attack: String, attackValue: Int,
+                       otherPerson: CharacterForFight, otherPersonToChange: CharacterForFight,
+                       attackOtherPerson: String) {
 
-        val attack = attackStringPlayer.value!!
-        val value = attackValuePlayer.value!!
-        val player = player.value!!
-
-        val attackStringEnemy = attackEnemy.value!!.keys
-        val attackValueEnemy = attackEnemy.value!!.values
-        val enemy = enemy.value!!
-
-
-        if (player.chakraPoints >= value) {
-            heal(attack, value, _player.value!!)
-            if (attack != player.defense.keys.elementAt(0) &&
-                attack != player.defense.keys.elementAt(1)) {
-                if (attackStringEnemy.first() != enemy.defense.keys.elementAt(0) &&
-                    attackStringEnemy.first() != enemy.defense.keys.elementAt(1)) {
-                    _enemy.value!!.lifePoints = enemy.lifePoints.minus(value)
+        if (person.chakraPoints >= attackValue) {
+            if (attack != person.defense.keys.elementAt(0) &&
+                attack != person.defense.keys.elementAt(1)
+            ) {
+                if (attackOtherPerson != otherPerson.defense.keys.elementAt(0) &&
+                    attackOtherPerson != otherPerson.defense.keys.elementAt(1)
+                ) {
+                    otherPersonToChange.lifePoints = otherPerson.lifePoints.minus(attackValue)
                 }
             }
-            useChakra(player, attack, value, _player.value!!)
         }
-
 
         _player.value = _player.value
         _enemy.value = _enemy.value
     }
 
-    fun useChakra(person: CharacterForFight, attack: String, attackValue: Int, personToChange: CharacterForFight) {
+    fun useChakra(person: CharacterForFight, attack: String, attackValue: Int,
+                  personToChange: CharacterForFight) {
 
-        if (attack != person.tools.keys.elementAt(0) ||
+        if (attack != person.tools.keys.elementAt(0) &&
             attack != person.tools.keys.elementAt(1)
         ) {
             personToChange.chakraPoints.minus(attackValue)
@@ -536,12 +529,32 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
-    fun heal(attack: String, attackValue: Int, person: CharacterForFight) {
+    fun heal(attack: String, attackValue: Int, person: CharacterForFight,
+             personToChange: CharacterForFight) {
 
-        if (attack == "Heilung") {
-            person.lifePoints.plus(attackValue)
-            person.chakraPoints.minus(attackValue)
+        if (person.chakraPoints >= attackValue) {
+            if (attack == "Heilung") {
+                personToChange.lifePoints.plus(attackValue)
+                personToChange.chakraPoints.minus(attackValue)
+            }
         }
+    }
+
+    fun calculationOfPointsPlayer() {
+
+        subtractPoints(player.value!!, attackStringPlayer.value!!, attackValuePlayer.value!!,
+            enemy.value!!, _enemy.value!!, attackEnemy.value!!.keys.first())
+        useChakra(player.value!!, attackStringPlayer.value!!, attackValuePlayer.value!!, _player.value!!)
+        heal(attackStringPlayer.value!!, attackValuePlayer.value!!, player.value!!, _player.value!!)
+    }
+
+    fun calculationOfPointsEnemy() {
+
+        subtractPoints(enemy.value!!, attackEnemy.value!!.keys.first(), attackEnemy.value!!.values.first(),
+            player.value!!, _player.value!!, attackStringPlayer.value!!)
+        useChakra(enemy.value!!, attackEnemy.value!!.keys.first(), attackEnemy.value!!.values.first(),
+            _enemy.value!!)
+        heal(attackEnemy.value!!.keys.first(), attackEnemy.value!!.values.first(), enemy.value!!, _enemy.value!!)
     }
 
 

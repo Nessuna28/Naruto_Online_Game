@@ -40,13 +40,12 @@ class FightFragment : Fragment() {
     }
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_fight, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_fight, container, false)
         return binding.root
     }
 
@@ -99,54 +98,89 @@ class FightFragment : Fragment() {
         }
 
         // Attackenauswahl
+
+        // für den Computer wird aller 10 Sekunden eine zufällige Attacke ausgewählt
+        Handler().post(runnable)
+
+
         binding.tvDefense1?.setOnClickListener {
 
-            incorporatesTheLogic(player.defense.keys.elementAt(0), player.defense.values.elementAt(0))
+            incorporatesTheLogicForPlayer(
+                player.defense.keys.elementAt(0),
+                player.defense.values.elementAt(0)
+            )
         }
 
         binding.tvDefense2?.setOnClickListener {
 
-            incorporatesTheLogic(player.defense.keys.elementAt(1), player.defense.values.elementAt(1))
+            incorporatesTheLogicForPlayer(
+                player.defense.keys.elementAt(1),
+                player.defense.values.elementAt(1)
+            )
         }
 
         binding.tvTool1?.setOnClickListener {
 
-            incorporatesTheLogic(player.tools.keys.elementAt(0), player.tools.values.elementAt(0))
+            incorporatesTheLogicForPlayer(
+                player.tools.keys.elementAt(0),
+                player.tools.values.elementAt(0)
+            )
         }
 
         binding.tvTool2?.setOnClickListener {
 
-            incorporatesTheLogic(player.tools.keys.elementAt(1), player.tools.values.elementAt(1))
+            incorporatesTheLogicForPlayer(
+                player.tools.keys.elementAt(1),
+                player.tools.values.elementAt(1)
+            )
         }
 
         binding.tvUniqueTraits1?.setOnClickListener {
 
-            incorporatesTheLogic(player.uniqueTraits.keys.elementAt(0), player.uniqueTraits.values.elementAt(0))
+            incorporatesTheLogicForPlayer(
+                player.uniqueTraits.keys.elementAt(0),
+                player.uniqueTraits.values.elementAt(0)
+            )
         }
 
         binding.tvUniqueTraits2?.setOnClickListener {
 
-            incorporatesTheLogic(player.uniqueTraits.keys.elementAt(1), player.uniqueTraits.values.elementAt(1))
+            incorporatesTheLogicForPlayer(
+                player.uniqueTraits.keys.elementAt(1),
+                player.uniqueTraits.values.elementAt(1)
+            )
         }
 
         binding.tvJutsu1?.setOnClickListener {
 
-            incorporatesTheLogic(player.jutsus.keys.elementAt(0), player.jutsus.values.elementAt(0))
+            incorporatesTheLogicForPlayer(
+                player.jutsus.keys.elementAt(0),
+                player.jutsus.values.elementAt(0)
+            )
         }
 
         binding.tvJutsu2?.setOnClickListener {
 
-            incorporatesTheLogic(player.jutsus.keys.elementAt(1), player.jutsus.values.elementAt(1))
+            incorporatesTheLogicForPlayer(
+                player.jutsus.keys.elementAt(1),
+                player.jutsus.values.elementAt(1)
+            )
         }
 
         binding.tvJutsu3?.setOnClickListener {
 
-            incorporatesTheLogic(player.jutsus.keys.elementAt(2), player.jutsus.values.elementAt(2))
+            incorporatesTheLogicForPlayer(
+                player.jutsus.keys.elementAt(2),
+                player.jutsus.values.elementAt(2)
+            )
         }
 
         binding.tvJutsu4?.setOnClickListener {
 
-            incorporatesTheLogic(player.jutsus.keys.elementAt(3), player.jutsus.values.elementAt(3))
+            incorporatesTheLogicForPlayer(
+                player.jutsus.keys.elementAt(3),
+                player.jutsus.values.elementAt(3)
+            )
         }
 
         // Navigation
@@ -173,81 +207,227 @@ class FightFragment : Fragment() {
     // Funktionen um Änderungen am Design während der Ausführung vorzunehmen
 
     // je nach Wahl der Attacke wird eine bestimmt Funktion aufgerufen (Änderung, Ein- oder Ausblenden eines Bildes)
-    fun actionOfSelection() {
+    fun actionOfSelectionPlayer() {
 
         viewModel.attackStringPlayer.observe(viewLifecycleOwner) {
 
-            if (player.uniqueTraits.size >= 2) {
-                when(it) {
-                    player.defense.keys.elementAt(0) -> changeImageForDuration(2000)
-                    player.defense.keys.elementAt(1) -> changeVisibilityForDefense(it, 3000)
-                    player.tools.keys.elementAt(0) -> changeVisibilityForDuration(2000)
-                    player.tools.keys.elementAt(1) -> changeVisibilityForDuration(2000)
-                    player.uniqueTraits.keys.elementAt(0) -> changeVisibilityForDuration(2000)
-                    player.uniqueTraits.keys.elementAt(1) -> changeVisibilityForDuration(2000)
-                    player.jutsus.keys.elementAt(0) -> changeVisibilityForDuration(2000)
-                    player.jutsus.keys.elementAt(1) -> changeVisibilityForDuration(2000)
-                    player.jutsus.keys.elementAt(2) -> changeVisibilityForDuration(2000)
-                    player.jutsus.keys.elementAt(3) -> changeVisibilityForDuration(2000)
+            val check = true
+            val person = player
+
+            if (person.uniqueTraits.size >= 2) {
+                when (it) {
+                    person.defense.keys.elementAt(0) -> changeImageForDuration(check, 2000)
+                    person.defense.keys.elementAt(1) -> changeVisibilityForDefense(check, it, 3000)
+                    person.tools.keys.elementAt(0) -> changeVisibilityForDuration(check, 2000)
+                    person.tools.keys.elementAt(1) -> changeVisibilityForDuration(check, 2000)
+                    person.uniqueTraits.keys.elementAt(0) -> changeVisibilityForDuration(
+                        check,
+                        2000
+                    )
+
+                    person.uniqueTraits.keys.elementAt(1) -> changeVisibilityForDuration(
+                        check,
+                        2000
+                    )
+
+                    person.jutsus.keys.elementAt(0) -> changeVisibilityForDuration(check, 2000)
+                    person.jutsus.keys.elementAt(1) -> changeVisibilityForDuration(check, 2000)
+                    person.jutsus.keys.elementAt(2) -> changeVisibilityForDuration(check, 2000)
+                    person.jutsus.keys.elementAt(3) -> changeVisibilityForDuration(check, 2000)
                 }
             } else {
-                when(it) {
-                    player.defense.keys.elementAt(0) -> changeImageForDuration(2000)
-                    player.defense.keys.elementAt(1) -> changeVisibilityForDefense(it, 3000)
-                    player.tools.keys.elementAt(0) -> changeVisibilityForDuration(2000)
-                    player.tools.keys.elementAt(1) -> changeVisibilityForDuration(2000)
-                    player.uniqueTraits.keys.elementAt(0) -> changeVisibilityForDuration(2000)
-                    player.jutsus.keys.elementAt(0) -> changeVisibilityForDuration(2000)
-                    player.jutsus.keys.elementAt(1) -> changeVisibilityForDuration(2000)
-                    player.jutsus.keys.elementAt(2) -> changeVisibilityForDuration(2000)
-                    player.jutsus.keys.elementAt(3) -> changeVisibilityForDuration(2000)
+                when (it) {
+                    person.defense.keys.elementAt(0) -> changeImageForDuration(check, 2000)
+                    person.defense.keys.elementAt(1) -> changeVisibilityForDefense(check, it, 3000)
+                    person.tools.keys.elementAt(0) -> changeVisibilityForDuration(check, 2000)
+                    person.tools.keys.elementAt(1) -> changeVisibilityForDuration(check, 2000)
+                    person.uniqueTraits.keys.elementAt(0) -> changeVisibilityForDuration(
+                        check,
+                        2000
+                    )
+
+                    person.jutsus.keys.elementAt(0) -> changeVisibilityForDuration(check, 2000)
+                    person.jutsus.keys.elementAt(1) -> changeVisibilityForDuration(check, 2000)
+                    person.jutsus.keys.elementAt(2) -> changeVisibilityForDuration(check, 2000)
+                    person.jutsus.keys.elementAt(3) -> changeVisibilityForDuration(check, 2000)
+                }
+            }
+        }
+    }
+
+    fun actionOfSelectionEnemy() {
+
+        viewModel.attackEnemy.observe(viewLifecycleOwner) {
+
+            val check = false
+            val person = enemy
+
+            if (person.uniqueTraits.size >= 2) {
+                when (it.keys.first()) {
+                    person.defense.keys.elementAt(0) -> changeImageForDuration(check, 2000)
+                    person.defense.keys.elementAt(1) -> changeVisibilityForDefense(
+                        check,
+                        it.keys.first(),
+                        3000
+                    )
+
+                    person.tools.keys.elementAt(0) -> changeVisibilityForDuration(check, 2000)
+                    person.tools.keys.elementAt(1) -> changeVisibilityForDuration(check, 2000)
+                    person.uniqueTraits.keys.elementAt(0) -> changeVisibilityForDuration(
+                        check,
+                        2000
+                    )
+
+                    person.uniqueTraits.keys.elementAt(1) -> changeVisibilityForDuration(
+                        check,
+                        2000
+                    )
+
+                    person.jutsus.keys.elementAt(0) -> changeVisibilityForDuration(check, 2000)
+                    person.jutsus.keys.elementAt(1) -> changeVisibilityForDuration(check, 2000)
+                    person.jutsus.keys.elementAt(2) -> changeVisibilityForDuration(check, 2000)
+                    person.jutsus.keys.elementAt(3) -> changeVisibilityForDuration(check, 2000)
+                }
+            } else {
+                when (it.keys.first()) {
+                    person.defense.keys.elementAt(0) -> changeImageForDuration(check, 2000)
+                    person.defense.keys.elementAt(1) -> changeVisibilityForDefense(
+                        check,
+                        it.keys.first(),
+                        3000
+                    )
+
+                    person.tools.keys.elementAt(0) -> changeVisibilityForDuration(check, 2000)
+                    person.tools.keys.elementAt(1) -> changeVisibilityForDuration(check, 2000)
+                    person.uniqueTraits.keys.elementAt(0) -> changeVisibilityForDuration(
+                        check,
+                        2000
+                    )
+
+                    person.jutsus.keys.elementAt(0) -> changeVisibilityForDuration(check, 2000)
+                    person.jutsus.keys.elementAt(1) -> changeVisibilityForDuration(check, 2000)
+                    person.jutsus.keys.elementAt(2) -> changeVisibilityForDuration(check, 2000)
+                    person.jutsus.keys.elementAt(3) -> changeVisibilityForDuration(check, 2000)
                 }
             }
         }
     }
 
     // wechselt ein Bild für eine bestimmte Zeit
-    private fun changeImageForDuration(duration: Long) {
-        binding.ivImage1Player?.setImageResource(R.drawable.baumstamm)
+    private fun changeImageForDuration(check: Boolean, duration: Long) {
 
-        // Handler verwenden, um nach der angegebenen Dauer das Bild wieder zurückzusetzen
-        Handler().postDelayed({ binding.ivImage1Player?.setImageResource(player.image) }, duration)
+        if (check) {
+            binding.ivImage1Player?.setImageResource(R.drawable.baumstamm)
+
+            // Handler verwenden, um nach der angegebenen Dauer das Bild wieder zurückzusetzen
+            Handler().postDelayed(
+                { binding.ivImage1Player?.setImageResource(player.image) },
+                duration
+            )
+        } else {
+            binding.ivImage1Enemy?.setImageResource(R.drawable.baumstamm)
+
+            Handler().postDelayed(
+                { binding.ivImage1Enemy?.setImageResource(enemy.image) },
+                duration
+            )
+        }
+
     }
 
 
     // ändert die Visibility der Views
 
-    private fun changeVisibilityForDuration(duration: Long) {
-        binding.ivImage1Player?.visibility = View.INVISIBLE
-        binding.ivImage2Player?.visibility = View.VISIBLE
+    private fun changeVisibilityForDuration(check: Boolean, duration: Long) {
 
-        Handler().postDelayed({binding.ivImage1Player?.visibility = View.VISIBLE}, duration)
-        Handler().postDelayed({binding.ivImage2Player?.visibility = View.INVISIBLE}, duration)
-    }
+        if (check) {
+            binding.ivImage1Player?.visibility = View.INVISIBLE
+            binding.ivImage2Player?.visibility = View.VISIBLE
 
-    private fun changeVisibilityForDefense(attack: String, duration: Long) {
-
-        if (attack == "Schattendoppelgänger") {
-            binding.ivImageDouble1Player?.visibility = View.VISIBLE
-            binding.ivImageDouble2Player?.visibility = View.VISIBLE
-
-            Handler().postDelayed({binding.ivImageDouble1Player?.visibility = View.INVISIBLE}, duration)
-            Handler().postDelayed({binding.ivImageDouble2Player?.visibility = View.INVISIBLE}, duration)
+            Handler().postDelayed({ binding.ivImage1Player?.visibility = View.VISIBLE }, duration)
+            Handler().postDelayed({ binding.ivImage2Player?.visibility = View.INVISIBLE }, duration)
         } else {
-            binding.ivImageHealPlayer?.visibility = View.VISIBLE
+            binding.ivImage1Enemy?.visibility = View.INVISIBLE
+            binding.ivImage2Enemy?.visibility = View.VISIBLE
 
-            Handler().postDelayed({binding.ivImageHealPlayer?.visibility = View.INVISIBLE}, duration)
+            Handler().postDelayed({ binding.ivImage1Enemy?.visibility = View.VISIBLE }, duration)
+            Handler().postDelayed({ binding.ivImage2Enemy?.visibility = View.INVISIBLE }, duration)
         }
 
     }
 
+    private fun changeVisibilityForDefense(check: Boolean, attack: String, duration: Long) {
+
+        if (check) {
+            if (attack == "Schattendoppelgänger") {
+                binding.ivImageDouble1Player?.visibility = View.VISIBLE
+                binding.ivImageDouble2Player?.visibility = View.VISIBLE
+
+                Handler().postDelayed(
+                    { binding.ivImageDouble1Player?.visibility = View.INVISIBLE },
+                    duration
+                )
+                Handler().postDelayed(
+                    { binding.ivImageDouble2Player?.visibility = View.INVISIBLE },
+                    duration
+                )
+            } else {
+                binding.ivImageHealPlayer?.visibility = View.VISIBLE
+
+                Handler().postDelayed(
+                    { binding.ivImageHealPlayer?.visibility = View.INVISIBLE },
+                    duration
+                )
+            }
+        } else {
+            if (attack == "Schattendoppelgänger") {
+                binding.ivImageDouble1Enemy?.visibility = View.VISIBLE
+                binding.ivImageDouble2Enemy?.visibility = View.VISIBLE
+
+                Handler().postDelayed(
+                    { binding.ivImageDouble1Enemy?.visibility = View.INVISIBLE },
+                    duration
+                )
+                Handler().postDelayed(
+                    { binding.ivImageDouble2Enemy?.visibility = View.INVISIBLE },
+                    duration
+                )
+            } else {
+                binding.ivImageHealEnemy?.visibility = View.VISIBLE
+
+                Handler().postDelayed(
+                    { binding.ivImageHealEnemy?.visibility = View.INVISIBLE },
+                    duration
+                )
+            }
+        }
+
+
+    }
+
     // fügt die einzelnen Funktionen der Logik zusammen, die nach jedem Klick auf eine Attacke ausgeführt werden
-    private fun incorporatesTheLogic(attack: String, value: Int) {
+    private fun incorporatesTheLogicForPlayer(attack: String, value: Int) {
 
         viewModel.setAttackStringPlayer(attack)
         viewModel.setAttackValuePlayer(value)
+        viewModel.calculationOfPointsPlayer()
+        actionOfSelectionPlayer()
+    }
+
+    private fun incorporatesTheLogicForEnemy() {
+
         viewModel.setAttackEnemy()
-        viewModel.subtractPoints()
-        actionOfSelection()
+        viewModel.calculationOfPointsEnemy()
+        actionOfSelectionEnemy()
+    }
+
+    private val runnable: Runnable = object : Runnable {
+        override fun run() {
+
+            incorporatesTheLogicForEnemy()
+
+            // jede nächste Ausführung nach 10 Sekunden
+            Handler().postDelayed(this, 10000)
+        }
     }
 }
