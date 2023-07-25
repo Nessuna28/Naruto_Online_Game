@@ -2,6 +2,7 @@ package com.example.abschlussaufgabe.ui
 
 import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,10 +13,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.adapter.LocationAdapter
-import com.example.abschlussaufgabe.adapter.SelectionCharacterEnemyAdapter
-import com.example.abschlussaufgabe.adapter.SelectionCharacterPlayerAdapter
-import com.example.abschlussaufgabe.data.datamodels.modelForFight.dataLists.LocationList
-import com.example.abschlussaufgabe.databinding.FragmentCharacterSelectionBinding
 import com.example.abschlussaufgabe.databinding.FragmentLocationSelectionBinding
 
 
@@ -33,6 +30,7 @@ class LocationSelectionFragment : Fragment() {
 
         viewModel.imageBackground.value?.let { viewModel.hideImages(it) }
         viewModel.imageTitle.value?.let { viewModel.hideImages(it) }
+        binding.btnFurther?.visibility = View.INVISIBLE
     }
 
     override fun onCreateView(
@@ -62,11 +60,12 @@ class LocationSelectionFragment : Fragment() {
         }
 
         binding.btnOk?.setOnClickListener {
-            binding.btnOk!!.setBackgroundColor(R.color.green)
-            binding.btnOk!!.setTextColor(R.color.white)
+            binding.btnOk!!.setBackgroundColor(Color.GREEN)
+            binding.btnOk!!.setTextColor(Color.WHITE)
             viewModel.confirmSelectionLocation(true)
             binding.rvLocation?.isEnabled = false
-            binding.btnFurther?.isEnabled = true
+            binding.btnFurther?.setBackgroundColor(Color.rgb(255, 105, 0))
+            binding.btnFurther?.visibility = View.VISIBLE
         }
 
         binding.btnRandom?.setOnClickListener {

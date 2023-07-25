@@ -2,6 +2,7 @@ package com.example.abschlussaufgabe.ui
 
 import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -130,7 +131,7 @@ class CharacterSelectionFragment : Fragment() {
         binding.btnOkPlayer?.setOnClickListener {
             if (viewModel.player.isInitialized) {
                 binding.ivSelectionPlayer?.setImageResource(viewModel.imagePoseForPlayer.value!!)
-                it.background = green.toDrawable()
+                it.setBackgroundColor(Color.GREEN)
                 viewModel.confirmSelectionPlayer(true)
                 binding.rvCharactersPlayer?.isEnabled = false
                 binding.rvCharactersEnemy?.isEnabled = true
@@ -147,7 +148,7 @@ class CharacterSelectionFragment : Fragment() {
         binding.btnOkEnemy?.setOnClickListener {
             if (viewModel.enemy.isInitialized) {
                 binding.ivSelectionEnemy?.setImageResource(viewModel.imagePoseForEnemy.value!!)
-                it.setBackgroundColor(green)
+                it.setBackgroundColor(Color.GREEN)
                 viewModel.confirmSelectionEnemy(true)
                 binding.rvCharactersEnemy?.isEnabled = false
                 check()
@@ -183,8 +184,8 @@ class CharacterSelectionFragment : Fragment() {
     private fun check() {
 
         if (viewModel.selectionConfirmedPlayer.value == true && viewModel.selectionConfirmedEnemy.value == true) {
-            binding.btnFurther?.background = primary.toDrawable()
-            binding.btnFurther?.isEnabled = true
+            binding.btnFurther?.visibility = View.VISIBLE
+            binding.btnFurther?.setBackgroundColor(Color.rgb(255, 105, 0))
         }
     }
 
@@ -201,9 +202,8 @@ class CharacterSelectionFragment : Fragment() {
         binding.rvJutsusEnemy?.visibility = View.INVISIBLE
         binding.tvTitleTraitsEnemy?.visibility = View.INVISIBLE
         binding.rvTraitsEnemy?.visibility = View.INVISIBLE
-        binding.btnOkPlayer?.background = grey.toDrawable() // TODO: funktioniert nicht
-        binding.btnOkEnemy?.background = grey.toDrawable()
-        binding.btnFurther?.background = darkgrey.toDrawable()
-        binding.btnFurther?.isEnabled = false
+        binding.btnOkPlayer?.setBackgroundColor(Color.GRAY)
+        binding.btnOkEnemy?.setBackgroundColor(Color.GRAY)
+        binding.btnFurther?.visibility = View.INVISIBLE
     }
 }

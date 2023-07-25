@@ -410,17 +410,18 @@ class FightFragment : Fragment() {
 
         viewModel.setAttackStringPlayer(attack)
         viewModel.setAttackValuePlayer(value)
-        viewModel.calculationOfPointsPlayer()
+        //viewModel.calculationOfPointsPlayer()
         actionOfSelectionPlayer()
     }
 
     private fun incorporatesTheLogicForEnemy() {
 
         viewModel.setAttackEnemy()
-        viewModel.calculationOfPointsEnemy()
+        //viewModel.calculationOfPointsEnemy()
         actionOfSelectionEnemy()
     }
 
+    // sorgt dafür dass nach 10 Sekunden alle Funktionen für den Computer wiederholt werden
     private val runnable: Runnable = object : Runnable {
         override fun run() {
 
