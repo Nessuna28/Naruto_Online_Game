@@ -21,6 +21,8 @@ import com.example.abschlussaufgabe.data.remote.CharacterApi
 import com.google.android.material.card.MaterialCardView
 import kotlinx.coroutines.launch
 import android.content.Context
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 
 
 const val TAGVIEWMODEL = "MainViewModel"
@@ -213,6 +215,13 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     val dataList: LiveData<List<DataPlayer>>
         get() = repository.dataList
+
+
+    // für Toast-Messages
+    private val _toastMessage = MutableLiveData<String>()
+    val toastMessage: LiveData<String>
+    get() = _toastMessage
+
 
 
     // Initialisierung
@@ -505,8 +514,8 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         attackOtherPerson: String
     ) {
 
-        if (attack == person.tools.keys.elementAt(0) && attack == person.tools.keys.elementAt(1)) {
-            useChakra(person, attack, attackValue, personToChange)
+        if (attack == person.tools.keys.elementAt(0) || attack == person.tools.keys.elementAt(1)) {
+            loadChakra(person, personToChange)
             if (attackOtherPerson != otherPerson.defense.keys.elementAt(0) &&
                 attackOtherPerson != otherPerson.defense.keys.elementAt(1)
             ) {
@@ -514,7 +523,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
             }
         } else {
             if (person.chakraPoints >= attackValue) {
-                useChakra(person, attack, attackValue, personToChange)
+                personToChange.chakraPoints = person.chakraPoints.minus(attackValue)
                 if (attack != person.defense.keys.elementAt(0) &&
                     attack != person.defense.keys.elementAt(1)
                 ) {
@@ -522,9 +531,9 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
                         attackOtherPerson != otherPerson.defense.keys.elementAt(1)
                     ) {
                         otherPersonToChange.lifePoints = otherPerson.lifePoints.minus(attackValue)
-                    } else {
-                        heal(attack, attackValue, person, personToChange)
                     }
+                } else {
+                    heal(attack, attackValue, person, personToChange)
                 }
             }
         }
@@ -533,43 +542,42 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         _enemy.value = _enemy.value
     }
 
+    // läd das Chakra auf um 20 aber nicht höher als der Startwert
+    fun loadChakra(
+        person: CharacterForFight, personToChange: CharacterForFight) {
 
-    fun useChakra(
-        person: CharacterForFight, attack: String, attackValue: Int,
-        personToChange: CharacterForFight
-    ) {
-
-        if (attack != person.tools.keys.elementAt(0) &&
-            attack != person.tools.keys.elementAt(1)
-        ) {
-            personToChange.chakraPoints = person.chakraPoints.minus(attackValue)
-        } else {
             if (person.chakraPoints < 500) {
                 personToChange.chakraPoints = person.chakraPoints.plus(20)
                 if (person.chakraPoints > 500) {
                     personToChange.chakraPoints = 500
                 }
             }
-        }
 
         _player.value = _player.value
         _enemy.value = _enemy.value
     }
 
+    // läd die Lebenspunkte auf um den Wert der Attacke aber nicht über den Startwert
+    // und zieht dafür Chakra ab um den Wert der Attacke
     fun heal(
         attack: String, attackValue: Int, person: CharacterForFight,
         personToChange: CharacterForFight
     ) {
 
-        if (person.chakraPoints >= attackValue && attack == "Heilung") {
-
+        if (person.lifePoints < 500) {
                 personToChange.lifePoints = person.lifePoints.plus(attackValue)
-                personToChange.chakraPoints = person.chakraPoints.minus(attackValue)
+            if (person.lifePoints > 500) {
+                personToChange.lifePoints = 500
+            }
         }
+
+        personToChange.chakraPoints = person.chakraPoints.minus(attackValue)
 
         _player.value = _player.value
         _enemy.value = _enemy.value
     }
+
+    // hier werden die Werte zum berechnen gesetzt
 
     fun calculationOfPointsPlayer() {
 
@@ -592,6 +600,11 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         )
 
         _enemy.value = _enemy.value
+    }
+
+    // Funktion um den Toast anzuzeigen
+    fun showToast(message: String) {
+        _toastMessage.value = message
     }
 
 

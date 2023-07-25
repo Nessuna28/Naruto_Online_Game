@@ -7,9 +7,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.CharacterForFight
@@ -184,6 +186,11 @@ class FightFragment : Fragment() {
             )
         }
 
+        viewModel.toastMessage.observe(viewLifecycleOwner, Observer { message ->
+            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        })
+
+
         // Navigation
 
         binding.ivBack?.setOnClickListener {
@@ -203,15 +210,13 @@ class FightFragment : Fragment() {
                 findNavController().navigate(FightFragmentDirections.actionFightFragmentToResultFragment())
             }
         }
-
-        Handler().removeCallbacks(runnable)
     }
 
 
 
     // Funktionen um Änderungen am Design während der Ausführung vorzunehmen
-
     // je nach Wahl der Attacke wird eine bestimmt Funktion aufgerufen (Änderung, Ein- oder Ausblenden eines Bildes)
+
     fun actionOfSelectionPlayer() {
 
         viewModel.attackStringPlayer.observe(viewLifecycleOwner) {
@@ -417,6 +422,9 @@ class FightFragment : Fragment() {
         viewModel.setAttackStringPlayer(attack)
         viewModel.setAttackValuePlayer(value)
         viewModel.calculationOfPointsPlayer()
+        if (player.chakraPoints < value) {
+            viewModel.showToast("Du hast nicht genügend Chakra für diese Attacke!")
+        }
         actionOfSelectionPlayer()
     }
 
