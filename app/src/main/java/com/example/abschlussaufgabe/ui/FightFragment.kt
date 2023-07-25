@@ -192,16 +192,22 @@ class FightFragment : Fragment() {
 
         viewModel.player.observe(viewLifecycleOwner) {
             if (it.lifePoints <= 0) {
+                viewModel.setResult(false)
                 findNavController().navigate(FightFragmentDirections.actionFightFragmentToResultFragment())
             }
         }
 
         viewModel.enemy.observe(viewLifecycleOwner) {
             if (it.lifePoints <= 0) {
+                viewModel.setResult(true)
                 findNavController().navigate(FightFragmentDirections.actionFightFragmentToResultFragment())
             }
         }
+
+        Handler().removeCallbacks(runnable)
     }
+
+
 
     // Funktionen um Änderungen am Design während der Ausführung vorzunehmen
 
@@ -312,6 +318,7 @@ class FightFragment : Fragment() {
         }
     }
 
+
     // wechselt ein Bild für eine bestimmte Zeit
     private fun changeImageForDuration(check: Boolean, duration: Long) {
 
@@ -407,7 +414,6 @@ class FightFragment : Fragment() {
     // fügt die einzelnen Funktionen der Logik zusammen, die nach jedem Klick auf eine Attacke ausgeführt werden
     private fun incorporatesTheLogicForPlayer(attack: String, value: Int) {
 
-        Log.e("Fight", "Hallo")
         viewModel.setAttackStringPlayer(attack)
         viewModel.setAttackValuePlayer(value)
         viewModel.calculationOfPointsPlayer()
@@ -421,14 +427,14 @@ class FightFragment : Fragment() {
         actionOfSelectionEnemy()
     }
 
-    // sorgt dafür dass nach 8 Sekunden alle Funktionen für den Computer wiederholt werden
+    // sorgt dafür dass nach 5 Sekunden alle Funktionen für den Computer wiederholt werden
     private val runnable: Runnable = object : Runnable {
         override fun run() {
 
             incorporatesTheLogicForEnemy()
 
-            // jede nächste Ausführung nach 10 Sekunden
-            Handler().postDelayed(this, 8000)
+            // jede nächste Ausführung nach 5 Sekunden
+            Handler().postDelayed(this, 5000)
         }
     }
 }

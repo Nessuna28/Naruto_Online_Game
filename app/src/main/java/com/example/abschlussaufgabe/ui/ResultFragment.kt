@@ -42,24 +42,37 @@ class ResultFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val character = viewModel.player.value!!
-
-        binding.ivBackgroundResult?.setImageResource(viewModel.location.value!!.image)
-        binding.tvCharacterName?.text = character.name
-
-        binding.vvCharacterVideo?.setVideoPath(character.video.toString())
-        binding.vvCharacterVideo?.start()
-        context?.let { viewModel.setSound(it, character.sound) }
-
-        if (viewModel.result.value == "Sieg") {
-            binding.ivTitleWonOrLost?.setImageResource(R.drawable.winner)
-            binding.ivCharacterImage?.setImageResource(character.imagePose)
-        } else {
-            binding.ivTitleWonOrLost?.setImageResource(R.drawable.loser)
-            binding.ivCharacterImage?.setImageResource(character.imageSad)
+        viewModel.location.observe(viewLifecycleOwner) {
+            binding.ivBackgroundResult?.setImageResource(it.image)
         }
 
-        binding.tvUserName?.text = viewModel.profile.value?.userName
+        viewModel.result.observe(viewLifecycleOwner) {
+            if (it == "Sieg") {
+                binding.ivTitleWonOrLost?.setImageResource(R.drawable.winner)
+                viewModel.player.observe(viewLifecycleOwner) {
+                    binding.tvCharacterName?.text = it.name
+                    binding.ivCharacterImage?.setImageResource(it.imagePose)
+                    binding.vvCharacterVideo?.setVideoPath(it.video.toString())
+                    binding.vvCharacterVideo?.start()
+                    context?.let { it1 -> viewModel.setSound(it1, it.sound) }
+                }
+
+            } else {
+                binding.ivTitleWonOrLost?.setImageResource(R.drawable.loser)
+                viewModel.player.observe(viewLifecycleOwner) {
+                    binding.tvCharacterName?.text = it.name
+                    binding.ivCharacterImage?.setImageResource(it.imageSad)
+                    binding.vvCharacterVideo?.setVideoPath(it.video.toString())
+                    binding.vvCharacterVideo?.start()
+                    context?.let { it1 -> viewModel.setSound(it1, it.sound) }
+                }
+            }
+        }
+
+        viewModel.profile.observe(viewLifecycleOwner) {
+            binding.tvUserName?.text = viewModel.profile.value?.userName
+        }
+
         binding.tvRoundsWon?.text = viewModel.roundsWon.value.toString()
 
 

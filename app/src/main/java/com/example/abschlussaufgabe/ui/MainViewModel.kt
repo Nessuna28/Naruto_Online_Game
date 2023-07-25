@@ -510,7 +510,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
             if (attackOtherPerson != otherPerson.defense.keys.elementAt(0) &&
                 attackOtherPerson != otherPerson.defense.keys.elementAt(1)
             ) {
-                otherPersonToChange.lifePoints.minus(attackValue)
+                otherPersonToChange.lifePoints = otherPerson.lifePoints.minus(attackValue)
             }
         } else {
             if (person.chakraPoints >= attackValue) {
@@ -521,7 +521,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
                     if (attackOtherPerson != otherPerson.defense.keys.elementAt(0) &&
                         attackOtherPerson != otherPerson.defense.keys.elementAt(1)
                     ) {
-                        otherPersonToChange.lifePoints.minus(attackValue)
+                        otherPersonToChange.lifePoints = otherPerson.lifePoints.minus(attackValue)
                     } else {
                         heal(attack, attackValue, person, personToChange)
                     }
@@ -542,15 +542,18 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         if (attack != person.tools.keys.elementAt(0) &&
             attack != person.tools.keys.elementAt(1)
         ) {
-            personToChange.chakraPoints.minus(attackValue)
+            personToChange.chakraPoints = person.chakraPoints.minus(attackValue)
         } else {
             if (person.chakraPoints < 500) {
-                personToChange.chakraPoints.plus(20)
+                personToChange.chakraPoints = person.chakraPoints.plus(20)
                 if (person.chakraPoints > 500) {
                     personToChange.chakraPoints = 500
                 }
             }
         }
+
+        _player.value = _player.value
+        _enemy.value = _enemy.value
     }
 
     fun heal(
@@ -560,9 +563,12 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
         if (person.chakraPoints >= attackValue && attack == "Heilung") {
 
-                personToChange.lifePoints.plus(attackValue)
-                personToChange.chakraPoints.minus(attackValue)
+                personToChange.lifePoints = person.lifePoints.plus(attackValue)
+                personToChange.chakraPoints = person.chakraPoints.minus(attackValue)
         }
+
+        _player.value = _player.value
+        _enemy.value = _enemy.value
     }
 
     fun calculationOfPointsPlayer() {
