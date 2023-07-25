@@ -3,6 +3,7 @@ package com.example.abschlussaufgabe.ui
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,7 +29,7 @@ class FightFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
 
         context?.let { viewModel.setSound(it, R.raw.song_theme) }
 
@@ -100,7 +101,7 @@ class FightFragment : Fragment() {
         // Attackenauswahl
 
         // für den Computer wird aller 10 Sekunden eine zufällige Attacke ausgewählt
-        Handler().post(runnable)
+        Handler().postDelayed(runnable, 5000)
 
 
         binding.tvDefense1?.setOnClickListener {
@@ -192,14 +193,12 @@ class FightFragment : Fragment() {
         viewModel.player.observe(viewLifecycleOwner) {
             if (it.lifePoints <= 0) {
                 findNavController().navigate(FightFragmentDirections.actionFightFragmentToResultFragment())
-                println(player.lifePoints)
             }
         }
 
         viewModel.enemy.observe(viewLifecycleOwner) {
             if (it.lifePoints <= 0) {
                 findNavController().navigate(FightFragmentDirections.actionFightFragmentToResultFragment())
-                println(enemy.lifePoints)
             }
         }
     }
@@ -371,7 +370,7 @@ class FightFragment : Fragment() {
                     { binding.ivImageDouble2Player?.visibility = View.INVISIBLE },
                     duration
                 )
-            } else {
+            } else if (attack == "Heilung") {
                 binding.ivImageHealPlayer?.visibility = View.VISIBLE
 
                 Handler().postDelayed(
@@ -392,7 +391,7 @@ class FightFragment : Fragment() {
                     { binding.ivImageDouble2Enemy?.visibility = View.INVISIBLE },
                     duration
                 )
-            } else {
+            } else if (attack == "Heilung") {
                 binding.ivImageHealEnemy?.visibility = View.VISIBLE
 
                 Handler().postDelayed(
@@ -408,27 +407,28 @@ class FightFragment : Fragment() {
     // fügt die einzelnen Funktionen der Logik zusammen, die nach jedem Klick auf eine Attacke ausgeführt werden
     private fun incorporatesTheLogicForPlayer(attack: String, value: Int) {
 
+        Log.e("Fight", "Hallo")
         viewModel.setAttackStringPlayer(attack)
         viewModel.setAttackValuePlayer(value)
-        //viewModel.calculationOfPointsPlayer()
+        viewModel.calculationOfPointsPlayer()
         actionOfSelectionPlayer()
     }
 
     private fun incorporatesTheLogicForEnemy() {
 
         viewModel.setAttackEnemy()
-        //viewModel.calculationOfPointsEnemy()
+        viewModel.calculationOfPointsEnemy()
         actionOfSelectionEnemy()
     }
 
-    // sorgt dafür dass nach 10 Sekunden alle Funktionen für den Computer wiederholt werden
+    // sorgt dafür dass nach 8 Sekunden alle Funktionen für den Computer wiederholt werden
     private val runnable: Runnable = object : Runnable {
         override fun run() {
 
             incorporatesTheLogicForEnemy()
 
             // jede nächste Ausführung nach 10 Sekunden
-            Handler().postDelayed(this, 10000)
+            Handler().postDelayed(this, 8000)
         }
     }
 }

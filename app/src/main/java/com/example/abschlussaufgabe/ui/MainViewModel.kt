@@ -63,9 +63,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _materialCard
 
 
-
     // für die Datenbank
-
 
 
     // für die Charakterauswahl (CharacterSelectionFragment)
@@ -108,7 +106,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     private val _uniqueTraitsListForPlayer = MutableLiveData<Map<String, Int>>()
     val uniqueTraitsListForPlayer: LiveData<Map<String, Int>>
         get() = _uniqueTraitsListForPlayer
-
 
 
     private val _imageForEnemy = MutableLiveData<Int>()
@@ -173,7 +170,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _selectionConfirmLocation
 
 
-
     // für den Kampf (FightFragment)
 
     private val _player = MutableLiveData<CharacterForFight>()
@@ -201,8 +197,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _attackEnemy
 
 
-
-
     // für das Ergebnis (ResultFragment)
 
     private val _result = MutableLiveData<String>()
@@ -213,7 +207,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     private val _roundsWon = MutableLiveData<Int>()
     val roundsWon: LiveData<Int>
         get() = _roundsWon
-
 
 
     // für die Statistik
@@ -375,7 +368,12 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
         val randomCharacter = characterForFight.value?.random()
 
-        setImageForPlayer(randomCharacter!!.image, randomCharacter.imagePose, randomCharacter.imageFace, randomCharacter.imageAttack)
+        setImageForPlayer(
+            randomCharacter!!.image,
+            randomCharacter.imagePose,
+            randomCharacter.imageFace,
+            randomCharacter.imageAttack
+        )
         setCharacterNameForPlayer(randomCharacter.name)
         setJutsuForPlayer(randomCharacter.jutsus)
         setUniqueTraitForPlayer(randomCharacter.uniqueTraits)
@@ -386,7 +384,12 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
         val randomCharacter = characterForFight.value?.random()
 
-        setImageForEnemy(randomCharacter!!.image, randomCharacter.imagePose, randomCharacter.imageFace, randomCharacter.imageAttack)
+        setImageForEnemy(
+            randomCharacter!!.image,
+            randomCharacter.imagePose,
+            randomCharacter.imageFace,
+            randomCharacter.imageAttack
+        )
         setCharacterNameForEnemy(randomCharacter.name)
         setJutsuForEnemy(randomCharacter.jutsus)
         setUniqueTraitForEnemy(randomCharacter.uniqueTraits)
@@ -428,7 +431,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         mediaPlayer = MediaPlayer.create(context, sound)
 
         mediaPlayer?.setOnCompletionListener {
-           releaseMediaPlayer()
+            releaseMediaPlayer()
         }
 
         // Lautstärke erhöhen (auf 90% der vollen Lautstärke)
@@ -453,7 +456,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     fun setAttackStringPlayer(attack: String) {
 
-        _attackStringPlayer.value  = attack
+        _attackStringPlayer.value = attack
     }
 
     fun setAttackValuePlayer(attack: Int) {
@@ -461,6 +464,8 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         _attackValuePlayer.value = attack
     }
 
+    // es wird erst eine Liste aller möglichen Attacken des Charackters erstellt
+    // und aus der Liste eine zufällige Attacke ausgewählt
     fun setAttackEnemy() {
 
         val jutsuList = enemy.value!!.jutsus
@@ -492,18 +497,34 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         _attackEnemy.value?.put(attackEnemy.key, attackEnemy.value)
     }
 
-    fun subtractPoints(person: CharacterForFight, attack: String, attackValue: Int,
-                       otherPerson: CharacterForFight, otherPersonToChange: CharacterForFight,
-                       attackOtherPerson: String) {
 
-        if (person.chakraPoints >= attackValue) {
-            if (attack != person.defense.keys.elementAt(0) &&
-                attack != person.defense.keys.elementAt(1)
+    fun subtractPoints(
+        person: CharacterForFight, personToChange: CharacterForFight,
+        attack: String, attackValue: Int,
+        otherPerson: CharacterForFight, otherPersonToChange: CharacterForFight,
+        attackOtherPerson: String
+    ) {
+
+        if (attack == person.tools.keys.elementAt(0) && attack == person.tools.keys.elementAt(1)) {
+            useChakra(person, attack, attackValue, personToChange)
+            if (attackOtherPerson != otherPerson.defense.keys.elementAt(0) &&
+                attackOtherPerson != otherPerson.defense.keys.elementAt(1)
             ) {
-                if (attackOtherPerson != otherPerson.defense.keys.elementAt(0) &&
-                    attackOtherPerson != otherPerson.defense.keys.elementAt(1)
+                otherPersonToChange.lifePoints.minus(attackValue)
+            }
+        } else {
+            if (person.chakraPoints >= attackValue) {
+                useChakra(person, attack, attackValue, personToChange)
+                if (attack != person.defense.keys.elementAt(0) &&
+                    attack != person.defense.keys.elementAt(1)
                 ) {
-                    otherPersonToChange.lifePoints = otherPerson.lifePoints.minus(attackValue)
+                    if (attackOtherPerson != otherPerson.defense.keys.elementAt(0) &&
+                        attackOtherPerson != otherPerson.defense.keys.elementAt(1)
+                    ) {
+                        otherPersonToChange.lifePoints.minus(attackValue)
+                    } else {
+                        heal(attack, attackValue, person, personToChange)
+                    }
                 }
             }
         }
@@ -512,8 +533,11 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         _enemy.value = _enemy.value
     }
 
-    fun useChakra(person: CharacterForFight, attack: String, attackValue: Int,
-                  personToChange: CharacterForFight) {
+
+    fun useChakra(
+        person: CharacterForFight, attack: String, attackValue: Int,
+        personToChange: CharacterForFight
+    ) {
 
         if (attack != person.tools.keys.elementAt(0) &&
             attack != person.tools.keys.elementAt(1)
@@ -529,32 +553,39 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
-    fun heal(attack: String, attackValue: Int, person: CharacterForFight,
-             personToChange: CharacterForFight) {
+    fun heal(
+        attack: String, attackValue: Int, person: CharacterForFight,
+        personToChange: CharacterForFight
+    ) {
 
-        if (person.chakraPoints >= attackValue) {
-            if (attack == "Heilung") {
+        if (person.chakraPoints >= attackValue && attack == "Heilung") {
+
                 personToChange.lifePoints.plus(attackValue)
                 personToChange.chakraPoints.minus(attackValue)
-            }
         }
     }
 
     fun calculationOfPointsPlayer() {
 
-        subtractPoints(player.value!!, attackStringPlayer.value!!, attackValuePlayer.value!!,
-            enemy.value!!, _enemy.value!!, attackEnemy.value!!.keys.first())
-        useChakra(player.value!!, attackStringPlayer.value!!, attackValuePlayer.value!!, _player.value!!)
-        heal(attackStringPlayer.value!!, attackValuePlayer.value!!, player.value!!, _player.value!!)
+        // setzt zum rechnen erstmal eine Attacke für den Gegner
+        setAttackEnemy()
+
+        subtractPoints(
+            player.value!!, _player.value!!, attackStringPlayer.value!!, attackValuePlayer.value!!,
+            enemy.value!!, _enemy.value!!, attackEnemy.value!!.keys.first()
+        )
+
+        _player.value = _player.value
     }
 
     fun calculationOfPointsEnemy() {
 
-        subtractPoints(enemy.value!!, attackEnemy.value!!.keys.first(), attackEnemy.value!!.values.first(),
-            player.value!!, _player.value!!, attackStringPlayer.value!!)
-        useChakra(enemy.value!!, attackEnemy.value!!.keys.first(), attackEnemy.value!!.values.first(),
-            _enemy.value!!)
-        heal(attackEnemy.value!!.keys.first(), attackEnemy.value!!.values.first(), enemy.value!!, _enemy.value!!)
+        subtractPoints(
+            enemy.value!!, _enemy.value!!, attackEnemy.value!!.keys.first(), attackEnemy.value!!.values.first(),
+            player.value!!, _player.value!!, attackStringPlayer.value!!
+        )
+
+        _enemy.value = _enemy.value
     }
 
 
@@ -567,7 +598,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
             _result.value = "Niederlage"
         }
     }
-
 
 
     // speichert Daten des Spielers in der Datenbank

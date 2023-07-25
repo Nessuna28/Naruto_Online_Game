@@ -42,7 +42,7 @@ class CharacterListForFight {
         CharacterForFight(
             R.drawable.shikamaru, R.drawable.shikamaru_pose, R.drawable.shikamaru_face, R.drawable.shikamaru_attack, R.drawable.shikamaru_sad,
             "Shikamaru",
-            mapOf("Schattenfesseln" to 70, "Taijutsu" to 30, "Schattenwürg" to 85),
+            mapOf("Schattenfesseln" to 70, "Taijutsu" to 30, "Schattenwürg" to 85, "PillePalle" to 40),
             mapOf("Kunai" to 20, "Explosionskunai" to 30),
             mapOf("Strategie" to 70),
             mapOf("Jutsu des Tausches" to 20, "Schattendoppelgänger" to 35),

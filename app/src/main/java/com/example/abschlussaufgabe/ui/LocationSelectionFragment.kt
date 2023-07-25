@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -78,6 +79,7 @@ class LocationSelectionFragment : Fragment() {
 
         binding.btnFurther?.setOnClickListener {
             if (viewModel.selectionConfirmLocation.value == true) {
+                Log.e("Location", "Hallo")
                 findNavController().navigate(LocationSelectionFragmentDirections.actionLocationSelectionFragmentToFightFragment())
             } // TODO: Toast schreiben
         }
