@@ -21,6 +21,7 @@ import com.example.abschlussaufgabe.data.remote.CharacterApi
 import com.google.android.material.card.MaterialCardView
 import kotlinx.coroutines.launch
 import android.content.Context
+import android.os.Handler
 import com.example.abschlussaufgabe.R
 
 
@@ -474,8 +475,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     }
 
 
-    // setzt die ausgewählte Attacke
-
+    // setzt die im Adapter ausgewählte Attacke
     fun setAttackPlayer(attackString: String, attackValue: Int) {
 
         _attackPlayer.value?.put(attackString, attackValue)
@@ -541,7 +541,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
                         otherPersonToChange.lifePoints = otherPerson.lifePoints.minus(attackValue)
                     }
                 } else {
-                    heal(attack, attackValue, person, personToChange)
+                    heal(attackValue, person, personToChange)
                 }
             }
         }
@@ -551,8 +551,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     }
 
     // läd das Chakra auf um 20 aber nicht höher als der Startwert
-    fun loadChakra(
-        person: CharacterForFight, personToChange: CharacterForFight) {
+    fun loadChakra(person: CharacterForFight, personToChange: CharacterForFight) {
 
             if (person.chakraPoints < 500) {
                 personToChange.chakraPoints = person.chakraPoints.plus(20)
@@ -567,10 +566,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     // läd die Lebenspunkte auf um den Wert der Attacke aber nicht über den Startwert
     // und zieht dafür Chakra ab um den Wert der Attacke
-    fun heal(
-        attack: String, attackValue: Int, person: CharacterForFight,
-        personToChange: CharacterForFight
-    ) {
+    fun heal(attackValue: Int, person: CharacterForFight, personToChange: CharacterForFight) {
 
         if (person.lifePoints < 500) {
                 personToChange.lifePoints = person.lifePoints.plus(attackValue)
@@ -589,6 +585,9 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     fun calculationOfPointsPlayer() {
 
+        Log.e(TAGVIEWMODEL, "${player.value!!.lifePoints}")
+        Log.e(TAGVIEWMODEL, "${player.value!!.chakraPoints}")
+        Log.e(TAGVIEWMODEL, "${attackPlayer.value!!}")
         // setzt zum rechnen erstmal eine Attacke für den Gegner
         setAttackEnemy()
 
@@ -610,9 +609,22 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         _enemy.value = _enemy.value
     }
 
+    // sorgt dafür dass nach 5 Sekunden alle Funktionen für den Computer wiederholt werden
+    private val runnable: Runnable = object : Runnable {
+        override fun run() {
+
+            setAttackEnemy()
+
+            // jede nächste Ausführung nach 5 Sekunden
+            Handler().postDelayed(this, 5000)
+        }
+    }
+
     fun playRound() {
 
         do {
+            // für den Computer wird aller 5 Sekunden eine zufällige Attacke ausgewählt
+            Handler().postDelayed(runnable, 5000)
             calculationOfPointsPlayer()
             calculationOfPointsEnemy()
 

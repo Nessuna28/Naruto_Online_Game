@@ -83,6 +83,11 @@ class FightFragment : Fragment() {
             binding.tvLifeValuePlayer?.text = it.lifePoints.toString()
             binding.tvChakraValuePlayer?.text = it.chakraPoints.toString()
 
+            binding.rvDefensePlayer?.adapter = DefensePlayerAdapter(it.defense, viewModel)
+            binding.rvToolsPlayer?.adapter = ToolPlayerAdapter(it.tools, viewModel)
+            binding.rvUniqueTraitsPlayer?.adapter = TraitPlayerAdapter(it.uniqueTraits, viewModel)
+            binding.rvJutsuPlayer?.adapter = JutsuPlayerAdapter(it.jutsus, viewModel)
+
         }
 
         viewModel.enemy.observe(viewLifecycleOwner) {
@@ -97,23 +102,14 @@ class FightFragment : Fragment() {
         }
 
         viewModel.attackPlayer.observe(viewLifecycleOwner) {
-            binding.rvDefensePlayer?.adapter = DefensePlayerAdapter(it, viewModel)
-            binding.rvToolsPlayer?.adapter = ToolPlayerAdapter(it, viewModel)
-            binding.rvUniqueTraitsPlayer?.adapter = TraitPlayerAdapter(it, viewModel)
-            binding.rvJutsuPlayer?.adapter = JutsuPlayerAdapter(it, viewModel)
-
-            actionOfSelectionPlayer(it)
+            //actionOfSelectionPlayer(it)
         }
 
         viewModel.attackEnemy.observe(viewLifecycleOwner) {
-            actionOfSelectionEnemy(it)
+            //actionOfSelectionEnemy(it)
         }
 
-        // für den Computer wird aller 5 Sekunden eine zufällige Attacke ausgewählt
-        Handler().postDelayed(runnable, 5000)
-
-
-        viewModel.play3Rounds()
+        //viewModel.play3Rounds()
 
 
         viewModel.toastMessage.observe(viewLifecycleOwner, Observer { message ->
@@ -159,16 +155,8 @@ class FightFragment : Fragment() {
                     person.defense.keys.elementAt(1) -> changeVisibilityForDefense(check, it.keys.first(), 3000)
                     person.tools.keys.elementAt(0) -> changeVisibilityForDuration(check, 2000)
                     person.tools.keys.elementAt(1) -> changeVisibilityForDuration(check, 2000)
-                    person.uniqueTraits.keys.elementAt(0) -> changeVisibilityForDuration(
-                        check,
-                        2000
-                    )
-
-                    person.uniqueTraits.keys.elementAt(1) -> changeVisibilityForDuration(
-                        check,
-                        2000
-                    )
-
+                    person.uniqueTraits.keys.elementAt(0) -> changeVisibilityForDuration(check, 2000)
+                    person.uniqueTraits.keys.elementAt(1) -> changeVisibilityForDuration(check, 2000)
                     person.jutsus.keys.elementAt(0) -> changeVisibilityForDuration(check, 2000)
                     person.jutsus.keys.elementAt(1) -> changeVisibilityForDuration(check, 2000)
                     person.jutsus.keys.elementAt(2) -> changeVisibilityForDuration(check, 2000)
@@ -180,11 +168,7 @@ class FightFragment : Fragment() {
                     person.defense.keys.elementAt(1) -> changeVisibilityForDefense(check, it.keys.first(), 3000)
                     person.tools.keys.elementAt(0) -> changeVisibilityForDuration(check, 2000)
                     person.tools.keys.elementAt(1) -> changeVisibilityForDuration(check, 2000)
-                    person.uniqueTraits.keys.elementAt(0) -> changeVisibilityForDuration(
-                        check,
-                        2000
-                    )
-
+                    person.uniqueTraits.keys.elementAt(0) -> changeVisibilityForDuration(check, 2000)
                     person.jutsus.keys.elementAt(0) -> changeVisibilityForDuration(check, 2000)
                     person.jutsus.keys.elementAt(1) -> changeVisibilityForDuration(check, 2000)
                     person.jutsus.keys.elementAt(2) -> changeVisibilityForDuration(check, 2000)
@@ -202,13 +186,10 @@ class FightFragment : Fragment() {
                 when (it.keys.first()) {
                     person.defense.keys.elementAt(0) -> changeImageForDuration(check, 2000)
                     person.defense.keys.elementAt(1) -> changeVisibilityForDefense(check, it.keys.first(), 3000)
-
                     person.tools.keys.elementAt(0) -> changeVisibilityForDuration(check, 2000)
                     person.tools.keys.elementAt(1) -> changeVisibilityForDuration(check, 2000)
                     person.uniqueTraits.keys.elementAt(0) -> changeVisibilityForDuration(check, 2000)
-
                     person.uniqueTraits.keys.elementAt(1) -> changeVisibilityForDuration(check, 2000)
-
                     person.jutsus.keys.elementAt(0) -> changeVisibilityForDuration(check, 2000)
                     person.jutsus.keys.elementAt(1) -> changeVisibilityForDuration(check, 2000)
                     person.jutsus.keys.elementAt(2) -> changeVisibilityForDuration(check, 2000)
@@ -218,11 +199,9 @@ class FightFragment : Fragment() {
                 when (it.keys.first()) {
                     person.defense.keys.elementAt(0) -> changeImageForDuration(check, 2000)
                     person.defense.keys.elementAt(1) -> changeVisibilityForDefense(check, it.keys.first(), 3000)
-
                     person.tools.keys.elementAt(0) -> changeVisibilityForDuration(check, 2000)
                     person.tools.keys.elementAt(1) -> changeVisibilityForDuration(check, 2000)
                     person.uniqueTraits.keys.elementAt(0) -> changeVisibilityForDuration(check, 2000)
-
                     person.jutsus.keys.elementAt(0) -> changeVisibilityForDuration(check, 2000)
                     person.jutsus.keys.elementAt(1) -> changeVisibilityForDuration(check, 2000)
                     person.jutsus.keys.elementAt(2) -> changeVisibilityForDuration(check, 2000)
@@ -251,7 +230,6 @@ class FightFragment : Fragment() {
                 duration
             )
         }
-
     }
 
 
@@ -319,18 +297,6 @@ class FightFragment : Fragment() {
                     duration
                 )
             }
-        }
-    }
-
-
-    // sorgt dafür dass nach 5 Sekunden alle Funktionen für den Computer wiederholt werden
-    private val runnable: Runnable = object : Runnable {
-        override fun run() {
-
-            viewModel.setAttackEnemy()
-
-            // jede nächste Ausführung nach 5 Sekunden
-            Handler().postDelayed(this, 5000)
         }
     }
 }
