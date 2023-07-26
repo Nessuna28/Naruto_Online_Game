@@ -29,8 +29,13 @@ class DefensePlayerAdapter(private var dataset: Map<String, Int>,
 
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val defensePlayer = dataset.keys.elementAt(position)
+        val defenseString = dataset.keys.elementAt(position)
+        val defenseValue = dataset.values.elementAt(position)
 
-        holder.binding.tvDefense.text = defensePlayer
+        holder.binding.tvDefense.text = defenseString
+
+        holder.binding.tvDefense.setOnClickListener {
+            viewModel.setAttackPlayer(defenseString, defenseValue)
+        }
     }
 }

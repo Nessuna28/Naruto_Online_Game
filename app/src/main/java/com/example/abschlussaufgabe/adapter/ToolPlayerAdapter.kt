@@ -29,10 +29,13 @@ class ToolPlayerAdapter(private var dataset: Map<String, Int>,
 
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val toolPlayer = dataset.keys.elementAt(position)
+        val toolString = dataset.keys.elementAt(position)
+        val toolValue = dataset.values.elementAt(position)
 
-        holder.binding.tvTool.text = toolPlayer
+        holder.binding.tvTool.text = toolString
 
-
+        holder.binding.tvTool.setOnClickListener {
+            viewModel.setAttackPlayer(toolString, toolValue)
+        }
     }
 }

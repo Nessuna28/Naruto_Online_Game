@@ -476,14 +476,9 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     // setzt die ausgewählte Attacke
 
-    fun setAttackStringPlayer(attack: String) {
+    fun setAttackPlayer(attackString: String, attackValue: Int) {
 
-        _attackPlayer.value = attack
-    }
-
-    fun setAttackValuePlayer(attack: Int) {
-
-        _attackValuePlayer.value = attack
+        _attackPlayer.value?.put(attackString, attackValue)
     }
 
     // es wird erst eine Liste aller möglichen Attacken des Charackters erstellt
@@ -598,7 +593,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         setAttackEnemy()
 
         subtractPoints(
-            player.value!!, _player.value!!, attackPlayer.value!!, attackValuePlayer.value!!,
+            player.value!!, _player.value!!, attackPlayer.value!!.keys.first(), attackPlayer.value!!.values.first(),
             enemy.value!!, _enemy.value!!, attackEnemy.value!!.keys.first()
         )
 
@@ -609,7 +604,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
         subtractPoints(
             enemy.value!!, _enemy.value!!, attackEnemy.value!!.keys.first(), attackEnemy.value!!.values.first(),
-            player.value!!, _player.value!!, attackPlayer.value!!
+            player.value!!, _player.value!!, attackPlayer.value!!.keys.first()
         )
 
         _enemy.value = _enemy.value

@@ -28,8 +28,13 @@ class TraitPlayerAdapter(private var dataset: Map<String, Int>,
 
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val traitsPlayer = dataset.keys.elementAt(position)
+        val traitString = dataset.keys.elementAt(position)
+        val traitValue = dataset.values.elementAt(position)
 
-        holder.binding.tvTraitsPlayer.text = traitsPlayer
+        holder.binding.tvTraitsPlayer.text = traitString
+
+        holder.binding.tvTraitsPlayer.setOnClickListener {
+            viewModel.setAttackPlayer(traitString, traitValue)
+        }
     }
 }

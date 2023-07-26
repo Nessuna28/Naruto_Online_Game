@@ -29,8 +29,13 @@ class JutsuPlayerAdapter(private var dataset: Map<String, Int>,
 
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val jutsuPlayer = dataset.keys.elementAt(position)
+        val jutsuString = dataset.keys.elementAt(position)
+        val jutsuValue = dataset.values.elementAt(position)
 
-        holder.binding.tvJutsuPlayer.text = jutsuPlayer
+        holder.binding.tvJutsuPlayer.text = jutsuString
+
+        holder.binding.tvJutsuPlayer.setOnClickListener {
+            viewModel.setAttackPlayer(jutsuString, jutsuValue)
+        }
     }
 }
