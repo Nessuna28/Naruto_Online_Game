@@ -3,7 +3,6 @@ package com.example.abschlussaufgabe.ui
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +13,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.R
+import com.example.abschlussaufgabe.adapter.DefensePlayerAdapter
+import com.example.abschlussaufgabe.adapter.JutsuPlayerAdapter
+import com.example.abschlussaufgabe.adapter.ToolPlayerAdapter
+import com.example.abschlussaufgabe.adapter.TraitPlayerAdapter
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.CharacterForFight
 import com.example.abschlussaufgabe.databinding.FragmentFightBinding
 
@@ -40,6 +43,8 @@ class FightFragment : Fragment() {
 
         binding.ivImage2Player?.visibility = View.INVISIBLE
         binding.ivImage2Enemy?.visibility = View.INVISIBLE
+
+        viewModel.resetToDefaultRounds()
     }
 
 
@@ -58,11 +63,15 @@ class FightFragment : Fragment() {
         player = viewModel.player.value!!
         enemy = viewModel.enemy.value!!
 
+        viewModel.profile.observe(viewLifecycleOwner) {
+            binding.tvNamePlayer?.text = it.userName
+        }
+
+
         viewModel.location.observe(viewLifecycleOwner) {
             binding.ivBackgroundFight?.setImageResource(it.image)
         }
 
-        binding.tvNamePlayer?.text = viewModel.profile.value?.userName
 
         viewModel.player.observe(viewLifecycleOwner) {
             binding.ivCharacterImagePlayer?.setImageResource(it.imageFace)
@@ -73,20 +82,7 @@ class FightFragment : Fragment() {
             binding.tvCharacterNamePlayer?.text = it.name
             binding.tvLifeValuePlayer?.text = it.lifePoints.toString()
             binding.tvChakraValuePlayer?.text = it.chakraPoints.toString()
-            binding.tvDefense1?.text = it.defense.keys.elementAt(0)
-            binding.tvDefense2?.text = it.defense.keys.elementAt(1)
-            binding.tvTool1?.text = it.tools.keys.elementAt(0)
-            binding.tvTool2?.text = it.tools.keys.elementAt(1)
-            binding.tvUniqueTraits1?.text = it.uniqueTraits.keys.elementAt(0)
-            if (it.uniqueTraits.size >= 2) {
-                binding.tvUniqueTraits2?.text = it.uniqueTraits.keys.elementAt(1)
-            } else {
-                binding.tvUniqueTraits2?.visibility = View.GONE
-            }
-            binding.tvJutsu1?.text = it.jutsus.keys.elementAt(0)
-            binding.tvJutsu2?.text = it.jutsus.keys.elementAt(1)
-            binding.tvJutsu3?.text = it.jutsus.keys.elementAt(2)
-            binding.tvJutsu4?.text = it.jutsus.keys.elementAt(3)
+
         }
 
         viewModel.enemy.observe(viewLifecycleOwner) {
@@ -100,95 +96,27 @@ class FightFragment : Fragment() {
             binding.tvChakraValueEnemy?.text = it.chakraPoints.toString()
         }
 
-        // Attackenauswahl
-
-        // für den Computer wird aller 10 Sekunden eine zufällige Attacke ausgewählt
-        Handler().postDelayed(runnable, 5000)
-
-
-        binding.tvDefense1?.setOnClickListener {
-
-            incorporatesTheLogicForPlayer(
-                player.defense.keys.elementAt(0),
-                player.defense.values.elementAt(0)
-            )
+        viewModel.attackPlayer.observe(viewLifecycleOwner) {
+            binding.rvDefensePlayer?.adapter = DefensePlayerAdapter(it, viewModel)
+            binding.rvToolsPlayer?.adapter = ToolPlayerAdapter(it, viewModel)
+            binding.rvUniqueTraitsPlayer?.adapter = TraitPlayerAdapter(it, viewModel)
+            binding.rvJutsuPlayer?.adapter = JutsuPlayerAdapter(it, viewModel)
         }
-
-        binding.tvDefense2?.setOnClickListener {
-
-            incorporatesTheLogicForPlayer(
-                player.defense.keys.elementAt(1),
-                player.defense.values.elementAt(1)
-            )
-        }
-
-        binding.tvTool1?.setOnClickListener {
-
-            incorporatesTheLogicForPlayer(
-                player.tools.keys.elementAt(0),
-                player.tools.values.elementAt(0)
-            )
-        }
-
-        binding.tvTool2?.setOnClickListener {
-
-            incorporatesTheLogicForPlayer(
-                player.tools.keys.elementAt(1),
-                player.tools.values.elementAt(1)
-            )
-        }
-
-        binding.tvUniqueTraits1?.setOnClickListener {
-
-            incorporatesTheLogicForPlayer(
-                player.uniqueTraits.keys.elementAt(0),
-                player.uniqueTraits.values.elementAt(0)
-            )
-        }
-
-        binding.tvUniqueTraits2?.setOnClickListener {
-
-            incorporatesTheLogicForPlayer(
-                player.uniqueTraits.keys.elementAt(1),
-                player.uniqueTraits.values.elementAt(1)
-            )
-        }
-
-        binding.tvJutsu1?.setOnClickListener {
-
-            incorporatesTheLogicForPlayer(
-                player.jutsus.keys.elementAt(0),
-                player.jutsus.values.elementAt(0)
-            )
-        }
-
-        binding.tvJutsu2?.setOnClickListener {
-
-            incorporatesTheLogicForPlayer(
-                player.jutsus.keys.elementAt(1),
-                player.jutsus.values.elementAt(1)
-            )
-        }
-
-        binding.tvJutsu3?.setOnClickListener {
-
-            incorporatesTheLogicForPlayer(
-                player.jutsus.keys.elementAt(2),
-                player.jutsus.values.elementAt(2)
-            )
-        }
-
-        binding.tvJutsu4?.setOnClickListener {
-
-            incorporatesTheLogicForPlayer(
-                player.jutsus.keys.elementAt(3),
-                player.jutsus.values.elementAt(3)
-            )
-        }
+            playRound()
+            viewModel.play3Rounds()
 
         viewModel.toastMessage.observe(viewLifecycleOwner, Observer { message ->
             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
         })
+
+        viewModel.roundsWon.observe(viewLifecycleOwner) {
+            if (it >= 2) {
+                viewModel.setResult(true)
+            } else {
+                viewModel.setResult(false)
+            }
+        }
+
 
 
         // Navigation
@@ -197,16 +125,8 @@ class FightFragment : Fragment() {
             findNavController().navigate(FightFragmentDirections.actionFightFragmentToCharacterSelectionFragment())
         }
 
-        viewModel.player.observe(viewLifecycleOwner) {
-            if (it.lifePoints <= 0) {
-                viewModel.setResult(false)
-                findNavController().navigate(FightFragmentDirections.actionFightFragmentToResultFragment())
-            }
-        }
-
-        viewModel.enemy.observe(viewLifecycleOwner) {
-            if (it.lifePoints <= 0) {
-                viewModel.setResult(true)
+        viewModel.result.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
                 findNavController().navigate(FightFragmentDirections.actionFightFragmentToResultFragment())
             }
         }
@@ -219,13 +139,13 @@ class FightFragment : Fragment() {
 
     fun actionOfSelectionPlayer() {
 
-        viewModel.attackStringPlayer.observe(viewLifecycleOwner) {
+        viewModel.attackPlayer.observe(viewLifecycleOwner) {
 
             val check = true
             val person = player
 
             if (person.uniqueTraits.size >= 2) {
-                when (it) {
+                when (it.keys.first()) {
                     person.defense.keys.elementAt(0) -> changeImageForDuration(check, 2000)
                     person.defense.keys.elementAt(1) -> changeVisibilityForDefense(check, it, 3000)
                     person.tools.keys.elementAt(0) -> changeVisibilityForDuration(check, 2000)
@@ -246,7 +166,7 @@ class FightFragment : Fragment() {
                     person.jutsus.keys.elementAt(3) -> changeVisibilityForDuration(check, 2000)
                 }
             } else {
-                when (it) {
+                when (it.keys.first()) {
                     person.defense.keys.elementAt(0) -> changeImageForDuration(check, 2000)
                     person.defense.keys.elementAt(1) -> changeVisibilityForDefense(check, it, 3000)
                     person.tools.keys.elementAt(0) -> changeVisibilityForDuration(check, 2000)
@@ -412,26 +332,12 @@ class FightFragment : Fragment() {
                 )
             }
         }
-
-
     }
 
-    // fügt die einzelnen Funktionen der Logik zusammen, die nach jedem Klick auf eine Attacke ausgeführt werden
-    private fun incorporatesTheLogicForPlayer(attack: String, value: Int) {
 
-        viewModel.setAttackStringPlayer(attack)
-        viewModel.setAttackValuePlayer(value)
-        viewModel.calculationOfPointsPlayer()
-        if (player.chakraPoints < value) {
-            viewModel.showToast("Du hast nicht genügend Chakra für diese Attacke!")
-        }
-        actionOfSelectionPlayer()
-    }
-
-    private fun incorporatesTheLogicForEnemy() {
+    private fun functions() {
 
         viewModel.setAttackEnemy()
-        viewModel.calculationOfPointsEnemy()
         actionOfSelectionEnemy()
     }
 
@@ -439,10 +345,20 @@ class FightFragment : Fragment() {
     private val runnable: Runnable = object : Runnable {
         override fun run() {
 
-            incorporatesTheLogicForEnemy()
+            functions()
 
             // jede nächste Ausführung nach 5 Sekunden
             Handler().postDelayed(this, 5000)
         }
+    }
+
+    // in der Funktion wird eine Runde gespielt
+    private fun playRound() {
+
+        // Attackenauswahl
+
+        // für den Computer wird aller 10 Sekunden eine zufällige Attacke ausgewählt
+        Handler().postDelayed(runnable, 5000)
+
     }
 }

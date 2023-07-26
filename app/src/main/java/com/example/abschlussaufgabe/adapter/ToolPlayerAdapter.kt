@@ -3,22 +3,22 @@ package com.example.abschlussaufgabe.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.abschlussaufgabe.databinding.JutsuPlayerItemBinding
+import com.example.abschlussaufgabe.databinding.ToolPlayerItemBinding
 import com.example.abschlussaufgabe.ui.MainViewModel
 
 
-class JutsuPlayerAdapter(private var dataset: Map<String, Int>,
-                         private var viewModel: MainViewModel
-): RecyclerView.Adapter<JutsuPlayerAdapter.ItemViewHolder>() {
+class ToolPlayerAdapter(private var dataset: Map<String, Int>,
+                        private var viewModel: MainViewModel
+): RecyclerView.Adapter<ToolPlayerAdapter.ItemViewHolder>() {
 
 
-    inner class ItemViewHolder(val binding: JutsuPlayerItemBinding) :
+    inner class ItemViewHolder(val binding: ToolPlayerItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val binding =
-            JutsuPlayerItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ToolPlayerItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         return ItemViewHolder(binding)
     }
@@ -29,8 +29,10 @@ class JutsuPlayerAdapter(private var dataset: Map<String, Int>,
 
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val jutsuPlayer = dataset.keys.elementAt(position)
+        val toolPlayer = dataset.keys.elementAt(position)
 
-        holder.binding.tvJutsuPlayer.text = jutsuPlayer
+        holder.binding.tvTool.text = toolPlayer
+
+
     }
 }

@@ -21,8 +21,7 @@ import com.example.abschlussaufgabe.data.remote.CharacterApi
 import com.google.android.material.card.MaterialCardView
 import kotlinx.coroutines.launch
 import android.content.Context
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
+import com.example.abschlussaufgabe.R
 
 
 const val TAGVIEWMODEL = "MainViewModel"
@@ -184,14 +183,10 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _enemy
 
 
-    private val _attackValuePlayer = MutableLiveData<Int>()
-    val attackValuePlayer: LiveData<Int>
-        get() = _attackValuePlayer
 
-
-    private val _attackStringPlayer = MutableLiveData<String>()
-    val attackStringPlayer: LiveData<String>
-        get() = _attackStringPlayer
+    private val _attackPlayer = MutableLiveData<MutableMap<String, Int>>()
+    val attackPlayer: LiveData<MutableMap<String, Int>>
+        get() = _attackPlayer
 
 
     private val _attackEnemy = MutableLiveData<MutableMap<String, Int>>(mutableMapOf())
@@ -206,9 +201,14 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _result
 
 
-    private val _roundsWon = MutableLiveData<Int>()
+    private val _roundsWon = MutableLiveData<Int>(0)
     val roundsWon: LiveData<Int>
         get() = _roundsWon
+
+
+    private val _rounds = MutableLiveData<Int>(0)
+    val rounds: LiveData<Int>
+        get() = _rounds
 
 
     // für die Statistik
@@ -232,6 +232,19 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         _locationList.value = LocationList().locationList
         _location.value = locationList.value?.get(0)
         repository.dataList
+    }
+
+
+    // Profil initialisieren
+    fun setProfile() {
+
+        _profile.value = Profile("Angelique",
+            "Freier",
+            "Nessuna",
+            R.drawable.profile_picture,
+            "pummeluff@web.de",
+            "123456",
+            "13.02.1985")
     }
 
 
@@ -465,7 +478,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     fun setAttackStringPlayer(attack: String) {
 
-        _attackStringPlayer.value = attack
+        _attackPlayer.value = attack
     }
 
     fun setAttackValuePlayer(attack: Int) {
@@ -585,7 +598,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         setAttackEnemy()
 
         subtractPoints(
-            player.value!!, _player.value!!, attackStringPlayer.value!!, attackValuePlayer.value!!,
+            player.value!!, _player.value!!, attackPlayer.value!!, attackValuePlayer.value!!,
             enemy.value!!, _enemy.value!!, attackEnemy.value!!.keys.first()
         )
 
@@ -596,16 +609,53 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
         subtractPoints(
             enemy.value!!, _enemy.value!!, attackEnemy.value!!.keys.first(), attackEnemy.value!!.values.first(),
-            player.value!!, _player.value!!, attackStringPlayer.value!!
+            player.value!!, _player.value!!, attackPlayer.value!!
         )
 
         _enemy.value = _enemy.value
     }
 
-    // Funktion um den Toast anzuzeigen
-    fun showToast(message: String) {
-        _toastMessage.value = message
+    fun playRound() {
+
+        do {
+            calculationOfPointsPlayer()
+            calculationOfPointsEnemy()
+
+        } while (player.value!!.lifePoints <= 0 || enemy.value!!.lifePoints <= 0)
+
+        _rounds.value = rounds.value!!.plus(1)
+
+        if (player.value!!.lifePoints > 0) {
+            _roundsWon.value = roundsWon.value!!.plus(1)
+        }
     }
+
+    fun resetPoints() {
+
+        if (player.value!!.lifePoints <= 0) {
+            _player.value!!.lifePoints = 500
+        } else {
+            _enemy.value!!.lifePoints = 500
+        }
+
+        _player.value!!.chakraPoints = 500
+        _enemy.value!!.chakraPoints = 500
+    }
+
+    fun play3Rounds() {
+
+        while (rounds.value!! < 3) {
+            resetPoints()
+            playRound()
+        }
+    }
+
+    fun resetToDefaultRounds() {
+
+        _rounds.value = 0
+        _roundsWon.value = 0
+    }
+
 
 
     // ändert den Wert des Ergebniss (gewonnen oder Verloren)
@@ -616,6 +666,12 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         } else {
             _result.value = "Niederlage"
         }
+    }
+
+
+    // Funktion um den Toast anzuzeigen
+    fun showToast(message: String) {
+        _toastMessage.value = message
     }
 
 

@@ -3,19 +3,21 @@ package com.example.abschlussaufgabe.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.abschlussaufgabe.databinding.TraitsPlayerItemBinding
+import com.example.abschlussaufgabe.databinding.TraitPlayerItemBinding
+import com.example.abschlussaufgabe.ui.MainViewModel
 
-class TraitsPlayerAdapter(private var dataset: Map<String, Int>
-): RecyclerView.Adapter<TraitsPlayerAdapter.ItemViewHolder>() {
+class TraitPlayerAdapter(private var dataset: Map<String, Int>,
+                         private var viewModel: MainViewModel
+): RecyclerView.Adapter<TraitPlayerAdapter.ItemViewHolder>() {
 
 
-    inner class ItemViewHolder(val binding: TraitsPlayerItemBinding) :
+    inner class ItemViewHolder(val binding: TraitPlayerItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val binding =
-            TraitsPlayerItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            TraitPlayerItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         return ItemViewHolder(binding)
     }

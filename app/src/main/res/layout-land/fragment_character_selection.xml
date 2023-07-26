@@ -137,7 +137,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintStart_toStartOf="@+id/iv_selectionPlayer"
             app:layout_constraintTop_toBottomOf="@+id/tv_titleTraitsPlayer"
-            tools:listitem="@layout/traits_player_item" />
+            tools:listitem="@layout/trait_player_item" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
@@ -264,7 +264,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="@+id/iv_selectionEnemy"
             app:layout_constraintTop_toBottomOf="@+id/tv_titleTraitsEnemy"
-            tools:listitem="@layout/traits_enemy_item" />
+            tools:listitem="@layout/trait_enemy_item" />
 
         <Button
             android:id="@+id/btn_randomPlayer"

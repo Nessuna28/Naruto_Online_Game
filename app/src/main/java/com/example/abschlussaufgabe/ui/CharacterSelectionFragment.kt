@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.graphics.drawable.toDrawable
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -17,8 +16,8 @@ import com.example.abschlussaufgabe.adapter.SelectionCharacterPlayerAdapter
 import com.example.abschlussaufgabe.adapter.JutsuEnemyAdapter
 import com.example.abschlussaufgabe.adapter.JutsuPlayerAdapter
 import com.example.abschlussaufgabe.adapter.SelectionCharacterEnemyAdapter
-import com.example.abschlussaufgabe.adapter.TraitsEnemyAdapter
-import com.example.abschlussaufgabe.adapter.TraitsPlayerAdapter
+import com.example.abschlussaufgabe.adapter.TraitEnemyAdapter
+import com.example.abschlussaufgabe.adapter.TraitPlayerAdapter
 import com.example.abschlussaufgabe.databinding.FragmentCharacterSelectionBinding
 
 
@@ -27,11 +26,6 @@ class CharacterSelectionFragment : Fragment() {
     private val viewModel: MainViewModel by activityViewModels()
 
     private lateinit var binding: FragmentCharacterSelectionBinding
-
-    private val darkgrey = R.color.darkgrey
-    private val grey = R.color.grey
-    private val green = R.color.green
-    private val primary = R.color.primary
 
 
     @SuppressLint("ResourceAsColor")
@@ -93,13 +87,13 @@ class CharacterSelectionFragment : Fragment() {
         viewModel.jutsuListForPlayer.observe(viewLifecycleOwner) {
             binding.tvTitleJutsusPlayer?.visibility = View.VISIBLE
             binding.rvJutsusPlayer?.visibility = View.VISIBLE
-            binding.rvJutsusPlayer?.adapter = JutsuPlayerAdapter(it)
+            binding.rvJutsusPlayer?.adapter = JutsuPlayerAdapter(it, viewModel)
         }
 
         viewModel.uniqueTraitsListForPlayer.observe(viewLifecycleOwner) {
             binding.tvTitleTraitsPlayer?.visibility = View.VISIBLE
             binding.rvTraitsPlayer?.visibility = View.VISIBLE
-            binding.rvTraitsPlayer?.adapter = TraitsPlayerAdapter(it)
+            binding.rvTraitsPlayer?.adapter = TraitPlayerAdapter(it, viewModel)
         }
 
         viewModel.imageForEnemy.observe(viewLifecycleOwner) {
@@ -121,7 +115,7 @@ class CharacterSelectionFragment : Fragment() {
         viewModel.uniqueTraitsListForEnemy.observe(viewLifecycleOwner) {
             binding.tvTitleTraitsEnemy?.visibility = View.VISIBLE
             binding.rvTraitsEnemy?.visibility = View.VISIBLE
-            binding.rvTraitsEnemy?.adapter = TraitsEnemyAdapter(it)
+            binding.rvTraitsEnemy?.adapter = TraitEnemyAdapter(it)
         }
 
 

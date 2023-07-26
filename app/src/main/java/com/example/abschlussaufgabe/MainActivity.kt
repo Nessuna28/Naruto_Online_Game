@@ -22,7 +22,8 @@ class MainActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        //binding.ivProfilePhoto.setImageResource(viewModel.profile.value!!.image)
+        viewModel.setProfile()
+        binding.ivProfilePhoto.setImageResource(viewModel.profile.value!!.profileImage)
 
         viewModel._imageTitle.value = binding.ivTitle
         viewModel._imageHome.value = binding.ivHome
