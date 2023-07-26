@@ -190,14 +190,14 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _attackPlayer
 
 
-    private val _attackEnemy = MutableLiveData<MutableMap<String, Int>>(mutableMapOf())
+    private val _attackEnemy = MutableLiveData<MutableMap<String, Int>>()
     val attackEnemy: LiveData<MutableMap<String, Int>>
         get() = _attackEnemy
 
 
     // für das Ergebnis (ResultFragment)
 
-    private val _result = MutableLiveData<String>()
+    private val _result = MutableLiveData<String>("")
     val result: LiveData<String>
         get() = _result
 
@@ -585,11 +585,8 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     fun calculationOfPointsPlayer() {
 
-        Log.e(TAGVIEWMODEL, "${player.value!!.lifePoints}")
-        Log.e(TAGVIEWMODEL, "${player.value!!.chakraPoints}")
-        Log.e(TAGVIEWMODEL, "${attackPlayer.value!!}")
         // setzt zum rechnen erstmal eine Attacke für den Gegner
-        setAttackEnemy()
+        //setAttackEnemy()
 
         subtractPoints(
             player.value!!, _player.value!!, attackPlayer.value!!.keys.first(), attackPlayer.value!!.values.first(),
@@ -597,6 +594,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         )
 
         _player.value = _player.value
+        _enemy.value = _enemy.value
     }
 
     fun calculationOfPointsEnemy() {
@@ -607,6 +605,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         )
 
         _enemy.value = _enemy.value
+        _player.value = _player.value
     }
 
     // sorgt dafür dass nach 5 Sekunden alle Funktionen für den Computer wiederholt werden
@@ -622,19 +621,24 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     fun playRound() {
 
-        do {
-            // für den Computer wird aller 5 Sekunden eine zufällige Attacke ausgewählt
-            Handler().postDelayed(runnable, 5000)
-            calculationOfPointsPlayer()
-            calculationOfPointsEnemy()
+        if (attackPlayer.value != null) {
+            do {
+                // für den Computer wird aller 5 Sekunden eine zufällige Attacke ausgewählt
+                Handler().postDelayed(runnable, 5000)
+                calculationOfPointsEnemy()
+                calculationOfPointsPlayer()
 
-        } while (player.value!!.lifePoints <= 0 || enemy.value!!.lifePoints <= 0)
+            } while (player.value!!.lifePoints <= 0 || enemy.value!!.lifePoints <= 0)
 
-        _rounds.value = rounds.value!!.plus(1)
+            _rounds.value = rounds.value!!.plus(1)
 
-        if (player.value!!.lifePoints > 0) {
-            _roundsWon.value = roundsWon.value!!.plus(1)
+            if (player.value!!.lifePoints > 0) {
+                _roundsWon.value = roundsWon.value!!.plus(1)
+            }
         }
+
+        _enemy.value = _enemy.value
+        _player.value = _player.value
     }
 
     fun resetPoints() {

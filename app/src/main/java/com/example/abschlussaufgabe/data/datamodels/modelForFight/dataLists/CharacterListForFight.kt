@@ -13,7 +13,7 @@ class CharacterListForFight {
             R.drawable.naruto_attack,
             R.drawable.naruto_sad,
             R.raw.song_naruto,
-            R.drawable.naruto_pose,
+            R.raw.video_naruto,
     "Naruto",
         mapOf("Rasengan" to 50, "Rasenshuriken" to 70, "Jutsu des vertrauten Geistes" to 80, "Taijutsu" to 20),
         mapOf("Shuriken" to 20, "Kunai" to 15),

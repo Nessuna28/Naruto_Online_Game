@@ -102,14 +102,14 @@ class FightFragment : Fragment() {
         }
 
         viewModel.attackPlayer.observe(viewLifecycleOwner) {
-            //actionOfSelectionPlayer(it)
+            actionOfSelectionPlayer(it)
         }
 
         viewModel.attackEnemy.observe(viewLifecycleOwner) {
-            //actionOfSelectionEnemy(it)
+            actionOfSelectionEnemy(it)
         }
 
-        //viewModel.play3Rounds()
+        viewModel.playRound()
 
 
         viewModel.toastMessage.observe(viewLifecycleOwner, Observer { message ->
@@ -117,9 +117,11 @@ class FightFragment : Fragment() {
         })
 
         viewModel.roundsWon.observe(viewLifecycleOwner) {
-            if (it >= 2) {
+            if (it >= 2 && viewModel.rounds.value!! >= 2) {
                 viewModel.setResult(true)
-            } else {
+            } else if (viewModel.rounds.value!! >= 2 && it < 2){
+                viewModel.setResult(false)
+            } else if (viewModel.rounds.value!! >= 2 && it == 0) {
                 viewModel.setResult(false)
             }
         }
@@ -133,7 +135,7 @@ class FightFragment : Fragment() {
         }
 
         viewModel.result.observe(viewLifecycleOwner) {
-            if (it.isNotEmpty()) {
+            if (it != "") {
                 findNavController().navigate(FightFragmentDirections.actionFightFragmentToResultFragment())
             }
         }
