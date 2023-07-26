@@ -587,7 +587,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
         // setzt zum rechnen erstmal eine Attacke für den Gegner
         //setAttackEnemy()
-
         subtractPoints(
             player.value!!, _player.value!!, attackPlayer.value!!.keys.first(), attackPlayer.value!!.values.first(),
             enemy.value!!, _enemy.value!!, attackEnemy.value!!.keys.first()
@@ -620,6 +619,8 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     }
 
     fun playRound() {
+
+        Log.e(TAGVIEWMODEL, "${attackPlayer.value}")
 
         if (attackPlayer.value != null) {
             do {
