@@ -636,9 +636,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
                 _roundsWon.value = roundsWon.value!!.plus(1)
             }
         }
-
-        _enemy.value = _enemy.value
-        _player.value = _player.value
     }
 
     fun resetPoints() {
