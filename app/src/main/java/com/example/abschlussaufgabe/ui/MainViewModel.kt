@@ -657,11 +657,10 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     fun playRound() {
 
         if (attackPlayer.value != null && attackEnemy.value != null) {
-            do {
+            if (player.value!!.lifePoints > 0 || enemy.value!!.lifePoints > 0) {
                 calculationOfPointsPlayer()
                 calculationOfPointsEnemy()
-
-            } while (player.value!!.lifePoints <= 0 || enemy.value!!.lifePoints <= 0)
+            }
 
             _rounds.value = rounds.value!!.plus(1)
 

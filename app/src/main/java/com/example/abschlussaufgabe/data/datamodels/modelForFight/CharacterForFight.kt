@@ -11,10 +11,10 @@ data class CharacterForFight(
     val sound: Int,
     val video: Int,
     val name: String,
-    var jutsus: Map<String, Int>,
-    val tools: Map<String, Int>,
-    val uniqueTraits: Map<String, Int>,
-    val defense: Map<String, Int>,
+    var jutsus: List<Jutsu>,
+    val tools: List<Tool>,
+    val uniqueTraits: List<UniqueTrait>,
+    val defense: List<Defense>,
     var lifePoints: Int,
     var chakraPoints: Int
 )

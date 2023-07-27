@@ -102,14 +102,15 @@ class FightFragment : Fragment() {
             binding.tvChakraValueEnemy?.text = it.chakraPoints.toString()
         }
 
-        viewModel.attackPlayer.observe(viewLifecycleOwner) {player ->
-            actionOfSelectionPlayer(player)
+        viewModel.attackPlayer.observe(viewLifecycleOwner) {attackPlayer ->
+            actionOfSelectionPlayer(attackPlayer)
             Handler().postDelayed(viewModel.runnable, 5000)
-            viewModel.attackEnemy.observe(viewLifecycleOwner) {enemy ->
-                actionOfSelectionEnemy(enemy)
+            viewModel.attackEnemy.observe(viewLifecycleOwner) {attackEnemy ->
+                actionOfSelectionEnemy(attackEnemy)
                 viewModel.playRound()
             }
         }
+
 
         viewModel.toastMessage.observe(viewLifecycleOwner, Observer { message ->
             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()

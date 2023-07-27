@@ -2,6 +2,10 @@ package com.example.abschlussaufgabe.data.datamodels.modelForFight.dataLists
 
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.CharacterForFight
+import com.example.abschlussaufgabe.data.datamodels.modelForFight.Defense
+import com.example.abschlussaufgabe.data.datamodels.modelForFight.Jutsu
+import com.example.abschlussaufgabe.data.datamodels.modelForFight.Tool
+import com.example.abschlussaufgabe.data.datamodels.modelForFight.UniqueTrait
 
 class CharacterListForFight {
 
@@ -15,10 +19,10 @@ class CharacterListForFight {
             R.raw.song_naruto,
             R.raw.video_naruto,
     "Naruto",
-        mapOf("Taijutsu" to 20, "Rasengan" to 50, "Rasenshuriken" to 70, "Jutsu des vertrauten Geistes" to 80),
-        mapOf("Kunai" to 15, "Shuriken" to 20),
-        mapOf("Weisenmodus" to 80, "Kiubimodus" to 100),
-        mapOf("Jutsu des Tausches" to 20, "Schattendoppelgänger" to 35),
+        listOf(Jutsu("Taijutsu", 20, R.drawable.no_picture), Jutsu("Rasengan", 50, R.drawable.no_picture), Jutsu("Rasenshuriken", 70, R.drawable.no_picture), Jutsu("Jutsu des vertrauten Geistes", 80, R.drawable.no_picture)),
+        listOf(Tool("Kunai", 15, R.drawable.no_picture), Tool("Shuriken", 20, R.drawable.no_picture)),
+        listOf(UniqueTrait("Weisenmodus", 80, R.drawable.no_picture), UniqueTrait("Kiubimodus", 100, R.drawable.no_picture)),
+        listOf(Defense("Jutsu des Tausches", 20, R.drawable.no_picture), Defense("Schattendoppelgänger", 35, R.drawable.no_picture)),
             500, 500
     ),
 
@@ -31,10 +35,12 @@ class CharacterListForFight {
         R.raw.song_sasuke,
         R.drawable.sasuke_attack,
         "Sasuke",
-        mapOf("Taijutsu" to 30, "Feuerversteck" to 40, "Chidori" to 50, "Jutsu des vertrauten Geistes" to 80),
-        mapOf("Shuriken" to 20, "Schwert" to 30),
-        mapOf("Susanoo" to 100),
-        mapOf("Jutsu des Tausches" to 20, "Schattendoppelgänger" to 35),
+        listOf(Jutsu("Taijutsu", 30, R.drawable.no_picture), Jutsu("Feuerversteck", 40, R.drawable.no_picture), Jutsu("Chidori", 50, R.drawable.no_picture), Jutsu("Jutsu des vertrauten Geistes", 80, R.drawable.no_picture)),
+        listOf(Tool("Shuriken", 20, R.drawable.no_picture), Tool("Schwert", 30, R.drawable.no_picture)),
+        listOf(
+            UniqueTrait("Susanoo", 100, R.drawable.no_picture)),
+        listOf(
+            Defense("Jutsu des Tausches", 20, R.drawable.no_picture), Defense("Schattendoppelgänger", 35, R.drawable.no_picture)),
         500, 500
     ),
 
