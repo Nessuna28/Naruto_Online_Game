@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.R
+import com.example.abschlussaufgabe.data.datamodels.modelForFight.fightDataForDatabase.DataPlayer
 import com.example.abschlussaufgabe.databinding.FragmentResultBinding
 
 
@@ -74,6 +75,32 @@ class ResultFragment : Fragment() {
         }
 
         binding.tvRoundsWon?.text = viewModel.roundsWon.value.toString()
+
+        viewModel.countVictorysAndDefeats(viewModel.result.value!!)
+
+
+        // der Datenbank hinzufügen
+
+        val charakter = viewModel.player.value!!
+        val charakterEnemy = viewModel.enemy.value!!
+        val today = viewModel.getTodayDate()
+
+        val player = DataPlayer(1,
+            today,
+            viewModel.profile.value!!.userName,
+            charakter.name,
+            charakter.image,
+            charakter.lifePoints,
+            viewModel.result.value!!,
+            "Computer",
+            charakterEnemy.name,
+            charakterEnemy.image,
+            charakterEnemy.lifePoints,
+            viewModel.resultEnemy.value!!,
+            viewModel.victory.value!!,
+            viewModel.defeat.value!!)
+
+        viewModel.updateDatabase(player)
 
 
         // Navigation

@@ -23,6 +23,9 @@ import kotlinx.coroutines.launch
 import android.content.Context
 import android.os.Handler
 import com.example.abschlussaufgabe.R
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 
 const val TAGVIEWMODEL = "MainViewModel"
@@ -64,8 +67,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     val materialCard: LiveData<MaterialCardView>
         get() = _materialCard
 
-
-    // für die Datenbank
 
 
     // für die Charakterauswahl (CharacterSelectionFragment)
@@ -202,6 +203,11 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _result
 
 
+    private val _resultEnemy = MutableLiveData("")
+    val resultEnemy: LiveData<String>
+        get() = _resultEnemy
+
+
     private val _roundsWon = MutableLiveData<Int>(0)
     val roundsWon: LiveData<Int>
         get() = _roundsWon
@@ -212,10 +218,29 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _rounds
 
 
-    // für die Statistik
 
+    // für die Datenbank
+
+    private val _userNameEnemy = MutableLiveData<String>()
+    val userNameEnemy: LiveData<String>
+        get() = _userNameEnemy
+
+
+    private val _victory = MutableLiveData<Int>(0)
+    val victory: LiveData<Int>
+        get() = _victory
+
+
+    private val _defeat = MutableLiveData<Int>(0)
+    val defeat: LiveData<Int>
+        get() = _defeat
+
+
+
+    // für die Statistik
     val dataList: LiveData<List<DataPlayer>>
         get() = repository.dataList
+
 
 
     // für Toast-Messages
@@ -672,15 +697,48 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
         if (check) {
             _result.value = "Sieg"
+            _resultEnemy.value = "Niederlage"
         } else {
             _result.value = "Niederlage"
+            _resultEnemy.value = "Sieg"
         }
+    }
+
+
+    // zählt die Siege und Niederlagen
+    fun countVictorysAndDefeats(result: String) {
+
+        if (result == "Sieg") {
+            _victory.value?.plus(1)
+        } else {
+            _defeat.value?.plus(1)
+        }
+
+        _victory.value = _victory.value
+        _defeat.value = _defeat.value
+    }
+
+
+    // speichert den Usernamen des Gegners
+    fun setUserNameEnemy(userName: String) {
+
+        _userNameEnemy.value = userName
     }
 
 
     // Funktion um den Toast anzuzeigen
     fun showToast(message: String) {
         _toastMessage.value = message
+    }
+
+
+    // gibt das heutige Datum zurück
+    fun getTodayDate(): String {
+
+        val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+        val todayDate = Date()
+
+        return dateFormat.format(todayDate)
     }
 
 

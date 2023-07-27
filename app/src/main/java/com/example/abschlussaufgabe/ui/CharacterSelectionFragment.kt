@@ -53,7 +53,7 @@ class CharacterSelectionFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //viewModel.updateDatabase(dataPlayer)
+        viewModel.setUserNameEnemy("Computer")
     }
 
     override fun onCreateView(
@@ -68,6 +68,14 @@ class CharacterSelectionFragment : Fragment() {
     @SuppressLint("ResourceAsColor")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.profile.observe(viewLifecycleOwner) {
+            binding.tvPlayerName?.text = it.userName
+        }
+
+        viewModel.userNameEnemy.observe(viewLifecycleOwner) {
+            binding.tvEnemyName?.text = it
+        }
 
         viewModel.characterForFight.observe(viewLifecycleOwner) {
             binding.rvCharactersPlayer?.adapter = SelectionCharacterPlayerAdapter(it, viewModel)

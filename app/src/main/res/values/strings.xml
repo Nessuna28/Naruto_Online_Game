@@ -39,4 +39,6 @@
     <string name="home">Hauptmenü</string>
     <string name="selectionCharacter">zur Charakterauswahl</string>
     <string name="again">Nochmal</string>
+    <string name="titleVictorys">Siege:</string>
+    <string name="titleDefeats">Niederlagen:</string>
 </resources>

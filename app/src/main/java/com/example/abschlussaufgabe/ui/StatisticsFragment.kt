@@ -42,6 +42,14 @@ class StatisticsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.victory.observe(viewLifecycleOwner) {
+            binding.tvVictorys?.text = it.toString()
+        }
+
+        viewModel.defeat.observe(viewLifecycleOwner) {
+            binding.tvDefeats?.text = it.toString()
+        }
+
         viewModel.dataList.observe(viewLifecycleOwner) {
             binding.rvStatistic.adapter = StatisticAdapter(it)
         }

@@ -63,7 +63,7 @@ class CharacterListForFight {
             R.raw.song_shikamaru,
             R.raw.video_shikamaru,
             "Shikamaru",
-            mapOf("Taijutsu" to 30,"Schattenfesseln" to 55, "Schattenwürg" to 65, "Schattenmessen" to 70),
+            mapOf("Taijutsu" to 30,"Schattenfesseln" to 55, "Schattenwürg" to 65, "Schattenzug" to 70),
             mapOf("Kunai" to 15, "Explosionskunai" to 30),
             mapOf("Strategie" to 70),
             mapOf("Jutsu des Tausches" to 20, "Schattendoppelgänger" to 35),
