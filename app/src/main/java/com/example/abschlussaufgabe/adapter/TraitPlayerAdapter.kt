@@ -4,10 +4,11 @@ package com.example.abschlussaufgabe.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.abschlussaufgabe.data.datamodels.modelForFight.UniqueTrait
 import com.example.abschlussaufgabe.databinding.TraitPlayerItemBinding
 import com.example.abschlussaufgabe.ui.MainViewModel
 
-class TraitPlayerAdapter(private var dataset: Map<String, Int>,
+class TraitPlayerAdapter(private var dataset: List<UniqueTrait>,
                          private var viewModel: MainViewModel
 ): RecyclerView.Adapter<TraitPlayerAdapter.ItemViewHolder>() {
 
@@ -29,13 +30,12 @@ class TraitPlayerAdapter(private var dataset: Map<String, Int>,
 
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val traitString = dataset.keys.elementAt(position)
-        val traitValue = dataset.values.elementAt(position)
+        val trait = dataset[position]
 
-        holder.binding.tvTraitsPlayer.text = traitString
+        holder.binding.tvTraitsPlayer.text = trait.name
 
         holder.binding.tvTraitsPlayer.setOnClickListener {
-            viewModel.setAttackPlayer(traitString, traitValue)
+            viewModel.setAttackPlayer(trait)
         }
     }
 }

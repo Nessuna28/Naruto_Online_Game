@@ -23,6 +23,11 @@ import kotlinx.coroutines.launch
 import android.content.Context
 import android.os.Handler
 import com.example.abschlussaufgabe.R
+import com.example.abschlussaufgabe.data.datamodels.modelForFight.Attack
+import com.example.abschlussaufgabe.data.datamodels.modelForFight.Defense
+import com.example.abschlussaufgabe.data.datamodels.modelForFight.Jutsu
+import com.example.abschlussaufgabe.data.datamodels.modelForFight.Tool
+import com.example.abschlussaufgabe.data.datamodels.modelForFight.UniqueTrait
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -101,13 +106,13 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _characterNameForPlayer
 
 
-    private val _jutsuListForPlayer = MutableLiveData<Map<String, Int>>()
-    val jutsuListForPlayer: LiveData<Map<String, Int>>
+    private val _jutsuListForPlayer = MutableLiveData<List<Jutsu>>()
+    val jutsuListForPlayer: LiveData<List<Jutsu>>
         get() = _jutsuListForPlayer
 
 
-    private val _uniqueTraitsListForPlayer = MutableLiveData<Map<String, Int>>()
-    val uniqueTraitsListForPlayer: LiveData<Map<String, Int>>
+    private val _uniqueTraitsListForPlayer = MutableLiveData<List<UniqueTrait>>()
+    val uniqueTraitsListForPlayer: LiveData<List<UniqueTrait>>
         get() = _uniqueTraitsListForPlayer
 
 
@@ -136,13 +141,13 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _characterNameForEnemy
 
 
-    private val _jutsuListForEnemy = MutableLiveData<Map<String, Int>>()
-    val jutsuListForEnemy: LiveData<Map<String, Int>>
+    private val _jutsuListForEnemy = MutableLiveData<List<Jutsu>>()
+    val jutsuListForEnemy: LiveData<List<Jutsu>>
         get() = _jutsuListForEnemy
 
 
-    private val _uniqueTraitsListForEnemy = MutableLiveData<Map<String, Int>>()
-    val uniqueTraitsListForEnemy: LiveData<Map<String, Int>>
+    private val _uniqueTraitsListForEnemy = MutableLiveData<List<UniqueTrait>>()
+    val uniqueTraitsListForEnemy: LiveData<List<UniqueTrait>>
         get() = _uniqueTraitsListForEnemy
 
 
@@ -186,13 +191,13 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
 
 
-    private val _attackPlayer = MutableLiveData<MutableMap<String, Int>>()
-    val attackPlayer: LiveData<MutableMap<String, Int>>
+    private val _attackPlayer = MutableLiveData<Attack>()
+    val attackPlayer: LiveData<Attack>
         get() = _attackPlayer
 
 
-    private val _attackEnemy = MutableLiveData<MutableMap<String, Int>>()
-    val attackEnemy: LiveData<MutableMap<String, Int>>
+    private val _attackEnemy = MutableLiveData<Attack>()
+    val attackEnemy: LiveData<Attack>
         get() = _attackEnemy
 
 
@@ -357,12 +362,12 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         _characterNameForPlayer.value = characterName
     }
 
-    fun setJutsuForPlayer(jutsus: Map<String, Int>) {
+    fun setJutsuForPlayer(jutsus: List<Jutsu>) {
 
         _jutsuListForPlayer.value = jutsus
     }
 
-    fun setUniqueTraitForPlayer(uniqueTraits: Map<String, Int>) {
+    fun setUniqueTraitForPlayer(uniqueTraits: List<UniqueTrait>) {
 
         _uniqueTraitsListForPlayer.value = uniqueTraits
     }
@@ -380,12 +385,12 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         _characterNameForEnemy.value = characterName
     }
 
-    fun setJutsuForEnemy(jutsus: Map<String, Int>) {
+    fun setJutsuForEnemy(jutsus: List<Jutsu>) {
 
         _jutsuListForEnemy.value = jutsus
     }
 
-    fun setUniqueTraitForEnemy(uniqueTraits: Map<String, Int>) {
+    fun setUniqueTraitForEnemy(uniqueTraits: List<UniqueTrait>) {
 
         _uniqueTraitsListForEnemy.value = uniqueTraits
     }
@@ -505,12 +510,9 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
 
     // setzt die im Adapter ausgewählte Attacke
-    fun setAttackPlayer(attackString: String, attackValue: Int) {
+    fun setAttackPlayer(attack: Attack) {
 
-        val currentAttack = mutableMapOf<String, Int>()
-        currentAttack.put(attackString, attackValue)
-
-        _attackPlayer.value = currentAttack
+        _attackPlayer.value = attack
     }
 
     // es wird erst eine Liste aller möglichen Attacken des Charackters erstellt
@@ -522,58 +524,52 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         val traitsList = enemy.value!!.uniqueTraits
         val defenseList = enemy.value!!.defense
 
-        var listOfAllAttacks = mutableMapOf<String, Int>()
+        var listOfAllAttacks = mutableListOf<Attack>()
 
         for (attack in jutsuList) {
-            listOfAllAttacks[attack.key] = attack.value
+            listOfAllAttacks.add(attack)
         }
 
         for (attack in toolList) {
-            listOfAllAttacks[attack.key] = attack.value
+            listOfAllAttacks.add(attack)
         }
 
         for (attack in traitsList) {
-            listOfAllAttacks[attack.key] = attack.value
+            listOfAllAttacks.add(attack)
         }
 
         for (attack in defenseList) {
-            listOfAllAttacks[attack.key] = attack.value
+            listOfAllAttacks.add(attack)
         }
 
-        val currentAttackEnemy = listOfAllAttacks.entries.random()
+        val currentAttackEnemy = listOfAllAttacks.random()
 
-        _attackEnemy.value?.clear()
-        _attackEnemy.value?.put(currentAttackEnemy.key, currentAttackEnemy.value)
+        _attackEnemy.value = currentAttackEnemy
     }
 
 
     fun subtractPoints(
         person: CharacterForFight, personToChange: CharacterForFight,
-        attack: String, attackValue: Int,
+        attack: Attack,
         otherPerson: CharacterForFight, otherPersonToChange: CharacterForFight,
-        attackOtherPerson: String
+        attackOtherPerson: Attack
     ) {
 
-        if (attack == person.tools.keys.elementAt(0) || attack == person.tools.keys.elementAt(1)) {
+        if (attack == person.tools) {
             loadChakra(person, personToChange)
-            if (attackOtherPerson != otherPerson.defense.keys.elementAt(0) &&
-                attackOtherPerson != otherPerson.defense.keys.elementAt(1)
-            ) {
-                otherPersonToChange.lifePoints = otherPerson.lifePoints.minus(attackValue)
+            if (attackOtherPerson != otherPerson.defense) {
+                otherPersonToChange.lifePoints = otherPerson.lifePoints.minus(attack.value)
             }
         } else {
-            if (person.chakraPoints >= attackValue) {
-                personToChange.chakraPoints = person.chakraPoints.minus(attackValue)
-                if (attack != person.defense.keys.elementAt(0) &&
-                    attack != person.defense.keys.elementAt(1)
-                ) {
-                    if (attackOtherPerson != otherPerson.defense.keys.elementAt(0) &&
-                        attackOtherPerson != otherPerson.defense.keys.elementAt(1)
+            if (person.chakraPoints >= attack.value) {
+                personToChange.chakraPoints = person.chakraPoints.minus(attack.value)
+                if (attack != person.defense) {
+                    if (attackOtherPerson != otherPerson.defense
                     ) {
-                        otherPersonToChange.lifePoints = otherPerson.lifePoints.minus(attackValue)
+                        otherPersonToChange.lifePoints = otherPerson.lifePoints.minus(attack.value)
                     }
                 } else {
-                    heal(attackValue, person, personToChange)
+                    heal(attack.value, person, personToChange)
                 }
             }
         }
@@ -618,8 +614,8 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     fun calculationOfPointsPlayer() {
 
         subtractPoints(
-            player.value!!, _player.value!!, attackPlayer.value!!.keys.first(), attackPlayer.value!!.values.first(),
-            enemy.value!!, _enemy.value!!, attackEnemy.value!!.keys.first()
+            player.value!!, _player.value!!, attackPlayer.value!!,
+            enemy.value!!, _enemy.value!!, attackEnemy.value!!
         )
 
         _player.value = _player.value
@@ -635,8 +631,8 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         Log.e(TAGVIEWMODEL, "${attackEnemy.value}")
 
         subtractPoints(
-            enemy.value!!, _enemy.value!!, attackEnemy.value!!.keys.first(), attackEnemy.value!!.values.first(),
-            player.value!!, _player.value!!, attackPlayer.value!!.keys.first()
+            enemy.value!!, _enemy.value!!, attackEnemy.value!!,
+            player.value!!, _player.value!!, attackPlayer.value!!
         )
 
         _enemy.value = _enemy.value
@@ -656,11 +652,14 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     fun playRound() {
 
+        setAttackEnemy()
+        Handler().postDelayed(runnable, 5000)
         if (attackPlayer.value != null && attackEnemy.value != null) {
-            if (player.value!!.lifePoints > 0 || enemy.value!!.lifePoints > 0) {
+            do {
                 calculationOfPointsPlayer()
                 calculationOfPointsEnemy()
-            }
+
+            } while (player.value!!.lifePoints <= 0 || enemy.value!!.lifePoints <= 0)
 
             _rounds.value = rounds.value!!.plus(1)
 

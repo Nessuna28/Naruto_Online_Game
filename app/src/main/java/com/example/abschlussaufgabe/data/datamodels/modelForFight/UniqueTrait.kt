@@ -1,8 +1,3 @@
 package com.example.abschlussaufgabe.data.datamodels.modelForFight
 
-data class UniqueTrait(
-
-    val name: String,
-    val value: Int,
-    val image: Int
-)
+class UniqueTrait(name: String, value: Int, image: Int): Attack(name, value, image)

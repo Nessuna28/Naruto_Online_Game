@@ -3,11 +3,12 @@ package com.example.abschlussaufgabe.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.abschlussaufgabe.data.datamodels.modelForFight.Defense
 import com.example.abschlussaufgabe.databinding.DefensePlayerItemBinding
 import com.example.abschlussaufgabe.ui.MainViewModel
 
 
-class DefensePlayerAdapter(private var dataset: Map<String, Int>,
+class DefensePlayerAdapter(private var dataset: List<Defense>,
                            private var viewModel: MainViewModel
 ): RecyclerView.Adapter<DefensePlayerAdapter.ItemViewHolder>() {
 
@@ -29,13 +30,12 @@ class DefensePlayerAdapter(private var dataset: Map<String, Int>,
 
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val defenseString = dataset.keys.elementAt(position)
-        val defenseValue = dataset.values.elementAt(position)
+        val defense = dataset[position]
 
-        holder.binding.tvDefense.text = defenseString
+        holder.binding.tvDefense.text = defense.name
 
         holder.binding.tvDefense.setOnClickListener {
-            viewModel.setAttackPlayer(defenseString, defenseValue)
+            viewModel.setAttackPlayer(defense)
         }
     }
 }

@@ -3,11 +3,12 @@ package com.example.abschlussaufgabe.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.abschlussaufgabe.data.datamodels.modelForFight.Tool
 import com.example.abschlussaufgabe.databinding.ToolPlayerItemBinding
 import com.example.abschlussaufgabe.ui.MainViewModel
 
 
-class ToolPlayerAdapter(private var dataset: Map<String, Int>,
+class ToolPlayerAdapter(private var dataset: List<Tool>,
                         private var viewModel: MainViewModel
 ): RecyclerView.Adapter<ToolPlayerAdapter.ItemViewHolder>() {
 
@@ -29,13 +30,12 @@ class ToolPlayerAdapter(private var dataset: Map<String, Int>,
 
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val toolString = dataset.keys.elementAt(position)
-        val toolValue = dataset.values.elementAt(position)
+        val tool = dataset[position]
 
-        holder.binding.tvTool.text = toolString
+        holder.binding.tvTool.text = tool.name
 
         holder.binding.tvTool.setOnClickListener {
-            viewModel.setAttackPlayer(toolString, toolValue)
+            viewModel.setAttackPlayer(tool)
         }
     }
 }

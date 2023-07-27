@@ -3,11 +3,12 @@ package com.example.abschlussaufgabe.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.abschlussaufgabe.data.datamodels.modelForFight.Jutsu
 import com.example.abschlussaufgabe.databinding.JutsuPlayerItemBinding
 import com.example.abschlussaufgabe.ui.MainViewModel
 
 
-class JutsuPlayerAdapter(private var dataset: Map<String, Int>,
+class JutsuPlayerAdapter(private var dataset: List<Jutsu>,
                          private var viewModel: MainViewModel
 ): RecyclerView.Adapter<JutsuPlayerAdapter.ItemViewHolder>() {
 
@@ -29,13 +30,12 @@ class JutsuPlayerAdapter(private var dataset: Map<String, Int>,
 
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val jutsuString = dataset.keys.elementAt(position)
-        val jutsuValue = dataset.values.elementAt(position)
+        val jutsu = dataset[position]
 
-        holder.binding.tvJutsuPlayer.text = jutsuString
+        holder.binding.tvJutsuPlayer.text = jutsu.name
 
         holder.binding.tvJutsuPlayer.setOnClickListener {
-            viewModel.setAttackPlayer(jutsuString, jutsuValue)
+            viewModel.setAttackPlayer(jutsu)
         }
     }
 }

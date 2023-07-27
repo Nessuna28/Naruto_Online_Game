@@ -3,9 +3,10 @@ package com.example.abschlussaufgabe.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.abschlussaufgabe.data.datamodels.modelForFight.UniqueTrait
 import com.example.abschlussaufgabe.databinding.TraitEnemyItemBinding
 
-class TraitEnemyAdapter(private var dataset: Map<String, Int>
+class TraitEnemyAdapter(private var dataset: List<UniqueTrait>
 ): RecyclerView.Adapter<TraitEnemyAdapter.ItemViewHolder>() {
 
 
@@ -26,8 +27,8 @@ class TraitEnemyAdapter(private var dataset: Map<String, Int>
 
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val traitsEnemy = dataset.keys.elementAt(position)
+        val traitsEnemy = dataset[position]
 
-        holder.binding.tvTraitsEnemy.text = traitsEnemy
+        holder.binding.tvTraitsEnemy.text = traitsEnemy.name
     }
 }
