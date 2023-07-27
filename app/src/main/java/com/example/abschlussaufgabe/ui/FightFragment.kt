@@ -106,6 +106,9 @@ class FightFragment : Fragment() {
         viewModel.attackPlayer.observe(viewLifecycleOwner) {attackPlayer ->
             actionOfSelectionPlayer(attackPlayer)
                 viewModel.playRound()
+            viewModel.attackEnemy.observe(viewLifecycleOwner) {
+                actionOfSelectionEnemy(it)
+            }
         }
 
 

@@ -569,7 +569,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
                         otherPersonToChange.lifePoints = otherPerson.lifePoints.minus(attack.value)
                     }
                 } else {
-                    heal(attack.value, person, personToChange)
+                    heal(attack, person, personToChange)
                 }
             }
         }
@@ -594,16 +594,16 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     // läd die Lebenspunkte auf um den Wert der Attacke aber nicht über den Startwert
     // und zieht dafür Chakra ab um den Wert der Attacke
-    fun heal(attackValue: Int, person: CharacterForFight, personToChange: CharacterForFight) {
+    fun heal(attackValue: Attack, person: CharacterForFight, personToChange: CharacterForFight) {
 
         if (person.lifePoints < 500) {
-                personToChange.lifePoints = person.lifePoints.plus(attackValue)
+                personToChange.lifePoints = person.lifePoints.plus(attackValue.value)
             if (person.lifePoints > 500) {
                 personToChange.lifePoints = 500
             }
         }
 
-        personToChange.chakraPoints = person.chakraPoints.minus(attackValue)
+        personToChange.chakraPoints = person.chakraPoints.minus(attackValue.value)
 
         _player.value = _player.value
         _enemy.value = _enemy.value
@@ -655,11 +655,10 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         setAttackEnemy()
         Handler().postDelayed(runnable, 5000)
         if (attackPlayer.value != null && attackEnemy.value != null) {
-            do {
+            if (player.value!!.lifePoints > 0 || enemy.value!!.lifePoints > 0) {
                 calculationOfPointsPlayer()
                 calculationOfPointsEnemy()
-
-            } while (player.value!!.lifePoints <= 0 || enemy.value!!.lifePoints <= 0)
+            }
 
             _rounds.value = rounds.value!!.plus(1)
 
