@@ -104,6 +104,7 @@ class FightFragment : Fragment() {
 
         viewModel.attackPlayer.observe(viewLifecycleOwner) {player ->
             actionOfSelectionPlayer(player)
+            Handler().postDelayed(viewModel.runnable, 5000)
             viewModel.attackEnemy.observe(viewLifecycleOwner) {enemy ->
                 actionOfSelectionEnemy(enemy)
                 viewModel.playRound()
@@ -249,6 +250,32 @@ class FightFragment : Fragment() {
                 Handler().postDelayed(
                     { binding.ivImage2Player?.rotationX = 0F }, duration
                 )
+            } else if (attack == "Eisensand") {
+                binding.ivImage2Player?.setImageResource(R.drawable.gaara_attack2)
+                binding.ivImage2Player?.visibility = View.VISIBLE
+                binding.ivImage1Player?.visibility = View.INVISIBLE
+
+                Handler().postDelayed(
+                    { binding.ivImage2Player?.visibility = View.INVISIBLE }, duration
+                )
+                Handler().postDelayed(
+                    { binding.ivImage1Player?.visibility = View.VISIBLE }, duration
+                )
+                Handler().postDelayed(
+                    { binding.ivImage2Player?.setImageResource(player.imageAttack) }, duration
+                )
+            } else {
+                binding.ivImage1Player?.visibility = View.INVISIBLE
+                binding.ivImage2Player?.visibility = View.VISIBLE
+
+                Handler().postDelayed(
+                    { binding.ivImage1Player?.visibility = View.VISIBLE },
+                    duration
+                )
+                Handler().postDelayed(
+                    { binding.ivImage2Player?.visibility = View.INVISIBLE },
+                    duration
+                )
             }
         } else {
             if (attack == "Kunai") {
@@ -276,6 +303,32 @@ class FightFragment : Fragment() {
                 Handler().postDelayed(
                     { binding.ivImage2Enemy?.rotationX = 0F }, duration
                 )
+            } else if (attack == "Eisensand") {
+                binding.ivImage2Enemy?.setImageResource(R.drawable.gaara_attack2)
+                binding.ivImage2Enemy?.visibility = View.VISIBLE
+                binding.ivImage1Enemy?.visibility = View.INVISIBLE
+
+                Handler().postDelayed(
+                    { binding.ivImage2Enemy?.visibility = View.INVISIBLE }, duration
+                )
+                Handler().postDelayed(
+                    { binding.ivImage1Enemy?.visibility = View.VISIBLE }, duration
+                )
+                Handler().postDelayed(
+                    { binding.ivImage2Enemy?.setImageResource(enemy.imageAttack) }, duration
+                )
+            } else {
+                binding.ivImage1Enemy?.visibility = View.INVISIBLE
+                binding.ivImage2Enemy?.visibility = View.VISIBLE
+
+                Handler().postDelayed(
+                    { binding.ivImage1Enemy?.visibility = View.VISIBLE },
+                    duration
+                )
+                Handler().postDelayed(
+                    { binding.ivImage2Enemy?.visibility = View.INVISIBLE },
+                    duration
+                )
             }
         }
     }
@@ -296,14 +349,12 @@ class FightFragment : Fragment() {
             } else if (attack == "Sandschild") {
                 binding.ivImage1Player?.setImageResource(R.drawable.sandschild)
 
-                // Handler verwenden, um nach der angegebenen Dauer das Bild wieder zurückzusetzen
                 Handler().postDelayed(
                     { binding.ivImage1Player?.setImageResource(player.image) }, duration
                 )
             } else if (attack == "Jutsu des Tausches") {
                 binding.ivImage1Player?.setImageResource(R.drawable.baumstamm)
 
-                // Handler verwenden, um nach der angegebenen Dauer das Bild wieder zurückzusetzen
                 Handler().postDelayed(
                     { binding.ivImage1Player?.setImageResource(player.image) }, duration
                 )
@@ -322,7 +373,6 @@ class FightFragment : Fragment() {
             } else if (attack == "Sandschild") {
                 binding.ivImage1Enemy?.setImageResource(R.drawable.sandschild)
 
-                // Handler verwenden, um nach der angegebenen Dauer das Bild wieder zurückzusetzen
                 Handler().postDelayed(
                     { binding.ivImage1Enemy?.setImageResource(enemy.image) }, duration
                 )

@@ -128,7 +128,7 @@ class CharacterListForFight {
             R.drawable.gaara_attack,
             "Gaara",
             mapOf("Taijutsu" to 20, "Jiton" to 60, "Wüstensarg" to 80),
-            mapOf("Kunai" to 15, "Eisensand" to 40),
+            mapOf("Kunai" to 15, "Shuriken" to 20, "Eisensand" to 40),
             mapOf("Shukaku erwecken" to 100),
             mapOf("Jutsu des Tausches" to 20, "Sanddoppelgänger" to 35, "Sandschild" to 60),
             500, 500

@@ -617,9 +617,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     fun calculationOfPointsPlayer() {
 
-        // setzt zum rechnen erstmal eine Attacke für den Gegner
-        setAttackEnemy()
-
         subtractPoints(
             player.value!!, _player.value!!, attackPlayer.value!!.keys.first(), attackPlayer.value!!.values.first(),
             enemy.value!!, _enemy.value!!, attackEnemy.value!!.keys.first()
@@ -647,7 +644,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     }
 
     // sorgt dafür dass nach 5 Sekunden alle Funktionen für den Computer wiederholt werden
-    private val runnable: Runnable = object : Runnable {
+    val runnable: Runnable = object : Runnable {
         override fun run() {
 
             setAttackEnemy()
@@ -662,7 +659,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         if (attackPlayer.value != null && attackEnemy.value != null) {
             do {
                 calculationOfPointsPlayer()
-                Handler().postDelayed(runnable, 5000)
                 calculationOfPointsEnemy()
 
             } while (player.value!!.lifePoints <= 0 || enemy.value!!.lifePoints <= 0)
@@ -703,7 +699,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
 
 
-    // ändert den Wert des Ergebniss (gewonnen oder Verloren)
+    // ändert den Wert des Ergebniss (gewonnen oder verloren)
     fun setResult(check: Boolean) {
 
         if (check) {
