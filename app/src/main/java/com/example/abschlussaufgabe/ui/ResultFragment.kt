@@ -83,9 +83,10 @@ class ResultFragment : Fragment() {
 
         val charakter = viewModel.player.value!!
         val charakterEnemy = viewModel.enemy.value!!
+
         val today = viewModel.getTodayDate()
 
-        val player = DataPlayer(1,
+        val data = DataPlayer(1,
             today,
             viewModel.profile.value!!.userName,
             charakter.name,
@@ -100,7 +101,7 @@ class ResultFragment : Fragment() {
             viewModel.victory.value!!,
             viewModel.defeat.value!!)
 
-        viewModel.updateDatabase(player)
+        viewModel.updateDatabase(data)
 
 
         // Navigation

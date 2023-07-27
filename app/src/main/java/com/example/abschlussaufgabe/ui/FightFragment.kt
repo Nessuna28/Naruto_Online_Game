@@ -3,6 +3,7 @@ package com.example.abschlussaufgabe.ui
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -101,16 +102,13 @@ class FightFragment : Fragment() {
             binding.tvChakraValueEnemy?.text = it.chakraPoints.toString()
         }
 
-        viewModel.attackPlayer.observe(viewLifecycleOwner) {
-            actionOfSelectionPlayer(it)
+        viewModel.attackPlayer.observe(viewLifecycleOwner) {player ->
+            actionOfSelectionPlayer(player)
+            viewModel.attackEnemy.observe(viewLifecycleOwner) {enemy ->
+                actionOfSelectionEnemy(enemy)
+                viewModel.playRound()
+            }
         }
-
-        viewModel.attackEnemy.observe(viewLifecycleOwner) {
-            actionOfSelectionEnemy(it)
-        }
-
-        viewModel.playRound()
-
 
         viewModel.toastMessage.observe(viewLifecycleOwner, Observer { message ->
             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
@@ -119,13 +117,12 @@ class FightFragment : Fragment() {
         viewModel.roundsWon.observe(viewLifecycleOwner) {
             if (it >= 2 && viewModel.rounds.value!! >= 2) {
                 viewModel.setResult(true)
-            } else if (viewModel.rounds.value!! >= 2 && it < 2){
+            } else if (viewModel.rounds.value!! >= 2 && it < 2) {
                 viewModel.setResult(false)
             } else if (viewModel.rounds.value!! >= 2 && it == 0) {
                 viewModel.setResult(false)
             }
         }
-
 
 
         // Navigation
@@ -142,161 +139,198 @@ class FightFragment : Fragment() {
     }
 
 
-
     // Funktionen um Änderungen am Design während der Ausführung vorzunehmen
     // je nach Wahl der Attacke wird eine bestimmt Funktion aufgerufen (Änderung, Ein- oder Ausblenden eines Bildes)
 
     fun actionOfSelectionPlayer(it: MutableMap<String, Int>) {
 
-            val check = true
-            val person = player
+        val check = true
+        val person = player
 
-            if (person.uniqueTraits.size >= 2) {
-                when (it.keys.first()) {
-                    person.defense.keys.elementAt(0) -> changeImageForDuration(check, 2000)
-                    person.defense.keys.elementAt(1) -> changeVisibilityForDefense(check, it.keys.first(), 3000)
-                    person.tools.keys.elementAt(0) -> changeVisibilityForDuration(check, 2000)
-                    person.tools.keys.elementAt(1) -> changeVisibilityForDuration(check, 2000)
-                    person.uniqueTraits.keys.elementAt(0) -> changeVisibilityForDuration(check, 2000)
-                    person.uniqueTraits.keys.elementAt(1) -> changeVisibilityForDuration(check, 2000)
-                    person.jutsus.keys.elementAt(0) -> changeVisibilityForDuration(check, 2000)
-                    person.jutsus.keys.elementAt(1) -> changeVisibilityForDuration(check, 2000)
-                    person.jutsus.keys.elementAt(2) -> changeVisibilityForDuration(check, 2000)
-                    person.jutsus.keys.elementAt(3) -> changeVisibilityForDuration(check, 2000)
-                }
-            } else {
-                when (it.keys.first()) {
-                    person.defense.keys.elementAt(0) -> changeImageForDuration(check, 2000)
-                    person.defense.keys.elementAt(1) -> changeVisibilityForDefense(check, it.keys.first(), 3000)
-                    person.tools.keys.elementAt(0) -> changeVisibilityForDuration(check, 2000)
-                    person.tools.keys.elementAt(1) -> changeVisibilityForDuration(check, 2000)
-                    person.uniqueTraits.keys.elementAt(0) -> changeVisibilityForDuration(check, 2000)
-                    person.jutsus.keys.elementAt(0) -> changeVisibilityForDuration(check, 2000)
-                    person.jutsus.keys.elementAt(1) -> changeVisibilityForDuration(check, 2000)
-                    person.jutsus.keys.elementAt(2) -> changeVisibilityForDuration(check, 2000)
-                    person.jutsus.keys.elementAt(3) -> changeVisibilityForDuration(check, 2000)
-                }
-            }
+
+        when (it.keys.first()) {
+            in person.defense.keys -> changeViewsForDefense(check, it.keys.first(), 2000)
+            in person.tools.keys -> changeViewsForTools(check, it.keys.first(), 2000)
+            in person.uniqueTraits.keys -> changeViewsForAttack(check, it.keys.first(), 2000)
+            in person.jutsus.keys -> changeViewsForAttack(check, it.keys.first(), 2000)
+        }
     }
 
     fun actionOfSelectionEnemy(it: MutableMap<String, Int>) {
 
-            val check = false
-            val person = enemy
-
-            if (person.uniqueTraits.size >= 2) {
-                when (it.keys.first()) {
-                    person.defense.keys.elementAt(0) -> changeImageForDuration(check, 2000)
-                    person.defense.keys.elementAt(1) -> changeVisibilityForDefense(check, it.keys.first(), 3000)
-                    person.tools.keys.elementAt(0) -> changeVisibilityForDuration(check, 2000)
-                    person.tools.keys.elementAt(1) -> changeVisibilityForDuration(check, 2000)
-                    person.uniqueTraits.keys.elementAt(0) -> changeVisibilityForDuration(check, 2000)
-                    person.uniqueTraits.keys.elementAt(1) -> changeVisibilityForDuration(check, 2000)
-                    person.jutsus.keys.elementAt(0) -> changeVisibilityForDuration(check, 2000)
-                    person.jutsus.keys.elementAt(1) -> changeVisibilityForDuration(check, 2000)
-                    person.jutsus.keys.elementAt(2) -> changeVisibilityForDuration(check, 2000)
-                    person.jutsus.keys.elementAt(3) -> changeVisibilityForDuration(check, 2000)
-                }
-            } else {
-                when (it.keys.first()) {
-                    person.defense.keys.elementAt(0) -> changeImageForDuration(check, 2000)
-                    person.defense.keys.elementAt(1) -> changeVisibilityForDefense(check, it.keys.first(), 3000)
-                    person.tools.keys.elementAt(0) -> changeVisibilityForDuration(check, 2000)
-                    person.tools.keys.elementAt(1) -> changeVisibilityForDuration(check, 2000)
-                    person.uniqueTraits.keys.elementAt(0) -> changeVisibilityForDuration(check, 2000)
-                    person.jutsus.keys.elementAt(0) -> changeVisibilityForDuration(check, 2000)
-                    person.jutsus.keys.elementAt(1) -> changeVisibilityForDuration(check, 2000)
-                    person.jutsus.keys.elementAt(2) -> changeVisibilityForDuration(check, 2000)
-                    person.jutsus.keys.elementAt(3) -> changeVisibilityForDuration(check, 2000)
-                }
-            }
-    }
+        val check = false
+        val person = enemy
 
 
-    // wechselt ein Bild für eine bestimmte Zeit
-    private fun changeImageForDuration(check: Boolean, duration: Long) {
-
-        if (check) {
-            binding.ivImage1Player?.setImageResource(R.drawable.baumstamm)
-
-            // Handler verwenden, um nach der angegebenen Dauer das Bild wieder zurückzusetzen
-            Handler().postDelayed(
-                { binding.ivImage1Player?.setImageResource(player.image) },
-                duration
-            )
-        } else {
-            binding.ivImage1Enemy?.setImageResource(R.drawable.baumstamm)
-
-            Handler().postDelayed(
-                { binding.ivImage1Enemy?.setImageResource(enemy.image) },
-                duration
-            )
+        when (it.keys.first()) {
+            in person.defense.keys -> changeViewsForDefense(check, it.keys.first(), 2000)
+            in person.tools.keys -> changeViewsForTools(check, it.keys.first(), 2000)
+            in person.uniqueTraits.keys -> changeViewsForAttack(check, it.keys.first(), 2000)
+            in person.jutsus.keys -> changeViewsForAttack(check, it.keys.first(), 2000)
         }
     }
 
 
+    // wechselt ein Bild für eine bestimmte Zeit oder
     // ändert die Visibility der Views
 
-    private fun changeVisibilityForDuration(check: Boolean, duration: Long) {
+    private fun changeViewsForAttack(check: Boolean, attack: String, duration: Long) {
 
         if (check) {
-            binding.ivImage1Player?.visibility = View.INVISIBLE
-            binding.ivImage2Player?.visibility = View.VISIBLE
-
-            Handler().postDelayed({ binding.ivImage1Player?.visibility = View.VISIBLE }, duration)
-            Handler().postDelayed({ binding.ivImage2Player?.visibility = View.INVISIBLE }, duration)
-        } else {
-            binding.ivImage1Enemy?.visibility = View.INVISIBLE
-            binding.ivImage2Enemy?.visibility = View.VISIBLE
-
-            Handler().postDelayed({ binding.ivImage1Enemy?.visibility = View.VISIBLE }, duration)
-            Handler().postDelayed({ binding.ivImage2Enemy?.visibility = View.INVISIBLE }, duration)
-        }
-
-    }
-
-    private fun changeVisibilityForDefense(check: Boolean, attack: String, duration: Long) {
-
-        if (check) {
-            if (attack == "Schattendoppelgänger") {
-                binding.ivImageDouble1Player?.visibility = View.VISIBLE
-                binding.ivImageDouble2Player?.visibility = View.VISIBLE
-
-                Handler().postDelayed(
-                    { binding.ivImageDouble1Player?.visibility = View.INVISIBLE },
-                    duration
-                )
-                Handler().postDelayed(
-                    { binding.ivImageDouble2Player?.visibility = View.INVISIBLE },
-                    duration
-                )
-            } else if (attack == "Heilung") {
+            if (attack == "Heilung") {
                 binding.ivImageHealPlayer?.visibility = View.VISIBLE
 
                 Handler().postDelayed(
                     { binding.ivImageHealPlayer?.visibility = View.INVISIBLE },
                     duration
                 )
-            }
-        } else {
-            if (attack == "Schattendoppelgänger") {
-                binding.ivImageDouble1Enemy?.visibility = View.VISIBLE
-                binding.ivImageDouble2Enemy?.visibility = View.VISIBLE
+            } else {
+                binding.ivImage1Player?.visibility = View.INVISIBLE
+                binding.ivImage2Player?.visibility = View.VISIBLE
 
                 Handler().postDelayed(
-                    { binding.ivImageDouble1Enemy?.visibility = View.INVISIBLE },
+                    { binding.ivImage1Player?.visibility = View.VISIBLE },
                     duration
                 )
                 Handler().postDelayed(
-                    { binding.ivImageDouble2Enemy?.visibility = View.INVISIBLE },
+                    { binding.ivImage2Player?.visibility = View.INVISIBLE },
                     duration
                 )
-            } else if (attack == "Heilung") {
+            }
+        } else {
+            if (attack == "Heilung") {
                 binding.ivImageHealEnemy?.visibility = View.VISIBLE
 
                 Handler().postDelayed(
                     { binding.ivImageHealEnemy?.visibility = View.INVISIBLE },
                     duration
+                )
+            } else {
+                binding.ivImage1Enemy?.visibility = View.INVISIBLE
+                binding.ivImage2Enemy?.visibility = View.VISIBLE
+
+                Handler().postDelayed(
+                    { binding.ivImage1Enemy?.visibility = View.VISIBLE },
+                    duration
+                )
+                Handler().postDelayed(
+                    { binding.ivImage2Enemy?.visibility = View.INVISIBLE },
+                    duration
+                )
+            }
+        }
+    }
+
+    private fun changeViewsForTools(check: Boolean, attack: String, duration: Long) {
+
+        if (check) {
+            if (attack == "Kunai") {
+                binding.ivImage2Player?.setImageResource(R.drawable.kunai_player)
+                binding.ivImage2Player?.visibility = View.VISIBLE
+
+                Handler().postDelayed(
+                    { binding.ivImage2Player?.visibility = View.INVISIBLE }, duration
+                )
+                Handler().postDelayed(
+                    { binding.ivImage2Player?.setImageResource(player.imageAttack) }, duration
+                )
+
+            } else if (attack == "Shuriken") {
+                binding.ivImage2Player?.setImageResource(R.drawable.shuriken)
+                binding.ivImage2Player?.visibility = View.VISIBLE
+                binding.ivImage2Player?.rotationX = 50F
+
+                Handler().postDelayed(
+                    { binding.ivImage2Player?.visibility = View.INVISIBLE }, duration
+                )
+                Handler().postDelayed(
+                    { binding.ivImage2Player?.setImageResource(player.imageAttack) }, duration
+                )
+                Handler().postDelayed(
+                    { binding.ivImage2Player?.rotationX = 0F }, duration
+                )
+            }
+        } else {
+            if (attack == "Kunai") {
+                binding.ivImage2Enemy?.setImageResource(R.drawable.kunai_enemy)
+                binding.ivImage2Enemy?.visibility = View.VISIBLE
+
+                Handler().postDelayed(
+                    { binding.ivImage2Enemy?.visibility = View.INVISIBLE }, duration
+                )
+                Handler().postDelayed(
+                    { binding.ivImage2Enemy?.setImageResource(enemy.imageAttack) }, duration
+                )
+
+            } else if (attack == "Shuriken") {
+                binding.ivImage2Enemy?.setImageResource(R.drawable.shuriken)
+                binding.ivImage2Enemy?.visibility = View.VISIBLE
+                binding.ivImage2Enemy?.rotationX = 50F
+
+                Handler().postDelayed(
+                    { binding.ivImage2Enemy?.visibility = View.INVISIBLE }, duration
+                )
+                Handler().postDelayed(
+                    { binding.ivImage2Enemy?.setImageResource(player.imageAttack) }, duration
+                )
+                Handler().postDelayed(
+                    { binding.ivImage2Enemy?.rotationX = 0F }, duration
+                )
+            }
+        }
+    }
+
+    private fun changeViewsForDefense(check: Boolean, attack: String, duration: Long) {
+
+        if (check) {
+            if (attack == "Schattendoppelgänger" || attack == "Sanddoppelgänger") {
+                binding.ivImageDouble1Player?.visibility = View.VISIBLE
+                binding.ivImageDouble2Player?.visibility = View.VISIBLE
+
+                Handler().postDelayed(
+                    { binding.ivImageDouble1Player?.visibility = View.INVISIBLE }, duration
+                )
+                Handler().postDelayed(
+                    { binding.ivImageDouble2Player?.visibility = View.INVISIBLE }, duration
+                )
+            } else if (attack == "Sandschild") {
+                binding.ivImage1Player?.setImageResource(R.drawable.sandschild)
+
+                // Handler verwenden, um nach der angegebenen Dauer das Bild wieder zurückzusetzen
+                Handler().postDelayed(
+                    { binding.ivImage1Player?.setImageResource(player.image) }, duration
+                )
+            } else if (attack == "Jutsu des Tausches") {
+                binding.ivImage1Player?.setImageResource(R.drawable.baumstamm)
+
+                // Handler verwenden, um nach der angegebenen Dauer das Bild wieder zurückzusetzen
+                Handler().postDelayed(
+                    { binding.ivImage1Player?.setImageResource(player.image) }, duration
+                )
+            }
+        } else {
+            if (attack == "Schattendoppelgänger" || attack == "Sanddoppelgänger") {
+                binding.ivImageDouble1Enemy?.visibility = View.VISIBLE
+                binding.ivImageDouble2Enemy?.visibility = View.VISIBLE
+
+                Handler().postDelayed(
+                    { binding.ivImageDouble1Enemy?.visibility = View.INVISIBLE }, duration
+                )
+                Handler().postDelayed(
+                    { binding.ivImageDouble2Enemy?.visibility = View.INVISIBLE }, duration
+                )
+            } else if (attack == "Sandschild") {
+                binding.ivImage1Enemy?.setImageResource(R.drawable.sandschild)
+
+                // Handler verwenden, um nach der angegebenen Dauer das Bild wieder zurückzusetzen
+                Handler().postDelayed(
+                    { binding.ivImage1Enemy?.setImageResource(enemy.image) }, duration
+                )
+            } else if (attack == "Jutsu des Tausches") {
+                binding.ivImage1Enemy?.setImageResource(R.drawable.baumstamm)
+
+                Handler().postDelayed(
+                    { binding.ivImage1Enemy?.setImageResource(enemy.image) }, duration
                 )
             }
         }

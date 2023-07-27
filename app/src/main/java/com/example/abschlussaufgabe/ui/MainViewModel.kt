@@ -258,19 +258,23 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         _locationList.value = LocationList().locationList
         _location.value = locationList.value?.get(0)
         repository.dataList
+
+        setProfile(Profile(
+            R.drawable.profile_picture,
+            "Freier",
+            "Angelique",
+            "Nessuna",
+            "13.02.1985",
+            "sag ich nicht",
+            "pittiplatsch@web.de",
+            "123456") )
     }
 
 
     // Profil initialisieren
-    fun setProfile() {
+    fun setProfile(profile: Profile) {
 
-        _profile.value = Profile("Angelique",
-            "Freier",
-            "Nessuna",
-            R.drawable.profile_picture,
-            "pummeluff@web.de",
-            "123456",
-            "13.02.1985")
+        _profile.value = profile
     }
 
 
@@ -503,7 +507,10 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     // setzt die im Adapter ausgewählte Attacke
     fun setAttackPlayer(attackString: String, attackValue: Int) {
 
-        _attackPlayer.value?.put(attackString, attackValue)
+        val currentAttack = mutableMapOf<String, Int>()
+        currentAttack.put(attackString, attackValue)
+
+        _attackPlayer.value = currentAttack
     }
 
     // es wird erst eine Liste aller möglichen Attacken des Charackters erstellt
@@ -533,10 +540,10 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
             listOfAllAttacks[attack.key] = attack.value
         }
 
-        val attackEnemy = listOfAllAttacks.entries.random()
+        val currentAttackEnemy = listOfAllAttacks.entries.random()
 
         _attackEnemy.value?.clear()
-        _attackEnemy.value?.put(attackEnemy.key, attackEnemy.value)
+        _attackEnemy.value?.put(currentAttackEnemy.key, currentAttackEnemy.value)
     }
 
 
@@ -611,7 +618,8 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     fun calculationOfPointsPlayer() {
 
         // setzt zum rechnen erstmal eine Attacke für den Gegner
-        //setAttackEnemy()
+        setAttackEnemy()
+
         subtractPoints(
             player.value!!, _player.value!!, attackPlayer.value!!.keys.first(), attackPlayer.value!!.values.first(),
             enemy.value!!, _enemy.value!!, attackEnemy.value!!.keys.first()
@@ -619,9 +627,15 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
         _player.value = _player.value
         _enemy.value = _enemy.value
+
+        Log.e(TAGVIEWMODEL, "${attackPlayer.value}")
+        Log.e(TAGVIEWMODEL, "${attackEnemy.value}")
     }
 
     fun calculationOfPointsEnemy() {
+
+        Log.e(TAGVIEWMODEL, "${attackPlayer.value}")
+        Log.e(TAGVIEWMODEL, "${attackEnemy.value}")
 
         subtractPoints(
             enemy.value!!, _enemy.value!!, attackEnemy.value!!.keys.first(), attackEnemy.value!!.values.first(),
@@ -645,14 +659,11 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     fun playRound() {
 
-        Log.e(TAGVIEWMODEL, "${attackPlayer.value}")
-
-        if (attackPlayer.value != null) {
+        if (attackPlayer.value != null && attackEnemy.value != null) {
             do {
-                // für den Computer wird aller 5 Sekunden eine zufällige Attacke ausgewählt
+                calculationOfPointsPlayer()
                 Handler().postDelayed(runnable, 5000)
                 calculationOfPointsEnemy()
-                calculationOfPointsPlayer()
 
             } while (player.value!!.lifePoints <= 0 || enemy.value!!.lifePoints <= 0)
 

@@ -41,4 +41,12 @@
     <string name="again">Nochmal</string>
     <string name="titleVictorys">Siege:</string>
     <string name="titleDefeats">Niederlagen:</string>
+    <string name="titleProfile">Profil</string>
+    <string name="titleLastName">Name:</string>
+    <string name="titleFirstName">Vorname:</string>
+    <string name="titleUserName">Username:</string>
+    <string name="titleBirthday">Geburtstag:</string>
+    <string name="titleEmail">Email:</string>
+    <string name="titlePassword">Passwort:</string>
+    <string name="titlePhone">Telefonnummer:</string>
 </resources>

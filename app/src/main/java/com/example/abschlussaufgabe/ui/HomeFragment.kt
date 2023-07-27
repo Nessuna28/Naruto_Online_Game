@@ -54,5 +54,9 @@ class HomeFragment : Fragment() {
         binding.tvFightTitle.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCharacterSelectionFragment())
         }
+
+        viewModel.materialCard.value!!.setOnClickListener {
+            //findNavController().navigate(HomeFragmentDirections.)
+        }
     }
 }

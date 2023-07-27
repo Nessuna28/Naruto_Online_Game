@@ -56,8 +56,12 @@ class AboutTheCharactersFragment : Fragment() {
             findNavController().navigateUp()
         }
 
-        viewModel.imageHome.value?.setOnClickListener {
+        viewModel.imageHome.value!!.setOnClickListener {
             findNavController().navigate(AboutTheCharactersFragmentDirections.actionAboutTheCharactersFragmentToHomeFragment())
+        }
+
+        viewModel.materialCard.value!!.setOnClickListener {
+            //findNavController().navigate(AboutTheCharactersFragmentDirections)
         }
     }
 }

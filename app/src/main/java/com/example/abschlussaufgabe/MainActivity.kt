@@ -1,14 +1,12 @@
 package com.example.abschlussaufgabe
 
 import android.os.Bundle
-import android.widget.ImageView
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.activityViewModels
-import androidx.navigation.findNavController
 import com.example.abschlussaufgabe.databinding.ActivityMainBinding
 import com.example.abschlussaufgabe.ui.MainViewModel
+import androidx.activity.viewModels
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -22,8 +20,11 @@ class MainActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        viewModel.setProfile()
-        binding.ivProfilePhoto.setImageResource(viewModel.profile.value!!.profileImage)
+        viewModel.profile.observe(this) {
+            binding.tvUserName?.text = it.userName
+            binding.ivProfilePhoto.setImageResource(it.profileImage)
+        }
+
 
         viewModel._imageTitle.value = binding.ivTitle
         viewModel._imageHome.value = binding.ivHome
@@ -32,10 +33,6 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.ivSettings.setOnClickListener {
-            TODO()
-        }
-
-        binding.mcProfile.setOnClickListener {
             TODO()
         }
     }

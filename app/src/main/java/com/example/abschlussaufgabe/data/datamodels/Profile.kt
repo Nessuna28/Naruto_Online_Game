@@ -2,11 +2,13 @@ package com.example.abschlussaufgabe.data.datamodels
 
 data class Profile(
 
-    val firstName: String,
-    val lastName: String,
-    val userName: String,
     val profileImage: Int,
+    val lastName: String,
+    val firstName: String,
+    val userName: String,
+    val birthday: String,
+    val phone: String,
     val email: String,
-    val password: String,
-    val birthday: String
+    val password: String
+
 )

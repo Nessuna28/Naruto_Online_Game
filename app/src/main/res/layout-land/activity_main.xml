@@ -51,6 +51,17 @@
                         android:src="@drawable/profile_picture" />
                 </com.google.android.material.card.MaterialCardView>
 
+                <TextView
+                    android:id="@+id/tv_userName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:textStyle="bold"
+                    android:text="@string/playerName"
+                    app:layout_constraintBottom_toBottomOf="@+id/mc_profile"
+                    app:layout_constraintStart_toEndOf="@+id/mc_profile"
+                    app:layout_constraintTop_toTopOf="@+id/mc_profile" />
+
                 <ImageView
                     android:id="@+id/iv_title"
                     android:layout_width="148dp"
@@ -79,7 +90,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:alpha="0.3"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/materialCardView"
