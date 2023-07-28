@@ -24,9 +24,7 @@ import android.content.Context
 import android.os.Handler
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.Attack
-import com.example.abschlussaufgabe.data.datamodels.modelForFight.Defense
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.Jutsu
-import com.example.abschlussaufgabe.data.datamodels.modelForFight.Tool
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.UniqueTrait
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -214,14 +212,24 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _resultEnemy
 
 
-    private val _roundsWon = MutableLiveData<Int>(0)
-    val roundsWon: LiveData<Int>
-        get() = _roundsWon
+    private val _roundsWonPlayer = MutableLiveData(0)
+    val roundsWonPlayer: LiveData<Int>
+        get() = _roundsWonPlayer
 
 
-    private val _rounds = MutableLiveData<Int>(0)
+    private val _roundsWonEnemy = MutableLiveData(0)
+    val roundsWonEnemy: LiveData<Int>
+        get() = _roundsWonEnemy
+
+
+    private val _rounds = MutableLiveData(0)
     val rounds: LiveData<Int>
         get() = _rounds
+
+
+    private val _gameEnd = MutableLiveData(false)
+    val gameEnd: LiveData<Boolean>
+        get() = _gameEnd
 
 
 
@@ -232,12 +240,12 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _userNameEnemy
 
 
-    private val _victory = MutableLiveData<Int>(0)
+    private val _victory = MutableLiveData(0)
     val victory: LiveData<Int>
         get() = _victory
 
 
-    private val _defeat = MutableLiveData<Int>(0)
+    private val _defeat = MutableLiveData(0)
     val defeat: LiveData<Int>
         get() = _defeat
 
@@ -563,6 +571,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
         setAttackEnemy()
         Handler().postDelayed(runnable, 5000)
+
         if (attackPlayer.value != null && attackEnemy.value != null) {
             if (player.value!!.lifePoints > 0 || enemy.value!!.lifePoints > 0) {
                 attackPlayer.value!!.loadChakra(_player.value!!, player.value!!)
@@ -571,13 +580,26 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
                 attackEnemy.value!!.loadChakra(_enemy.value!!, enemy.value!!)
                 attackEnemy.value!!.subtractChakra(_enemy.value!!, enemy.value!!, ::showToast)
                 attackEnemy.value!!.subtractLifePoints(enemy.value!!, _enemy.value!!, attackPlayer.value!!, _player.value!!, player.value!!, ::showToast)
-            }
 
+                _player.value = _player.value
+                _enemy.value = _enemy.value
+            }
+        }
+    }
+
+    // wenn einer der Spieler keine Lebenspunkte mehr hat wird die Runde beendet und
+    // es wird festgelegt ob der Spieler gewonnen oder verloren hat
+    fun endRound() {
+
+        if (player.value!!.lifePoints <= 0 || enemy.value!!.lifePoints <= 0) {
             _rounds.value = rounds.value!!.plus(1)
+            Handler().removeCallbacks(runnable)
+        }
 
-            if (player.value!!.lifePoints > 0) {
-                _roundsWon.value = roundsWon.value!!.plus(1)
-            }
+        if (player.value!!.lifePoints > 0) {
+            _roundsWonPlayer.value = roundsWonPlayer.value!!.plus(1)
+        } else if (enemy.value!!.lifePoints > 0) {
+            _roundsWonEnemy.value = roundsWonEnemy.value!!.plus(1)
         }
     }
 
@@ -586,30 +608,41 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         _toastMessage.value = message
     }
 
+    // setzt die Lebens- und Chakrapunkte wieder auf die Ursprungswerte außer
+    // wenn man noch Lebenspunkte übrig hat dann nimmt man diese mit in die nächste Runde
     fun resetPoints() {
 
         if (player.value!!.lifePoints <= 0) {
-            _player.value!!.lifePoints = 500
+            _player.value!!.lifePoints = player.value!!.lifePointsStart
         } else {
-            _enemy.value!!.lifePoints = 500
+            _enemy.value!!.lifePoints = enemy.value!!.lifePointsStart
         }
 
-        _player.value!!.chakraPoints = 500
-        _enemy.value!!.chakraPoints = 500
+        _player.value!!.chakraPoints = player.value!!.chakraPointsStart
+        _enemy.value!!.chakraPoints = enemy.value!!.chakraPointsStart
     }
 
-    fun play3Rounds() {
+    fun playRounds(round: Unit) {
 
-        while (rounds.value!! < 3) {
-            resetPoints()
-            playRound()
+        if (rounds.value!! < 3) {
+            if (roundsWonPlayer.value!! < 1 && roundsWonEnemy.value!! < 1) {
+                round
+            } else if (roundsWonPlayer.value!! < 2 && roundsWonEnemy.value!! < 2) {
+                resetPoints()
+                round
+            }
+        }
+
+        if (rounds.value!! == 3 || roundsWonPlayer.value!! == 2 || roundsWonEnemy.value!! == 2) {
+            _gameEnd.value = true
         }
     }
 
     fun resetToDefaultRounds() {
 
         _rounds.value = 0
-        _roundsWon.value = 0
+        _roundsWonPlayer.value = 0
+        _roundsWonEnemy.value = 0
     }
 
 
@@ -631,9 +664,9 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     fun countVictorysAndDefeats(result: String) {
 
         if (result == "Sieg") {
-            _victory.value?.plus(1)
+            _victory.value = victory.value!!.plus(1)
         } else {
-            _defeat.value?.plus(1)
+            _defeat.value = defeat.value!!.plus(1)
         }
 
         _victory.value = _victory.value

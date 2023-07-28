@@ -3,7 +3,6 @@ package com.example.abschlussaufgabe.ui
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,6 +32,7 @@ class FightFragment : Fragment() {
     private lateinit var enemy: CharacterForFight
 
 
+
     override fun onStart() {
         super.onStart()
 
@@ -45,6 +45,8 @@ class FightFragment : Fragment() {
 
         binding.ivImage2Player?.visibility = View.INVISIBLE
         binding.ivImage2Enemy?.visibility = View.INVISIBLE
+
+        invisibleAttacks()
 
         viewModel.resetToDefaultRounds()
     }
@@ -103,20 +105,36 @@ class FightFragment : Fragment() {
             binding.tvChakraValueEnemy?.text = it.chakraPoints.toString()
         }
 
+        Handler().postDelayed(runnableRound, 2000)
+        Handler().removeCallbacks(runnableRound)
+        Handler().postDelayed(runnableFight,2000)
+        Handler().removeCallbacks(runnableFight)
+        visibleAttacks()
+
         viewModel.attackPlayer.observe(viewLifecycleOwner) {attackPlayer ->
             actionOfSelectionPlayer(attackPlayer)
-                viewModel.playRound()
-            viewModel.attackEnemy.observe(viewLifecycleOwner) {
-                actionOfSelectionEnemy(it)
+            viewModel.playRound()
+            viewModel.endRound()
+        }
+
+
+
+        /*viewModel.rounds.observe(viewLifecycleOwner) {
+            viewModel.roundsWonPlayer.observe(viewLifecycleOwner) {
+                viewModel.roundsWonEnemy.observe(viewLifecycleOwner) {
+                    viewModel.playRounds(attacks)
+                }
             }
         }
+
+         */
 
 
         viewModel.toastMessage.observe(viewLifecycleOwner, Observer { message ->
             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
         })
 
-        viewModel.roundsWon.observe(viewLifecycleOwner) {
+        viewModel.roundsWonPlayer.observe(viewLifecycleOwner) {
             if (it >= 2 && viewModel.rounds.value!! >= 2) {
                 viewModel.setResult(true)
             } else if (viewModel.rounds.value!! >= 2 && it < 2) {
@@ -133,9 +151,9 @@ class FightFragment : Fragment() {
             findNavController().navigate(FightFragmentDirections.actionFightFragmentToCharacterSelectionFragment())
         }
 
-        viewModel.result.observe(viewLifecycleOwner) {
-            if (it != "") {
-                findNavController().navigate(FightFragmentDirections.actionFightFragmentToResultFragment())
+        viewModel.gameEnd.observe(viewLifecycleOwner) {
+            if (it) {
+                //findNavController().navigate(FightFragmentDirections.actionFightFragmentToResultFragment())
             }
         }
     }
@@ -384,6 +402,52 @@ class FightFragment : Fragment() {
                     { binding.ivImage1Enemy?.setImageResource(enemy.image) }, duration
                 )
             }
+        }
+    }
+
+    private fun visibleAttacks() {
+
+            binding.ivRound?.visibility = View.INVISIBLE
+
+            binding.tvTitleDefense?.visibility = View.VISIBLE
+            binding.rvDefensePlayer?.visibility = View.VISIBLE
+            binding.tvTitleTraits?.visibility = View.VISIBLE
+            binding.rvUniqueTraitsPlayer?.visibility = View.VISIBLE
+            binding.tvTitleJutsus?.visibility = View.VISIBLE
+            binding.rvJutsuPlayer?.visibility = View.VISIBLE
+            binding.tvTitleTools?.visibility = View.VISIBLE
+            binding.rvToolsPlayer?.visibility = View.VISIBLE
+    }
+
+    private fun invisibleAttacks() {
+
+        binding.tvTitleDefense?.visibility = View.INVISIBLE
+        binding.rvDefensePlayer?.visibility = View.INVISIBLE
+        binding.tvTitleTraits?.visibility = View.INVISIBLE
+        binding.rvUniqueTraitsPlayer?.visibility = View.INVISIBLE
+        binding.tvTitleJutsus?.visibility = View.INVISIBLE
+        binding.rvJutsuPlayer?.visibility = View.INVISIBLE
+        binding.tvTitleTools?.visibility = View.INVISIBLE
+        binding.rvToolsPlayer?.visibility = View.INVISIBLE
+    }
+
+    val runnableRound: Runnable = object : Runnable {
+        override fun run() {
+
+            binding.ivRound?.visibility = View.VISIBLE
+
+            // jede nächste Ausführung nach 5 Sekunden
+            Handler().postDelayed(this, 2000)
+        }
+    }
+
+    val runnableFight: Runnable = object : Runnable {
+        override fun run() {
+
+            binding.ivFight?.visibility = View.VISIBLE
+
+            // jede nächste Ausführung nach 5 Sekunden
+            Handler().postDelayed(this, 2000)
         }
     }
 }

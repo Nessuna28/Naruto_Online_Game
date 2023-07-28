@@ -16,7 +16,7 @@ class UniqueTrait(name: String, value: Int, image: Int): Attack(name, value, ima
 
         if (name == "Heilung") {
             if (player.lifePoints < player.lifePointsStart) {
-                playerToChange.lifePoints.plus(value)
+                playerToChange.lifePoints = player.lifePoints.plus(value)
                 if (player.lifePoints > player.lifePointsStart) {
                     playerToChange.lifePoints = player.lifePointsStart
                 }

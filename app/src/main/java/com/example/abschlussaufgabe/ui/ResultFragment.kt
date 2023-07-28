@@ -74,7 +74,7 @@ class ResultFragment : Fragment() {
             binding.tvUserName?.text = viewModel.profile.value?.userName
         }
 
-        binding.tvRoundsWon?.text = viewModel.roundsWon.value.toString()
+        binding.tvRoundsWon?.text = viewModel.roundsWonPlayer.value.toString()
 
         viewModel.countVictorysAndDefeats(viewModel.result.value!!)
 

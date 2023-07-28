@@ -16,7 +16,7 @@ open class Attack(
 
         if (!isTool) {
             if (player.chakraPoints >= value) {
-                playerToChange.chakraPoints.minus(value)
+                playerToChange.chakraPoints = player.chakraPoints.minus(value)
             } else {
                 return toast("Du hast nicht genügend Chakra für diese Attacke!")
             }
@@ -27,7 +27,7 @@ open class Attack(
 
         if (isTool) {
             if (player.chakraPoints < player.chakraPointsStart) {
-                playerToChange.chakraPoints.plus(10)
+                playerToChange.chakraPoints = player.chakraPoints.plus(10)
                 if (player.chakraPoints > player.chakraPointsStart) {
                     playerToChange.chakraPoints = player.chakraPointsStart
                 }
@@ -44,7 +44,7 @@ open class Attack(
 
         if (!enemyAttack.isDefense) {
             if (enemy.lifePoints > 0) {
-                enemyToChange.lifePoints.minus(value)
+                enemyToChange.lifePoints = enemy.lifePoints.minus(value)
                 if (enemy.lifePoints < 0) {
                     enemyToChange.lifePoints = 0
                 }

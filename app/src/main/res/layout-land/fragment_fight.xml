@@ -323,6 +323,7 @@
             android:fontFamily="@font/akaya_telivigala"
             android:text="@string/titleDefense"
             android:textStyle="bold"
+            android:visibility="invisible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_image1Player" />
 
@@ -334,6 +335,7 @@
             android:fontFamily="@font/akaya_telivigala"
             android:text="@string/titleTools"
             android:textStyle="bold"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/tv_titleDefense"
             app:layout_constraintStart_toEndOf="@+id/tv_titleDefense" />
 
@@ -345,6 +347,7 @@
             android:fontFamily="@font/akaya_telivigala"
             android:text="@string/titleUniqueTraits"
             android:textStyle="bold"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/tv_titleTools"
             app:layout_constraintStart_toEndOf="@+id/tv_titleTools" />
 
@@ -356,6 +359,7 @@
             android:fontFamily="@font/akaya_telivigala"
             android:text="@string/titleJutsus"
             android:textStyle="bold"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/tv_titleTraits"
             app:layout_constraintStart_toEndOf="@+id/tv_titleTraits" />
 
@@ -366,6 +370,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:scrollbars="vertical"
+            android:visibility="invisible"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_titleDefense"
@@ -379,6 +384,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:scrollbars="vertical"
+            android:visibility="invisible"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_titleTools"
@@ -392,6 +398,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:scrollbars="vertical"
+            android:visibility="invisible"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_titleTraits"
@@ -405,11 +412,33 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:scrollbars="vertical"
+            android:visibility="invisible"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_titleJutsus"
             app:layout_constraintTop_toBottomOf="@+id/tv_titleJutsus"
             tools:listitem="@layout/jutsu_player_item" />
+
+        <ImageView
+            android:id="@+id/iv_round"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/iv_backgroundFight"
+            app:srcCompat="@drawable/round_1" />
+
+        <ImageView
+            android:id="@+id/iv_fight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/iv_backgroundFight"
+            app:srcCompat="@drawable/fight" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
