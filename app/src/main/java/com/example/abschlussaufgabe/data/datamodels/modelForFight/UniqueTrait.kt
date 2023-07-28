@@ -12,8 +12,8 @@ class UniqueTrait(name: String, value: Int, image: Int): Attack(name, value, ima
         enemyAttack: Attack,
         enemyToChange: CharacterForFight,
         enemy: CharacterForFight,
-        toast: (String)
-    ) {
+        toast: (String) -> Unit) {
+
         if (name == "Heilung") {
             if (player.lifePoints < player.lifePointsStart) {
                 playerToChange.lifePoints.plus(value)
@@ -21,7 +21,7 @@ class UniqueTrait(name: String, value: Int, image: Int): Attack(name, value, ima
                     playerToChange.lifePoints = player.lifePointsStart
                 }
             } else {
-                toast
+                return toast("Deine Lebenspunkte sind voll!")
             }
         } else {
             super.subtractLifePoints(player,

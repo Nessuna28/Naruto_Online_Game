@@ -12,10 +12,11 @@ class Defense(name: String, value: Int, image: Int): Attack(name, value, image) 
                                     playerToChange: CharacterForFight,
                                     enemyAttack: Attack,
                                     enemyToChange: CharacterForFight,
-                                    enemy: CharacterForFight) {
+                                    enemy: CharacterForFight,
+                                    toast: (String) -> Unit) {
 
         if (name == "Rotation") {
-            super.subtractLifePoints(player, playerToChange, enemyAttack, enemyToChange, enemy)
+            super.subtractLifePoints(player, playerToChange, enemyAttack, enemyToChange, enemy, toast)
         }
     }
 }

@@ -565,7 +565,12 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         Handler().postDelayed(runnable, 5000)
         if (attackPlayer.value != null && attackEnemy.value != null) {
             if (player.value!!.lifePoints > 0 || enemy.value!!.lifePoints > 0) {
-
+                attackPlayer.value!!.loadChakra(_player.value!!, player.value!!)
+                attackPlayer.value!!.subtractChakra(_player.value!!, player.value!!, ::showToast)
+                attackPlayer.value!!.subtractLifePoints(player.value!!, _player.value!!, attackEnemy.value!!, _enemy.value!!, enemy.value!!, ::showToast)
+                attackEnemy.value!!.loadChakra(_enemy.value!!, enemy.value!!)
+                attackEnemy.value!!.subtractChakra(_enemy.value!!, enemy.value!!, ::showToast)
+                attackEnemy.value!!.subtractLifePoints(enemy.value!!, _enemy.value!!, attackPlayer.value!!, _player.value!!, player.value!!, ::showToast)
             }
 
             _rounds.value = rounds.value!!.plus(1)
@@ -574,6 +579,11 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
                 _roundsWon.value = roundsWon.value!!.plus(1)
             }
         }
+    }
+
+    // Funktion um den Toast anzuzeigen
+    fun showToast(message: String) {
+        _toastMessage.value = message
     }
 
     fun resetPoints() {
@@ -635,12 +645,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     fun setUserNameEnemy(userName: String) {
 
         _userNameEnemy.value = userName
-    }
-
-
-    // Funktion um den Toast anzuzeigen
-    fun showToast(message: String) {
-        _toastMessage.value = message
     }
 
 

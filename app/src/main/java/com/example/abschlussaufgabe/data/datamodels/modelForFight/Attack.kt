@@ -12,13 +12,13 @@ open class Attack(
     var isJutsu: Boolean = false
     var isTrait: Boolean = false
 
-    open fun subtractChakra(playerToChange: CharacterForFight, player: CharacterForFight, toast: (String)) {
+    open fun subtractChakra(playerToChange: CharacterForFight, player: CharacterForFight, toast: (String) -> Unit) {
 
         if (!isTool) {
-            if (player.chakraPoints > value) {
+            if (player.chakraPoints >= value) {
                 playerToChange.chakraPoints.minus(value)
             } else {
-                toast
+                return toast("Du hast nicht genügend Chakra für diese Attacke!")
             }
         }
     }
@@ -40,7 +40,7 @@ open class Attack(
                                 enemyAttack: Attack,
                                 enemyToChange: CharacterForFight,
                                 enemy: CharacterForFight,
-                                toast: (String)) {
+                                toast: (String) -> Unit) {
 
         if (!enemyAttack.isDefense) {
             if (enemy.lifePoints > 0) {
