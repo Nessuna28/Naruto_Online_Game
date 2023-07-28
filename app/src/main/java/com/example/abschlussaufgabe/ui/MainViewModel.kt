@@ -33,6 +33,7 @@ import java.util.Date
 import java.util.Locale
 
 
+
 const val TAGVIEWMODEL = "MainViewModel"
 
 
@@ -547,98 +548,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         _attackEnemy.value = currentAttackEnemy
     }
 
-
-    fun subtractPoints(
-        person: CharacterForFight, personToChange: CharacterForFight,
-        attack: Attack,
-        otherPerson: CharacterForFight, otherPersonToChange: CharacterForFight,
-        attackOtherPerson: Attack
-    ) {
-
-        if (attack == person.tools) {
-            loadChakra(person, personToChange)
-            if (attackOtherPerson != otherPerson.defense) {
-                otherPersonToChange.lifePoints = otherPerson.lifePoints.minus(attack.value)
-            }
-        } else {
-            if (person.chakraPoints >= attack.value) {
-                personToChange.chakraPoints = person.chakraPoints.minus(attack.value)
-                if (attack != person.defense) {
-                    if (attackOtherPerson != otherPerson.defense
-                    ) {
-                        otherPersonToChange.lifePoints = otherPerson.lifePoints.minus(attack.value)
-                    }
-                } else {
-                    heal(attack, person, personToChange)
-                }
-            }
-        }
-
-        _player.value = _player.value
-        _enemy.value = _enemy.value
-    }
-
-    // läd das Chakra auf um 20 aber nicht höher als der Startwert
-    fun loadChakra(person: CharacterForFight, personToChange: CharacterForFight) {
-
-            if (person.chakraPoints < 500) {
-                personToChange.chakraPoints = person.chakraPoints.plus(20)
-                if (person.chakraPoints > 500) {
-                    personToChange.chakraPoints = 500
-                }
-            }
-
-        _player.value = _player.value
-        _enemy.value = _enemy.value
-    }
-
-    // läd die Lebenspunkte auf um den Wert der Attacke aber nicht über den Startwert
-    // und zieht dafür Chakra ab um den Wert der Attacke
-    fun heal(attackValue: Attack, person: CharacterForFight, personToChange: CharacterForFight) {
-
-        if (person.lifePoints < 500) {
-                personToChange.lifePoints = person.lifePoints.plus(attackValue.value)
-            if (person.lifePoints > 500) {
-                personToChange.lifePoints = 500
-            }
-        }
-
-        personToChange.chakraPoints = person.chakraPoints.minus(attackValue.value)
-
-        _player.value = _player.value
-        _enemy.value = _enemy.value
-    }
-
-    // hier werden die Werte zum berechnen gesetzt
-
-    fun calculationOfPointsPlayer() {
-
-        subtractPoints(
-            player.value!!, _player.value!!, attackPlayer.value!!,
-            enemy.value!!, _enemy.value!!, attackEnemy.value!!
-        )
-
-        _player.value = _player.value
-        _enemy.value = _enemy.value
-
-        Log.e(TAGVIEWMODEL, "${attackPlayer.value}")
-        Log.e(TAGVIEWMODEL, "${attackEnemy.value}")
-    }
-
-    fun calculationOfPointsEnemy() {
-
-        Log.e(TAGVIEWMODEL, "${attackPlayer.value}")
-        Log.e(TAGVIEWMODEL, "${attackEnemy.value}")
-
-        subtractPoints(
-            enemy.value!!, _enemy.value!!, attackEnemy.value!!,
-            player.value!!, _player.value!!, attackPlayer.value!!
-        )
-
-        _enemy.value = _enemy.value
-        _player.value = _player.value
-    }
-
     // sorgt dafür dass nach 5 Sekunden alle Funktionen für den Computer wiederholt werden
     val runnable: Runnable = object : Runnable {
         override fun run() {
@@ -656,8 +565,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         Handler().postDelayed(runnable, 5000)
         if (attackPlayer.value != null && attackEnemy.value != null) {
             if (player.value!!.lifePoints > 0 || enemy.value!!.lifePoints > 0) {
-                calculationOfPointsPlayer()
-                calculationOfPointsEnemy()
+
             }
 
             _rounds.value = rounds.value!!.plus(1)

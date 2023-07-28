@@ -15,7 +15,14 @@ data class CharacterForFight(
     val tools: List<Tool>,
     val uniqueTraits: List<UniqueTrait>,
     val defense: List<Defense>,
-    var lifePoints: Int,
-    var chakraPoints: Int
-)
+) {
+
+    val lifePointsStart: Int = 500
+    val chakraPointsStart: Int = 500
+
+    var lifePoints: Int = 500
+    var chakraPoints: Int = 500
+}
+
+
 
