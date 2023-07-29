@@ -200,6 +200,16 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _attackEnemy
 
 
+    private val _lifePointsPlayer = MutableLiveData<Int>()
+    val lifePointsPlayer: LiveData<Int>
+        get() = _lifePointsPlayer
+
+
+    private val _lifePointsEnemy = MutableLiveData<Int>()
+    val lifePointsEnemy: LiveData<Int>
+        get() = _lifePointsEnemy
+
+
     // für das Ergebnis (ResultFragment)
 
     private val _result = MutableLiveData<String>("")
@@ -583,9 +593,13 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
                 _player.value = _player.value
                 _enemy.value = _enemy.value
+
+                _lifePointsPlayer.value = player.value!!.lifePoints
+                _lifePointsEnemy.value = enemy.value!!.lifePoints
             }
         }
     }
+
 
     // wenn einer der Spieler keine Lebenspunkte mehr hat wird die Runde beendet und
     // es wird festgelegt ob der Spieler gewonnen oder verloren hat
