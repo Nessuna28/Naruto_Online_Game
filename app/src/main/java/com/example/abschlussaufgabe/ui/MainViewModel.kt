@@ -579,115 +579,123 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
+    fun initLifePoints(player: Int, enemy: Int) {
+
+        _lifePointsPlayer.value = player
+        _lifePointsEnemy.value = enemy
+    }
+
     fun playRound() {
 
-        if (rounds.value!! == 0) {
-            setAttackEnemy()
-            Handler().postDelayed(runnable, 5000)
-
-            if (attackPlayer.value != null && attackEnemy.value != null) {
-                if (player.value!!.lifePoints > 0 || enemy.value!!.lifePoints > 0) {
-                    attackPlayer.value!!.loadChakra(_player.value!!, player.value!!)
-                    attackPlayer.value!!.subtractChakra(
-                        _player.value!!,
-                        player.value!!,
-                        ::showToast
-                    )
-                    attackPlayer.value!!.subtractLifePoints(
-                        player.value!!,
-                        _player.value!!,
-                        attackEnemy.value!!,
-                        _enemy.value!!,
-                        enemy.value!!,
-                        ::showToast
-                    )
-                    attackEnemy.value!!.loadChakra(_enemy.value!!, enemy.value!!)
-                    attackEnemy.value!!.subtractChakra(_enemy.value!!, enemy.value!!, ::showToast)
-                    attackEnemy.value!!.subtractLifePoints(
-                        enemy.value!!,
-                        _enemy.value!!,
-                        attackPlayer.value!!,
-                        _player.value!!,
-                        player.value!!,
-                        ::showToast
-                    )
-                }
-            }
-        } else if (rounds.value!! == 1) {
-            resetPoints()
-            setAttackEnemy()
-            Handler().postDelayed(runnable, 5000)
-
-            if (attackPlayer.value != null && attackEnemy.value != null) {
-                if (player.value!!.lifePoints > 0 || enemy.value!!.lifePoints > 0) {
-                    attackPlayer.value!!.loadChakra(_player.value!!, player.value!!)
-                    attackPlayer.value!!.subtractChakra(
-                        _player.value!!,
-                        player.value!!,
-                        ::showToast
-                    )
-                    attackPlayer.value!!.subtractLifePoints(
-                        player.value!!,
-                        _player.value!!,
-                        attackEnemy.value!!,
-                        _enemy.value!!,
-                        enemy.value!!,
-                        ::showToast
-                    )
-                    attackEnemy.value!!.loadChakra(_enemy.value!!, enemy.value!!)
-                    attackEnemy.value!!.subtractChakra(_enemy.value!!, enemy.value!!, ::showToast)
-                    attackEnemy.value!!.subtractLifePoints(
-                        enemy.value!!,
-                        _enemy.value!!,
-                        attackPlayer.value!!,
-                        _player.value!!,
-                        player.value!!,
-                        ::showToast
-                    )
-                }
-            }
-        } else if (rounds.value!! == 2 && roundsWonPlayer.value!! < 2 || roundsWonEnemy.value!! < 2) {
-            resetPoints()
-            setAttackEnemy()
-            Handler().postDelayed(runnable, 5000)
-
-            if (attackPlayer.value != null && attackEnemy.value != null) {
-                if (player.value!!.lifePoints > 0 || enemy.value!!.lifePoints > 0) {
-                    attackPlayer.value!!.loadChakra(_player.value!!, player.value!!)
-                    attackPlayer.value!!.subtractChakra(
-                        _player.value!!,
-                        player.value!!,
-                        ::showToast
-                    )
-                    attackPlayer.value!!.subtractLifePoints(
-                        player.value!!,
-                        _player.value!!,
-                        attackEnemy.value!!,
-                        _enemy.value!!,
-                        enemy.value!!,
-                        ::showToast
-                    )
-                    attackEnemy.value!!.loadChakra(_enemy.value!!, enemy.value!!)
-                    attackEnemy.value!!.subtractChakra(_enemy.value!!, enemy.value!!, ::showToast)
-                    attackEnemy.value!!.subtractLifePoints(
-                        enemy.value!!,
-                        _enemy.value!!,
-                        attackPlayer.value!!,
-                        _player.value!!,
-                        player.value!!,
-                        ::showToast
-                    )
-                }
-            }
-        } else if (rounds.value!! == 3 || roundsWonPlayer.value!! == 2 || roundsWonEnemy.value!! == 2) {
+        if (rounds.value!! == 3 || roundsWonPlayer.value!! == 2 || roundsWonEnemy.value!! == 2) {
             _gameEnd.value = true
+
+            if (rounds.value!! == 0) {
+                if (attackPlayer.value != null && attackEnemy.value != null) {
+                    if (player.value!!.lifePoints > 0 || enemy.value!!.lifePoints > 0) {
+                        attackPlayer.value!!.loadChakra(_player.value!!, player.value!!)
+                        attackPlayer.value!!.subtractChakra(
+                            _player.value!!,
+                            player.value!!,
+                            ::showToast
+                        )
+                        attackPlayer.value!!.subtractLifePoints(
+                            player.value!!,
+                            _player.value!!,
+                            attackEnemy.value!!,
+                            _enemy.value!!,
+                            enemy.value!!,
+                            ::showToast
+                        )
+                        attackEnemy.value!!.loadChakra(_enemy.value!!, enemy.value!!)
+                        attackEnemy.value!!.subtractChakra(
+                            _enemy.value!!,
+                            enemy.value!!,
+                            ::showToast
+                        )
+                        attackEnemy.value!!.subtractLifePoints(
+                            enemy.value!!,
+                            _enemy.value!!,
+                            attackPlayer.value!!,
+                            _player.value!!,
+                            player.value!!,
+                            ::showToast
+                        )
+                    }
+                }
+            } else if (rounds.value!! == 1) {
+                resetPoints()
+                if (attackPlayer.value != null && attackEnemy.value != null) {
+                    if (player.value!!.lifePoints > 0 || enemy.value!!.lifePoints > 0) {
+                        attackPlayer.value!!.loadChakra(_player.value!!, player.value!!)
+                        attackPlayer.value!!.subtractChakra(
+                            _player.value!!,
+                            player.value!!,
+                            ::showToast
+                        )
+                        attackPlayer.value!!.subtractLifePoints(
+                            player.value!!,
+                            _player.value!!,
+                            attackEnemy.value!!,
+                            _enemy.value!!,
+                            enemy.value!!,
+                            ::showToast
+                        )
+                        attackEnemy.value!!.loadChakra(_enemy.value!!, enemy.value!!)
+                        attackEnemy.value!!.subtractChakra(
+                            _enemy.value!!,
+                            enemy.value!!,
+                            ::showToast
+                        )
+                        attackEnemy.value!!.subtractLifePoints(
+                            enemy.value!!,
+                            _enemy.value!!,
+                            attackPlayer.value!!,
+                            _player.value!!,
+                            player.value!!,
+                            ::showToast
+                        )
+                    }
+                }
+            } else if (rounds.value!! == 2 && roundsWonPlayer.value!! < 2 || roundsWonEnemy.value!! < 2) {
+                resetPoints()
+                if (attackPlayer.value != null && attackEnemy.value != null) {
+                    if (player.value!!.lifePoints > 0 || enemy.value!!.lifePoints > 0) {
+                        attackPlayer.value!!.loadChakra(_player.value!!, player.value!!)
+                        attackPlayer.value!!.subtractChakra(
+                            _player.value!!,
+                            player.value!!,
+                            ::showToast
+                        )
+                        attackPlayer.value!!.subtractLifePoints(
+                            player.value!!,
+                            _player.value!!,
+                            attackEnemy.value!!,
+                            _enemy.value!!,
+                            enemy.value!!,
+                            ::showToast
+                        )
+                        attackEnemy.value!!.loadChakra(_enemy.value!!, enemy.value!!)
+                        attackEnemy.value!!.subtractChakra(
+                            _enemy.value!!,
+                            enemy.value!!,
+                            ::showToast
+                        )
+                        attackEnemy.value!!.subtractLifePoints(
+                            enemy.value!!,
+                            _enemy.value!!,
+                            attackPlayer.value!!,
+                            _player.value!!,
+                            player.value!!,
+                            ::showToast
+                        )
+                    }
+                }
+            }
         }
 
                 _player.value = _player.value
                 _enemy.value = _enemy.value
-
-                _lifePointsPlayer.value = player.value!!.lifePoints
-                _lifePointsEnemy.value = enemy.value!!.lifePoints
     }
 
 
@@ -728,9 +736,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
         _player.value!!.chakraPoints = player.value!!.chakraPointsStart
         _enemy.value!!.chakraPoints = enemy.value!!.chakraPointsStart
-
-        _lifePointsPlayer.value = _lifePointsPlayer.value
-        _lifePointsEnemy.value = _lifePointsEnemy.value
     }
 
 

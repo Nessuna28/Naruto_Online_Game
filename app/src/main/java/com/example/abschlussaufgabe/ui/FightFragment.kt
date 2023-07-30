@@ -110,30 +110,34 @@ class FightFragment : Fragment() {
 
        runViewsRound()
 
+        viewModel.setAttackEnemy()
+        Handler().postDelayed(viewModel.runnable, 5000)
+
         viewModel.attackPlayer.observe(viewLifecycleOwner) {attackPlayer ->
             actionOfSelectionPlayer(attackPlayer)
-            viewModel.playRound()
         }
-
-
-        viewModel.lifePointsPlayer.observe(viewLifecycleOwner) {
-            if (viewModel.lifePointsPlayer.value != null && viewModel.lifePointsEnemy.value != null) {
-                if (viewModel.lifePointsPlayer.value!! <= 0 || viewModel.lifePointsEnemy.value!! <= 0) {
-                    invisibleAttacks()
-                    viewModel.endRound()
-                }
-            }
-        }
-
 
         viewModel.attackEnemy.observe(viewLifecycleOwner) {
-            if (viewModel.lifePointsPlayer.value != null && viewModel.lifePointsEnemy.value != null) {
-                if (viewModel.lifePointsPlayer.value!! > 0 && viewModel.lifePointsEnemy.value!! > 0) {
-                    actionOfSelectionEnemy(it)
-                    viewModel.endRound()
-                }
+            if (player.lifePoints > 0 && enemy.lifePoints > 0) {
+                actionOfSelectionEnemy(it)
             }
         }
+
+        viewModel.initLifePoints(player.lifePoints, enemy.lifePoints)
+        viewModel.lifePointsPlayer.observe(viewLifecycleOwner) {
+            binding.tvLifeValuePlayer?.text = it.toString()
+            if (player.lifePoints <= 0 || enemy.lifePoints <= 0) {
+                invisibleAttacks()
+            }
+        }
+
+        viewModel.lifePointsEnemy.observe(viewLifecycleOwner) {
+            binding.tvLifeValueEnemy?.text = it.toString()
+        }
+
+        viewModel.playRound()
+        viewModel.endRound()
+
 
         viewModel.rounds.observe(viewLifecycleOwner) {
             setColorForRounds(it)
@@ -328,7 +332,7 @@ class FightFragment : Fragment() {
                     { binding.ivImage2Enemy?.visibility = View.INVISIBLE }, duration
                 )
                 handler.postDelayed(
-                    { binding.ivImage2Enemy?.setImageResource(player.imageAttack) }, duration
+                    { binding.ivImage2Enemy?.setImageResource(enemy.imageAttack) }, duration
                 )
                 handler.postDelayed(
                     { binding.ivImage2Enemy?.rotationX = 0F }, duration
@@ -490,9 +494,9 @@ class FightFragment : Fragment() {
 
     fun runViewWinnerOrLoser() {
 
-        if (viewModel.lifePointsPlayer.value!! <= 0) {
+        if (player.lifePoints <= 0) {
             binding.ivResult?.setImageResource(R.drawable.loser)
-        } else if (viewModel.lifePointsPlayer.value!! > 0) {
+        } else if (player.lifePoints > 0) {
             binding.ivResult?.setImageResource(R.drawable.winner)
         }
 
@@ -512,26 +516,26 @@ class FightFragment : Fragment() {
     fun setColorForRounds(it: Int) {
 
         if (it == 1) {
-            if (viewModel.lifePointsPlayer.value!! > 0) {
+            if (player.lifePoints > 0) {
                 binding.mcRound1Player?.setCardBackgroundColor(Color.rgb(255, 100, 0))
                 binding.mcRound1Enemy?.setCardBackgroundColor(Color.DKGRAY)
-            } else if (viewModel.lifePointsEnemy.value!! > 0){
+            } else if (enemy.lifePoints > 0){
                 binding.mcRound1Player?.setCardBackgroundColor(Color.DKGRAY)
                 binding.mcRound1Enemy?.setCardBackgroundColor(Color.rgb(255,100,0))
             }
         } else if (it == 2) {
-            if (viewModel.lifePointsPlayer.value!! > 0) {
+            if (player.lifePoints > 0) {
                 binding.mcRound2Player?.setCardBackgroundColor(Color.rgb(255, 100, 0))
                 binding.mcRound2Enemy?.setCardBackgroundColor(Color.DKGRAY)
-            } else if (viewModel.lifePointsEnemy.value!! > 0) {
+            } else if (enemy.lifePoints > 0) {
                 binding.mcRound2Player?.setCardBackgroundColor(Color.DKGRAY)
                 binding.mcRound2Enemy?.setCardBackgroundColor(Color.rgb(255,100,0))
             }
         } else if (it == 3) {
-            if (viewModel.lifePointsPlayer.value!! > 0) {
+            if (player.lifePoints > 0) {
                 binding.mcRound3Player?.setCardBackgroundColor(Color.rgb(255, 100, 0))
                 binding.mcRound3Enemy?.setCardBackgroundColor(Color.DKGRAY)
-            } else if (viewModel.lifePointsEnemy.value!! > 0) {
+            } else if (enemy.lifePoints > 0) {
                 binding.mcRound3Player?.setCardBackgroundColor(Color.DKGRAY)
                 binding.mcRound3Enemy?.setCardBackgroundColor(Color.rgb(255, 100, 0))
             }
