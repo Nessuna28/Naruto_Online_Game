@@ -1,6 +1,7 @@
 package com.example.abschlussaufgabe.ui
 
 import android.content.pm.ActivityInfo
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -111,19 +112,15 @@ class FightFragment : Fragment() {
 
         viewModel.attackPlayer.observe(viewLifecycleOwner) {attackPlayer ->
             actionOfSelectionPlayer(attackPlayer)
-            actionOfSelectionEnemy(viewModel.attackEnemy.value!!)
             viewModel.playRound()
         }
 
-
-        Log.e("FightFragment", "${viewModel.lifePointsPlayer.value} und ${viewModel.lifePointsEnemy.value}")
 
         viewModel.lifePointsPlayer.observe(viewLifecycleOwner) {
             if (viewModel.lifePointsPlayer.value != null && viewModel.lifePointsEnemy.value != null) {
                 if (viewModel.lifePointsPlayer.value!! <= 0 || viewModel.lifePointsEnemy.value!! <= 0) {
                     viewModel.endRound()
                     invisibleAttacks()
-                    runViewWinnerOrLoser()
                 }
             }
         }
@@ -133,27 +130,24 @@ class FightFragment : Fragment() {
                 if (viewModel.lifePointsPlayer.value!! <= 0 || viewModel.lifePointsEnemy.value!! <= 0) {
                     viewModel.endRound()
                     invisibleAttacks()
-                    runViewWinnerOrLoser()
                 }
             }
         }
 
-
-
-        /*viewModel.rounds.observe(viewLifecycleOwner) {
-            viewModel.roundsWonPlayer.observe(viewLifecycleOwner) {
-                viewModel.roundsWonEnemy.observe(viewLifecycleOwner) {
-                    viewModel.playRounds(attacks)
+        viewModel.attackEnemy.observe(viewLifecycleOwner) {
+            if (viewModel.lifePointsPlayer.value != null && viewModel.lifePointsEnemy.value != null) {
+                if (viewModel.lifePointsPlayer.value!! > 0 || viewModel.lifePointsEnemy.value!! > 0) {
+                    actionOfSelectionEnemy(it)
                 }
             }
         }
 
-         */
+        viewModel.rounds.observe(viewLifecycleOwner) {
+            setColorForRounds(it)
+            runViewsRound()
+            viewModel.playRounds(viewModel.playRound())
+        }
 
-
-        viewModel.toastMessage.observe(viewLifecycleOwner, Observer { message ->
-            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-        })
 
         viewModel.roundsWonPlayer.observe(viewLifecycleOwner) {
             if (it >= 2 && viewModel.rounds.value!! >= 2) {
@@ -164,6 +158,10 @@ class FightFragment : Fragment() {
                 viewModel.setResult(false)
             }
         }
+
+        viewModel.toastMessage.observe(viewLifecycleOwner, Observer { message ->
+            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        })
 
 
         // Navigation
@@ -454,19 +452,47 @@ class FightFragment : Fragment() {
 
      fun runViewsRound() {
 
-            binding.ivRound?.visibility = View.VISIBLE
+         if (viewModel.rounds.value!! == 0) {
+             binding.ivRound?.setImageResource(R.drawable.round_1)
+         } else if (viewModel.rounds.value!! == 1) {
+             binding.ivRound?.setImageResource(R.drawable.round_2)
+         } else if (viewModel.rounds.value!! == 2) {
+             binding.ivRound?.setImageResource(R.drawable.round_3)
+         }
 
-            Handler().postDelayed({
-                binding.ivRound?.visibility = View.INVISIBLE
+         if (viewModel.rounds.value!! > 0) {
+             runViewWinnerOrLoser()
 
-                binding.ivFight?.visibility = View.VISIBLE
+             handler.postDelayed({
+                binding.ivRound?.visibility = View.VISIBLE
 
                 handler.postDelayed({
-                    binding.ivFight?.visibility = View.INVISIBLE
+                    binding.ivRound?.visibility = View.INVISIBLE
 
-                    visibleAttacks()
-                }, 2000)
-            }, 2000)
+                 binding.ivFight?.visibility = View.VISIBLE
+
+                    handler.postDelayed({
+                        binding.ivFight?.visibility = View.INVISIBLE
+
+                     visibleAttacks()
+                    },2000)
+                 }, 2000)
+             }, 3000)
+         } else {
+             binding.ivRound?.visibility = View.VISIBLE
+
+             handler.postDelayed({
+                 binding.ivRound?.visibility = View.INVISIBLE
+
+                 binding.ivFight?.visibility = View.VISIBLE
+
+                 handler.postDelayed({
+                     binding.ivFight?.visibility = View.INVISIBLE
+
+                     visibleAttacks()
+                 }, 2000)
+             }, 2000)
+         }
      }
 
     fun runViewWinnerOrLoser() {
@@ -480,7 +506,7 @@ class FightFragment : Fragment() {
 
         binding.ivResult?.visibility = View.VISIBLE
 
-        Handler().postDelayed(
+        handler.postDelayed(
             { binding.ivResult?.visibility = View.INVISIBLE }, 3000)
     }
 
@@ -488,6 +514,35 @@ class FightFragment : Fragment() {
 
         handler.removeCallbacksAndMessages(null)
         super.onDestroyView()
+    }
+
+    fun setColorForRounds(it: Int) {
+
+        if (it == 1) {
+            if (viewModel.lifePointsPlayer.value!! > 0) {
+                binding.mcRound1Player?.setBackgroundColor(Color.rgb(255, 100, 0))
+                binding.mcRound1Enemy?.setBackgroundColor(Color.DKGRAY)
+            } else if (viewModel.lifePointsEnemy.value!! > 0){
+                binding.mcRound1Player?.setBackgroundColor(Color.DKGRAY)
+                binding.mcRound1Enemy?.setBackgroundColor(Color.rgb(255,100,0))
+            }
+        } else if (it == 2) {
+            if (viewModel.lifePointsPlayer.value!! > 0) {
+                binding.mcRound2Player?.setBackgroundColor(Color.rgb(255, 100, 0))
+                binding.mcRound2Enemy?.setBackgroundColor(Color.DKGRAY)
+            } else if (viewModel.lifePointsEnemy.value!! > 0) {
+                binding.mcRound2Player?.setBackgroundColor(Color.DKGRAY)
+                binding.mcRound2Enemy?.setBackgroundColor(Color.rgb(255,100,0))
+            }
+        } else if (it == 3) {
+            if (viewModel.lifePointsPlayer.value!! > 0) {
+                binding.mcRound3Player?.setBackgroundColor(Color.rgb(255, 100, 0))
+                binding.mcRound3Enemy?.setBackgroundColor(Color.DKGRAY)
+            } else if (viewModel.lifePointsEnemy.value!! > 0) {
+                binding.mcRound3Player?.setBackgroundColor(Color.DKGRAY)
+                binding.mcRound3Enemy?.setBackgroundColor(Color.rgb(255, 100, 0))
+            }
+        }
     }
 }
 

@@ -452,5 +452,71 @@
             app:layout_constraintTop_toTopOf="@+id/iv_backgroundFight"
             app:srcCompat="@drawable/winner" />
 
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mc_round1Player"
+            android:layout_width="16dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="32dp"
+            android:backgroundTint="@color/white"
+            app:cardCornerRadius="50dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_characterNamePlayer"
+            app:layout_constraintStart_toEndOf="@+id/tv_characterNamePlayer"
+            app:layout_constraintTop_toTopOf="@+id/tv_characterNamePlayer" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mc_round2Player"
+            android:layout_width="16dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="4dp"
+            android:backgroundTint="@color/white"
+            app:cardCornerRadius="50dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_characterNamePlayer"
+            app:layout_constraintStart_toEndOf="@+id/mc_round1Player"
+            app:layout_constraintTop_toTopOf="@+id/tv_characterNamePlayer" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mc_round3Player"
+            android:layout_width="16dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="4dp"
+            android:backgroundTint="@color/white"
+            app:cardCornerRadius="50dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_characterNamePlayer"
+            app:layout_constraintStart_toEndOf="@+id/mc_round2Player"
+            app:layout_constraintTop_toTopOf="@+id/tv_characterNamePlayer" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mc_round1Enemy"
+            android:layout_width="16dp"
+            android:layout_height="15dp"
+            android:layout_marginEnd="32dp"
+            android:backgroundTint="@color/white"
+            app:cardCornerRadius="50dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_characterNameEnemy"
+            app:layout_constraintEnd_toStartOf="@+id/tv_characterNameEnemy"
+            app:layout_constraintTop_toTopOf="@+id/tv_characterNameEnemy" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mc_round2Enemy"
+            android:layout_width="16dp"
+            android:layout_height="15dp"
+            android:layout_marginEnd="4dp"
+            android:backgroundTint="@color/white"
+            app:cardCornerRadius="50dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_characterNameEnemy"
+            app:layout_constraintEnd_toStartOf="@+id/mc_round1Enemy"
+            app:layout_constraintTop_toTopOf="@+id/tv_characterNamePlayer" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mc_round3Enemy"
+            android:layout_width="16dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="4dp"
+            android:backgroundTint="@color/white"
+            app:cardCornerRadius="50dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_characterNameEnemy"
+            app:layout_constraintEnd_toStartOf="@+id/mc_round2Enemy"
+            app:layout_constraintTop_toTopOf="@+id/tv_characterNameEnemy" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

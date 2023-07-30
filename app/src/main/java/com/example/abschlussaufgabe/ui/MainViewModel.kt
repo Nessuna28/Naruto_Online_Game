@@ -205,9 +205,11 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _lifePointsPlayer
 
 
+
     private val _lifePointsEnemy = MutableLiveData<Int>()
     val lifePointsEnemy: LiveData<Int>
         get() = _lifePointsEnemy
+
 
 
     // für das Ergebnis (ResultFragment)
