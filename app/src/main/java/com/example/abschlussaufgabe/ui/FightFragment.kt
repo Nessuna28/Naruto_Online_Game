@@ -119,25 +119,18 @@ class FightFragment : Fragment() {
         viewModel.lifePointsPlayer.observe(viewLifecycleOwner) {
             if (viewModel.lifePointsPlayer.value != null && viewModel.lifePointsEnemy.value != null) {
                 if (viewModel.lifePointsPlayer.value!! <= 0 || viewModel.lifePointsEnemy.value!! <= 0) {
-                    viewModel.endRound()
                     invisibleAttacks()
+                    viewModel.endRound()
                 }
             }
         }
 
-        viewModel.lifePointsEnemy.observe(viewLifecycleOwner) {
-            if (viewModel.lifePointsPlayer.value != null && viewModel.lifePointsEnemy.value != null) {
-                if (viewModel.lifePointsPlayer.value!! <= 0 || viewModel.lifePointsEnemy.value!! <= 0) {
-                    viewModel.endRound()
-                    invisibleAttacks()
-                }
-            }
-        }
 
         viewModel.attackEnemy.observe(viewLifecycleOwner) {
             if (viewModel.lifePointsPlayer.value != null && viewModel.lifePointsEnemy.value != null) {
-                if (viewModel.lifePointsPlayer.value!! > 0 || viewModel.lifePointsEnemy.value!! > 0) {
+                if (viewModel.lifePointsPlayer.value!! > 0 && viewModel.lifePointsEnemy.value!! > 0) {
                     actionOfSelectionEnemy(it)
+                    viewModel.endRound()
                 }
             }
         }
@@ -145,7 +138,6 @@ class FightFragment : Fragment() {
         viewModel.rounds.observe(viewLifecycleOwner) {
             setColorForRounds(it)
             runViewsRound()
-            viewModel.playRounds(viewModel.playRound())
         }
 
 
@@ -172,7 +164,7 @@ class FightFragment : Fragment() {
 
         viewModel.gameEnd.observe(viewLifecycleOwner) {
             if (it) {
-                //findNavController().navigate(FightFragmentDirections.actionFightFragmentToResultFragment())
+                findNavController().navigate(FightFragmentDirections.actionFightFragmentToResultFragment())
             }
         }
     }
@@ -466,14 +458,15 @@ class FightFragment : Fragment() {
              handler.postDelayed({
                 binding.ivRound?.visibility = View.VISIBLE
 
-                handler.postDelayed({
-                    binding.ivRound?.visibility = View.INVISIBLE
 
-                 binding.ivFight?.visibility = View.VISIBLE
+                 binding.ivRound?.visibility = View.INVISIBLE
 
-                    handler.postDelayed({
-                        binding.ivFight?.visibility = View.INVISIBLE
+                 handler.postDelayed({
+                    binding.ivFight?.visibility = View.VISIBLE
 
+                     binding.ivFight?.visibility = View.INVISIBLE
+
+                     handler.postDelayed({
                      visibleAttacks()
                     },2000)
                  }, 2000)
@@ -520,27 +513,27 @@ class FightFragment : Fragment() {
 
         if (it == 1) {
             if (viewModel.lifePointsPlayer.value!! > 0) {
-                binding.mcRound1Player?.setBackgroundColor(Color.rgb(255, 100, 0))
-                binding.mcRound1Enemy?.setBackgroundColor(Color.DKGRAY)
+                binding.mcRound1Player?.setCardBackgroundColor(Color.rgb(255, 100, 0))
+                binding.mcRound1Enemy?.setCardBackgroundColor(Color.DKGRAY)
             } else if (viewModel.lifePointsEnemy.value!! > 0){
-                binding.mcRound1Player?.setBackgroundColor(Color.DKGRAY)
-                binding.mcRound1Enemy?.setBackgroundColor(Color.rgb(255,100,0))
+                binding.mcRound1Player?.setCardBackgroundColor(Color.DKGRAY)
+                binding.mcRound1Enemy?.setCardBackgroundColor(Color.rgb(255,100,0))
             }
         } else if (it == 2) {
             if (viewModel.lifePointsPlayer.value!! > 0) {
-                binding.mcRound2Player?.setBackgroundColor(Color.rgb(255, 100, 0))
-                binding.mcRound2Enemy?.setBackgroundColor(Color.DKGRAY)
+                binding.mcRound2Player?.setCardBackgroundColor(Color.rgb(255, 100, 0))
+                binding.mcRound2Enemy?.setCardBackgroundColor(Color.DKGRAY)
             } else if (viewModel.lifePointsEnemy.value!! > 0) {
-                binding.mcRound2Player?.setBackgroundColor(Color.DKGRAY)
-                binding.mcRound2Enemy?.setBackgroundColor(Color.rgb(255,100,0))
+                binding.mcRound2Player?.setCardBackgroundColor(Color.DKGRAY)
+                binding.mcRound2Enemy?.setCardBackgroundColor(Color.rgb(255,100,0))
             }
         } else if (it == 3) {
             if (viewModel.lifePointsPlayer.value!! > 0) {
-                binding.mcRound3Player?.setBackgroundColor(Color.rgb(255, 100, 0))
-                binding.mcRound3Enemy?.setBackgroundColor(Color.DKGRAY)
+                binding.mcRound3Player?.setCardBackgroundColor(Color.rgb(255, 100, 0))
+                binding.mcRound3Enemy?.setCardBackgroundColor(Color.DKGRAY)
             } else if (viewModel.lifePointsEnemy.value!! > 0) {
-                binding.mcRound3Player?.setBackgroundColor(Color.DKGRAY)
-                binding.mcRound3Enemy?.setBackgroundColor(Color.rgb(255, 100, 0))
+                binding.mcRound3Player?.setCardBackgroundColor(Color.DKGRAY)
+                binding.mcRound3Enemy?.setCardBackgroundColor(Color.rgb(255, 100, 0))
             }
         }
     }
