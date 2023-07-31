@@ -694,8 +694,13 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
             }
         }
 
-                _player.value = _player.value
-                _enemy.value = _enemy.value
+        _player.value = _player.value
+        _enemy.value = _enemy.value
+
+        initLifePoints(player.value!!.lifePoints, enemy.value!!.lifePoints)
+
+        _lifePointsPlayer.value = _lifePointsPlayer.value
+        _lifePointsEnemy.value = _lifePointsEnemy.value
     }
 
 

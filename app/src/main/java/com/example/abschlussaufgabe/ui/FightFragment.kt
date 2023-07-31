@@ -110,11 +110,12 @@ class FightFragment : Fragment() {
 
        runViewsRound()
 
-        viewModel.setAttackEnemy()
         Handler().postDelayed(viewModel.runnable, 5000)
 
         viewModel.attackPlayer.observe(viewLifecycleOwner) {attackPlayer ->
             actionOfSelectionPlayer(attackPlayer)
+            viewModel.playRound()
+            Log.e("FightFragment", "${player.lifePoints} und ${enemy.lifePoints}")
         }
 
         viewModel.attackEnemy.observe(viewLifecycleOwner) {
@@ -123,7 +124,6 @@ class FightFragment : Fragment() {
             }
         }
 
-        viewModel.initLifePoints(player.lifePoints, enemy.lifePoints)
         viewModel.lifePointsPlayer.observe(viewLifecycleOwner) {
             binding.tvLifeValuePlayer?.text = it.toString()
             if (player.lifePoints <= 0 || enemy.lifePoints <= 0) {
@@ -135,15 +135,12 @@ class FightFragment : Fragment() {
             binding.tvLifeValueEnemy?.text = it.toString()
         }
 
-        viewModel.playRound()
         viewModel.endRound()
-
 
         viewModel.rounds.observe(viewLifecycleOwner) {
             setColorForRounds(it)
             runViewsRound()
         }
-
 
         viewModel.roundsWonPlayer.observe(viewLifecycleOwner) {
             if (it >= 2 && viewModel.rounds.value!! >= 2) {
