@@ -82,57 +82,38 @@ class CharacterSelectionFragment : Fragment() {
             binding.rvCharactersEnemy?.adapter = SelectionCharacterEnemyAdapter(it, viewModel)
         }
 
-        viewModel.imageForPlayer.observe(viewLifecycleOwner) {
-            binding.ivSelectionPlayer?.visibility = View.VISIBLE
-            binding.ivSelectionPlayer?.setImageResource(it)
-        }
-
-        viewModel.characterNameForPlayer.observe(viewLifecycleOwner) {
+        viewModel.player.observe(viewLifecycleOwner) {
             binding.tvCharacterNamePlayer?.visibility = View.VISIBLE
-            binding.tvCharacterNamePlayer?.text = viewModel.characterNameForPlayer.value
-        }
-
-        viewModel.jutsuListForPlayer.observe(viewLifecycleOwner) {
+            binding.tvCharacterNamePlayer?.text = it.name
+            binding.ivSelectionPlayer?.visibility = View.VISIBLE
+            binding.ivSelectionPlayer?.setImageResource(it.image)
             binding.tvTitleJutsusPlayer?.visibility = View.VISIBLE
             binding.rvJutsusPlayer?.visibility = View.VISIBLE
-            binding.rvJutsusPlayer?.adapter = JutsuPlayerAdapter(it, viewModel)
-        }
-
-        viewModel.uniqueTraitsListForPlayer.observe(viewLifecycleOwner) {
+            binding.rvJutsusPlayer?.adapter = JutsuPlayerAdapter(it.jutsus, viewModel)
             binding.tvTitleTraitsPlayer?.visibility = View.VISIBLE
             binding.rvTraitsPlayer?.visibility = View.VISIBLE
-            binding.rvTraitsPlayer?.adapter = TraitPlayerAdapter(it, viewModel)
+            binding.rvTraitsPlayer?.adapter = TraitPlayerAdapter(it.uniqueTraits, viewModel)
         }
 
-        viewModel.imageForEnemy.observe(viewLifecycleOwner) {
-            binding.ivSelectionEnemy?.visibility = View.VISIBLE
-            binding.ivSelectionEnemy?.setImageResource(it)
-        }
-
-        viewModel.characterNameForEnemy.observe(viewLifecycleOwner) {
+        viewModel.enemy.observe(viewLifecycleOwner) {
             binding.tvCharacterNameEnemy?.visibility = View.VISIBLE
-            binding.tvCharacterNameEnemy?.text = it
-        }
-
-        viewModel.jutsuListForEnemy.observe(viewLifecycleOwner) {
+            binding.tvCharacterNameEnemy?.text = it.name
+            binding.ivSelectionEnemy?.visibility = View.VISIBLE
+            binding.ivSelectionEnemy?.setImageResource(it.image)
             binding.tvTitleJutsusEnemy?.visibility = View.VISIBLE
             binding.rvJutsusEnemy?.visibility = View.VISIBLE
-            binding.rvJutsusEnemy?.adapter = JutsuEnemyAdapter(it)
-        }
-
-        viewModel.uniqueTraitsListForEnemy.observe(viewLifecycleOwner) {
+            binding.rvJutsusEnemy?.adapter = JutsuEnemyAdapter(it.jutsus)
             binding.tvTitleTraitsEnemy?.visibility = View.VISIBLE
             binding.rvTraitsEnemy?.visibility = View.VISIBLE
-            binding.rvTraitsEnemy?.adapter = TraitEnemyAdapter(it)
+            binding.rvTraitsEnemy?.adapter = TraitEnemyAdapter(it.uniqueTraits)
         }
-
 
 
         // OnClickListerner & Navigation
 
         binding.btnOkPlayer?.setOnClickListener {
             if (viewModel.player.isInitialized) {
-                binding.ivSelectionPlayer?.setImageResource(viewModel.imagePoseForPlayer.value!!)
+                binding.ivSelectionPlayer?.setImageResource(viewModel.player.value!!.imagePose)
                 it.setBackgroundColor(Color.GREEN)
                 viewModel.confirmSelectionPlayer(true)
                 binding.rvCharactersPlayer?.isEnabled = false
@@ -149,7 +130,7 @@ class CharacterSelectionFragment : Fragment() {
 
         binding.btnOkEnemy?.setOnClickListener {
             if (viewModel.enemy.isInitialized) {
-                binding.ivSelectionEnemy?.setImageResource(viewModel.imagePoseForEnemy.value!!)
+                binding.ivSelectionEnemy?.setImageResource(viewModel.enemy.value!!.imagePose)
                 it.setBackgroundColor(Color.GREEN)
                 viewModel.confirmSelectionEnemy(true)
                 binding.rvCharactersEnemy?.isEnabled = false

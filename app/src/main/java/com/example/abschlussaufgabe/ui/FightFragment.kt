@@ -1,5 +1,6 @@
 package com.example.abschlussaufgabe.ui
 
+import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Bundle
@@ -9,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -110,32 +112,25 @@ class FightFragment : Fragment() {
 
        runViewsRound()
 
-        Handler().postDelayed(viewModel.runnable, 5000)
+        Handler().postDelayed(viewModel.runnable, 6000)
 
         viewModel.attackPlayer.observe(viewLifecycleOwner) {attackPlayer ->
             actionOfSelectionPlayer(attackPlayer)
-            viewModel.playRound()
-            Log.e("FightFragment", "${player.lifePoints} und ${enemy.lifePoints}")
+            viewModel.playRoundPlayer()
+            if (player.lifePoints <= 0 || enemy.lifePoints <= 0) {
+                invisibleAttacks()
+                viewModel.endRound()
+            }
         }
 
         viewModel.attackEnemy.observe(viewLifecycleOwner) {
             if (player.lifePoints > 0 && enemy.lifePoints > 0) {
+                viewModel.playRoundEnemy()
                 actionOfSelectionEnemy(it)
+            } else {
+                viewModel.endRound()
             }
         }
-
-        viewModel.lifePointsPlayer.observe(viewLifecycleOwner) {
-            binding.tvLifeValuePlayer?.text = it.toString()
-            if (player.lifePoints <= 0 || enemy.lifePoints <= 0) {
-                invisibleAttacks()
-            }
-        }
-
-        viewModel.lifePointsEnemy.observe(viewLifecycleOwner) {
-            binding.tvLifeValueEnemy?.text = it.toString()
-        }
-
-        viewModel.endRound()
 
         viewModel.rounds.observe(viewLifecycleOwner) {
             setColorForRounds(it)
@@ -453,23 +448,27 @@ class FightFragment : Fragment() {
              binding.ivRound?.setImageResource(R.drawable.round_3)
          }
 
-         if (viewModel.rounds.value!! > 0) {
+         binding.ivRound?.visibility = View.INVISIBLE
+         binding.ivFight?.visibility = View.INVISIBLE
+
+         if (viewModel.rounds.value!! > 0 && player.lifePoints < 2 && enemy.lifePoints < 2) {
              runViewWinnerOrLoser()
 
              handler.postDelayed({
-                binding.ivRound?.visibility = View.VISIBLE
-
-
-                 binding.ivRound?.visibility = View.INVISIBLE
+                 binding.ivRound?.visibility = View.VISIBLE
 
                  handler.postDelayed({
-                    binding.ivFight?.visibility = View.VISIBLE
-
-                     binding.ivFight?.visibility = View.INVISIBLE
+                     binding.ivRound?.visibility = View.INVISIBLE
 
                      handler.postDelayed({
-                     visibleAttacks()
-                    },2000)
+                         binding.ivFight?.visibility = View.VISIBLE
+
+                         handler.postDelayed({
+                             binding.ivFight?.visibility = View.INVISIBLE
+
+                             visibleAttacks()
+                         }, 2000)
+                     }, 2000)
                  }, 2000)
              }, 3000)
          } else {
@@ -478,12 +477,14 @@ class FightFragment : Fragment() {
              handler.postDelayed({
                  binding.ivRound?.visibility = View.INVISIBLE
 
-                 binding.ivFight?.visibility = View.VISIBLE
-
                  handler.postDelayed({
-                     binding.ivFight?.visibility = View.INVISIBLE
+                     binding.ivFight?.visibility = View.VISIBLE
 
-                     visibleAttacks()
+                     handler.postDelayed({
+                         binding.ivFight?.visibility = View.INVISIBLE
+
+                         visibleAttacks()
+                     }, 2000)
                  }, 2000)
              }, 2000)
          }
@@ -491,7 +492,7 @@ class FightFragment : Fragment() {
 
     fun runViewWinnerOrLoser() {
 
-        if (player.lifePoints <= 0) {
+        if (player.lifePoints == 0) {
             binding.ivResult?.setImageResource(R.drawable.loser)
         } else if (player.lifePoints > 0) {
             binding.ivResult?.setImageResource(R.drawable.winner)
@@ -510,15 +511,19 @@ class FightFragment : Fragment() {
         super.onDestroyView()
     }
 
+    @SuppressLint("ResourceAsColor")
     fun setColorForRounds(it: Int) {
+
+        val orangeColor = ContextCompat.getColor(requireContext(), R.color.primary)
+        val greyColor = ContextCompat.getColor(requireContext(), R.color.darkgrey)
 
         if (it == 1) {
             if (player.lifePoints > 0) {
-                binding.mcRound1Player?.setCardBackgroundColor(Color.rgb(255, 100, 0))
-                binding.mcRound1Enemy?.setCardBackgroundColor(Color.DKGRAY)
+                binding.mcRound1Player?.setCardBackgroundColor(orangeColor)
+                binding.mcRound1Enemy?.setCardBackgroundColor(greyColor)
             } else if (enemy.lifePoints > 0){
-                binding.mcRound1Player?.setCardBackgroundColor(Color.DKGRAY)
-                binding.mcRound1Enemy?.setCardBackgroundColor(Color.rgb(255,100,0))
+                binding.mcRound1Player?.setCardBackgroundColor(greyColor)
+                binding.mcRound1Enemy?.setCardBackgroundColor(orangeColor)
             }
         } else if (it == 2) {
             if (player.lifePoints > 0) {

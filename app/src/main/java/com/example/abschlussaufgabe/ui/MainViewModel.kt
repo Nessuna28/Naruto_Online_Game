@@ -85,21 +85,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _imageForPlayer
 
 
-    private val _imagePoseForPlayer = MutableLiveData<Int>()
-    val imagePoseForPlayer: LiveData<Int>
-        get() = _imagePoseForPlayer
-
-
-    private val _imageFaceForPlayer = MutableLiveData<Int>()
-    val imageFaceForPlayer: LiveData<Int>
-        get() = _imageFaceForPlayer
-
-
-    private val _imageAttackForPlayer = MutableLiveData<Int>()
-    val imageAttackForPlayer: LiveData<Int>
-        get() = _imageAttackForPlayer
-
-
     private val _characterNameForPlayer = MutableLiveData<String>()
     val characterNameForPlayer: LiveData<String>
         get() = _characterNameForPlayer
@@ -118,21 +103,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     private val _imageForEnemy = MutableLiveData<Int>()
     val imageForEnemy: LiveData<Int>
         get() = _imageForEnemy
-
-
-    private val _imagePoseForEnemy = MutableLiveData<Int>()
-    val imagePoseForEnemy: LiveData<Int>
-        get() = _imagePoseForEnemy
-
-
-    private val _imageFaceForEnemy = MutableLiveData<Int>()
-    val imageFaceForEnemy: LiveData<Int>
-        get() = _imageFaceForEnemy
-
-
-    private val _imageAttackForEnemy = MutableLiveData<Int>()
-    val imageAttackForEnemy: LiveData<Int>
-        get() = _imageAttackForEnemy
 
 
     private val _characterNameForEnemy = MutableLiveData<String>()
@@ -370,13 +340,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     // in mehreren Funktionen werden die Daten für die Anzeigen im Screen bei der Charakterauswahl gesetzt
 
-    fun setImageForPlayer(image: Int, imagePose: Int, imageFace: Int, imageAttack: Int) {
-
-        _imageForPlayer.value = image
-        _imagePoseForPlayer.value = imagePose
-        _imageFaceForPlayer.value = imageFace
-        _imageAttackForPlayer.value = imageAttack
-    }
 
     fun setCharacterNameForPlayer(characterName: String) {
 
@@ -391,14 +354,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     fun setUniqueTraitForPlayer(uniqueTraits: List<UniqueTrait>) {
 
         _uniqueTraitsListForPlayer.value = uniqueTraits
-    }
-
-    fun setImageForEnemy(image: Int, imagePose: Int, imageFace: Int, imageAttack: Int) {
-
-        _imageForEnemy.value = image
-        _imagePoseForEnemy.value = imagePose
-        _imageFaceForEnemy.value = imageFace
-        _imageAttackForEnemy.value = imageAttack
     }
 
     fun setCharacterNameForEnemy(characterName: String) {
@@ -444,14 +399,8 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     fun randomCharacterForPlayer() {
 
-        val randomCharacter = characterForFight.value?.random()
+        val randomCharacter = characterForFight.value!!.random()
 
-        setImageForPlayer(
-            randomCharacter!!.image,
-            randomCharacter.imagePose,
-            randomCharacter.imageFace,
-            randomCharacter.imageAttack
-        )
         setCharacterNameForPlayer(randomCharacter.name)
         setJutsuForPlayer(randomCharacter.jutsus)
         setUniqueTraitForPlayer(randomCharacter.uniqueTraits)
@@ -460,14 +409,8 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     fun randomCharacterForEnemy() {
 
-        val randomCharacter = characterForFight.value?.random()
+        val randomCharacter = characterForFight.value!!.random()
 
-        setImageForEnemy(
-            randomCharacter!!.image,
-            randomCharacter.imagePose,
-            randomCharacter.imageFace,
-            randomCharacter.imageAttack
-        )
         setCharacterNameForEnemy(randomCharacter.name)
         setJutsuForEnemy(randomCharacter.jutsus)
         setUniqueTraitForEnemy(randomCharacter.uniqueTraits)
@@ -486,11 +429,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     fun resetSelectionData() {
 
         _imageForPlayer.value = characterForFight.value?.get(0)?.image
-        _imagePoseForPlayer.value = characterForFight.value?.get(0)?.imagePose
-        _imagePoseForPlayer.value = characterForFight.value?.get(0)?.imageFace
         _imageForEnemy.value = characterForFight.value?.get(0)?.image
-        _imagePoseForEnemy.value = characterForFight.value?.get(0)?.imagePose
-        _imagePoseForEnemy.value = characterForFight.value?.get(0)?.imageFace
         _characterNameForPlayer.value = characterForFight.value?.get(0)?.name
         _characterNameForEnemy.value = characterForFight.value?.get(0)?.name
         _jutsuListForPlayer.value = characterForFight.value?.get(0)?.jutsus
@@ -530,7 +469,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     }
 
 
-    // setzt die im Adapter ausgewählte Attacke
+    // setzt die Attacke mit der im Adapter ausgewählten Attacke
     fun setAttackPlayer(attack: Attack) {
 
         _attackPlayer.value = attack
@@ -579,102 +518,47 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
-    fun initLifePoints(player: Int, enemy: Int) {
-
-        _lifePointsPlayer.value = player
-        _lifePointsEnemy.value = enemy
-    }
-
-    fun playRound() {
+    // in diesen Funktionen werden die Punkte berechnet
+    // wenn der Spieler angreift
+    fun playRoundPlayer() {
 
         if (rounds.value!! == 3 || roundsWonPlayer.value!! == 2 || roundsWonEnemy.value!! == 2) {
             _gameEnd.value = true
 
-            if (rounds.value!! == 0) {
-                if (attackPlayer.value != null && attackEnemy.value != null) {
-                    if (player.value!!.lifePoints > 0 || enemy.value!!.lifePoints > 0) {
-                        attackPlayer.value!!.loadChakra(_player.value!!, player.value!!)
-                        attackPlayer.value!!.subtractChakra(
-                            _player.value!!,
-                            player.value!!,
-                            ::showToast
-                        )
-                        attackPlayer.value!!.subtractLifePoints(
-                            player.value!!,
-                            _player.value!!,
-                            attackEnemy.value!!,
-                            _enemy.value!!,
-                            enemy.value!!,
-                            ::showToast
-                        )
-                        attackEnemy.value!!.loadChakra(_enemy.value!!, enemy.value!!)
-                        attackEnemy.value!!.subtractChakra(
-                            _enemy.value!!,
-                            enemy.value!!,
-                            ::showToast
-                        )
-                        attackEnemy.value!!.subtractLifePoints(
-                            enemy.value!!,
-                            _enemy.value!!,
-                            attackPlayer.value!!,
-                            _player.value!!,
-                            player.value!!,
-                            ::showToast
-                        )
-                    }
+        } else {
+            if (attackPlayer.value != null && attackEnemy.value != null) {
+                if (player.value!!.lifePoints > 0 || enemy.value!!.lifePoints > 0) {
+                    attackPlayer.value!!.loadChakra(_player.value!!, player.value!!)
+                    attackPlayer.value!!.subtractChakra(
+                        _player.value!!,
+                        player.value!!,
+                        ::showToast
+                    )
+                    attackPlayer.value!!.subtractLifePoints(
+                        player.value!!,
+                        _player.value!!,
+                        attackEnemy.value!!,
+                        _enemy.value!!,
+                        enemy.value!!,
+                        ::showToast
+                    )
                 }
-            } else if (rounds.value!! == 1) {
-                resetPoints()
+            }
+        }
+
+        _player.value = _player.value
+        _enemy.value = _enemy.value
+    }
+
+    // wenn der Gegner angreift
+    fun playRoundEnemy() {
+
+        if (rounds.value!! == 3 || roundsWonPlayer.value!! == 2 || roundsWonEnemy.value!! == 2) {
+            _gameEnd.value = true
+
+        } else {
                 if (attackPlayer.value != null && attackEnemy.value != null) {
                     if (player.value!!.lifePoints > 0 || enemy.value!!.lifePoints > 0) {
-                        attackPlayer.value!!.loadChakra(_player.value!!, player.value!!)
-                        attackPlayer.value!!.subtractChakra(
-                            _player.value!!,
-                            player.value!!,
-                            ::showToast
-                        )
-                        attackPlayer.value!!.subtractLifePoints(
-                            player.value!!,
-                            _player.value!!,
-                            attackEnemy.value!!,
-                            _enemy.value!!,
-                            enemy.value!!,
-                            ::showToast
-                        )
-                        attackEnemy.value!!.loadChakra(_enemy.value!!, enemy.value!!)
-                        attackEnemy.value!!.subtractChakra(
-                            _enemy.value!!,
-                            enemy.value!!,
-                            ::showToast
-                        )
-                        attackEnemy.value!!.subtractLifePoints(
-                            enemy.value!!,
-                            _enemy.value!!,
-                            attackPlayer.value!!,
-                            _player.value!!,
-                            player.value!!,
-                            ::showToast
-                        )
-                    }
-                }
-            } else if (rounds.value!! == 2 && roundsWonPlayer.value!! < 2 || roundsWonEnemy.value!! < 2) {
-                resetPoints()
-                if (attackPlayer.value != null && attackEnemy.value != null) {
-                    if (player.value!!.lifePoints > 0 || enemy.value!!.lifePoints > 0) {
-                        attackPlayer.value!!.loadChakra(_player.value!!, player.value!!)
-                        attackPlayer.value!!.subtractChakra(
-                            _player.value!!,
-                            player.value!!,
-                            ::showToast
-                        )
-                        attackPlayer.value!!.subtractLifePoints(
-                            player.value!!,
-                            _player.value!!,
-                            attackEnemy.value!!,
-                            _enemy.value!!,
-                            enemy.value!!,
-                            ::showToast
-                        )
                         attackEnemy.value!!.loadChakra(_enemy.value!!, enemy.value!!)
                         attackEnemy.value!!.subtractChakra(
                             _enemy.value!!,
@@ -692,15 +576,9 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
                     }
                 }
             }
-        }
 
         _player.value = _player.value
         _enemy.value = _enemy.value
-
-        initLifePoints(player.value!!.lifePoints, enemy.value!!.lifePoints)
-
-        _lifePointsPlayer.value = _lifePointsPlayer.value
-        _lifePointsEnemy.value = _lifePointsEnemy.value
     }
 
 
@@ -719,6 +597,8 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
             _roundsWonEnemy.value = roundsWonEnemy.value!!.plus(1)
         }
 
+        resetPoints()
+
         _rounds.value = _rounds.value
         _roundsWonPlayer.value = _roundsWonPlayer.value
         _roundsWonEnemy.value = _roundsWonEnemy.value
@@ -726,6 +606,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     // Funktion um den Toast anzuzeigen
     fun showToast(message: String) {
+
         _toastMessage.value = message
     }
 

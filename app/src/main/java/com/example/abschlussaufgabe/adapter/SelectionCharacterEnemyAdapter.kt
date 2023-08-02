@@ -36,10 +36,6 @@ class SelectionCharacterEnemyAdapter(
         holder.binding.ivCharacter.setImageResource(characterForFight.imageFace)
 
         holder.binding.ivCharacter.setOnClickListener {
-            viewModel.setImageForEnemy(characterForFight.image, characterForFight.imagePose, characterForFight.imageFace, characterForFight.imageAttack)
-            viewModel.setCharacterNameForEnemy(characterForFight.name)
-            viewModel.setJutsuForEnemy(characterForFight.jutsus)
-            viewModel.setUniqueTraitForEnemy(characterForFight.uniqueTraits)
             viewModel.setEnemy(characterForFight)
         }
     }

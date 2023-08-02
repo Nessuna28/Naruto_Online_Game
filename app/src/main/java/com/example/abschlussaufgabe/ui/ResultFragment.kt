@@ -74,6 +74,7 @@ class ResultFragment : Fragment() {
             binding.tvUserName?.text = viewModel.profile.value?.userName
         }
 
+        binding.tvRounds?.text = viewModel.rounds.value.toString()
         binding.tvRoundsWon?.text = viewModel.roundsWonPlayer.value.toString()
 
         viewModel.countVictorysAndDefeats(viewModel.result.value!!)
@@ -93,7 +94,7 @@ class ResultFragment : Fragment() {
             charakter.image,
             charakter.lifePoints,
             viewModel.result.value!!,
-            "Computer",
+            viewModel.userNameEnemy.value!!,
             charakterEnemy.name,
             charakterEnemy.image,
             charakterEnemy.lifePoints,
