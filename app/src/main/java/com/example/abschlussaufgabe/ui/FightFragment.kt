@@ -1,11 +1,11 @@
 package com.example.abschlussaufgabe.ui
 
+
 import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -92,11 +92,9 @@ class FightFragment : Fragment() {
             binding.tvNamePlayer?.text = it.userName
         }
 
-
         viewModel.location.observe(viewLifecycleOwner) {
             binding.ivBackgroundFight?.setImageResource(it.image)
         }
-
 
         viewModel.player.observe(viewLifecycleOwner) {
             binding.ivCharacterImagePlayer?.setImageResource(it.imageFace)
@@ -104,8 +102,10 @@ class FightFragment : Fragment() {
             binding.ivImageDouble1Player?.setImageResource(it.image)
             binding.ivImageDouble2Player?.setImageResource(it.image)
             binding.tvCharacterNamePlayer?.text = it.name
-            binding.tvLifeValuePlayer?.text = it.lifePoints.toString()
-            binding.tvChakraValuePlayer?.text = it.chakraPoints.toString()
+            binding.lifePointsBarViewPlayer?.setMaxLifePoints(it.lifePointsStart) // Setze hier den Maximalwert
+            binding.lifePointsBarViewPlayer?.setCurrentLifePoints(it.lifePoints) // Setze die aktuellen Lebenspunkte
+            binding.chakraPointsBarViewPlayer?.setMaxLifePoints(it.chakraPointsStart)
+            binding.chakraPointsBarViewPlayer?.setCurrentLifePoints(it.chakraPoints)
 
             binding.rvDefensePlayer?.adapter = DefensePlayerAdapter(it.defense, viewModel)
             binding.rvToolsPlayer?.adapter = ToolPlayerAdapter(it.tools, viewModel)
@@ -119,8 +119,10 @@ class FightFragment : Fragment() {
             binding.ivImageDouble1Enemy?.setImageResource(it.image)
             binding.ivImageDouble2Enemy?.setImageResource(it.image)
             binding.tvCharacterNameEnemy?.text = it.name
-            binding.tvLifeValueEnemy?.text = it.lifePoints.toString()
-            binding.tvChakraValueEnemy?.text = it.chakraPoints.toString()
+            binding.lifePointsBarViewEnemy?.setMaxLifePoints(it.lifePointsStart)
+            binding.lifePointsBarViewEnemy?.setCurrentLifePoints(it.lifePoints)
+            binding.chakraPointsBarViewEnemy?.setMaxLifePoints(it.chakraPointsStart)
+            binding.chakraPointsBarViewEnemy?.setCurrentLifePoints(it.chakraPoints)
         }
 
        runViewsRound()

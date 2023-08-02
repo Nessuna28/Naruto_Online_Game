@@ -68,7 +68,7 @@
             android:id="@+id/tv_characterNamePlayer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/akaya_telivigala"
             android:text="@string/name"
@@ -87,16 +87,30 @@
             app:layout_constraintStart_toStartOf="@+id/tv_characterNamePlayer"
             app:layout_constraintTop_toBottomOf="@+id/tv_characterNamePlayer" />
 
-        <TextView
-            android:id="@+id/tv_lifeValuePlayer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="100%"
-            android:textColor="@color/black"
+
+        <com.example.abschlussaufgabe.data.datamodels.modelForFight.LifePointsBarView
+            android:id="@+id/lifePointsBarViewPlayer"
+            android:layout_width="150dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="4dp"
+            app:currentLifePoints="75"
             app:layout_constraintBottom_toBottomOf="@+id/tv_lifePlayer"
             app:layout_constraintStart_toEndOf="@+id/tv_lifePlayer"
-            app:layout_constraintTop_toTopOf="@+id/tv_lifePlayer" />
+            app:layout_constraintTop_toTopOf="@+id/tv_lifePlayer"
+            app:layout_constraintVertical_bias="0.0"
+            app:maxLifePoints="500" />
+
+        <com.example.abschlussaufgabe.data.datamodels.modelForFight.LifePointsBarView
+            android:id="@+id/chakraPointsBarViewPlayer"
+            android:layout_width="150dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="4dp"
+            app:currentChakraPoints="75"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_chakraPlayer"
+            app:layout_constraintStart_toEndOf="@+id/tv_chakraPlayer"
+            app:layout_constraintTop_toTopOf="@+id/tv_chakraPlayer"
+            app:layout_constraintVertical_bias="0.0"
+            app:maxChakraPoints="500" />
 
         <ImageView
             android:id="@+id/iv_imageHealPlayer"
@@ -159,16 +173,6 @@
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="@+id/tv_lifePlayer"
             app:layout_constraintTop_toBottomOf="@+id/tv_lifePlayer" />
-
-        <TextView
-            android:id="@+id/tv_chakraValuePlayer"
-            android:layout_width="66dp"
-            android:layout_height="15dp"
-            android:text="100%"
-            android:textColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_chakraPlayer"
-            app:layout_constraintStart_toStartOf="@+id/tv_lifeValuePlayer"
-            app:layout_constraintTop_toTopOf="@+id/tv_chakraPlayer" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"
@@ -267,7 +271,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="16dp"
             android:fontFamily="@font/akaya_telivigala"
             android:text="@string/name"
             android:textColor="@color/black"
@@ -294,26 +298,30 @@
             app:layout_constraintStart_toStartOf="@+id/tv_lifeEnemy"
             app:layout_constraintTop_toBottomOf="@+id/tv_lifeEnemy" />
 
-        <TextView
-            android:id="@+id/tv_lifeValueEnemy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:text="100%"
-            android:textColor="@color/black"
+        <com.example.abschlussaufgabe.data.datamodels.modelForFight.LifePointsBarView
+            android:id="@+id/lifePointsBarViewEnemy"
+            android:layout_width="150dp"
+            android:layout_height="15dp"
+            android:layout_marginEnd="4dp"
+            app:currentLifePoints="75"
             app:layout_constraintBottom_toBottomOf="@+id/tv_lifeEnemy"
             app:layout_constraintEnd_toStartOf="@+id/tv_lifeEnemy"
-            app:layout_constraintTop_toTopOf="@+id/tv_lifeEnemy" />
+            app:layout_constraintTop_toTopOf="@+id/tv_lifeEnemy"
+            app:layout_constraintVertical_bias="0.0"
+            app:maxLifePoints="500" />
 
-        <TextView
-            android:id="@+id/tv_chakraValueEnemy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="100%"
-            android:textColor="@color/black"
+        <com.example.abschlussaufgabe.data.datamodels.modelForFight.LifePointsBarView
+            android:id="@+id/chakraPointsBarViewEnemy"
+            android:layout_width="150dp"
+            android:layout_height="15dp"
+            android:layout_marginEnd="4dp"
+            app:currentChakraPoints="75"
             app:layout_constraintBottom_toBottomOf="@+id/tv_chakraEnemy"
-            app:layout_constraintEnd_toEndOf="@+id/tv_lifeValueEnemy"
-            app:layout_constraintTop_toTopOf="@+id/tv_chakraEnemy" />
+            app:layout_constraintEnd_toStartOf="@+id/tv_chakraEnemy"
+            app:layout_constraintTop_toTopOf="@+id/tv_chakraEnemy"
+            app:layout_constraintVertical_bias="0.0"
+            app:maxChakraPoints="500" />
+
 
         <TextView
             android:id="@+id/tv_titleDefense"
