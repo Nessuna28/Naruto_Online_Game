@@ -502,14 +502,20 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         _attackEnemy.value = currentAttackEnemy
     }
 
-    // sorgt dafür dass nach 5 Sekunden alle Funktionen für den Computer wiederholt werden
+    // sorgt dafür dass nach je nach gewählten Schwierigkeitsgrad in einem gewissen Abstand alle Funktionen für den Computer wiederholt werden
     val runnable: Runnable = object : Runnable {
         override fun run() {
 
             setAttackEnemy()
 
-            // jede nächste Ausführung nach 5 Sekunden
-            Handler().postDelayed(this, 5000)
+            if (selectDifficultyLevel.value == "mittel") {
+                Handler().postDelayed(this, 5000)
+            } else if (selectDifficultyLevel.value == "schwer") {
+                Handler().postDelayed(this, 2000)
+            } else if (selectDifficultyLevel.value == "leicht") {
+                Handler().postDelayed(this, 7000)
+            }
+
         }
     }
 
@@ -517,29 +523,56 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     // wenn der Spieler angreift
     fun playRoundPlayer() {
 
-        if (rounds.value!! == 3 || roundsWonPlayer.value!! == 2 || roundsWonEnemy.value!! == 2) {
-            _gameEnd.value = true
+        if (selectRounds.value == "1") {
+            if (rounds.value!! == 1) {
+                _gameEnd.value = true
 
-        } else {
-            if (attackPlayer.value != null && attackEnemy.value != null) {
-                if (player.value!!.lifePoints > 0 || enemy.value!!.lifePoints > 0) {
-                    attackPlayer.value!!.loadChakra(_player.value!!, player.value!!)
-                    attackPlayer.value!!.subtractChakra(
-                        _player.value!!,
-                        player.value!!,
-                        ::showToast
-                    )
-                    attackPlayer.value!!.subtractLifePoints(
-                        player.value!!,
-                        _player.value!!,
-                        attackEnemy.value!!,
-                        _enemy.value!!,
-                        enemy.value!!,
-                        ::showToast
-                    )
+            } else {
+                if (attackPlayer.value != null && attackEnemy.value != null) {
+                    if (player.value!!.lifePoints > 0 || enemy.value!!.lifePoints > 0) {
+                        attackPlayer.value!!.loadChakra(_player.value!!, player.value!!)
+                        attackPlayer.value!!.subtractChakra(
+                            _player.value!!,
+                            player.value!!,
+                            ::showToast
+                        )
+                        attackPlayer.value!!.subtractLifePoints(
+                            player.value!!,
+                            _player.value!!,
+                            attackEnemy.value!!,
+                            _enemy.value!!,
+                            enemy.value!!,
+                            ::showToast
+                        )
+                    }
+                }
+            }
+        } else if (selectRounds.value == "3") {
+            if (rounds.value!! == 3 || roundsWonPlayer.value!! == 2 || roundsWonEnemy.value!! == 2) {
+                _gameEnd.value = true
+
+            } else {
+                if (attackPlayer.value != null && attackEnemy.value != null) {
+                    if (player.value!!.lifePoints > 0 || enemy.value!!.lifePoints > 0) {
+                        attackPlayer.value!!.loadChakra(_player.value!!, player.value!!)
+                        attackPlayer.value!!.subtractChakra(
+                            _player.value!!,
+                            player.value!!,
+                            ::showToast
+                        )
+                        attackPlayer.value!!.subtractLifePoints(
+                            player.value!!,
+                            _player.value!!,
+                            attackEnemy.value!!,
+                            _enemy.value!!,
+                            enemy.value!!,
+                            ::showToast
+                        )
+                    }
                 }
             }
         }
+
 
         _player.value = _player.value
         _enemy.value = _enemy.value
@@ -548,10 +581,11 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     // wenn der Gegner angreift
     fun playRoundEnemy() {
 
-        if (rounds.value!! == 3 || roundsWonPlayer.value!! == 2 || roundsWonEnemy.value!! == 2) {
-            _gameEnd.value = true
+        if (selectRounds.value == "1") {
+            if (rounds.value!! == 1) {
+                _gameEnd.value = true
 
-        } else {
+            } else {
                 if (attackPlayer.value != null && attackEnemy.value != null) {
                     if (player.value!!.lifePoints > 0 || enemy.value!!.lifePoints > 0) {
                         attackEnemy.value!!.loadChakra(_enemy.value!!, enemy.value!!)
@@ -571,6 +605,32 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
                     }
                 }
             }
+        } else if (selectRounds.value == "3") {
+            if (rounds.value!! == 3 || roundsWonPlayer.value!! == 2 || roundsWonEnemy.value!! == 2) {
+                _gameEnd.value = true
+
+            } else {
+                if (attackPlayer.value != null && attackEnemy.value != null) {
+                    if (player.value!!.lifePoints > 0 || enemy.value!!.lifePoints > 0) {
+                        attackEnemy.value!!.loadChakra(_enemy.value!!, enemy.value!!)
+                        attackEnemy.value!!.subtractChakra(
+                            _enemy.value!!,
+                            enemy.value!!,
+                            ::showToast
+                        )
+                        attackEnemy.value!!.subtractLifePoints(
+                            enemy.value!!,
+                            _enemy.value!!,
+                            attackPlayer.value!!,
+                            _player.value!!,
+                            player.value!!,
+                            ::showToast
+                        )
+                    }
+                }
+            }
+        }
+
 
         _player.value = _player.value
         _enemy.value = _enemy.value
