@@ -518,5 +518,27 @@
             app:layout_constraintEnd_toStartOf="@+id/mc_round2Enemy"
             app:layout_constraintTop_toTopOf="@+id/tv_characterNameEnemy" />
 
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mc_round1PlayerForOneRound"
+            android:layout_width="16dp"
+            android:layout_height="15dp"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/white"
+            app:cardCornerRadius="50dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_characterNamePlayer"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="@+id/tv_characterNamePlayer" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mc_round1EnemyForOneRound"
+            android:layout_width="16dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="8dp"
+            android:backgroundTint="@color/white"
+            app:cardCornerRadius="50dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_characterNameEnemy"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="@+id/tv_characterNameEnemy" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

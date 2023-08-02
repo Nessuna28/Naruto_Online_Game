@@ -56,6 +56,20 @@ class FightFragment : Fragment() {
 
         viewModel.resetPointsForNewGame()
         viewModel.resetToDefaultRounds()
+
+        viewModel.selectRounds.observe(viewLifecycleOwner) {
+            if (it == "1") {
+                binding.mcRound1Player?.visibility = View.INVISIBLE
+                binding.mcRound2Player?.visibility = View.INVISIBLE
+                binding.mcRound3Player?.visibility = View.INVISIBLE
+                binding.mcRound1Enemy?.visibility = View.INVISIBLE
+                binding.mcRound2Enemy?.visibility = View.INVISIBLE
+                binding.mcRound3Enemy?.visibility = View.INVISIBLE
+            } else if (it == "3") {
+                binding.mcRound1PlayerForOneRound?.visibility = View.INVISIBLE
+                binding.mcRound1EnemyForOneRound?.visibility = View.INVISIBLE
+            }
+        }
     }
 
 
@@ -521,10 +535,14 @@ class FightFragment : Fragment() {
         if (it == 1) {
             if (player.lifePoints > 0) {
                 binding.mcRound1Player?.setCardBackgroundColor(orangeColor)
+                binding.mcRound1PlayerForOneRound?.setCardBackgroundColor(orangeColor)
                 binding.mcRound1Enemy?.setCardBackgroundColor(greyColor)
+                binding.mcRound1EnemyForOneRound?.setCardBackgroundColor(greyColor)
             } else if (enemy.lifePoints > 0){
                 binding.mcRound1Player?.setCardBackgroundColor(greyColor)
+                binding.mcRound1PlayerForOneRound?.setCardBackgroundColor(greyColor)
                 binding.mcRound1Enemy?.setCardBackgroundColor(orangeColor)
+                binding.mcRound1EnemyForOneRound?.setCardBackgroundColor(orangeColor)
             }
         } else if (it == 2) {
             if (player.lifePoints > 0) {
