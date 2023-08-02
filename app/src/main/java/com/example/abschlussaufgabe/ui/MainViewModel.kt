@@ -200,7 +200,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     // für das Ergebnis (ResultFragment)
 
-    private val _result = MutableLiveData<String>("")
+    private val _result = MutableLiveData("")
     val result: LiveData<String>
         get() = _result
 
@@ -692,7 +692,10 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     fun resetToDefaultRounds() {
 
+        _gameEnd.value = false
         _rounds.value = 0
+        _result.value = ""
+        _resultEnemy.value = ""
         _roundsWonPlayer.value = 0
         _roundsWonEnemy.value = 0
     }

@@ -101,9 +101,8 @@ class FightFragment : Fragment() {
         viewModel.player.observe(viewLifecycleOwner) {
             binding.ivCharacterImagePlayer?.setImageResource(it.imageFace)
             binding.ivImage1Player?.setImageResource(it.image)
-            binding.ivImage2Player?.setImageResource(it.imageAttack)
             binding.ivImageDouble1Player?.setImageResource(it.image)
-            binding.ivImageDouble2Player?.setImageResource(it.imageAttack)
+            binding.ivImageDouble2Player?.setImageResource(it.image)
             binding.tvCharacterNamePlayer?.text = it.name
             binding.tvLifeValuePlayer?.text = it.lifePoints.toString()
             binding.tvChakraValuePlayer?.text = it.chakraPoints.toString()
@@ -117,9 +116,8 @@ class FightFragment : Fragment() {
         viewModel.enemy.observe(viewLifecycleOwner) {
             binding.ivCharacterImageEnemy?.setImageResource(it.imageFace)
             binding.ivImage1Enemy?.setImageResource(it.image)
-            binding.ivImage2Enemy?.setImageResource(it.imageAttack)
             binding.ivImageDouble1Enemy?.setImageResource(it.image)
-            binding.ivImageDouble2Enemy?.setImageResource(it.imageAttack)
+            binding.ivImageDouble2Enemy?.setImageResource(it.image)
             binding.tvCharacterNameEnemy?.text = it.name
             binding.tvLifeValueEnemy?.text = it.lifePoints.toString()
             binding.tvChakraValueEnemy?.text = it.chakraPoints.toString()
@@ -129,8 +127,9 @@ class FightFragment : Fragment() {
 
         Handler().postDelayed(viewModel.runnable, 6000)
 
-        viewModel.attackPlayer.observe(viewLifecycleOwner) {attackPlayer ->
-            actionOfSelectionPlayer(attackPlayer)
+        viewModel.attackPlayer.observe(viewLifecycleOwner) {
+            binding.ivImage2Player?.setImageResource(it.image)
+            actionOfSelectionPlayer(it)
             viewModel.playRoundPlayer()
             if (player.lifePoints <= 0 || enemy.lifePoints <= 0) {
                 invisibleAttacks()
@@ -139,6 +138,7 @@ class FightFragment : Fragment() {
         }
 
         viewModel.attackEnemy.observe(viewLifecycleOwner) {
+            binding.ivImage2Enemy?.setImageResource(it.image)
             if (player.lifePoints > 0 && enemy.lifePoints > 0) {
                 viewModel.playRoundEnemy()
                 actionOfSelectionEnemy(it)
@@ -153,12 +153,18 @@ class FightFragment : Fragment() {
         }
 
         viewModel.roundsWonPlayer.observe(viewLifecycleOwner) {
-            if (it >= 2 && viewModel.rounds.value!! >= 2) {
-                viewModel.setResult(true)
-            } else if (viewModel.rounds.value!! >= 2 && it < 2) {
-                viewModel.setResult(false)
-            } else if (viewModel.rounds.value!! >= 2 && it == 0) {
-                viewModel.setResult(false)
+            if (viewModel.selectRounds.value == "3") {
+                if (it >= 2 && viewModel.rounds.value!! >= 2) {
+                    viewModel.setResult(true)
+                } else if (viewModel.rounds.value!! >= 2 && it < 2) {
+                    viewModel.setResult(false)
+                } else if (viewModel.rounds.value!! >= 2 && it == 0) {
+                    viewModel.setResult(false)
+                }
+            } else if (viewModel.selectRounds.value == "1") {
+                if (it == 1 && viewModel.rounds.value ==1) {
+                    viewModel.setResult(true)
+                }
             }
         }
 
@@ -267,18 +273,15 @@ class FightFragment : Fragment() {
 
         if (check) {
             if (attack.name == "Kunai") {
-                binding.ivImage2Player?.setImageResource(R.drawable.kunai_player)
+                binding.ivImage2Player?.setImageResource(attack.image)
                 binding.ivImage2Player?.visibility = View.VISIBLE
 
                 handler.postDelayed(
                     { binding.ivImage2Player?.visibility = View.INVISIBLE }, duration
                 )
-                handler.postDelayed(
-                    { binding.ivImage2Player?.setImageResource(player.imageAttack) }, duration
-                )
 
             } else if (attack.name == "Shuriken") {
-                binding.ivImage2Player?.setImageResource(R.drawable.shuriken)
+                binding.ivImage2Player?.setImageResource(attack.image)
                 binding.ivImage2Player?.visibility = View.VISIBLE
                 binding.ivImage2Player?.rotationX = 50F
 
@@ -286,13 +289,10 @@ class FightFragment : Fragment() {
                     { binding.ivImage2Player?.visibility = View.INVISIBLE }, duration
                 )
                 handler.postDelayed(
-                    { binding.ivImage2Player?.setImageResource(player.imageAttack) }, duration
-                )
-                handler.postDelayed(
                     { binding.ivImage2Player?.rotationX = 0F }, duration
                 )
             } else if (attack.name == "Eisensand") {
-                binding.ivImage2Player?.setImageResource(R.drawable.gaara_attack2)
+                binding.ivImage2Player?.setImageResource(attack.image)
                 binding.ivImage2Player?.visibility = View.VISIBLE
                 binding.ivImage1Player?.visibility = View.INVISIBLE
 
@@ -301,9 +301,6 @@ class FightFragment : Fragment() {
                 )
                 handler.postDelayed(
                     { binding.ivImage1Player?.visibility = View.VISIBLE }, duration
-                )
-                handler.postDelayed(
-                    { binding.ivImage2Player?.setImageResource(player.imageAttack) }, duration
                 )
             } else {
                 binding.ivImage1Player?.visibility = View.INVISIBLE
@@ -326,12 +323,9 @@ class FightFragment : Fragment() {
                 handler.postDelayed(
                     { binding.ivImage2Enemy?.visibility = View.INVISIBLE }, duration
                 )
-                handler.postDelayed(
-                    { binding.ivImage2Enemy?.setImageResource(enemy.imageAttack) }, duration
-                )
 
             } else if (attack.name == "Shuriken") {
-                binding.ivImage2Enemy?.setImageResource(R.drawable.shuriken)
+                binding.ivImage2Enemy?.setImageResource(attack.image)
                 binding.ivImage2Enemy?.visibility = View.VISIBLE
                 binding.ivImage2Enemy?.rotationX = 50F
 
@@ -339,13 +333,10 @@ class FightFragment : Fragment() {
                     { binding.ivImage2Enemy?.visibility = View.INVISIBLE }, duration
                 )
                 handler.postDelayed(
-                    { binding.ivImage2Enemy?.setImageResource(enemy.imageAttack) }, duration
-                )
-                handler.postDelayed(
                     { binding.ivImage2Enemy?.rotationX = 0F }, duration
                 )
             } else if (attack.name == "Eisensand") {
-                binding.ivImage2Enemy?.setImageResource(R.drawable.gaara_attack2)
+                binding.ivImage2Enemy?.setImageResource(attack.image)
                 binding.ivImage2Enemy?.visibility = View.VISIBLE
                 binding.ivImage1Enemy?.visibility = View.INVISIBLE
 
@@ -354,9 +345,6 @@ class FightFragment : Fragment() {
                 )
                 handler.postDelayed(
                     { binding.ivImage1Enemy?.visibility = View.VISIBLE }, duration
-                )
-                handler.postDelayed(
-                    { binding.ivImage2Enemy?.setImageResource(enemy.imageAttack) }, duration
                 )
             } else {
                 binding.ivImage1Enemy?.visibility = View.INVISIBLE
@@ -387,18 +375,8 @@ class FightFragment : Fragment() {
                 handler.postDelayed(
                     { binding.ivImageDouble2Player?.visibility = View.INVISIBLE }, duration
                 )
-            } else if (attack.name == "Sandschild") {
-                binding.ivImage1Player?.setImageResource(R.drawable.sandschild)
-
-                handler.postDelayed(
-                    { binding.ivImage1Player?.setImageResource(player.image) }, duration
-                )
-            } else if (attack.name == "Jutsu des Tausches") {
-                binding.ivImage1Player?.setImageResource(R.drawable.baumstamm)
-
-                handler.postDelayed(
-                    { binding.ivImage1Player?.setImageResource(player.image) }, duration
-                )
+            } else {
+                binding.ivImage1Player?.setImageResource(attack.image)
             }
         } else {
             if (attack.name == "Schattendoppelgänger" || attack.name == "Sanddoppelgänger") {
@@ -411,18 +389,8 @@ class FightFragment : Fragment() {
                 handler.postDelayed(
                     { binding.ivImageDouble2Enemy?.visibility = View.INVISIBLE }, duration
                 )
-            } else if (attack.name == "Sandschild") {
-                binding.ivImage1Enemy?.setImageResource(R.drawable.sandschild)
-
-                handler.postDelayed(
-                    { binding.ivImage1Enemy?.setImageResource(enemy.image) }, duration
-                )
-            } else if (attack.name == "Jutsu des Tausches") {
-                binding.ivImage1Enemy?.setImageResource(R.drawable.baumstamm)
-
-                handler.postDelayed(
-                    { binding.ivImage1Enemy?.setImageResource(enemy.image) }, duration
-                )
+            } else {
+                binding.ivImage1Enemy?.setImageResource(attack.image)
             }
         }
     }

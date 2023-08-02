@@ -19,10 +19,10 @@ class CharacterListForFight {
             R.raw.song_naruto,
             R.raw.video_naruto,
     "Naruto",
-        listOf(Jutsu("Taijutsu", 20, R.drawable.no_picture), Jutsu("Rasengan", 50, R.drawable.no_picture), Jutsu("Rasenshuriken", 70, R.drawable.no_picture), Jutsu("Jutsu des vertrauten Geistes", 80, R.drawable.no_picture)),
-        listOf(Tool("Kunai", 15, R.drawable.no_picture), Tool("Shuriken", 20, R.drawable.no_picture)),
+        listOf(Jutsu("Taijutsu", 20, R.drawable.naruto_attack), Jutsu("Rasengan", 50, R.drawable.no_picture), Jutsu("Rasenshuriken", 70, R.drawable.no_picture), Jutsu("Jutsu des vertrauten Geistes", 80, R.drawable.no_picture)),
+        listOf(Tool("Kunai", 15, R.drawable.kunai_player), Tool("Shuriken", 20, R.drawable.shuriken)),
         listOf(UniqueTrait("Weisenmodus", 80, R.drawable.no_picture), UniqueTrait("Kiubimodus", 100, R.drawable.no_picture)),
-        listOf(Defense("Jutsu des Tausches", 20, R.drawable.no_picture), Defense("Schattendoppelgänger", 35, R.drawable.no_picture)),),
+        listOf(Defense("Jutsu des Tausches", 20, R.drawable.baumstamm), Defense("Schattendoppelgänger", 35, R.drawable.naruto)),),
 
     CharacterForFight(
         R.drawable.sasuke,
@@ -33,12 +33,12 @@ class CharacterListForFight {
         R.raw.song_sasuke,
         R.drawable.sasuke_attack,
         "Sasuke",
-        listOf(Jutsu("Taijutsu", 30, R.drawable.no_picture), Jutsu("Feuerversteck", 40, R.drawable.no_picture), Jutsu("Chidori", 50, R.drawable.no_picture), Jutsu("Jutsu des vertrauten Geistes", 80, R.drawable.no_picture)),
-        listOf(Tool("Shuriken", 20, R.drawable.no_picture), Tool("Schwert", 30, R.drawable.no_picture)),
+        listOf(Jutsu("Taijutsu", 30, R.drawable.sasuke_attack), Jutsu("Feuerversteck", 40, R.drawable.no_picture), Jutsu("Chidori", 50, R.drawable.no_picture), Jutsu("Jutsu des vertrauten Geistes", 80, R.drawable.no_picture)),
+        listOf(Tool("Shuriken", 20, R.drawable.shuriken), Tool("Schwert", 30, R.drawable.no_picture)),
         listOf(
             UniqueTrait("Susanoo", 100, R.drawable.no_picture)),
         listOf(
-            Defense("Jutsu des Tausches", 20, R.drawable.no_picture), Defense("Schattendoppelgänger", 35, R.drawable.no_picture)),),
+            Defense("Jutsu des Tausches", 20, R.drawable.baumstamm), Defense("Schattendoppelgänger", 35, R.drawable.sasuke_attack)),),
 
     CharacterForFight(
         R.drawable.sakura,
@@ -49,10 +49,10 @@ class CharacterListForFight {
         R.raw.song_sakura,
         R.raw.video_sakura,
         "Sakura",
-        listOf(Jutsu("Taijutsu", 15, R.drawable.no_picture), Jutsu("große Sakura", 20, R.drawable.no_picture), Jutsu("Kirschblütenschlag", 50, R.drawable.no_picture), Jutsu("Kirschblütenformation", 70, R.drawable.no_picture), Jutsu("Jutsu des vertrauten Geistes", 80, R.drawable.no_picture)),
-        listOf(Tool("Kunai", 15, R.drawable.no_picture), Tool("Shuriken", 20, R.drawable.no_picture)),
-        listOf(UniqueTrait("Jahundertstärke", 90, R.drawable.no_picture), UniqueTrait("Heilung", 100, R.drawable.no_picture)),
-        listOf(Defense("Jutsu des Tausches", 20, R.drawable.no_picture), Defense("Schattendoppelgänger", 35, R.drawable.no_picture)),),
+        listOf(Jutsu("Taijutsu", 15, R.drawable.sakura_attack), Jutsu("große Sakura", 20, R.drawable.sakura_attack), Jutsu("Kirschblütenschlag", 50, R.drawable.sakura_attack), Jutsu("Kirschblütenformation", 70, R.drawable.sakura_attack), Jutsu("Jutsu des vertrauten Geistes", 80, R.drawable.no_picture)),
+        listOf(Tool("Kunai", 15, R.drawable.no_picture), Tool("Shuriken", 20, R.drawable.shuriken)),
+        listOf(UniqueTrait("Jahundertstärke", 90, R.drawable.sakura_attack), UniqueTrait("Heilung", 100, R.drawable.heal)),
+        listOf(Defense("Jutsu des Tausches", 20, R.drawable.baumstamm), Defense("Schattendoppelgänger", 35, R.drawable.sakura)),),
 
         CharacterForFight(
             R.drawable.shikamaru,
@@ -63,10 +63,10 @@ class CharacterListForFight {
             R.raw.song_shikamaru,
             R.raw.video_shikamaru,
             "Shikamaru",
-            listOf(Jutsu("Taijutsu", 30, R.drawable.no_picture), Jutsu("Schattenfesseln", 55, R.drawable.no_picture), Jutsu("Schattenwürg", 65, R.drawable.no_picture), Jutsu("Schattenzug", 70, R.drawable.no_picture)),
-            listOf(Tool("Kunai", 15, R.drawable.no_picture), Tool("Explosionskunai", 30, R.drawable.no_picture)),
+            listOf(Jutsu("Taijutsu", 30, R.drawable.no_picture), Jutsu("Schattenfesseln", 55, R.drawable.shikamaru_attack), Jutsu("Schattenwürg", 65, R.drawable.shikamaru_attack), Jutsu("Schattenzug", 70, R.drawable.shikamaru_attack)),
+            listOf(Tool("Kunai", 15, R.drawable.kunai_player), Tool("Explosionskunai", 30, R.drawable.no_picture)),
             listOf(UniqueTrait("Strategie", 70, R.drawable.no_picture)),
-            listOf(Defense("Jutsu des Tausches", 20, R.drawable.no_picture), Defense("Schattendoppelgänger", 35, R.drawable.no_picture)),),
+            listOf(Defense("Jutsu des Tausches", 20, R.drawable.baumstamm), Defense("Schattendoppelgänger", 35, R.drawable.shikamaru)),),
 
         CharacterForFight(
             R.drawable.choji,
@@ -77,10 +77,10 @@ class CharacterListForFight {
             R.raw.song_theme,
             R.raw.video_choji,
             "Choji",
-            listOf(Jutsu("Taijutsu", 40, R.drawable.no_picture), Jutsu("Jutsu der Teilentfaltung", 50, R.drawable.no_picture), Jutsu("Fleischbombenpanzer", 60, R.drawable.no_picture)),
-            listOf(Tool("Kunai", 15, R.drawable.no_picture), Tool("Shuriken", 20, R.drawable.no_picture)),
+            listOf(Jutsu("Taijutsu", 40, R.drawable.choji_attack), Jutsu("Jutsu der Teilentfaltung", 50, R.drawable.choji_attack), Jutsu("Fleischbombenpanzer", 60, R.drawable.no_picture)),
+            listOf(Tool("Kunai", 15, R.drawable.kunai_player), Tool("Shuriken", 20, R.drawable.shuriken)),
             listOf(UniqueTrait("Schmetterlingsflügel", 80, R.drawable.no_picture)),
-            listOf(Defense("Jutsu des Tausches", 20, R.drawable.no_picture), Defense("Schattendoppelgänger", 35, R.drawable.no_picture)),),
+            listOf(Defense("Jutsu des Tausches", 20, R.drawable.baumstamm), Defense("Schattendoppelgänger", 35, R.drawable.choji)),),
 
         CharacterForFight(
             R.drawable.ino,
@@ -91,10 +91,10 @@ class CharacterListForFight {
             R.raw.song_theme,
             R.raw.video_ino,
             "Ino",
-            listOf(Jutsu("Taijutsu", 40, R.drawable.no_picture), Jutsu("Schlafbomben-Jutsu", 50, R.drawable.no_picture), Jutsu("Gedankenkontroll-Jutsu", 70, R.drawable.no_picture)),
-            listOf(Tool("Kunai", 15, R.drawable.no_picture), Tool("Shuriken", 20, R.drawable.no_picture)),
+            listOf(Jutsu("Taijutsu", 40, R.drawable.ino_attack), Jutsu("Schlafbomben-Jutsu", 50, R.drawable.no_picture), Jutsu("Gedankenkontroll-Jutsu", 70, R.drawable.no_picture)),
+            listOf(Tool("Kunai", 15, R.drawable.kunai_player), Tool("Shuriken", 20, R.drawable.shuriken)),
             listOf(UniqueTrait("Heilung", 80, R.drawable.no_picture)),
-            listOf(Defense("Jutsu des Tausches", 20, R.drawable.no_picture), Defense("Schattendoppelgänger", 35, R.drawable.no_picture)),),
+            listOf(Defense("Jutsu des Tausches", 20, R.drawable.baumstamm), Defense("Schattendoppelgänger", 35, R.drawable.ino)),),
 
         CharacterForFight(
             R.drawable.neji,
@@ -105,10 +105,10 @@ class CharacterListForFight {
             R.raw.song_neji,
             R.raw.video_neji,
             "Neji",
-            listOf(Jutsu("Taijutsu", 50, R.drawable.no_picture), Jutsu("Juuken", 50, R.drawable.no_picture), Jutsu("64 Hände", 75, R.drawable.no_picture)),
-            listOf(Tool("Kunai", 15, R.drawable.no_picture), Tool("Shuriken", 20, R.drawable.no_picture)),
+            listOf(Jutsu("Taijutsu", 50, R.drawable.no_picture), Jutsu("Juuken", 50, R.drawable.neji_attack), Jutsu("64 Hände", 75, R.drawable.neji_attack)),
+            listOf(Tool("Kunai", 15, R.drawable.kunai_player), Tool("Shuriken", 20, R.drawable.shuriken)),
             listOf(UniqueTrait("Byakugan", 70, R.drawable.no_picture)),
-            listOf(Defense("Jutsu des Tausches", 20, R.drawable.no_picture), Defense("Schattendoppelgänger", 35, R.drawable.no_picture), Defense("Rotation", 60, R.drawable.no_picture)),),
+            listOf(Defense("Jutsu des Tausches", 20, R.drawable.baumstamm), Defense("Schattendoppelgänger", 35, R.drawable.neji), Defense("Rotation", 60, R.drawable.no_picture)),),
 
         CharacterForFight(
             R.drawable.gaara,
@@ -119,9 +119,9 @@ class CharacterListForFight {
             R.raw.song_gaara,
             R.drawable.gaara_attack,
             "Gaara",
-            listOf(Jutsu("Taijutsu", 20, R.drawable.no_picture), Jutsu("Jiton", 60, R.drawable.no_picture), Jutsu("Wüstensarg", 80, R.drawable.no_picture)),
-            listOf(Tool("Kunai", 15, R.drawable.no_picture), Tool("Shuriken", 20, R.drawable.no_picture), Tool("Eisensand", 40, R.drawable.no_picture)),
+            listOf(Jutsu("Taijutsu", 20, R.drawable.no_picture), Jutsu("Jiton", 60, R.drawable.gaara_attack), Jutsu("Wüstensarg", 80, R.drawable.gaara_attack)),
+            listOf(Tool("Kunai", 15, R.drawable.kunai_player), Tool("Shuriken", 20, R.drawable.shuriken), Tool("Eisensand", 40, R.drawable.gaara_attack2)),
             listOf(UniqueTrait("Shukaku erwecken", 100, R.drawable.no_picture)),
-            listOf(Defense("Jutsu des Tausches", 20, R.drawable.no_picture), Defense("Sanddoppelgänger", 35, R.drawable.no_picture), Defense("Sandschild", 60, R.drawable.no_picture)),),
+            listOf(Defense("Jutsu des Tausches", 20, R.drawable.baumstamm), Defense("Sanddoppelgänger", 35, R.drawable.gaara), Defense("Sandschild", 60, R.drawable.sandschild)),),
     )
 }

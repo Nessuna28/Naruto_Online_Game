@@ -3,6 +3,7 @@ package com.example.abschlussaufgabe.ui
 import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -43,6 +44,10 @@ class DifficultyLevelAndRoundSelectionFragment : Fragment() {
         viewModel.imageHome.value?.let { viewModel.showImages(it) }
         viewModel.imageBackground.value?.let { viewModel.hideImages(it) }
         viewModel.imageTitle.value?.let { viewModel.hideImages(it) }
+
+        selectionFight = getString(fight[currentFightIndex])
+        selctionRounds = getString(rounds[currentRoundsIndex])
+        selectionDifficultyLevel = getString(difficultyLevel[currentDifficultyLevelIndex])
 
         binding.tvSingleOrTeam?.text = getString(fight[0])
         binding.tvNumberOfRounds?.text = getString(rounds[0])
@@ -107,6 +112,7 @@ class DifficultyLevelAndRoundSelectionFragment : Fragment() {
             viewModel.selectFight(selectionFight)
             viewModel.selectRounds(selctionRounds)
             viewModel.selectDifficultyLevel(selectionDifficultyLevel)
+            Log.e("Auswahl", "${viewModel.selectDifficultyLevel.value}, ${viewModel.selectRounds.value}")
             it.setBackgroundColor(Color.GREEN)
             binding.btnFurther?.visibility = View.VISIBLE
         }
