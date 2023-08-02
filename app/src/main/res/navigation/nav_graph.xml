@@ -10,9 +10,6 @@
         android:name="com.example.abschlussaufgabe.ui.HomeFragment"
         android:label="HomeFragment" >
         <action
-            android:id="@+id/action_homeFragment_to_characterSelectionFragment"
-            app:destination="@id/characterSelectionFragment" />
-        <action
             android:id="@+id/action_homeFragment_to_aboutTheCharactersFragment"
             app:destination="@id/aboutTheCharactersFragment" />
         <action
@@ -21,6 +18,9 @@
         <action
             android:id="@+id/action_homeFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_difficultyLevelAndRoundSelectionFragment"
+            app:destination="@id/difficultyLevelAndRoundSelectionFragment" />
     </fragment>
     <fragment
         android:id="@+id/characterSelectionFragment"
@@ -133,6 +133,9 @@
         <action
             android:id="@+id/action_resultFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_resultFragment_to_difficultyLevelAndRoundSelectionFragment"
+            app:destination="@id/difficultyLevelAndRoundSelectionFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -150,5 +153,16 @@
         <action
             android:id="@+id/action_profileFragment_to_statisticsFragment3"
             app:destination="@id/statisticsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/difficultyLevelAndRoundSelectionFragment"
+        android:name="com.example.abschlussaufgabe.ui.DifficultyLevelAndRoundSelectionFragment"
+        android:label="DifficultyLevelAndRoundSelectionFragment" >
+        <action
+            android:id="@+id/action_difficultyLevelAndRoundSelectionFragment_to_characterSelectionFragment"
+            app:destination="@id/characterSelectionFragment" />
+        <action
+            android:id="@+id/action_difficultyLevelAndRoundSelectionFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

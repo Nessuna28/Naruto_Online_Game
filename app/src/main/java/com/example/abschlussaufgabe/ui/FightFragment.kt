@@ -54,6 +54,7 @@ class FightFragment : Fragment() {
 
         invisibleAttacks()
 
+        viewModel.resetPointsForNewGame()
         viewModel.resetToDefaultRounds()
     }
 

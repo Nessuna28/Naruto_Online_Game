@@ -49,4 +49,14 @@
     <string name="titleEmail">Email:</string>
     <string name="titlePassword">Passwort:</string>
     <string name="titlePhone">Telefonnummer:</string>
+    <string name="single">Einzelkampf</string>
+    <string name="team">Teamkampf</string>
+    <string name="difficultyLevel">Schwierigkeitsgrad</string>
+    <string name="middle">mittel</string>
+    <string name="difficult">schwer</string>
+    <string name="light">leicht</string>
+    <string name="selection">Kampfeinstellungen</string>
+    <string name="titleFight">Kampf</string>
+    <string name="oneRound">1</string>
+    <string name="threeRounds">3</string>
 </resources>

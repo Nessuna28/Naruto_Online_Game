@@ -34,8 +34,6 @@ class CharacterSelectionFragment : Fragment() {
 
         requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
 
-        context?.let { viewModel.setSound(it, R.raw.song_beginn) }
-
         viewModel.materialCard.value?.let { viewModel.showMaterialCard(it) }
         viewModel.imageHome.value?.let { viewModel.showImages(it) }
         viewModel.imageBackground.value?.let { viewModel.hideImages(it) }

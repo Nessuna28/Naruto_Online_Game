@@ -52,11 +52,11 @@ class HomeFragment : Fragment() {
         }
 
         binding.tvFightTitle.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCharacterSelectionFragment())
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDifficultyLevelAndRoundSelectionFragment())
         }
 
         viewModel.materialCard.value!!.setOnClickListener {
-            //findNavController().navigate(HomeFragmentDirections.)
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProfileFragment())
         }
     }
 }

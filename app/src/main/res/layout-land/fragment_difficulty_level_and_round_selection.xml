@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.DifficultyLevelAndRoundSelectionFragment">
+
+        <ImageView
+            android:id="@+id/iv_backgroundSelection"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="0.3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/background_selection" />
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/baseline_arrow_back_24" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/akaya_telivigala"
+            android:text="@string/selection"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/iv_back" />
+
+        <TextView
+            android:id="@+id/tv_fight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="50dp"
+            android:text="@string/titleFight"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_back" />
+
+        <ImageView
+            android:id="@+id/iv_previousSingleOrTeam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_singleOrTeam"
+            app:layout_constraintEnd_toStartOf="@+id/tv_singleOrTeam"
+            app:layout_constraintTop_toTopOf="@+id/tv_singleOrTeam"
+            app:srcCompat="@drawable/baseline_chevron_left_24" />
+
+        <TextView
+            android:id="@+id/tv_singleOrTeam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:fontFamily="@font/akaya_telivigala"
+            android:text="@string/single"
+            android:textColor="@color/primary"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_fight"
+            app:layout_constraintStart_toEndOf="@+id/tv_title"
+            app:layout_constraintTop_toTopOf="@+id/tv_fight"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/iv_nextSingleOrTeam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_singleOrTeam"
+            app:layout_constraintStart_toEndOf="@+id/tv_singleOrTeam"
+            app:layout_constraintTop_toTopOf="@+id/tv_singleOrTeam"
+            app:srcCompat="@drawable/baseline_chevron_right_24" />
+
+        <TextView
+            android:id="@+id/tv_rounds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="@string/titleRounds"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/tv_fight"
+            app:layout_constraintTop_toBottomOf="@+id/tv_fight" />
+
+        <ImageView
+            android:id="@+id/iv_previousRounds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_numberOfRounds"
+            app:layout_constraintEnd_toStartOf="@+id/tv_numberOfRounds"
+            app:layout_constraintTop_toTopOf="@+id/tv_numberOfRounds"
+            app:srcCompat="@drawable/baseline_chevron_left_24" />
+
+        <TextView
+            android:id="@+id/tv_numberOfRounds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/akaya_telivigala"
+            android:text="0"
+            android:textColor="@color/primary"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_rounds"
+            app:layout_constraintEnd_toStartOf="@+id/iv_nextSingleOrTeam"
+            app:layout_constraintStart_toStartOf="@+id/tv_singleOrTeam"
+            app:layout_constraintTop_toTopOf="@+id/tv_rounds" />
+
+        <ImageView
+            android:id="@+id/iv_nextRounds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_numberOfRounds"
+            app:layout_constraintStart_toEndOf="@+id/tv_numberOfRounds"
+            app:layout_constraintTop_toTopOf="@+id/tv_numberOfRounds"
+            app:srcCompat="@drawable/baseline_chevron_right_24" />
+
+        <TextView
+            android:id="@+id/tv_difficultyLevel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="@string/difficultyLevel"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/tv_rounds"
+            app:layout_constraintTop_toBottomOf="@+id/tv_rounds" />
+
+        <ImageView
+            android:id="@+id/iv_previousDifficultyLevel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_selectionDifficultyLevel"
+            app:layout_constraintEnd_toStartOf="@+id/tv_selectionDifficultyLevel"
+            app:layout_constraintTop_toTopOf="@+id/tv_selectionDifficultyLevel"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/baseline_chevron_left_24" />
+
+        <TextView
+            android:id="@+id/tv_selectionDifficultyLevel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/akaya_telivigala"
+            android:text="@string/light"
+            android:textColor="@color/primary"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_difficultyLevel"
+            app:layout_constraintEnd_toEndOf="@+id/tv_numberOfRounds"
+            app:layout_constraintStart_toStartOf="@+id/tv_numberOfRounds"
+            app:layout_constraintTop_toTopOf="@+id/tv_difficultyLevel" />
+
+        <ImageView
+            android:id="@+id/iv_nextDifficultyLevel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_selectionDifficultyLevel"
+            app:layout_constraintStart_toEndOf="@+id/tv_selectionDifficultyLevel"
+            app:layout_constraintTop_toTopOf="@+id/tv_selectionDifficultyLevel"
+            app:srcCompat="@drawable/baseline_chevron_right_24" />
+
+        <Button
+            android:id="@+id/btn_okPlayer"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:backgroundTint="@color/grey"
+            android:text="@string/ok"
+            android:textColor="@color/primary"
+            android:textSize="8sp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_further"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btn_further" />
+
+        <Button
+            android:id="@+id/btn_further"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/further"
+            android:backgroundTint="@color/primary"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

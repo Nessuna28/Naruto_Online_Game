@@ -72,6 +72,22 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _materialCard
 
 
+    // für die Kampfeinstellungen
+
+    private val _selectFight = MutableLiveData<String>()
+    val selectFight: LiveData<String>
+        get() = _selectFight
+
+
+    private val _selectRounds = MutableLiveData<String>()
+    val selectRounds: LiveData<String>
+        get() = _selectRounds
+
+
+    private val _selectDifficultyLevel = MutableLiveData<String>()
+    val selectDifficultyLevel: LiveData<String>
+        get() = _selectDifficultyLevel
+
 
     // für die Charakterauswahl (CharacterSelectionFragment)
 
@@ -325,7 +341,24 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     // Funktionen für das Kampfgeschehen
 
-    // speichert den ausgewählten Charakter für den Kampf
+    // diese Funktionen speichern die Auswahl in den LiveData-Variablen
+    fun selectFight(selection: String) {
+
+        _selectFight.value = selection
+    }
+
+    fun selectRounds(selection: String) {
+
+        _selectRounds.value = selection
+    }
+
+    fun selectDifficultyLevel(selection: String) {
+
+        _selectDifficultyLevel.value = selection
+    }
+
+
+    // speichert den ausgewählten Charakter für den Kampf in den LiveData-Variablen
 
     fun setPlayer(character: CharacterForFight) {
 
@@ -338,39 +371,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     }
 
 
-    // in mehreren Funktionen werden die Daten für die Anzeigen im Screen bei der Charakterauswahl gesetzt
-
-
-    fun setCharacterNameForPlayer(characterName: String) {
-
-        _characterNameForPlayer.value = characterName
-    }
-
-    fun setJutsuForPlayer(jutsus: List<Jutsu>) {
-
-        _jutsuListForPlayer.value = jutsus
-    }
-
-    fun setUniqueTraitForPlayer(uniqueTraits: List<UniqueTrait>) {
-
-        _uniqueTraitsListForPlayer.value = uniqueTraits
-    }
-
-    fun setCharacterNameForEnemy(characterName: String) {
-
-        _characterNameForEnemy.value = characterName
-    }
-
-    fun setJutsuForEnemy(jutsus: List<Jutsu>) {
-
-        _jutsuListForEnemy.value = jutsus
-    }
-
-    fun setUniqueTraitForEnemy(uniqueTraits: List<UniqueTrait>) {
-
-        _uniqueTraitsListForEnemy.value = uniqueTraits
-    }
-
+    // speichert die ausgewählte Location in der LiveData-Variable
     fun setLocation(location: Location) {
 
         _location.value = location
@@ -401,9 +402,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
         val randomCharacter = characterForFight.value!!.random()
 
-        setCharacterNameForPlayer(randomCharacter.name)
-        setJutsuForPlayer(randomCharacter.jutsus)
-        setUniqueTraitForPlayer(randomCharacter.uniqueTraits)
         setPlayer(randomCharacter)
     }
 
@@ -411,9 +409,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
         val randomCharacter = characterForFight.value!!.random()
 
-        setCharacterNameForEnemy(randomCharacter.name)
-        setJutsuForEnemy(randomCharacter.jutsus)
-        setUniqueTraitForEnemy(randomCharacter.uniqueTraits)
         setEnemy(randomCharacter)
     }
 
@@ -597,7 +592,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
             _roundsWonEnemy.value = roundsWonEnemy.value!!.plus(1)
         }
 
-        resetPoints()
+        resetPointsForNewRound()
 
         _rounds.value = _rounds.value
         _roundsWonPlayer.value = _roundsWonPlayer.value
@@ -612,7 +607,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     // setzt die Lebens- und Chakrapunkte wieder auf die Ursprungswerte außer
     // wenn man noch Lebenspunkte übrig hat dann nimmt man diese mit in die nächste Runde
-    fun resetPoints() {
+    fun resetPointsForNewRound() {
 
         if (player.value!!.lifePoints <= 0) {
             _player.value!!.lifePoints = player.value!!.lifePointsStart
@@ -621,6 +616,16 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         }
 
         _player.value!!.chakraPoints = player.value!!.chakraPointsStart
+        _enemy.value!!.chakraPoints = enemy.value!!.chakraPointsStart
+    }
+
+    // setzt die Lebens- und Chakrapunkte zurück auf den Anfangswert
+    fun resetPointsForNewGame() {
+
+        _player.value!!.lifePoints = player.value!!.lifePointsStart
+        _player.value!!.chakraPoints = player.value!!.chakraPointsStart
+
+        _enemy.value!!.lifePoints = enemy.value!!.lifePointsStart
         _enemy.value!!.chakraPoints = enemy.value!!.chakraPointsStart
     }
 
