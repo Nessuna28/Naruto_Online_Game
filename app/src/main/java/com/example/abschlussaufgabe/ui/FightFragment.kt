@@ -434,10 +434,28 @@ class FightFragment : Fragment() {
          binding.ivRound?.visibility = View.INVISIBLE
          binding.ivFight?.visibility = View.INVISIBLE
 
-         if (viewModel.rounds.value!! > 0 && player.lifePoints < 2 && enemy.lifePoints < 2) {
-             runViewWinnerOrLoser()
+         if (viewModel.selectRounds.value == "3") {
+             if (viewModel.rounds.value!! > 0 && player.lifePoints < 2 && enemy.lifePoints < 2) {
+                 runViewWinnerOrLoser()
 
-             handler.postDelayed({
+                 handler.postDelayed({
+                     binding.ivRound?.visibility = View.VISIBLE
+
+                     handler.postDelayed({
+                         binding.ivRound?.visibility = View.INVISIBLE
+
+                         handler.postDelayed({
+                             binding.ivFight?.visibility = View.VISIBLE
+
+                             handler.postDelayed({
+                                 binding.ivFight?.visibility = View.INVISIBLE
+
+                                 visibleAttacks()
+                             }, 2000)
+                         }, 2000)
+                     }, 2000)
+                 }, 3000)
+             } else {
                  binding.ivRound?.visibility = View.VISIBLE
 
                  handler.postDelayed({
@@ -453,24 +471,30 @@ class FightFragment : Fragment() {
                          }, 2000)
                      }, 2000)
                  }, 2000)
-             }, 3000)
-         } else {
-             binding.ivRound?.visibility = View.VISIBLE
-
-             handler.postDelayed({
-                 binding.ivRound?.visibility = View.INVISIBLE
+             }
+         } else if (viewModel.selectRounds.value == "1") {
+             if (viewModel.rounds.value!! > 0) {
+                 runViewWinnerOrLoser()
+                 visibleAttacks()
+             } else {
+                 binding.ivRound?.visibility = View.VISIBLE
 
                  handler.postDelayed({
-                     binding.ivFight?.visibility = View.VISIBLE
+                     binding.ivRound?.visibility = View.INVISIBLE
 
                      handler.postDelayed({
-                         binding.ivFight?.visibility = View.INVISIBLE
+                         binding.ivFight?.visibility = View.VISIBLE
 
-                         visibleAttacks()
+                         handler.postDelayed({
+                             binding.ivFight?.visibility = View.INVISIBLE
+
+                             visibleAttacks()
+                         }, 2000)
                      }, 2000)
                  }, 2000)
-             }, 2000)
+             }
          }
+
      }
 
     fun runViewWinnerOrLoser() {
