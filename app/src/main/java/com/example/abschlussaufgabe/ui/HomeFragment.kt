@@ -27,6 +27,7 @@ class HomeFragment : Fragment() {
 
         viewModel.imageTitle.value?.let { viewModel.hideImages(it) }
         viewModel.imageHome.value?.let { viewModel.hideImages(it) }
+        viewModel.userName.value?.let { viewModel.showTextView(it) }
 
         context?.let { viewModel.stopSound() }
     }

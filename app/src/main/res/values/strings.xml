@@ -59,4 +59,9 @@
     <string name="titleFight">Kampf</string>
     <string name="oneRound">1</string>
     <string name="threeRounds">3</string>
+    <string name="titleTimer">Spielzeit</string>
+    <string name="noLimit">kein Zeitlimit</string>
+    <string name="second30">30 Sekunden</string>
+    <string name="second60">60 Sekunden</string>
+    <string name="second90">90 Sekunden</string>
 </resources>

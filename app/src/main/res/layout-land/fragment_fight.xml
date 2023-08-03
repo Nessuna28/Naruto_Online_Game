@@ -57,7 +57,7 @@
             android:id="@+id/tv_namePlayer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="24dp"
             android:text="@string/name"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="@+id/mc_characterImagePlayer"
@@ -69,7 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:fontFamily="@font/akaya_telivigala"
             android:text="@string/name"
             android:textColor="@color/black"
@@ -100,7 +100,7 @@
             app:layout_constraintVertical_bias="0.0"
             app:maxLifePoints="500" />
 
-        <com.example.abschlussaufgabe.data.datamodels.modelForFight.LifePointsBarView
+        <com.example.abschlussaufgabe.data.datamodels.modelForFight.ChakraPointsBarView
             android:id="@+id/chakraPointsBarViewPlayer"
             android:layout_width="150dp"
             android:layout_height="15dp"
@@ -116,32 +116,31 @@
             android:id="@+id/iv_imageHealPlayer"
             android:layout_width="100dp"
             android:layout_height="150dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginEnd="100dp"
+            android:layout_marginEnd="48dp"
             android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_image1Player"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/heal" />
 
         <ImageView
             android:id="@+id/iv_image1Player"
             android:layout_width="100dp"
             android:layout_height="150dp"
-            android:layout_marginTop="100dp"
             android:layout_marginEnd="100dp"
+            android:layout_marginBottom="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/naruto" />
 
         <ImageView
             android:id="@+id/iv_imageDouble1Player"
             android:layout_width="100dp"
             android:layout_height="150dp"
-            android:layout_marginTop="76dp"
-            android:layout_marginEnd="180dp"
+            android:layout_marginEnd="160dp"
+            android:layout_marginBottom="28dp"
             android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_image1Player"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/naruto" />
 
         <ImageView
@@ -217,10 +216,10 @@
             android:layout_width="100dp"
             android:layout_height="150dp"
             android:layout_marginStart="100dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginBottom="50dp"
             android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/heal" />
 
         <ImageView
@@ -228,38 +227,38 @@
             android:layout_width="100dp"
             android:layout_height="150dp"
             android:layout_marginStart="100dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginBottom="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/naruto" />
 
         <ImageView
             android:id="@+id/iv_imageDouble1Enemy"
             android:layout_width="100dp"
             android:layout_height="150dp"
-            android:layout_marginStart="180dp"
-            android:layout_marginTop="76dp"
+            android:layout_marginStart="188dp"
+            android:layout_marginBottom="28dp"
             android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_imageHealEnemy"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/naruto" />
 
         <ImageView
             android:id="@+id/iv_imageDouble2Enemy"
             android:layout_width="100dp"
             android:layout_height="150dp"
-            android:layout_marginStart="52dp"
-            android:layout_marginTop="152dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginBottom="28dp"
             android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_imageHealEnemy"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/naruto" />
 
         <TextView
             android:id="@+id/tv_nameEnemy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="24dp"
             android:text="@string/name"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="@+id/mc_characterImageEnemy"
@@ -270,7 +269,7 @@
             android:id="@+id/tv_characterNameEnemy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/akaya_telivigala"
             android:text="@string/name"
@@ -310,7 +309,7 @@
             app:layout_constraintVertical_bias="0.0"
             app:maxLifePoints="500" />
 
-        <com.example.abschlussaufgabe.data.datamodels.modelForFight.LifePointsBarView
+        <com.example.abschlussaufgabe.data.datamodels.modelForFight.ChakraPointsBarView
             android:id="@+id/chakraPointsBarViewEnemy"
             android:layout_width="150dp"
             android:layout_height="15dp"
@@ -328,53 +327,54 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
             android:fontFamily="@font/akaya_telivigala"
             android:text="@string/titleDefense"
             android:textStyle="bold"
             android:visibility="invisible"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_image1Player" />
+            app:layout_constraintTop_toBottomOf="@+id/mc_characterImagePlayer" />
 
         <TextView
             android:id="@+id/tv_titleTools"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
             android:fontFamily="@font/akaya_telivigala"
             android:text="@string/titleTools"
             android:textStyle="bold"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_titleDefense"
-            app:layout_constraintStart_toEndOf="@+id/tv_titleDefense" />
+            app:layout_constraintStart_toStartOf="@+id/rv_defensePlayer"
+            app:layout_constraintTop_toBottomOf="@+id/rv_defensePlayer" />
 
         <TextView
             android:id="@+id/tv_titleTraits"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
             android:fontFamily="@font/akaya_telivigala"
             android:text="@string/titleUniqueTraits"
             android:textStyle="bold"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_titleTools"
-            app:layout_constraintStart_toEndOf="@+id/tv_titleTools" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mc_characterImageEnemy" />
 
         <TextView
             android:id="@+id/tv_titleJutsus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/akaya_telivigala"
             android:text="@string/titleJutsus"
             android:textStyle="bold"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_titleTraits"
-            app:layout_constraintStart_toEndOf="@+id/tv_titleTraits" />
+            app:layout_constraintEnd_toEndOf="@+id/rv_uniqueTraitsPlayer"
+            app:layout_constraintTop_toBottomOf="@+id/rv_uniqueTraitsPlayer" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_defensePlayer"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:scrollbars="vertical"
@@ -388,13 +388,11 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_toolsPlayer"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             android:scrollbars="vertical"
             android:visibility="invisible"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_titleTools"
             app:layout_constraintTop_toBottomOf="@+id/tv_titleTools"
             tools:listitem="@layout/tool_player_item" />
@@ -402,28 +400,26 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_uniqueTraitsPlayer"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:scrollbars="vertical"
             android:visibility="invisible"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/tv_titleTraits"
+            app:layout_constraintEnd_toEndOf="@+id/tv_titleTraits"
             app:layout_constraintTop_toBottomOf="@+id/tv_titleTraits"
             tools:listitem="@layout/trait_player_item" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_jutsuPlayer"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             android:scrollbars="vertical"
             android:visibility="invisible"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/tv_titleJutsus"
+            app:layout_constraintEnd_toEndOf="@+id/tv_titleJutsus"
             app:layout_constraintTop_toBottomOf="@+id/tv_titleJutsus"
             tools:listitem="@layout/jutsu_player_item" />
 
@@ -547,6 +543,29 @@
             app:layout_constraintBottom_toBottomOf="@+id/tv_characterNameEnemy"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toTopOf="@+id/tv_characterNameEnemy" />
+
+        <ImageView
+            android:id="@+id/iv_timer"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/no_time" />
+
+        <TextView
+            android:id="@+id/tv_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Timer"
+            android:textColor="@color/primary"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -21,7 +21,9 @@ import com.example.abschlussaufgabe.data.remote.CharacterApi
 import com.google.android.material.card.MaterialCardView
 import kotlinx.coroutines.launch
 import android.content.Context
+import android.os.CountDownTimer
 import android.os.Handler
+import android.widget.TextView
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.Attack
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.Jutsu
@@ -72,6 +74,11 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _materialCard
 
 
+    val _userName = MutableLiveData<TextView>()
+    val userName: LiveData<TextView>
+        get() = _userName
+
+
     // für die Kampfeinstellungen
 
     private val _selectFight = MutableLiveData<String>()
@@ -82,6 +89,11 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     private val _selectRounds = MutableLiveData<String>()
     val selectRounds: LiveData<String>
         get() = _selectRounds
+
+
+    private val _selectTimer = MutableLiveData<String>()
+    val selectTimer: LiveData<String>
+        get() = _selectTimer
 
 
     private val _selectDifficultyLevel = MutableLiveData<String>()
@@ -175,7 +187,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _enemy
 
 
-
     private val _attackPlayer = MutableLiveData<Attack>()
     val attackPlayer: LiveData<Attack>
         get() = _attackPlayer
@@ -186,16 +197,12 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _attackEnemy
 
 
-    private val _lifePointsPlayer = MutableLiveData<Int>()
-    val lifePointsPlayer: LiveData<Int>
-        get() = _lifePointsPlayer
 
+    var timer: CountDownTimer? = null
 
-
-    private val _lifePointsEnemy = MutableLiveData<Int>()
-    val lifePointsEnemy: LiveData<Int>
-        get() = _lifePointsEnemy
-
+    private val _remainingTime = MutableLiveData<Int>()
+    val remainingTime: LiveData<Int>
+        get() = _remainingTime
 
 
     // für das Ergebnis (ResultFragment)
@@ -250,8 +257,9 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
 
     // für die Statistik
+    private val _dataList = MutableLiveData<List<DataPlayer>>(repository.dataList.value)
     val dataList: LiveData<List<DataPlayer>>
-        get() = repository.dataList
+        get() = _dataList
 
 
 
@@ -269,7 +277,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         _characterForFight.value = CharacterListForFight().characterList
         _locationList.value = LocationList().locationList
         _location.value = locationList.value?.get(0)
-        repository.dataList
+        dataList
 
         setProfile(Profile(
             R.drawable.profile_picture,
@@ -312,6 +320,16 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         card.visibility = View.VISIBLE
     }
 
+    fun hideTextView(textView: TextView) {
+
+        textView.visibility = View.INVISIBLE
+    }
+
+    fun showTextView(textView: TextView) {
+
+        textView.visibility = View.VISIBLE
+    }
+
 
     // Alles für die Charakterinformationen
 
@@ -350,6 +368,11 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     fun selectRounds(selection: String) {
 
         _selectRounds.value = selection
+    }
+
+    fun selectTimer(selection: String) {
+
+        _selectTimer.value = selection
     }
 
     fun selectDifficultyLevel(selection: String) {
@@ -464,14 +487,17 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     }
 
 
-    // setzt die Attacke mit der im Adapter ausgewählten Attacke
+    // setzt die Attacke mit der im Adapter ausgewählten Attacke für eine Sekunde
     fun setAttackPlayer(attack: Attack) {
 
         _attackPlayer.value = attack
+        Handler().postDelayed({
+            _attackPlayer.value = Attack("", 0, player.value!!.image)
+        }, 1000)
     }
 
     // es wird erst eine Liste aller möglichen Attacken des Charackters erstellt
-    // und aus der Liste eine zufällige Attacke ausgewählt
+    // und aus der Liste eine zufällige Attacke ausgewählt für eine Sekunde
     fun setAttackEnemy() {
 
         val jutsuList = enemy.value!!.jutsus
@@ -500,6 +526,9 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         val currentAttackEnemy = listOfAllAttacks.random()
 
         _attackEnemy.value = currentAttackEnemy
+        Handler().postDelayed({
+            _attackEnemy.value = Attack("", 0, enemy.value!!.image)
+        }, 1000)
     }
 
     // sorgt dafür dass nach je nach gewählten Schwierigkeitsgrad in einem gewissen Abstand alle Funktionen für den Computer wiederholt werden
@@ -509,15 +538,48 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
             setAttackEnemy()
 
             if (selectDifficultyLevel.value == "mittel") {
-                Handler().postDelayed(this, 5000)
+                Handler().postDelayed(this, 3000)
             } else if (selectDifficultyLevel.value == "schwer") {
-                Handler().postDelayed(this, 2000)
+                Handler().postDelayed(this, 1000)
             } else if (selectDifficultyLevel.value == "leicht") {
-                Handler().postDelayed(this, 7000)
+                Handler().postDelayed(this, 5000)
             }
 
         }
     }
+
+    fun startTimer() {
+
+        var time: Long = 60000
+        if (selectTimer.value == "30 Sekunden") {
+            time = 30000
+        } else if (selectTimer.value == "60 Sekunden") {
+            time = 60000
+        } else if (selectTimer.value == "90 Sekunden") {
+            time = 90000
+        }
+
+        timer = object : CountDownTimer(time, 1000) { // 60000 Millisekunden = 1 Minute
+            override fun onTick(millisUntilFinished: Long) {
+                // Hier wird der Timer aktualisiert, während er herunterzählt
+                // Du kannst den verbleibenden Millisekunden nutzen, um die Zeit im UI anzuzeigen
+                val secondsRemaining = millisUntilFinished / 1000
+                _remainingTime.value = secondsRemaining.toInt()
+            }
+
+            override fun onFinish() {
+                // Hier wird der Timer auf null gesetzt, wenn die Zeit abgelaufen ist
+                endRound()
+            }
+        }
+        timer?.start()
+    }
+
+    fun stopTimer() {
+        timer?.cancel()
+    }
+
+
 
     // in diesen Funktionen werden die Punkte berechnet
     // wenn der Spieler angreift
@@ -637,19 +699,46 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     }
 
 
+    // je nach dem ob der Spieler ein Zeitlimit eingestellt hat, wird wenn die Zeit abgelaufen ist
+    // der die Runde gewinnen der noch die meisten Lebenspunkte hat oder
     // wenn einer der Spieler keine Lebenspunkte mehr hat wird die Runde beendet und
     // es wird festgelegt ob der Spieler gewonnen oder verloren hat
     fun endRound() {
 
-        if (player.value!!.lifePoints <= 0 || enemy.value!!.lifePoints <= 0) {
-            _rounds.value = rounds.value!!.plus(1)
-            Handler().removeCallbacks(runnable)
-        }
+        if (selectTimer.value == "kein Zeitlimit") {
+            if (player.value!!.lifePoints <= 0 || enemy.value!!.lifePoints <= 0) {
+                _rounds.value = rounds.value!!.plus(1)
+                Handler().removeCallbacks(runnable)
+            }
 
-        if (player.value!!.lifePoints > 0) {
-            _roundsWonPlayer.value = roundsWonPlayer.value!!.plus(1)
-        } else if (enemy.value!!.lifePoints > 0) {
-            _roundsWonEnemy.value = roundsWonEnemy.value!!.plus(1)
+            if (player.value!!.lifePoints > 0) {
+                _roundsWonPlayer.value = roundsWonPlayer.value!!.plus(1)
+            } else if (enemy.value!!.lifePoints > 0) {
+                _roundsWonEnemy.value = roundsWonEnemy.value!!.plus(1)
+            }
+        } else {
+            if (remainingTime.value == 0) {
+                _rounds.value = rounds.value!!.plus(1)
+                stopTimer()
+                Handler().removeCallbacks(runnable)
+                if (player.value!!.lifePoints < enemy.value!!.lifePoints) {
+                    _roundsWonEnemy.value = roundsWonEnemy.value!!.plus(1)
+                } else if (player.value!!.lifePoints > enemy.value!!.lifePoints) {
+                    _roundsWonPlayer.value = roundsWonPlayer.value!!.plus(1)
+                }
+            } else if (remainingTime.value!! > 0) {
+                if (player.value!!.lifePoints <= 0 || enemy.value!!.lifePoints <= 0) {
+                    _rounds.value = rounds.value!!.plus(1)
+                    stopTimer()
+                    Handler().removeCallbacks(runnable)
+                }
+
+                if (player.value!!.lifePoints > 0) {
+                    _roundsWonPlayer.value = roundsWonPlayer.value!!.plus(1)
+                } else if (enemy.value!!.lifePoints > 0) {
+                    _roundsWonEnemy.value = roundsWonEnemy.value!!.plus(1)
+                }
+            }
         }
 
         resetPointsForNewRound()

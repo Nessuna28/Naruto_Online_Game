@@ -23,12 +23,15 @@ class DifficultyLevelAndRoundSelectionFragment : Fragment() {
 
     val fight = listOf(R.string.single, R.string.team)
     val rounds = listOf(R.string.oneRound, R.string.threeRounds)
+    val timer = listOf(R.string.noLimit, R.string.second30, R.string.second60, R.string.second90)
     val difficultyLevel = listOf(R.string.light, R.string.middle, R.string.difficult)
 
     var currentFightIndex = 0
     lateinit var selectionFight: String
     var currentRoundsIndex = 0
-    lateinit var selctionRounds: String
+    lateinit var selectionRounds: String
+    var currentTimerIndex =2
+    lateinit var selectionTimer: String
     var currentDifficultyLevelIndex = 1
     lateinit var selectionDifficultyLevel: String
 
@@ -42,15 +45,18 @@ class DifficultyLevelAndRoundSelectionFragment : Fragment() {
 
         viewModel.materialCard.value?.let { viewModel.showMaterialCard(it) }
         viewModel.imageHome.value?.let { viewModel.showImages(it) }
+        viewModel.userName.value?.let { viewModel.showTextView(it) }
         viewModel.imageBackground.value?.let { viewModel.hideImages(it) }
         viewModel.imageTitle.value?.let { viewModel.hideImages(it) }
 
         selectionFight = getString(fight[currentFightIndex])
-        selctionRounds = getString(rounds[currentRoundsIndex])
+        selectionRounds = getString(rounds[currentRoundsIndex])
+        selectionTimer = getString(timer[currentTimerIndex])
         selectionDifficultyLevel = getString(difficultyLevel[currentDifficultyLevelIndex])
 
         binding.tvSingleOrTeam?.text = getString(fight[0])
         binding.tvNumberOfRounds?.text = getString(rounds[0])
+        binding.tvTimer?.text = getString(timer[2])
         binding.tvSelectionDifficultyLevel?.text = getString(difficultyLevel[1])
 
         binding.btnFurther?.visibility = View.INVISIBLE
@@ -85,14 +91,26 @@ class DifficultyLevelAndRoundSelectionFragment : Fragment() {
 
         binding.ivPreviousRounds?.setOnClickListener {
             currentRoundsIndex = (currentRoundsIndex -1 + rounds.size) % rounds.size
-            selctionRounds = getString(rounds[currentRoundsIndex])
-            binding.tvNumberOfRounds?.text = selctionRounds
+            selectionRounds = getString(rounds[currentRoundsIndex])
+            binding.tvNumberOfRounds?.text = selectionRounds
         }
 
         binding.ivNextRounds?.setOnClickListener {
             currentRoundsIndex = (currentRoundsIndex +1) % rounds.size
-            selctionRounds = getString(rounds[currentRoundsIndex])
-            binding.tvNumberOfRounds?.text = selctionRounds
+            selectionRounds = getString(rounds[currentRoundsIndex])
+            binding.tvNumberOfRounds?.text = selectionRounds
+        }
+
+        binding.ivPreviousTimer?.setOnClickListener {
+            currentTimerIndex = (currentTimerIndex -1 + timer.size) % timer.size
+            selectionTimer = getString(timer[currentTimerIndex])
+            binding.tvTimer?.text = selectionTimer
+        }
+
+        binding.ivNextTimer?.setOnClickListener {
+            currentTimerIndex = (currentTimerIndex +1) % timer.size
+            selectionTimer = getString(timer[currentTimerIndex])
+            binding.tvTimer?.text = selectionTimer
         }
 
         binding.ivPreviousDifficultyLevel?.setOnClickListener {
@@ -110,9 +128,9 @@ class DifficultyLevelAndRoundSelectionFragment : Fragment() {
 
         binding.btnOkPlayer?.setOnClickListener {
             viewModel.selectFight(selectionFight)
-            viewModel.selectRounds(selctionRounds)
+            viewModel.selectRounds(selectionRounds)
+            viewModel.selectTimer(selectionTimer)
             viewModel.selectDifficultyLevel(selectionDifficultyLevel)
-            Log.e("Auswahl", "${viewModel.selectDifficultyLevel.value}, ${viewModel.selectRounds.value}")
             it.setBackgroundColor(Color.GREEN)
             binding.btnFurther?.visibility = View.VISIBLE
         }

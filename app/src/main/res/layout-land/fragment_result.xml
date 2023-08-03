@@ -37,11 +37,11 @@
             android:id="@+id/iv_characterImage"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="150dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="70dp"
             android:rotation="9"
-            app:layout_constraintEnd_toEndOf="@+id/vv_characterVideo"
-            app:layout_constraintTop_toBottomOf="@+id/iv_titleWonOrLost"
+            app:layout_constraintEnd_toStartOf="@+id/vv_characterVideo"
+            app:layout_constraintTop_toBottomOf="@+id/tv_userName"
             app:srcCompat="@drawable/naruto_pose" />
 
         <ImageView

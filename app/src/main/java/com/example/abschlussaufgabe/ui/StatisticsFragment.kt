@@ -2,6 +2,7 @@ package com.example.abschlussaufgabe.ui
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -51,7 +52,10 @@ class StatisticsFragment : Fragment() {
         }
 
         viewModel.dataList.observe(viewLifecycleOwner) {
-            binding.rvStatistic.adapter = StatisticAdapter(it)
+            if (it != null) {
+                binding.rvStatistic.adapter = StatisticAdapter(it)
+            }
+            Log.e("Statistic", "$it")
         }
 
         binding.ivBack.setOnClickListener {

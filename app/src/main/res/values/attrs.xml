@@ -5,4 +5,9 @@
     <attr name="maxLifePoints" format="integer" />
     <attr name="currentLifePoints" format="integer" />
 </declare-styleable>
+
+    <declare-styleable name="ChakraPointsBarView">
+        <attr name="maxChakraPoints" format="integer" />
+        <attr name="currentChakraPoints" format="integer" />
+    </declare-styleable>
 </resources>

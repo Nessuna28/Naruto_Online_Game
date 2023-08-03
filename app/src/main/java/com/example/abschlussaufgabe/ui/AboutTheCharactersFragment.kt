@@ -30,6 +30,7 @@ class AboutTheCharactersFragment : Fragment() {
 
         viewModel.imageTitle.value?.let { viewModel.showImages(it) }
         viewModel.imageHome.value?.let { viewModel.showImages(it) }
+        viewModel.userName.value?.let { viewModel.showTextView(it) }
     }
 
     override fun onCreateView(

@@ -1,11 +1,14 @@
 package com.example.abschlussaufgabe.ui
 
 import android.content.pm.ActivityInfo
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.VideoView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -19,6 +22,7 @@ class ResultFragment : Fragment() {
     private val viewModel: MainViewModel by activityViewModels()
 
     private lateinit var binding: FragmentResultBinding
+
 
 
     override fun onStart() {
@@ -53,8 +57,12 @@ class ResultFragment : Fragment() {
                 viewModel.player.observe(viewLifecycleOwner) {
                     binding.tvCharacterName?.text = it.name
                     binding.ivCharacterImage?.setImageResource(it.imagePose)
-                    binding.vvCharacterVideo?.setVideoPath(it.video.toString())
+                    binding.vvCharacterVideo?.setVideoPath(it.video)
                     binding.vvCharacterVideo?.start()
+                    binding.vvCharacterVideo?.setOnErrorListener { mp, what, extra ->
+                        Log.e("VideoPlayer", "Error occurred while playing the video. Error code: $what")
+                        return@setOnErrorListener true
+                    }
                     context?.let { it1 -> viewModel.setSound(it1, it.sound) }
                 }
 
@@ -63,8 +71,12 @@ class ResultFragment : Fragment() {
                 viewModel.player.observe(viewLifecycleOwner) {
                     binding.tvCharacterName?.text = it.name
                     binding.ivCharacterImage?.setImageResource(it.imageSad)
-                    binding.vvCharacterVideo?.setVideoPath(it.video.toString())
+                    binding.vvCharacterVideo?.setVideoPath(it.video)
                     binding.vvCharacterVideo?.start()
+                    binding.vvCharacterVideo?.setOnErrorListener { mp, what, extra ->
+                        Log.e("VideoPlayer", "Error occurred while playing the video. Error code: $what")
+                        return@setOnErrorListener true
+                    }
                     context?.let { it1 -> viewModel.setSound(it1, it.sound) }
                 }
             }

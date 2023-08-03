@@ -48,6 +48,7 @@ class FightFragment : Fragment() {
 
         viewModel.imageBackground.value?.let { viewModel.hideImages(it) }
         viewModel.materialCard.value?.let { viewModel.hideMaterialCard(it) }
+        viewModel.userName.value?.let { viewModel.hideTextView(it) }
 
         binding.ivImage2Player?.visibility = View.INVISIBLE
         binding.ivImage2Enemy?.visibility = View.INVISIBLE
@@ -68,6 +69,16 @@ class FightFragment : Fragment() {
             } else if (it == "3") {
                 binding.mcRound1PlayerForOneRound?.visibility = View.INVISIBLE
                 binding.mcRound1EnemyForOneRound?.visibility = View.INVISIBLE
+            }
+        }
+
+        viewModel.selectTimer.observe(viewLifecycleOwner) {
+            if (it == "kein Zeitlimit") {
+                binding.tvTimer?.visibility = View.INVISIBLE
+                binding.ivTimer?.setImageResource(R.drawable.no_time)
+                viewModel.stopTimer()
+            } else {
+                binding.ivTimer?.visibility = View.INVISIBLE
             }
         }
     }
@@ -104,8 +115,8 @@ class FightFragment : Fragment() {
             binding.tvCharacterNamePlayer?.text = it.name
             binding.lifePointsBarViewPlayer?.setMaxLifePoints(it.lifePointsStart) // Setze hier den Maximalwert
             binding.lifePointsBarViewPlayer?.setCurrentLifePoints(it.lifePoints) // Setze die aktuellen Lebenspunkte
-            binding.chakraPointsBarViewPlayer?.setMaxLifePoints(it.chakraPointsStart)
-            binding.chakraPointsBarViewPlayer?.setCurrentLifePoints(it.chakraPoints)
+            binding.chakraPointsBarViewPlayer?.setMaxChakraPoints(it.chakraPointsStart)
+            binding.chakraPointsBarViewPlayer?.setCurrentChakraPoints(it.chakraPoints)
 
             binding.rvDefensePlayer?.adapter = DefensePlayerAdapter(it.defense, viewModel)
             binding.rvToolsPlayer?.adapter = ToolPlayerAdapter(it.tools, viewModel)
@@ -121,13 +132,17 @@ class FightFragment : Fragment() {
             binding.tvCharacterNameEnemy?.text = it.name
             binding.lifePointsBarViewEnemy?.setMaxLifePoints(it.lifePointsStart)
             binding.lifePointsBarViewEnemy?.setCurrentLifePoints(it.lifePoints)
-            binding.chakraPointsBarViewEnemy?.setMaxLifePoints(it.chakraPointsStart)
-            binding.chakraPointsBarViewEnemy?.setCurrentLifePoints(it.chakraPoints)
+            binding.chakraPointsBarViewEnemy?.setMaxChakraPoints(it.chakraPointsStart)
+            binding.chakraPointsBarViewEnemy?.setCurrentChakraPoints(it.chakraPoints)
         }
 
        runViewsRound()
 
         Handler().postDelayed(viewModel.runnable, 6000)
+
+        viewModel.remainingTime.observe(viewLifecycleOwner) {
+            binding.tvTimer?.text = it.toString()
+        }
 
         viewModel.attackPlayer.observe(viewLifecycleOwner) {
             binding.ivImage2Player?.setImageResource(it.image)
@@ -453,6 +468,7 @@ class FightFragment : Fragment() {
                                  binding.ivFight?.visibility = View.INVISIBLE
 
                                  visibleAttacks()
+                                 viewModel.startTimer()
                              }, 2000)
                          }, 2000)
                      }, 2000)
@@ -470,6 +486,7 @@ class FightFragment : Fragment() {
                              binding.ivFight?.visibility = View.INVISIBLE
 
                              visibleAttacks()
+                             viewModel.startTimer()
                          }, 2000)
                      }, 2000)
                  }, 2000)
@@ -491,6 +508,7 @@ class FightFragment : Fragment() {
                              binding.ivFight?.visibility = View.INVISIBLE
 
                              visibleAttacks()
+                             viewModel.startTimer()
                          }, 2000)
                      }, 2000)
                  }, 2000)

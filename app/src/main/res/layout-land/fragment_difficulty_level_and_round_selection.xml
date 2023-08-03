@@ -120,7 +120,6 @@
             android:text="0"
             android:textColor="@color/primary"
             app:layout_constraintBottom_toBottomOf="@+id/tv_rounds"
-            app:layout_constraintEnd_toStartOf="@+id/iv_nextSingleOrTeam"
             app:layout_constraintStart_toStartOf="@+id/tv_singleOrTeam"
             app:layout_constraintTop_toTopOf="@+id/tv_rounds" />
 
@@ -135,14 +134,57 @@
             app:srcCompat="@drawable/baseline_chevron_right_24" />
 
         <TextView
+            android:id="@+id/tv_titleTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="@string/titleTimer"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/tv_rounds"
+            app:layout_constraintTop_toBottomOf="@+id/tv_rounds" />
+
+        <ImageView
+            android:id="@+id/iv_previousTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_timer"
+            app:layout_constraintEnd_toStartOf="@+id/tv_timer"
+            app:layout_constraintTop_toTopOf="@+id/tv_timer"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/baseline_chevron_left_24" />
+
+        <TextView
+            android:id="@+id/tv_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/akaya_telivigala"
+            android:text="@string/noLimit"
+            android:textColor="@color/primary"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_titleTimer"
+            app:layout_constraintStart_toEndOf="@+id/iv_previousSingleOrTeam"
+            app:layout_constraintStart_toStartOf="@+id/tv_singleOrTeam"
+            app:layout_constraintTop_toTopOf="@+id/tv_titleTimer" />
+
+        <ImageView
+            android:id="@+id/iv_nextTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_timer"
+            app:layout_constraintStart_toEndOf="@+id/tv_timer"
+            app:layout_constraintTop_toTopOf="@+id/tv_timer"
+            app:srcCompat="@drawable/baseline_chevron_right_24" />
+
+        <TextView
             android:id="@+id/tv_difficultyLevel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:text="@string/difficultyLevel"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/tv_rounds"
-            app:layout_constraintTop_toBottomOf="@+id/tv_rounds" />
+            app:layout_constraintStart_toStartOf="@+id/tv_titleTimer"
+            app:layout_constraintTop_toBottomOf="@+id/tv_titleTimer" />
 
         <ImageView
             android:id="@+id/iv_previousDifficultyLevel"
@@ -163,9 +205,9 @@
             android:text="@string/light"
             android:textColor="@color/primary"
             app:layout_constraintBottom_toBottomOf="@+id/tv_difficultyLevel"
-            app:layout_constraintEnd_toEndOf="@+id/tv_numberOfRounds"
-            app:layout_constraintStart_toStartOf="@+id/tv_numberOfRounds"
-            app:layout_constraintTop_toTopOf="@+id/tv_difficultyLevel" />
+            app:layout_constraintStart_toStartOf="@+id/tv_timer"
+            app:layout_constraintTop_toTopOf="@+id/tv_difficultyLevel"
+            app:layout_constraintVertical_bias="0.285" />
 
         <ImageView
             android:id="@+id/iv_nextDifficultyLevel"
