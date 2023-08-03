@@ -693,7 +693,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
             }
         }
 
-
         _player.value = _player.value
         _enemy.value = _enemy.value
     }
@@ -776,6 +775,11 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
         _enemy.value!!.lifePoints = enemy.value!!.lifePointsStart
         _enemy.value!!.chakraPoints = enemy.value!!.chakraPointsStart
+
+        _player.value!!.lifePoints = _player.value!!.lifePoints
+        _player.value!!.chakraPoints = _player.value!!.chakraPoints
+        _enemy.value = _enemy.value
+
     }
 
 
@@ -787,6 +791,8 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         _resultEnemy.value = ""
         _roundsWonPlayer.value = 0
         _roundsWonEnemy.value = 0
+        _attackPlayer.value = Attack("", 0, player.value!!.image)
+        _attackEnemy.value = Attack("", 0, enemy.value!!.image)
     }
 
 

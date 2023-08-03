@@ -55,6 +55,7 @@ class FightFragment : Fragment() {
 
         invisibleAttacks()
 
+        handler.removeCallbacks(viewModel.runnable)
         viewModel.resetPointsForNewGame()
         viewModel.resetToDefaultRounds()
 
@@ -179,8 +180,10 @@ class FightFragment : Fragment() {
                     viewModel.setResult(false)
                 }
             } else if (viewModel.selectRounds.value == "1") {
-                if (it == 1 && viewModel.rounds.value ==1) {
+                if (it == 1 && viewModel.roundsWonPlayer.value == 1) {
                     viewModel.setResult(true)
+                } else {
+                    viewModel.setResult(false)
                 }
             }
         }
