@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tv_teamName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/teamName"
+                    android:fontFamily="@font/akaya_telivigala"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_dice1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/iv_dice1" />
+
+                <ImageView
+                    android:id="@+id/iv_dice1"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toEndOf="@+id/tv_teamName"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/anko_face" />
+
+                <ImageView
+                    android:id="@+id/iv_dice6"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_dice5"
+                    app:layout_constraintStart_toEndOf="@+id/iv_dice5"
+                    app:layout_constraintTop_toTopOf="@+id/iv_dice5"
+                    app:srcCompat="@drawable/anko_face" />
+
+                <ImageView
+                    android:id="@+id/iv_dice5"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_dice4"
+                    app:layout_constraintStart_toEndOf="@+id/iv_dice4"
+                    app:layout_constraintTop_toTopOf="@+id/iv_dice4"
+                    app:srcCompat="@drawable/anko_face" />
+
+                <ImageView
+                    android:id="@+id/iv_dice4"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_dice3"
+                    app:layout_constraintStart_toEndOf="@+id/iv_dice3"
+                    app:layout_constraintTop_toTopOf="@+id/iv_dice3"
+                    app:srcCompat="@drawable/anko_face" />
+
+                <ImageView
+                    android:id="@+id/iv_dice3"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_dice2"
+                    app:layout_constraintStart_toEndOf="@+id/iv_dice2"
+                    app:layout_constraintTop_toTopOf="@+id/iv_dice2"
+                    app:srcCompat="@drawable/anko_face" />
+
+                <ImageView
+                    android:id="@+id/iv_dice2"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_dice1"
+                    app:layout_constraintStart_toEndOf="@+id/iv_dice1"
+                    app:layout_constraintTop_toTopOf="@+id/iv_dice1"
+                    app:srcCompat="@drawable/anko_face" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

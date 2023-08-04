@@ -16,6 +16,9 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
     val teamKakashi = listOf(R.drawable.kakashi_face, R.drawable.naruto_face, R.drawable.sasuke_face, R.drawable.sakura_face, R.drawable.sai_face, R.drawable.kurama)
     val teamGaara = listOf(R.drawable.gaara_face, R.drawable.temari_face, R.drawable.kankuro_face, R.drawable.marionette, R.drawable.subjects, R.drawable.shukaku)
 
+    val allTeams = listOf(teamGaara, teamKakashi)
+
+
     // LiveData
 
     private val _selectionTeam = MutableLiveData<List<Int>>()

@@ -137,9 +137,14 @@ class FightFragment : Fragment() {
             binding.chakraPointsBarViewEnemy?.setCurrentChakraPoints(it.chakraPoints)
         }
 
-       if (viewModel.roundBegan.value!!) {
-           runViewsRound()
-       }
+        viewModel.startRound(true)
+
+        viewModel.roundBegan.observe(viewLifecycleOwner) {
+            if (it) {
+                runViewsRound()
+                handler.postDelayed(viewModel.runnable, 1000)
+            }
+        }
 
         viewModel.remainingTime.observe(viewLifecycleOwner) {
             binding.tvTimer?.text = it.toString()
@@ -147,10 +152,9 @@ class FightFragment : Fragment() {
 
         viewModel.attackPlayer.observe(viewLifecycleOwner) {
             binding.ivImage2Player?.setImageResource(it.image)
-            viewModel.startRound(true)
             actionOfSelectionPlayer(it)
             viewModel.playRoundPlayer()
-            if (player.lifePoints <= 0 || enemy.lifePoints <= 0) {
+            if (player.lifePoints <= 0 || enemy.lifePoints <= 0 || viewModel.remainingTime.value == 0) {
                 invisibleAttacks()
                 viewModel.endRound()
             }
@@ -158,12 +162,12 @@ class FightFragment : Fragment() {
 
         viewModel.attackEnemy.observe(viewLifecycleOwner) {
             binding.ivImage2Enemy?.setImageResource(it.image)
-            if (player.lifePoints > 0 && enemy.lifePoints > 0) {
-                viewModel.playRoundEnemy()
-                actionOfSelectionEnemy(it)
-            } else {
-                viewModel.endRound()
-            }
+                if (player.lifePoints > 0 && enemy.lifePoints > 0 || viewModel.remainingTime.value!! > 0) {
+                    viewModel.playRoundEnemy()
+                    actionOfSelectionEnemy(it)
+                } else {
+                    viewModel.endRound()
+                }
         }
 
         viewModel.roundsWonPlayer.observe(viewLifecycleOwner) {
@@ -176,7 +180,7 @@ class FightFragment : Fragment() {
                     viewModel.setResult(false)
                 }
             } else if (viewModel.selectRounds.value == "1") {
-                if (it == 1 && viewModel.roundsWonPlayer.value == 1) {
+                if (it == 1 && viewModel.rounds.value == 1) {
                     viewModel.setResult(true)
                 } else {
                     viewModel.setResult(false)
@@ -480,8 +484,9 @@ class FightFragment : Fragment() {
                                  binding.ivFight?.visibility = View.INVISIBLE
 
                                  visibleAttacks()
-                                 viewModel.runnable
-                                 viewModel.startTimer()
+                                 if (viewModel.selectTimer.value != "kein Zeitlimit") {
+                                     viewModel.startTimer()
+                                 }
                              }, 2000)
                          }, 2000)
                      }, 2000)
@@ -499,7 +504,9 @@ class FightFragment : Fragment() {
                              binding.ivFight?.visibility = View.INVISIBLE
 
                              visibleAttacks()
-                             viewModel.startTimer()
+                             if (viewModel.selectTimer.value != "kein Zeitlimit") {
+                                 viewModel.startTimer()
+                             }
                          }, 2000)
                      }, 2000)
                  }, 2000)
@@ -521,23 +528,39 @@ class FightFragment : Fragment() {
                              binding.ivFight?.visibility = View.INVISIBLE
 
                              visibleAttacks()
-                             viewModel.startTimer()
+                             if (viewModel.selectTimer.value != "kein Zeitlimit") {
+                                 viewModel.startTimer()
+                             }
                          }, 2000)
                      }, 2000)
                  }, 2000)
              }
          }
-
      }
 
     fun runViewWinnerOrLoser() {
 
-        if (player.lifePoints == 0) {
-            binding.ivResult?.setImageResource(R.drawable.loser)
-        } else if (player.lifePoints > 0) {
-            binding.ivResult?.setImageResource(R.drawable.winner)
+        if (viewModel.selectTimer.value != "kein Zeitlimit") {
+            if (viewModel.remainingTime.value == 0) {
+                if (player.lifePoints > enemy.lifePoints) {
+                    binding.ivResult?.setImageResource(R.drawable.winner)
+                } else if (player.lifePoints < enemy.lifePoints) {
+                    binding.ivResult?.setImageResource(R.drawable.loser)
+                }
+            } else {
+                if (player.lifePoints == 0) {
+                    binding.ivResult?.setImageResource(R.drawable.loser)
+                } else if (player.lifePoints > 0) {
+                    binding.ivResult?.setImageResource(R.drawable.winner)
+                }
+            }
+        } else {
+            if (player.lifePoints == 0) {
+                binding.ivResult?.setImageResource(R.drawable.loser)
+            } else if (player.lifePoints > 0) {
+                binding.ivResult?.setImageResource(R.drawable.winner)
+            }
         }
-
 
         binding.ivResult?.visibility = View.VISIBLE
 

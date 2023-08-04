@@ -380,6 +380,11 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         _selectTimer.value = selection
     }
 
+    fun setRemainingTime(value: Int) {
+
+        _remainingTime.value = value
+    }
+
     fun selectDifficultyLevel(selection: String) {
 
         _selectDifficultyLevel.value = selection
@@ -713,6 +718,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     fun endRound() {
 
         if (selectTimer.value == "kein Zeitlimit") {
+            stopTimer()
             if (player.value!!.lifePoints <= 0 || enemy.value!!.lifePoints <= 0) {
                 _rounds.value = rounds.value!!.plus(1)
                 Handler().removeCallbacks(runnable)
@@ -746,6 +752,9 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
                     _roundsWonEnemy.value = roundsWonEnemy.value!!.plus(1)
                 }
             }
+
+            _roundsWonPlayer.value = _roundsWonPlayer.value
+            _roundsWonEnemy.value = _roundsWonEnemy.value
         }
 
         resetPointsForNewRound()

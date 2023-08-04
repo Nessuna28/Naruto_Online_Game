@@ -47,13 +47,10 @@ class CharacterSelectionFragment : Fragment() {
         binding.ivSelectionEnemy?.setImageResource(firstCharacter.image)
 
         resetToDefault()
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
         viewModel.setUserNameEnemy("Computer")
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -156,7 +156,7 @@
     </fragment>
     <fragment
         android:id="@+id/difficultyLevelAndRoundSelectionFragment"
-        android:name="com.example.abschlussaufgabe.ui.DifficultyLevelAndRoundSelectionFragment"
+        android:name="com.example.abschlussaufgabe.ui.CombatSettingsFragment"
         android:label="DifficultyLevelAndRoundSelectionFragment" >
         <action
             android:id="@+id/action_difficultyLevelAndRoundSelectionFragment_to_characterSelectionFragment"

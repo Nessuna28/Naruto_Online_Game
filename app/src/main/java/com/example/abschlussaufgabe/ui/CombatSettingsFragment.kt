@@ -3,7 +3,6 @@ package com.example.abschlussaufgabe.ui
 import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +14,7 @@ import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.databinding.FragmentDifficultyLevelAndRoundSelectionBinding
 
 
-class DifficultyLevelAndRoundSelectionFragment : Fragment() {
+class CombatSettingsFragment : Fragment() {
 
     private val viewModel: MainViewModel by activityViewModels()
 
@@ -138,7 +137,7 @@ class DifficultyLevelAndRoundSelectionFragment : Fragment() {
         // Navigation
 
         binding.btnFurther?.setOnClickListener {
-            findNavController().navigate(DifficultyLevelAndRoundSelectionFragmentDirections.actionDifficultyLevelAndRoundSelectionFragmentToCharacterSelectionFragment())
+            findNavController().navigate(CombatSettingsFragmentDirections.actionDifficultyLevelAndRoundSelectionFragmentToCharacterSelectionFragment())
         }
 
         binding.ivBack?.setOnClickListener {
