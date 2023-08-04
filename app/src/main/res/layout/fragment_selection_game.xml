@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -37,43 +37,64 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/title" />
 
-
-        <TextView
-            android:id="@+id/tv_characterTitle"
+        <ImageView
+            android:id="@+id/iv_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="300dp"
-            android:text="@string/infosAboutCharacters"
-            android:textSize="25sp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/baseline_arrow_back_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_title" />
+
+        <TextView
+            android:id="@+id/tv_titleGames"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/games"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_back"
+            app:layout_constraintStart_toEndOf="@+id/iv_back"
+            app:layout_constraintTop_toTopOf="@+id/iv_back" />
+
+        <TextView
+            android:id="@+id/tv_fight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/titleFight"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_titleGames" />
 
         <TextView
-            android:id="@+id/tv_statisticTitle"
+            android:id="@+id/tv_kniffel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="100dp"
-            android:text="@string/statistics"
-            android:textSize="25sp"
+            android:text="@string/kniffel"
+            android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/tv_characterTitle"
-            app:layout_constraintStart_toStartOf="@+id/tv_characterTitle"
-            app:layout_constraintTop_toBottomOf="@+id/tv_characterTitle" />
+            app:layout_constraintEnd_toEndOf="@+id/tv_fight"
+            app:layout_constraintStart_toStartOf="@+id/tv_fight"
+            app:layout_constraintTop_toBottomOf="@+id/tv_fight" />
 
         <TextView
-            android:id="@+id/tv_gamesTitle"
+            android:id="@+id/tv_memory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="100dp"
-            android:text="@string/games"
-            android:textSize="25sp"
+            android:text="@string/memory"
+            android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/tv_statisticTitle"
-            app:layout_constraintHorizontal_bias="0.538"
-            app:layout_constraintStart_toStartOf="@+id/tv_statisticTitle"
-            app:layout_constraintTop_toBottomOf="@+id/tv_statisticTitle" />
+            app:layout_constraintEnd_toEndOf="@+id/tv_kniffel"
+            app:layout_constraintStart_toStartOf="@+id/tv_kniffel"
+            app:layout_constraintTop_toBottomOf="@+id/tv_kniffel" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

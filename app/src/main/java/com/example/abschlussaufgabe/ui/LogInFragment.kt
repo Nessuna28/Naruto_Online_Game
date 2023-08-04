@@ -18,6 +18,8 @@ class LogInFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+
         val currentUser = auth.currentUser
         if (currentUser != null) {
             reload()

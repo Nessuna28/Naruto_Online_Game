@@ -23,7 +23,7 @@ class HomeFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 
         viewModel.imageTitle.value?.let { viewModel.hideImages(it) }
         viewModel.imageHome.value?.let { viewModel.hideImages(it) }
@@ -52,8 +52,8 @@ class HomeFragment : Fragment() {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToStatisticsFragment())
         }
 
-        binding.tvFightTitle.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDifficultyLevelAndRoundSelectionFragment())
+        binding.tvGamesTitle?.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSelectionGameFragment())
         }
 
         viewModel.materialCard.value!!.setOnClickListener {

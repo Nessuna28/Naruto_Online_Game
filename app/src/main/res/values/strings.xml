@@ -64,4 +64,22 @@
     <string name="second30">30 Sekunden</string>
     <string name="second60">60 Sekunden</string>
     <string name="second90">90 Sekunden</string>
+    <string name="kniffelValue">0</string>
+    <string name="one">Eins</string>
+    <string name="two">Zwei</string>
+    <string name="three">Drei</string>
+    <string name="four">Vier</string>
+    <string name="fife">Fünf</string>
+    <string name="six">Sechs</string>
+    <string name="_3er">Dreier</string>
+    <string name="_4er">Vierer</string>
+    <string name="full_house">Full House</string>
+    <string name="bigStreet">große Straße</string>
+    <string name="littleStreet">kleine Straße</string>
+    <string name="chance">Chance</string>
+    <string name="kniffel">Kniffel</string>
+    <string name="tryValue">3</string>
+    <string name="rollTheDice">Würfeln</string>
+    <string name="memory">Memory</string>
+    <string name="games">Spiele</string>
 </resources>

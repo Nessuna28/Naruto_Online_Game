@@ -12,6 +12,188 @@
         android:layout_height="match_parent"
         tools:context=".ui.KniffelFragment">
 
+        <TextView
+            android:id="@+id/tv_3xValue"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:layout_marginStart="8dp"
+            android:background="@color/grey"
+            android:gravity="center"
+            android:text="@string/kniffelValue"
+            android:fontFamily="@font/akaya_telivigala"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/mc_dice1"
+            app:layout_constraintStart_toEndOf="@+id/mc_dice3x"
+            app:layout_constraintTop_toTopOf="@+id/mc_dice1" />
+
+        <TextView
+            android:id="@+id/tv_3erValue"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:gravity="center"
+            android:layout_marginStart="8dp"
+            android:text="@string/kniffelValue"
+            android:fontFamily="@font/akaya_telivigala"
+            android:textStyle="bold"
+            android:background="@color/grey"
+            app:layout_constraintBottom_toBottomOf="@+id/mc_dice3"
+            app:layout_constraintStart_toEndOf="@+id/mc_dice3"
+            app:layout_constraintTop_toTopOf="@+id/mc_dice3" />
+
+        <TextView
+            android:id="@+id/tv_fullHouseValue"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:layout_marginStart="8dp"
+            android:background="@color/grey"
+            android:gravity="center"
+            android:text="@string/kniffelValue"
+            android:fontFamily="@font/akaya_telivigala"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/mc_dice3"
+            app:layout_constraintStart_toEndOf="@+id/mc_diceFullHouse"
+            app:layout_constraintTop_toTopOf="@+id/mc_dice3" />
+
+        <TextView
+            android:id="@+id/tv_4erValue"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:gravity="center"
+            android:layout_marginStart="8dp"
+            android:text="@string/kniffelValue"
+            android:fontFamily="@font/akaya_telivigala"
+            android:textStyle="bold"
+            android:background="@color/grey"
+            app:layout_constraintBottom_toBottomOf="@+id/mc_dice4"
+            app:layout_constraintStart_toEndOf="@+id/mc_dice4"
+            app:layout_constraintTop_toTopOf="@+id/mc_dice4" />
+
+        <TextView
+            android:id="@+id/tv_bigStreetValue"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:layout_marginStart="8dp"
+            android:background="@color/grey"
+            android:gravity="center"
+            android:text="@string/kniffelValue"
+            android:fontFamily="@font/akaya_telivigala"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/mc_dice4"
+            app:layout_constraintStart_toEndOf="@+id/mc_diceBigStreet"
+            app:layout_constraintTop_toTopOf="@+id/mc_dice4" />
+
+        <TextView
+            android:id="@+id/tv_5erValue"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:gravity="center"
+            android:layout_marginStart="8dp"
+            android:text="@string/kniffelValue"
+            android:fontFamily="@font/akaya_telivigala"
+            android:textStyle="bold"
+            android:background="@color/grey"
+            app:layout_constraintBottom_toBottomOf="@+id/mc_dice5"
+            app:layout_constraintStart_toEndOf="@+id/mc_dice5"
+            app:layout_constraintTop_toTopOf="@+id/mc_dice5" />
+
+        <TextView
+            android:id="@+id/tv_littleStreetValue"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:layout_marginStart="8dp"
+            android:background="@color/grey"
+            android:gravity="center"
+            android:text="@string/kniffelValue"
+            android:fontFamily="@font/akaya_telivigala"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/mc_dice5"
+            app:layout_constraintStart_toEndOf="@+id/mc_diceLittleStreet"
+            app:layout_constraintTop_toTopOf="@+id/mc_dice5" />
+
+        <TextView
+            android:id="@+id/tv_6erValue"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:gravity="center"
+            android:layout_marginStart="8dp"
+            android:text="@string/kniffelValue"
+            android:fontFamily="@font/akaya_telivigala"
+            android:textStyle="bold"
+            android:background="@color/grey"
+            app:layout_constraintBottom_toBottomOf="@+id/mc_dice6"
+            app:layout_constraintStart_toEndOf="@+id/mc_dice6"
+            app:layout_constraintTop_toTopOf="@+id/mc_dice6" />
+
+        <TextView
+            android:id="@+id/tv_kniffelValue"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:layout_marginStart="8dp"
+            android:background="@color/grey"
+            android:gravity="center"
+            android:text="@string/kniffelValue"
+            android:fontFamily="@font/akaya_telivigala"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/mc_dice6"
+            app:layout_constraintStart_toEndOf="@+id/mc_diceKniffel"
+            app:layout_constraintTop_toTopOf="@+id/mc_dice6" />
+
+        <TextView
+            android:id="@+id/tv_bonusValue"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:layout_marginStart="8dp"
+            android:gravity="center"
+            android:text="@string/kniffelValue"
+            android:fontFamily="@font/akaya_telivigala"
+            android:textColor="@color/primary"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/mc_bonus"
+            app:layout_constraintStart_toEndOf="@+id/mc_bonus"
+            app:layout_constraintTop_toTopOf="@+id/mc_bonus" />
+
+        <TextView
+            android:id="@+id/tv_chanceValue"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:layout_marginStart="8dp"
+            android:gravity="center"
+            android:text="@string/kniffelValue"
+            android:fontFamily="@font/akaya_telivigala"
+            android:background="@color/grey"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/mc_bonus"
+            app:layout_constraintStart_toEndOf="@+id/mc_diceChance"
+            app:layout_constraintTop_toTopOf="@+id/mc_bonus" />
+
+        <TextView
+            android:id="@+id/tv_2erValue"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:gravity="center"
+            android:layout_marginStart="8dp"
+            android:text="@string/kniffelValue"
+            android:fontFamily="@font/akaya_telivigala"
+            android:textStyle="bold"
+            android:background="@color/grey"
+            app:layout_constraintBottom_toBottomOf="@+id/mc_dice2"
+            app:layout_constraintStart_toEndOf="@+id/mc_dice2"
+            app:layout_constraintTop_toTopOf="@+id/mc_dice2" />
+
+        <TextView
+            android:id="@+id/tv_4xValue"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:layout_marginStart="8dp"
+            android:background="@color/grey"
+            android:gravity="center"
+            android:text="@string/kniffelValue"
+            android:fontFamily="@font/akaya_telivigala"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/mc_dice2"
+            app:layout_constraintStart_toEndOf="@+id/mc_dice4x"
+            app:layout_constraintTop_toTopOf="@+id/mc_dice2" />
+
         <ImageView
             android:id="@+id/iv_back"
             android:layout_width="wrap_content"
@@ -40,7 +222,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="24dp"
             android:backgroundTint="@color/primary"
             app:cardCornerRadius="5dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -217,10 +399,10 @@
                     android:layout_width="23dp"
                     android:layout_height="16dp"
                     android:layout_marginTop="2dp"
-                    android:text="Bonus"
-                    android:textSize="8sp"
                     android:fontFamily="@font/akaya_telivigala"
+                    android:text="Bonus"
                     android:textColor="@color/white"
+                    android:textSize="8sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -256,11 +438,11 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginStart="50dp"
-            android:layout_marginTop="8dp"
             android:backgroundTint="@color/primary"
             app:cardCornerRadius="5dp"
-            app:layout_constraintStart_toEndOf="@+id/mc_dice1"
-            app:layout_constraintTop_toBottomOf="@+id/tv_Points">
+            app:layout_constraintBottom_toBottomOf="@+id/mc_dice1"
+            app:layout_constraintStart_toEndOf="@+id/tv_1er"
+            app:layout_constraintTop_toTopOf="@+id/mc_dice1">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -270,11 +452,11 @@
                     android:id="@+id/iv_dice3x"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/akaya_telivigala"
                     android:text="3x"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:fontFamily="@font/akaya_telivigala"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -478,6 +660,363 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 
+        <TextView
+            android:id="@+id/tv_1erValue"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:gravity="center"
+            android:layout_marginStart="8dp"
+            android:text="@string/kniffelValue"
+            android:fontFamily="@font/akaya_telivigala"
+            android:textStyle="bold"
+            android:background="@color/grey"
+            app:layout_constraintBottom_toBottomOf="@+id/mc_dice1"
+            app:layout_constraintStart_toEndOf="@+id/mc_dice1"
+            app:layout_constraintTop_toTopOf="@+id/mc_dice1" />
+
+        <TextView
+            android:id="@+id/tv_1er"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/one"
+            android:fontFamily="@font/akaya_telivigala"
+            android:textColor="@color/darkgrey"
+            app:layout_constraintBottom_toBottomOf="@+id/mc_dice1"
+            app:layout_constraintStart_toEndOf="@+id/tv_1erValue"
+            app:layout_constraintTop_toTopOf="@+id/mc_dice1" />
+
+        <TextView
+            android:id="@+id/tv_2er"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/two"
+            android:fontFamily="@font/akaya_telivigala"
+            android:textColor="@color/darkgrey"
+            app:layout_constraintBottom_toBottomOf="@+id/mc_dice2"
+            app:layout_constraintStart_toEndOf="@+id/tv_2erValue"
+            app:layout_constraintTop_toTopOf="@+id/mc_dice2" />
+
+        <TextView
+            android:id="@+id/tv_3er"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/three"
+            android:fontFamily="@font/akaya_telivigala"
+            android:textColor="@color/darkgrey"
+            app:layout_constraintBottom_toBottomOf="@+id/mc_dice3"
+            app:layout_constraintStart_toEndOf="@+id/tv_3erValue"
+            app:layout_constraintTop_toTopOf="@+id/mc_dice3" />
+
+        <TextView
+            android:id="@+id/tv_4er"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/four"
+            android:fontFamily="@font/akaya_telivigala"
+            android:textColor="@color/darkgrey"
+            app:layout_constraintBottom_toBottomOf="@+id/mc_dice4"
+            app:layout_constraintStart_toEndOf="@+id/tv_4erValue"
+            app:layout_constraintTop_toTopOf="@+id/mc_dice4" />
+
+        <TextView
+            android:id="@+id/tv_5er"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/fife"
+            android:fontFamily="@font/akaya_telivigala"
+            android:textColor="@color/darkgrey"
+            app:layout_constraintBottom_toBottomOf="@+id/mc_dice5"
+            app:layout_constraintStart_toEndOf="@+id/tv_5erValue"
+            app:layout_constraintTop_toTopOf="@+id/mc_dice5" />
+
+        <TextView
+            android:id="@+id/tv_6er"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/six"
+            android:fontFamily="@font/akaya_telivigala"
+            android:textColor="@color/darkgrey"
+            app:layout_constraintBottom_toBottomOf="@+id/mc_dice6"
+            app:layout_constraintStart_toEndOf="@+id/tv_6erValue"
+            app:layout_constraintTop_toTopOf="@+id/mc_dice6" />
+
+        <TextView
+            android:id="@+id/tv_3x"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/_3er"
+            android:fontFamily="@font/akaya_telivigala"
+            android:textColor="@color/darkgrey"
+            app:layout_constraintBottom_toBottomOf="@+id/mc_dice1"
+            app:layout_constraintStart_toEndOf="@+id/tv_3xValue"
+            app:layout_constraintTop_toTopOf="@+id/mc_dice1" />
+
+        <TextView
+            android:id="@+id/tv_4x"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/_4er"
+            android:fontFamily="@font/akaya_telivigala"
+            android:textColor="@color/darkgrey"
+            app:layout_constraintBottom_toBottomOf="@+id/mc_dice2"
+            app:layout_constraintStart_toEndOf="@+id/tv_4xValue"
+            app:layout_constraintTop_toTopOf="@+id/mc_dice2"
+            app:layout_constraintVertical_bias="0.545" />
+
+        <TextView
+            android:id="@+id/tv_fullHouse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/full_house"
+            android:fontFamily="@font/akaya_telivigala"
+            android:textColor="@color/darkgrey"
+            app:layout_constraintBottom_toBottomOf="@+id/mc_dice3"
+            app:layout_constraintStart_toEndOf="@+id/tv_fullHouseValue"
+            app:layout_constraintTop_toTopOf="@+id/mc_dice3"
+            app:layout_constraintVertical_bias="0.545" />
+
+        <TextView
+            android:id="@+id/tv_bigStreet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/bigStreet"
+            android:fontFamily="@font/akaya_telivigala"
+            android:textColor="@color/darkgrey"
+            app:layout_constraintBottom_toBottomOf="@+id/mc_dice4"
+            app:layout_constraintStart_toEndOf="@+id/tv_bigStreetValue"
+            app:layout_constraintTop_toTopOf="@+id/mc_dice4" />
+
+        <TextView
+            android:id="@+id/tv_littleStreet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/littleStreet"
+            android:fontFamily="@font/akaya_telivigala"
+            android:textColor="@color/darkgrey"
+            app:layout_constraintBottom_toBottomOf="@+id/mc_dice5"
+            app:layout_constraintStart_toEndOf="@+id/tv_littleStreetValue"
+            app:layout_constraintTop_toTopOf="@+id/mc_dice5" />
+
+        <TextView
+            android:id="@+id/tv_kniffel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/kniffel"
+            android:fontFamily="@font/akaya_telivigala"
+            android:textColor="@color/darkgrey"
+            app:layout_constraintBottom_toBottomOf="@+id/mc_dice6"
+            app:layout_constraintStart_toEndOf="@+id/tv_kniffelValue"
+            app:layout_constraintTop_toTopOf="@+id/mc_dice6" />
+
+        <TextView
+            android:id="@+id/tv_chance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/chance"
+            android:fontFamily="@font/akaya_telivigala"
+            android:textColor="@color/darkgrey"
+            app:layout_constraintBottom_toBottomOf="@+id/mc_bonus"
+            app:layout_constraintStart_toEndOf="@+id/tv_chanceValue"
+            app:layout_constraintTop_toTopOf="@+id/mc_bonus" />
+
+        <TextView
+            android:id="@+id/tv_try"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:text="Versuche"
+            android:textColor="@color/darkgrey"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_tryValue"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/grey"
+            android:gravity="center"
+            android:text="@string/tryValue"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/tv_try"
+            app:layout_constraintEnd_toEndOf="@+id/tv_try"
+            app:layout_constraintStart_toStartOf="@+id/tv_try" />
+
+        <Button
+            android:id="@+id/btn_rollTheDice"
+            android:layout_width="237dp"
+            android:layout_height="45dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/rollTheDice"
+            app:layout_constraintBottom_toTopOf="@+id/tv_tryValue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="@color/darkgrey"
+            app:layout_constraintBottom_toTopOf="@+id/btn_rollTheDice"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/mc_rolledDice1"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="59dp"
+                    android:backgroundTint="@color/primary"
+                    app:cardCornerRadius="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/iv_rolledDice1"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/anko_face"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/mc_rolledDice2"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="16dp"
+                    android:backgroundTint="@color/primary"
+                    app:cardCornerRadius="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/mc_rolledDice1"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/iv_rolledDice2"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/anko_face"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/mc_rolledDice3"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="16dp"
+                    android:backgroundTint="@color/primary"
+                    app:cardCornerRadius="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/mc_rolledDice2"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/iv_rolledDice3"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/anko_face"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/mc_rolledDice4"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="16dp"
+                    android:backgroundTint="@color/primary"
+                    app:cardCornerRadius="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/mc_rolledDice3"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/iv_rolledDice4"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/anko_face"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/mc_rolledDice5"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="48dp"
+                    android:backgroundTint="@color/primary"
+                    app:cardCornerRadius="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/mc_rolledDice4"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/iv_rolledDice5"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/anko_face"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

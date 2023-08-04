@@ -137,9 +137,9 @@ class FightFragment : Fragment() {
             binding.chakraPointsBarViewEnemy?.setCurrentChakraPoints(it.chakraPoints)
         }
 
-       runViewsRound()
-
-        Handler().postDelayed(viewModel.runnable, 6000)
+       if (viewModel.roundBegan.value!!) {
+           runViewsRound()
+       }
 
         viewModel.remainingTime.observe(viewLifecycleOwner) {
             binding.tvTimer?.text = it.toString()
@@ -147,6 +147,7 @@ class FightFragment : Fragment() {
 
         viewModel.attackPlayer.observe(viewLifecycleOwner) {
             binding.ivImage2Player?.setImageResource(it.image)
+            viewModel.startRound(true)
             actionOfSelectionPlayer(it)
             viewModel.playRoundPlayer()
             if (player.lifePoints <= 0 || enemy.lifePoints <= 0) {
@@ -165,11 +166,6 @@ class FightFragment : Fragment() {
             }
         }
 
-        viewModel.rounds.observe(viewLifecycleOwner) {
-            setColorForRounds(it)
-            runViewsRound()
-        }
-
         viewModel.roundsWonPlayer.observe(viewLifecycleOwner) {
             if (viewModel.selectRounds.value == "3") {
                 if (it >= 2 && viewModel.rounds.value!! >= 2) {
@@ -186,6 +182,11 @@ class FightFragment : Fragment() {
                     viewModel.setResult(false)
                 }
             }
+        }
+
+        viewModel.rounds.observe(viewLifecycleOwner) {
+            setColorForRounds(it)
+            runViewsRound()
         }
 
         viewModel.toastMessage.observe(viewLifecycleOwner, Observer { message ->
@@ -397,6 +398,10 @@ class FightFragment : Fragment() {
                 )
             } else {
                 binding.ivImage1Player?.setImageResource(attack.image)
+
+                handler.postDelayed(
+                    { binding.ivImage1Player?.setImageResource(player.image)}, duration
+                )
             }
         } else {
             if (attack.name == "Schattendoppelgänger" || attack.name == "Sanddoppelgänger") {
@@ -411,6 +416,10 @@ class FightFragment : Fragment() {
                 )
             } else {
                 binding.ivImage1Enemy?.setImageResource(attack.image)
+
+                handler.postDelayed(
+                    { binding.ivImage1Enemy?.setImageResource(enemy.image)}, duration
+                )
             }
         }
     }
@@ -471,6 +480,7 @@ class FightFragment : Fragment() {
                                  binding.ivFight?.visibility = View.INVISIBLE
 
                                  visibleAttacks()
+                                 viewModel.runnable
                                  viewModel.startTimer()
                              }, 2000)
                          }, 2000)

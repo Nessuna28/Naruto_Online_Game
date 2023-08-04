@@ -36,12 +36,6 @@ class CharacterDetailFragment : Fragment() {
     private var family = ""
 
 
-    override fun onStart() {
-        super.onStart()
-
-        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -66,18 +60,19 @@ class CharacterDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-                binding.tvCharacterName.setText(name)
+        binding.tvCharacterName.text = name
 
-                try {
-                    val imgUri = image.toUri().buildUpon().scheme("https").build()
-                    binding.ivCharacterImage.load(imgUri)
-                } catch (e: Exception) {
-                    Log.e(TAGDETAIL, "Error: ${e.message} im CharacterDetailFragment")
-                    binding.ivCharacterImage.setImageResource(R.drawable.no_picture)
-                }
-                binding.tvNatureTyp.setText(natureTyp)
-                binding.tvJutsu.setText(jutsus)
-                binding.tvTools.setText(tools)
+        try {
+            val imgUri = image.toUri().buildUpon().scheme("https").build()
+            binding.ivCharacterImage.load(imgUri)
+        } catch (e: Exception) {
+            Log.e(TAGDETAIL, "Error: ${e.message} im CharacterDetailFragment")
+            binding.ivCharacterImage.setImageResource(R.drawable.no_picture)
+        }
+
+        binding.tvNatureTyp.text = natureTyp
+        binding.tvJutsu.text = jutsus
+        binding.tvTools.text = tools
 
 
         binding.ivBack.setOnClickListener {

@@ -232,6 +232,11 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _rounds
 
 
+    private val _roundBegan = MutableLiveData(false)
+    val roundBegan: LiveData<Boolean>
+        get() = _roundBegan
+
+
     private val _gameEnd = MutableLiveData(false)
     val gameEnd: LiveData<Boolean>
         get() = _gameEnd
@@ -579,7 +584,10 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         timer?.cancel()
     }
 
+    fun startRound(check: Boolean) {
 
+        _roundBegan.value = check
+    }
 
     // in diesen Funktionen werden die Punkte berechnet
     // wenn der Spieler angreift
