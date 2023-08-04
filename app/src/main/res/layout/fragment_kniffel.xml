@@ -727,7 +727,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="@string/fife"
+            android:text="@string/five"
             android:fontFamily="@font/akaya_telivigala"
             android:textColor="@color/darkgrey"
             app:layout_constraintBottom_toBottomOf="@+id/mc_dice5"
@@ -833,7 +833,7 @@
             app:layout_constraintTop_toTopOf="@+id/mc_bonus" />
 
         <TextView
-            android:id="@+id/tv_try"
+            android:id="@+id/tv_attempts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
@@ -844,17 +844,17 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/tv_tryValue"
+            android:id="@+id/tv_attemptsValue"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginBottom="8dp"
             android:background="@color/grey"
             android:gravity="center"
-            android:text="@string/tryValue"
+            android:text="@string/attemptsValue"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/tv_try"
-            app:layout_constraintEnd_toEndOf="@+id/tv_try"
-            app:layout_constraintStart_toStartOf="@+id/tv_try" />
+            app:layout_constraintBottom_toTopOf="@+id/tv_attempts"
+            app:layout_constraintEnd_toEndOf="@+id/tv_attempts"
+            app:layout_constraintStart_toStartOf="@+id/tv_attempts" />
 
         <Button
             android:id="@+id/btn_rollTheDice"
@@ -862,7 +862,7 @@
             android:layout_height="45dp"
             android:layout_marginBottom="16dp"
             android:text="@string/rollTheDice"
-            app:layout_constraintBottom_toTopOf="@+id/tv_tryValue"
+            app:layout_constraintBottom_toTopOf="@+id/tv_attemptsValue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -1017,6 +1017,19 @@
                 </com.google.android.material.card.MaterialCardView>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
+
+        <Button
+            android:id="@+id/btn_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/ok"
+            android:backgroundTint="@color/grey"
+            android:textColor="@color/primary"
+            android:enabled="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
