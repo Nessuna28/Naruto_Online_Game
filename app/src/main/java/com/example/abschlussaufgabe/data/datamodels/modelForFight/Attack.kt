@@ -1,6 +1,5 @@
 package com.example.abschlussaufgabe.data.datamodels.modelForFight
 
-import androidx.lifecycle.viewmodel.viewModelFactory
 
 open class Attack(
 

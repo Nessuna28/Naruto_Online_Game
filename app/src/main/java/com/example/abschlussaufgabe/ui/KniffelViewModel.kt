@@ -4,31 +4,49 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.abschlussaufgabe.R
+import com.example.abschlussaufgabe.data.datamodels.modelForKniffel.Dice
+import com.example.abschlussaufgabe.data.datamodels.modelForKniffel.dataList.DiceList
 
 
 const val TAGKNIFFELVIEWMODEL = "KniffelViewModel"
 
 class KniffelViewModel(application: Application): AndroidViewModel(application) {
 
-    // Listen der Teams
-
-    val teamKakashi = listOf(R.drawable.kakashi_face, R.drawable.naruto_face, R.drawable.sasuke_face, R.drawable.sakura_face, R.drawable.sai_face, R.drawable.kurama)
-    val teamGaara = listOf(R.drawable.gaara_face, R.drawable.temari_face, R.drawable.kankuro_face, R.drawable.marionette, R.drawable.subjects, R.drawable.shukaku)
-
-    val allTeams = listOf(teamGaara, teamKakashi)
-
-
     // LiveData
 
-    private val _selectionTeam = MutableLiveData<List<Int>>()
-    val selectionTeam: LiveData<List<Int>>
-        get() = _selectionTeam
+    private val _diceList = MutableLiveData<List<Dice>>()
+    val diceList: LiveData<List<Dice>>
+        get() = _diceList
 
 
-    private val _randomTeam = MutableLiveData<List<Int>>()
-    val randomTeam: LiveData<List<Int>>
-        get() = _randomTeam
+    private val _selectionDice = MutableLiveData<Dice>()
+    val selectionDice: LiveData<Dice>
+        get() = _selectionDice
+
+
+    private val _randomDice1 = MutableLiveData<Int>()
+    val randomDice1: LiveData<Int>
+        get() = _randomDice1
+
+
+    private val _randomDice2 = MutableLiveData<Int>()
+    val randomDice2: LiveData<Int>
+        get() = _randomDice2
+
+
+    private val _randomDice3 = MutableLiveData<Int>()
+    val randomDice3: LiveData<Int>
+        get() = _randomDice3
+
+
+    private val _randomDice4 = MutableLiveData<Int>()
+    val randomDice4: LiveData<Int>
+        get() = _randomDice4
+
+
+    private val _randomDice5 = MutableLiveData<Int>()
+    val randomDice5: LiveData<Int>
+        get() = _randomDice5
 
 
     private val _attempts = MutableLiveData(3)
@@ -106,12 +124,17 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
         get() = _chance
 
 
+    // Initialisierung
+    init {
+        _diceList.value = DiceList().diceList
+    }
+
     // Funktionen
 
     // speichert die Auswahl eines Teams in der LiveData-Variable
-    fun selectTeam(selection: List<Int>) {
+    fun selectTeam(selection: Dice) {
 
-        _selectionTeam.value = selection
+        _selectionDice.value = selection
     }
 
     fun setAttempts(attempts: Int) {
@@ -128,7 +151,20 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
 
     fun rollTheDice() {
 
-        _randomTeam.value = selectionTeam.value!!.shuffled()
+        val imageList = listOf(
+            selectionDice.value!!.image1,
+            selectionDice.value!!.image2,
+            selectionDice.value!!.image3,
+            selectionDice.value!!.image4,
+            selectionDice.value!!.image5,
+            selectionDice.value!!.image6
+        )
+
+        _randomDice1.value = imageList.random()
+        _randomDice2.value = imageList.random()
+        _randomDice3.value = imageList.random()
+        _randomDice4.value = imageList.random()
+        _randomDice5.value = imageList.random()
     }
 
     fun calculatePoints() {
