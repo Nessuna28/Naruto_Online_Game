@@ -17,6 +17,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.adapter.TeamAdapter
+import com.example.abschlussaufgabe.data.datamodels.modelForKniffel.Dice
 import com.example.abschlussaufgabe.databinding.FragmentKniffelBinding
 import com.example.abschlussaufgabe.databinding.PopupLayoutBinding
 
@@ -28,6 +29,8 @@ class KniffelFragment : Fragment() {
 
     private lateinit var binding: FragmentKniffelBinding
 
+    private lateinit var selectedDice: Dice
+
 
     @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -38,7 +41,7 @@ class KniffelFragment : Fragment() {
         popupDialog.show(parentFragmentManager, "Popup")
 
         // Abhören der Teamauswahl im ViewModel
-        kniffelViewModel.selectionDice.observe(viewLifecycleOwner) { selectedTeam ->
+        kniffelViewModel.selectedDice.observe(viewLifecycleOwner) { selectedTeam ->
             // Überprüfen, ob ein Team ausgewählt wurde, und das Popup zu schließen
             if (selectedTeam != null && popupDialog.isVisible) {
                 popupDialog.dismiss()
@@ -86,6 +89,8 @@ class KniffelFragment : Fragment() {
         context?.let { viewModel.setSound(it, R.raw.song_theme) }
 
         kniffelViewModel.setAttempts(3)
+
+        setValueColorOfGray()
     }
 
     override fun onCreateView(
@@ -113,15 +118,68 @@ class KniffelFragment : Fragment() {
             }
         }
 
-        kniffelViewModel.selectionDice.observe(viewLifecycleOwner) {
-            binding.ivDice1.setImageResource(it.image1)
-            binding.ivDice2.setImageResource(it.image2)
-            binding.ivDice3.setImageResource(it.image3)
-            binding.ivDice4.setImageResource(it.image4)
-            binding.ivDice5.setImageResource(it.image5)
-            binding.ivDice6.setImageResource(it.image6)
+        kniffelViewModel.selectedDice.observe(viewLifecycleOwner) {
+            selectedDice = kniffelViewModel.selectedDice.value!!
+            binding.ivDice1.setImageResource(it.diceSide1.image)
+            binding.ivDice2.setImageResource(it.diceSide2.image)
+            binding.ivDice3.setImageResource(it.diceSide3.image)
+            binding.ivDice4.setImageResource(it.diceSide4.image)
+            binding.ivDice5.setImageResource(it.diceSide5.image)
+            binding.ivDice6.setImageResource(it.diceSide6.image)
 
             resetRolledDice()
+        }
+
+        kniffelViewModel.one.observe(viewLifecycleOwner) {
+            binding.tv1erValue.text = it.toString()
+        }
+
+        kniffelViewModel.two.observe(viewLifecycleOwner) {
+            binding.tv2erValue.text = it.toString()
+        }
+
+        kniffelViewModel.three.observe(viewLifecycleOwner) {
+            binding.tv3erValue.text = it.toString()
+        }
+
+        kniffelViewModel.four.observe(viewLifecycleOwner) {
+            binding.tv4erValue.text = it.toString()
+        }
+
+        kniffelViewModel.five.observe(viewLifecycleOwner) {
+            binding.tv5erValue.text = it.toString()
+        }
+
+        kniffelViewModel.six.observe(viewLifecycleOwner) {
+            binding.tv6erValue.text = it.toString()
+        }
+
+        kniffelViewModel.threesome.observe(viewLifecycleOwner) {
+            binding.tv3xValue.text = it.toString()
+        }
+
+        kniffelViewModel.foursome.observe(viewLifecycleOwner) {
+            binding.tv4xValue.text = it.toString()
+        }
+
+        kniffelViewModel.fullHouse.observe(viewLifecycleOwner) {
+            binding.tvFullHouseValue.text = it.toString()
+        }
+
+        kniffelViewModel.bigStreet.observe(viewLifecycleOwner) {
+            binding.tvBigStreetValue.text = it.toString()
+        }
+
+        kniffelViewModel.littleStreet.observe(viewLifecycleOwner) {
+            binding.tvLittleStreetValue.text = it.toString()
+        }
+
+        kniffelViewModel.kniffel.observe(viewLifecycleOwner) {
+            binding.tvKniffelValue.text = it.toString()
+        }
+
+        kniffelViewModel.chance.observe(viewLifecycleOwner) {
+            binding.tvChanceValue.text = it.toString()
         }
 
 
@@ -131,15 +189,36 @@ class KniffelFragment : Fragment() {
             if (kniffelViewModel.attempts.value != 0) {
                 kniffelViewModel.calculateAttempts()
                 kniffelViewModel.rollTheDice()
+                kniffelViewModel.setValueDice()
                 setRandomImages()
             }
+        }
+
+        binding.mcRolledDice1.setOnClickListener {
+            kniffelViewModel.diceToKeep.add(kniffelViewModel.randomDice1.value!!)
+        }
+
+        binding.mcRolledDice2.setOnClickListener {
+            kniffelViewModel.diceToKeep.add(kniffelViewModel.randomDice2.value!!)
+        }
+
+        binding.mcRolledDice3.setOnClickListener {
+            kniffelViewModel.diceToKeep.add(kniffelViewModel.randomDice3.value!!)
+        }
+
+        binding.mcRolledDice4.setOnClickListener {
+            kniffelViewModel.diceToKeep.add(kniffelViewModel.randomDice4.value!!)
+        }
+
+        binding.mcRolledDice5.setOnClickListener {
+            kniffelViewModel.diceToKeep.add(kniffelViewModel.randomDice5.value!!)
         }
 
         binding.btnOk.setOnClickListener {
             binding.btnRollTheDice.isEnabled = true
             kniffelViewModel.setAttempts(3)
             binding.btnRollTheDice.setBackgroundColor(Color.rgb(255, 105, 0))
-
+            kniffelViewModel.calculatePoints()
         }
 
         // Navigation
@@ -151,23 +230,36 @@ class KniffelFragment : Fragment() {
 
     private fun resetRolledDice() {
 
-        binding.ivRolledDice1.setImageResource(kniffelViewModel.selectionDice.value!!.image1)
-        binding.ivRolledDice2.setImageResource(kniffelViewModel.selectionDice.value!!.image1)
-        binding.ivRolledDice3.setImageResource(kniffelViewModel.selectionDice.value!!.image1)
-        binding.ivRolledDice4.setImageResource(kniffelViewModel.selectionDice.value!!.image1)
-        binding.ivRolledDice5.setImageResource(kniffelViewModel.selectionDice.value!!.image1)
+        binding.ivRolledDice1.setImageResource(selectedDice.diceSide1.image)
+        binding.ivRolledDice2.setImageResource(selectedDice.diceSide1.image)
+        binding.ivRolledDice3.setImageResource(selectedDice.diceSide1.image)
+        binding.ivRolledDice4.setImageResource(selectedDice.diceSide1.image)
+        binding.ivRolledDice5.setImageResource(selectedDice.diceSide1.image)
     }
 
     private fun setRandomImages() {
 
-        binding.ivRolledDice1.setImageResource(kniffelViewModel.randomDice1.value!!)
-        binding.ivRolledDice2.setImageResource(kniffelViewModel.randomDice2.value!!)
-        binding.ivRolledDice3.setImageResource(kniffelViewModel.randomDice3.value!!)
-        binding.ivRolledDice4.setImageResource(kniffelViewModel.randomDice4.value!!)
-        binding.ivRolledDice5.setImageResource(kniffelViewModel.randomDice5.value!!)
+            binding.ivRolledDice1.setImageResource(kniffelViewModel.randomDice1.value!!.image)
+            binding.ivRolledDice2.setImageResource(kniffelViewModel.randomDice2.value!!.image)
+            binding.ivRolledDice3.setImageResource(kniffelViewModel.randomDice3.value!!.image)
+            binding.ivRolledDice4.setImageResource(kniffelViewModel.randomDice4.value!!.image)
+            binding.ivRolledDice5.setImageResource(kniffelViewModel.randomDice5.value!!.image)
     }
 
-    private fun setValue() {
+    private fun setValueColorOfGray() {
 
+        binding.tv1erValue.setTextColor(Color.GRAY)
+        binding.tv2erValue.setTextColor(Color.GRAY)
+        binding.tv3erValue.setTextColor(Color.GRAY)
+        binding.tv4erValue.setTextColor(Color.GRAY)
+        binding.tv5erValue.setTextColor(Color.GRAY)
+        binding.tv6erValue.setTextColor(Color.GRAY)
+        binding.tv3xValue.setTextColor(Color.GRAY)
+        binding.tv4xValue.setTextColor(Color.GRAY)
+        binding.tvFullHouseValue.setTextColor(Color.GRAY)
+        binding.tvBigStreetValue.setTextColor(Color.GRAY)
+        binding.tvLittleStreetValue.setTextColor(Color.GRAY)
+        binding.tvKniffelValue.setTextColor(Color.GRAY)
+        binding.tvChanceValue.setTextColor(Color.GRAY)
     }
 }
