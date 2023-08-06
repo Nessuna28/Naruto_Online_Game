@@ -142,7 +142,7 @@ class FightFragment : Fragment() {
         viewModel.roundBegan.observe(viewLifecycleOwner) {
             if (it) {
                 runViewsRound()
-                handler.postDelayed(viewModel.runnable, 1000)
+                handler.postDelayed(viewModel.runnable, 6000)
             }
         }
 

@@ -22,7 +22,7 @@ class DiceList {
             DiceSide(R.drawable.kankuro_face, 3),
             DiceSide(R.drawable.marionette, 4),
             DiceSide(R.drawable.subjects, 5),
-            DiceSide(R.drawable.subjects, 5)
+            DiceSide(R.drawable.shukaku, 6)
         )
     )
 }

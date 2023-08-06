@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.abschlussaufgabe.data.datamodels.modelForKniffel.Dice
 import com.example.abschlussaufgabe.data.datamodels.modelForKniffel.DiceSide
+import com.example.abschlussaufgabe.data.datamodels.modelForKniffel.KniffelValue
 import com.example.abschlussaufgabe.data.datamodels.modelForKniffel.dataList.DiceList
 
 
@@ -60,94 +61,9 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
         get() = _points
 
 
-    private val _one = MutableLiveData(0)
-    val one: LiveData<Int>
-        get() = _one
-
-
-    private val _two = MutableLiveData(0)
-    val two: LiveData<Int>
-        get() = _two
-
-
-    private val _three = MutableLiveData(0)
-    val three: LiveData<Int>
-        get() = _three
-
-
-    private val _four = MutableLiveData(0)
-    val four: LiveData<Int>
-        get() = _four
-
-
-    private val _five = MutableLiveData(0)
-    val five: LiveData<Int>
-        get() = _five
-
-
-    private val _six = MutableLiveData(0)
-    val six: LiveData<Int>
-        get() = _six
-
-
-    private val _threesome = MutableLiveData(0)
-    val threesome: LiveData<Int>
-        get() = _threesome
-
-
-    private val _foursome = MutableLiveData(0)
-    val foursome: LiveData<Int>
-        get() = _foursome
-
-
-    private val _fullHouse = MutableLiveData(0)
-    val fullHouse: LiveData<Int>
-        get() = _fullHouse
-
-
-    private val _bigStreet = MutableLiveData(0)
-    val bigStreet: LiveData<Int>
-        get() = _bigStreet
-
-
-    private val _littleStreet = MutableLiveData(0)
-    val littleStreet: LiveData<Int>
-        get() = _littleStreet
-
-
-    private val _kniffel = MutableLiveData(0)
-    val kniffel: LiveData<Int>
-        get() = _kniffel
-
-
-    private val _chance = MutableLiveData(0)
-    val chance: LiveData<Int>
-        get() = _chance
-
-
-    private val _checkDice1 = MutableLiveData(false)
-    val checkDice1: LiveData<Boolean>
-        get() = _checkDice1
-
-
-    private val _checkDice2 = MutableLiveData(false)
-    val checkDice2: LiveData<Boolean>
-        get() = _checkDice2
-
-
-    private val _checkDice3 = MutableLiveData(false)
-    val checkDice3: LiveData<Boolean>
-        get() = _checkDice3
-
-
-    private val _checkDice4 = MutableLiveData(false)
-    val checkDice4: LiveData<Boolean>
-        get() = _checkDice4
-
-
-    private val _checkDice5 = MutableLiveData(false)
-    val checkDice5: LiveData<Boolean>
-        get() = _checkDice5
+    private val _values = MutableLiveData<KniffelValue>()
+    val values: LiveData<KniffelValue>
+        get() = _values
 
 
     private val _randomList = MutableLiveData<List<DiceSide>>()
@@ -165,19 +81,30 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
         get() = _rightColumn
 
 
-    private val valueList: MutableList<Int> = mutableListOf()
-
-
 
     // Liste mit Würfeln die der Spieler behalten möchte
-    var diceToKeep: MutableList<DiceSide> = mutableListOf()
+    private val _diceToKeep = MutableLiveData<List<DiceSide>>()
+    val diceToKeep: LiveData<List<DiceSide>>
+        get() = _diceToKeep
 
 
-    private var liveDataList = mutableListOf(
-        _one, _two, _three, _four, _five, _six,
-        _threesome, _foursome, _fullHouse, _bigStreet, _littleStreet, _kniffel,
-        _chance
-    )
+    val listOfRandomDice = mutableListOf(_randomDice1, _randomDice2, _randomDice3, _randomDice4, _randomDice5)
+
+
+
+    var checkOne = false
+    var checkTwo = false
+    var checkThree = false
+    var checkFour = false
+    var checkFive = false
+    var checkSix = false
+    var checkThreesome = false
+    var checkFoursome = false
+    var checkFullHouse = false
+    var checkBigStreet = false
+    var checkLittleStreet = false
+    var checkKniffel = false
+    var checkChance = false
 
 
     // Initialisierung
@@ -219,40 +146,39 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
         list.add(selectedDice.value!!.diceSide3)
         list.add(selectedDice.value!!.diceSide4)
         list.add(selectedDice.value!!.diceSide5)
+        list.add(selectedDice.value!!.diceSide6)
 
         _randomList.value = list
 
-
-        _randomDice1.value = randomList.value!!.random()
-        _randomDice2.value = randomList.value!!.random()
-        _randomDice3.value = randomList.value!!.random()
-        _randomDice4.value = randomList.value!!.random()
-        _randomDice5.value = randomList.value!!.random()
-
-        valueList.add(randomDice1.value!!.value)
-        valueList.add(randomDice2.value!!.value)
-        valueList.add(randomDice3.value!!.value)
-        valueList.add(randomDice4.value!!.value)
-        valueList.add(randomDice5.value!!.value)
+        listOfRandomDice.forEach { liveData ->
+            liveData.value = randomList.value!!.random()
+        }
     }
 
     // speichert die Werte in den LiveData-Variablen
-    fun setValueDice() {
+    fun setValueDice(listOfRandomDice: MutableList<MutableLiveData<DiceSide>>) {
+
+        val valueList: List<Int> = listOfRandomDice.flatMap { diceLiveData -> diceLiveData.value?.let { listOf(it.value) } ?: emptyList() }
+
+
+        if (_values.value == null) {
+            _values.value = KniffelValue(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+        }
 
         // die einzelnen Augen zusammen zählen
         for (i in valueList) {
-            if (i == 1) {
-                _one.value = one.value!!.plus(i)
-            } else if (i == 2) {
-                _two.value = two.value!!.plus(i)
-            } else if (i == 3) {
-                _three.value = three.value!!.plus(i)
-            } else if (i == 4) {
-                _four.value = four.value!!.plus(i)
-            } else if (i == 5) {
-                _five.value = five.value!!.plus(i)
-            } else if (i == 6) {
-                _six.value = six.value!!.plus(i)
+            if (i == 1 && !checkOne) {
+                _values.value?.one = values.value!!.one.plus(i)
+            } else if (i == 2 && !checkTwo) {
+                _values.value?.two = values.value!!.two.plus(i)
+            } else if (i == 3 && !checkThree) {
+                _values.value?.three = values.value!!.three.plus(i)
+            } else if (i == 4 && !checkFour) {
+                _values.value?.four = values.value!!.four.plus(i)
+            } else if (i == 5 && !checkFive) {
+                _values.value?.five = values.value!!.five.plus(i)
+            } else if (i == 6 && !checkSix) {
+                _values.value?.six = values.value!!.six.plus(i)
             }
         }
 
@@ -265,18 +191,18 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
             // Überprüfen, ob eine Zahl genau dreimal und die andere genau zweimal vorkommt
             val values = numberFrequency.values
             if (values.contains(3) && values.contains(2)) {
-                _fullHouse.value = 25
+                _values.value?.fullHouse = 25
             }
         }
 
         // den 3er zählen
         if (numberFrequency.any { it.value >= 3 }) {
-            _threesome.value = valueList.sum()
+            _values.value?.threesome = valueList.sum()
         }
 
         // den 4er zählen
         if (numberFrequency.any { it.value >= 4 }) {
-            _threesome.value = valueList.sum()
+            _values.value?.foursome = valueList.sum()
         }
 
         // die kleine Straße zählen
@@ -289,7 +215,7 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
         val litlleStreet3 = valueList.containsAll(numbersForLittleStreet3)
 
         if (littleStreet1 || littleStreet2 || litlleStreet3) {
-            _littleStreet.value = 30
+            _values.value?.littleStreet = 30
         }
 
         // die große Straße zählen
@@ -300,85 +226,33 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
         val bigStreet2 = valueList.containsAll(numbersForBigStreet2)
 
         if (bigStreet1 || bigStreet2) {
-            _littleStreet.value = 40
+            _values.value?.bigStreet = 40
         }
 
         // einen Kniffel zählen
         val allNumbersSame = valueList.all { it == valueList[0] }
 
         if (allNumbersSame) {
-            _kniffel.value = 50
+            _values.value?.kniffel= 50
         }
 
         // alle Augen für die Chance zählen
-        _chance.value = valueList.sum()
+        _values.value?.chance = valueList.sum()
+
+
+        _values.value = _values.value
     }
 
     fun resetValues(nr : Int) {
 
-        if (nr == 1) {
-            liveDataList.remove(_one)
-        }
-
-        if (nr == 2) {
-            liveDataList.remove(_two)
-        }
-
-        if (nr == 3) {
-            liveDataList.remove(_three)
-        }
-
-        if (nr == 4) {
-            liveDataList.remove(_four)
-        }
-
-        if (nr == 5) {
-            liveDataList.remove(_five)
-        }
-
-        if (nr == 6) {
-            liveDataList.remove(_six)
-        }
-
-        if (nr == 7) {
-            liveDataList.remove(_threesome)
-        }
-
-        if (nr == 8) {
-            liveDataList.remove(_foursome)
-        }
-
-        if (nr == 9) {
-            liveDataList.remove(_fullHouse)
-        }
-
-        if (nr == 10) {
-            liveDataList.remove(_bigStreet)
-        }
-
-        if (nr == 11) {
-            liveDataList.remove(_littleStreet)
-        }
-
-        if (nr == 12) {
-            liveDataList.remove(_kniffel)
-        }
-
-        if (nr == 13) {
-            liveDataList.remove(_chance)
-        }
-
-
-        liveDataList.forEach { liveData ->
-            liveData.value = 0
-        }
+        //TODO: Wie?
     }
 
     // rechnet die Punkte für den Spieler zusammen
     fun calculatePoints() {
 
-        val left = one.value!! + two.value!! + three.value!! + four.value!! + five.value!! + six.value!!
-        val right = threesome.value!! + foursome.value!! + fullHouse.value!! + bigStreet.value!! + littleStreet.value!! + kniffel.value!! + chance.value!!
+        val left = values.value!!.one + values.value!!.two + values.value!!.three + values.value!!.four + values.value!!.five + values.value!!.six
+        val right = values.value!!.threesome + values.value!!.foursome + values.value!!.fullHouse + values.value!!.bigStreet + values.value!!.littleStreet + values.value!!.kniffel + values.value!!.chance
 
         _leftColumn.value = left
         _rightColumn.value = right
@@ -386,11 +260,17 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
         var total = 0
 
         if (leftColumn.value!! >= 65) {
-             total += leftColumn.value!! + rightColumn.value!! + 35
+            _values.value!!.bonus = 35
+             total += leftColumn.value!! + rightColumn.value!! + values.value!!.bonus
         } else if (leftColumn.value!! < 65) {
             total += leftColumn.value!! + rightColumn.value!!
         }
 
         _points.value = total
+    }
+
+    fun keepDice(dice: DiceSide) {
+
+        _diceToKeep.value?.get(dice.value)
     }
 }

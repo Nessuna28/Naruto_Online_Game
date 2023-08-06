@@ -7,6 +7,7 @@ import android.app.Dialog
 import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -130,56 +131,21 @@ class KniffelFragment : Fragment() {
             resetRolledDice()
         }
 
-        kniffelViewModel.one.observe(viewLifecycleOwner) {
-            binding.tv1erValue.text = it.toString()
-        }
-
-        kniffelViewModel.two.observe(viewLifecycleOwner) {
-            binding.tv2erValue.text = it.toString()
-        }
-
-        kniffelViewModel.three.observe(viewLifecycleOwner) {
-            binding.tv3erValue.text = it.toString()
-        }
-
-        kniffelViewModel.four.observe(viewLifecycleOwner) {
-            binding.tv4erValue.text = it.toString()
-        }
-
-        kniffelViewModel.five.observe(viewLifecycleOwner) {
-            binding.tv5erValue.text = it.toString()
-        }
-
-        kniffelViewModel.six.observe(viewLifecycleOwner) {
-            binding.tv6erValue.text = it.toString()
-        }
-
-        kniffelViewModel.threesome.observe(viewLifecycleOwner) {
-            binding.tv3xValue.text = it.toString()
-        }
-
-        kniffelViewModel.foursome.observe(viewLifecycleOwner) {
-            binding.tv4xValue.text = it.toString()
-        }
-
-        kniffelViewModel.fullHouse.observe(viewLifecycleOwner) {
-            binding.tvFullHouseValue.text = it.toString()
-        }
-
-        kniffelViewModel.bigStreet.observe(viewLifecycleOwner) {
-            binding.tvBigStreetValue.text = it.toString()
-        }
-
-        kniffelViewModel.littleStreet.observe(viewLifecycleOwner) {
-            binding.tvLittleStreetValue.text = it.toString()
-        }
-
-        kniffelViewModel.kniffel.observe(viewLifecycleOwner) {
-            binding.tvKniffelValue.text = it.toString()
-        }
-
-        kniffelViewModel.chance.observe(viewLifecycleOwner) {
-            binding.tvChanceValue.text = it.toString()
+        kniffelViewModel.values.observe(viewLifecycleOwner) {
+            binding.tv1erValue.text = it.one.toString()
+            binding.tv2erValue.text = it.two.toString()
+            binding.tv3erValue.text = it.three.toString()
+            binding.tv4erValue.text = it.four.toString()
+            binding.tv5erValue.text = it.five.toString()
+            binding.tv6erValue.text = it.six.toString()
+            binding.tvBonusValue.text = it.bonus.toString()
+            binding.tv3xValue.text = it.threesome.toString()
+            binding.tv4xValue.text = it.foursome.toString()
+            binding.tvFullHouseValue.text = it.fullHouse.toString()
+            binding.tvBigStreetValue.text = it.bigStreet.toString()
+            binding.tvLittleStreetValue.text = it.littleStreet.toString()
+            binding.tvKniffelValue.text = it.kniffel.toString()
+            binding.tvChanceValue.text = it.chance.toString()
         }
 
 
@@ -189,29 +155,34 @@ class KniffelFragment : Fragment() {
             if (kniffelViewModel.attempts.value != 0) {
                 kniffelViewModel.calculateAttempts()
                 kniffelViewModel.rollTheDice()
-                kniffelViewModel.setValueDice()
+                kniffelViewModel.setValueDice(kniffelViewModel.listOfRandomDice)
                 setRandomImages()
             }
         }
 
         binding.mcRolledDice1.setOnClickListener {
-            kniffelViewModel.diceToKeep.add(kniffelViewModel.randomDice1.value!!)
+            kniffelViewModel.keepDice(kniffelViewModel.randomDice1.value!!)
+            kniffelViewModel.listOfRandomDice.remove(kniffelViewModel.randomDice1)
         }
 
         binding.mcRolledDice2.setOnClickListener {
-            kniffelViewModel.diceToKeep.add(kniffelViewModel.randomDice2.value!!)
+            kniffelViewModel.keepDice(kniffelViewModel.randomDice2.value!!)
+            kniffelViewModel.listOfRandomDice.remove(kniffelViewModel.randomDice2)
         }
 
         binding.mcRolledDice3.setOnClickListener {
-            kniffelViewModel.diceToKeep.add(kniffelViewModel.randomDice3.value!!)
+            kniffelViewModel.keepDice(kniffelViewModel.randomDice3.value!!)
+            kniffelViewModel.listOfRandomDice.remove(kniffelViewModel.randomDice3)
         }
 
         binding.mcRolledDice4.setOnClickListener {
-            kniffelViewModel.diceToKeep.add(kniffelViewModel.randomDice4.value!!)
+            kniffelViewModel.keepDice(kniffelViewModel.randomDice4.value!!)
+            kniffelViewModel.listOfRandomDice.remove(kniffelViewModel.randomDice4)
         }
 
         binding.mcRolledDice5.setOnClickListener {
-            kniffelViewModel.diceToKeep.add(kniffelViewModel.randomDice5.value!!)
+            kniffelViewModel.keepDice(kniffelViewModel.randomDice5.value!!)
+            kniffelViewModel.listOfRandomDice.remove(kniffelViewModel.randomDice5)
         }
 
         binding.btnOk.setOnClickListener {
@@ -219,6 +190,84 @@ class KniffelFragment : Fragment() {
             kniffelViewModel.setAttempts(3)
             binding.btnRollTheDice.setBackgroundColor(Color.rgb(255, 105, 0))
             kniffelViewModel.calculatePoints()
+        }
+
+        binding.tv1erValue.setOnClickListener {
+            kniffelViewModel.checkOne = true
+            binding.tv1erValue.setTextColor(Color.BLACK)
+            binding.btnOk.isEnabled = true
+        }
+
+        binding.tv2erValue.setOnClickListener {
+            kniffelViewModel.checkTwo = true
+            binding.tv2erValue.setTextColor(Color.BLACK)
+            binding.btnOk.isEnabled = true
+        }
+
+        binding.tv3erValue.setOnClickListener {
+            kniffelViewModel.checkThree = true
+            binding.tv3erValue.setTextColor(Color.BLACK)
+            binding.btnOk.isEnabled = true
+        }
+
+        binding.tv4erValue.setOnClickListener {
+            kniffelViewModel.checkFour = true
+            binding.tv4erValue.setTextColor(Color.BLACK)
+            binding.btnOk.isEnabled = true
+        }
+
+        binding.tv5erValue.setOnClickListener {
+            kniffelViewModel.checkFive = true
+            binding.tv5erValue.setTextColor(Color.BLACK)
+            binding.btnOk.isEnabled = true
+        }
+
+        binding.tv6erValue.setOnClickListener {
+            kniffelViewModel.checkSix = true
+            binding.tv6erValue.setTextColor(Color.BLACK)
+            binding.btnOk.isEnabled = true
+        }
+
+        binding.tv3xValue.setOnClickListener {
+            kniffelViewModel.checkThreesome = true
+            binding.tv3xValue.setTextColor(Color.BLACK)
+            binding.btnOk.isEnabled = true
+        }
+
+        binding.tv4xValue.setOnClickListener {
+            kniffelViewModel.checkFoursome = true
+            binding.tv4xValue.setTextColor(Color.BLACK)
+            binding.btnOk.isEnabled = true
+        }
+
+        binding.tvFullHouseValue.setOnClickListener {
+            kniffelViewModel.checkFullHouse = true
+            binding.tvFullHouseValue.setTextColor(Color.BLACK)
+            binding.btnOk.isEnabled = true
+        }
+
+        binding.tvBigStreetValue.setOnClickListener {
+            kniffelViewModel.checkBigStreet = true
+            binding.tvBigStreetValue.setTextColor(Color.BLACK)
+            binding.btnOk.isEnabled = true
+        }
+
+        binding.tvLittleStreetValue.setOnClickListener {
+            kniffelViewModel.checkLittleStreet = true
+            binding.tvLittleStreetValue.setTextColor(Color.BLACK)
+            binding.btnOk.isEnabled = true
+        }
+
+        binding.tvKniffelValue.setOnClickListener {
+            kniffelViewModel.checkKniffel = true
+            binding.tvKniffelValue.setTextColor(Color.BLACK)
+            binding.btnOk.isEnabled = true
+        }
+
+        binding.tvChanceValue.setOnClickListener {
+            kniffelViewModel.checkChance = true
+            binding.tvChanceValue.setTextColor(Color.BLACK)
+            binding.btnOk.isEnabled = true
         }
 
         // Navigation
