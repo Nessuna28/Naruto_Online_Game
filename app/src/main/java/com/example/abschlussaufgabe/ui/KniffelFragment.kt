@@ -59,7 +59,7 @@ class KniffelFragment : Fragment() {
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
-        ): View? {
+        ): View {
             binding = DataBindingUtil.inflate(inflater, R.layout.popup_layout, container, false)
             binding.rvTeam.adapter = TeamAdapter(kniffelViewModel.diceList.value!!) { team ->
                 kniffelViewModel.selectTeam(team)
@@ -132,20 +132,20 @@ class KniffelFragment : Fragment() {
         }
 
         kniffelViewModel.values.observe(viewLifecycleOwner) {
-            binding.tv1erValue.text = it.one.toString()
-            binding.tv2erValue.text = it.two.toString()
-            binding.tv3erValue.text = it.three.toString()
-            binding.tv4erValue.text = it.four.toString()
-            binding.tv5erValue.text = it.five.toString()
-            binding.tv6erValue.text = it.six.toString()
-            binding.tvBonusValue.text = it.bonus.toString()
-            binding.tv3xValue.text = it.threesome.toString()
-            binding.tv4xValue.text = it.foursome.toString()
-            binding.tvFullHouseValue.text = it.fullHouse.toString()
-            binding.tvBigStreetValue.text = it.bigStreet.toString()
-            binding.tvLittleStreetValue.text = it.littleStreet.toString()
-            binding.tvKniffelValue.text = it.kniffel.toString()
-            binding.tvChanceValue.text = it.chance.toString()
+            binding.tv1erValue.text = it.one.first.toString()
+            binding.tv2erValue.text = it.two.first.toString()
+            binding.tv3erValue.text = it.three.first.toString()
+            binding.tv4erValue.text = it.four.first.toString()
+            binding.tv5erValue.text = it.five.first.toString()
+            binding.tv6erValue.text = it.six.first.toString()
+            binding.tvBonusValue.text = it.bonus.first.toString()
+            binding.tv3xValue.text = it.threesome.first.toString()
+            binding.tv4xValue.text = it.foursome.first.toString()
+            binding.tvFullHouseValue.text = it.fullHouse.first.toString()
+            binding.tvBigStreetValue.text = it.bigStreet.first.toString()
+            binding.tvLittleStreetValue.text = it.littleStreet.first.toString()
+            binding.tvKniffelValue.text = it.kniffel.first.toString()
+            binding.tvChanceValue.text = it.chance.first.toString()
         }
 
 
@@ -156,6 +156,8 @@ class KniffelFragment : Fragment() {
                 kniffelViewModel.calculateAttempts()
                 kniffelViewModel.rollTheDice()
                 kniffelViewModel.setValueDice(kniffelViewModel.listOfRandomDice)
+                //kniffelViewModel.initValues()
+                kniffelViewModel.resetValues()
                 setRandomImages()
             }
         }
@@ -193,79 +195,79 @@ class KniffelFragment : Fragment() {
         }
 
         binding.tv1erValue.setOnClickListener {
-            kniffelViewModel.checkOne = true
+            onTextViewClicked(it)
             binding.tv1erValue.setTextColor(Color.BLACK)
             binding.btnOk.isEnabled = true
         }
 
         binding.tv2erValue.setOnClickListener {
-            kniffelViewModel.checkTwo = true
+            onTextViewClicked(it)
             binding.tv2erValue.setTextColor(Color.BLACK)
             binding.btnOk.isEnabled = true
         }
 
         binding.tv3erValue.setOnClickListener {
-            kniffelViewModel.checkThree = true
+            onTextViewClicked(it)
             binding.tv3erValue.setTextColor(Color.BLACK)
             binding.btnOk.isEnabled = true
         }
 
         binding.tv4erValue.setOnClickListener {
-            kniffelViewModel.checkFour = true
+            onTextViewClicked(it)
             binding.tv4erValue.setTextColor(Color.BLACK)
             binding.btnOk.isEnabled = true
         }
 
         binding.tv5erValue.setOnClickListener {
-            kniffelViewModel.checkFive = true
+            onTextViewClicked(it)
             binding.tv5erValue.setTextColor(Color.BLACK)
             binding.btnOk.isEnabled = true
         }
 
         binding.tv6erValue.setOnClickListener {
-            kniffelViewModel.checkSix = true
+            onTextViewClicked(it)
             binding.tv6erValue.setTextColor(Color.BLACK)
             binding.btnOk.isEnabled = true
         }
 
         binding.tv3xValue.setOnClickListener {
-            kniffelViewModel.checkThreesome = true
+            onTextViewClicked(it)
             binding.tv3xValue.setTextColor(Color.BLACK)
             binding.btnOk.isEnabled = true
         }
 
         binding.tv4xValue.setOnClickListener {
-            kniffelViewModel.checkFoursome = true
+            onTextViewClicked(it)
             binding.tv4xValue.setTextColor(Color.BLACK)
             binding.btnOk.isEnabled = true
         }
 
         binding.tvFullHouseValue.setOnClickListener {
-            kniffelViewModel.checkFullHouse = true
+            onTextViewClicked(it)
             binding.tvFullHouseValue.setTextColor(Color.BLACK)
             binding.btnOk.isEnabled = true
         }
 
         binding.tvBigStreetValue.setOnClickListener {
-            kniffelViewModel.checkBigStreet = true
+            onTextViewClicked(it)
             binding.tvBigStreetValue.setTextColor(Color.BLACK)
             binding.btnOk.isEnabled = true
         }
 
         binding.tvLittleStreetValue.setOnClickListener {
-            kniffelViewModel.checkLittleStreet = true
+            onTextViewClicked(it)
             binding.tvLittleStreetValue.setTextColor(Color.BLACK)
             binding.btnOk.isEnabled = true
         }
 
         binding.tvKniffelValue.setOnClickListener {
-            kniffelViewModel.checkKniffel = true
+            onTextViewClicked(it)
             binding.tvKniffelValue.setTextColor(Color.BLACK)
             binding.btnOk.isEnabled = true
         }
 
         binding.tvChanceValue.setOnClickListener {
-            kniffelViewModel.checkChance = true
+            onTextViewClicked(it)
             binding.tvChanceValue.setTextColor(Color.BLACK)
             binding.btnOk.isEnabled = true
         }
@@ -310,5 +312,24 @@ class KniffelFragment : Fragment() {
         binding.tvLittleStreetValue.setTextColor(Color.GRAY)
         binding.tvKniffelValue.setTextColor(Color.GRAY)
         binding.tvChanceValue.setTextColor(Color.GRAY)
+    }
+
+    private fun onTextViewClicked(textView: View) {
+        val value = kniffelViewModel.values.value!!
+        when (textView) {
+            binding.tv1erValue -> value.one.let { kniffelViewModel.setCheckTextViews(it) }
+            binding.tv2erValue -> value.two.let { kniffelViewModel.setCheckTextViews(it) }
+            binding.tv3erValue -> value.three.let { kniffelViewModel.setCheckTextViews(it) }
+            binding.tv4erValue -> value.four.let { kniffelViewModel.setCheckTextViews(it) }
+            binding.tv5erValue -> value.five.let { kniffelViewModel.setCheckTextViews(it) }
+            binding.tv6erValue -> value.six.let { kniffelViewModel.setCheckTextViews(it) }
+            binding.tv3xValue -> value.threesome.let { kniffelViewModel.setCheckTextViews(it) }
+            binding.tv4xValue -> value.foursome.let { kniffelViewModel.setCheckTextViews(it) }
+            binding.tvFullHouseValue -> value.fullHouse.let { kniffelViewModel.setCheckTextViews(it) }
+            binding.tvBigStreetValue -> value.bigStreet.let { kniffelViewModel.setCheckTextViews(it) }
+            binding.tvLittleStreetValue -> value.littleStreet.let { kniffelViewModel.setCheckTextViews(it) }
+            binding.tvKniffelValue -> value.kniffel.let { kniffelViewModel.setCheckTextViews(it) }
+            binding.tvChanceValue -> value.chance.let { kniffelViewModel.setCheckTextViews(it) }
+        }
     }
 }

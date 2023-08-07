@@ -2,18 +2,19 @@ package com.example.abschlussaufgabe.data.datamodels.modelForKniffel
 
 class KniffelValue(
 
-    var one: Int = 0,
-    var two: Int = 0,
-    var three: Int = 0,
-    var four: Int = 0,
-    var five: Int = 0,
-    var six: Int = 0,
-    var bonus: Int = 0,
-    var threesome: Int = 0,
-    var foursome: Int = 0,
-    var fullHouse: Int = 0,
-    var bigStreet: Int = 0,
-    var littleStreet: Int = 0,
-    var kniffel: Int = 0,
-    var chance: Int = 0,
+    var one: Pair<Int, Boolean> = Pair(0, false),
+    var two: Pair<Int, Boolean> = Pair(0, false),
+    var three: Pair<Int, Boolean> = Pair(0, false),
+    var four: Pair<Int, Boolean> = Pair(0, false),
+    var five: Pair<Int, Boolean> = Pair(0, false),
+    var six: Pair<Int, Boolean> = Pair(0, false),
+    var bonus: Pair<Int, Boolean> = Pair(0, false),
+    var threesome: Pair<Int, Boolean> = Pair(0, false),
+    var foursome: Pair<Int, Boolean> = Pair(0, false),
+    var fullHouse: Pair<Int, Boolean> = Pair(0, false),
+    var bigStreet: Pair<Int, Boolean> = Pair(0, false),
+    var littleStreet: Pair<Int, Boolean> = Pair(0, false),
+    var kniffel: Pair<Int, Boolean> = Pair(0, false),
+    var chance: Pair<Int, Boolean> = Pair(0, false)
+
 )

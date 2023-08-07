@@ -757,7 +757,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
             _roundsWonEnemy.value = _roundsWonEnemy.value
         }
 
-        resetPointsForNewRound()
+        //resetPointsForNewRound()
 
         _rounds.value = _rounds.value
         _roundsWonPlayer.value = _roundsWonPlayer.value

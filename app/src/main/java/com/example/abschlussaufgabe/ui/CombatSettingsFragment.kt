@@ -11,14 +11,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.R
-import com.example.abschlussaufgabe.databinding.FragmentDifficultyLevelAndRoundSelectionBinding
+import com.example.abschlussaufgabe.databinding.FragmentCombatSettingsBinding
 
 
 class CombatSettingsFragment : Fragment() {
 
     private val viewModel: MainViewModel by activityViewModels()
 
-    private lateinit var binding: FragmentDifficultyLevelAndRoundSelectionBinding
+    private lateinit var binding: FragmentCombatSettingsBinding
 
     val fight = listOf(R.string.single, R.string.team)
     val rounds = listOf(R.string.oneRound, R.string.threeRounds)
@@ -66,8 +66,8 @@ class CombatSettingsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_difficulty_level_and_round_selection, container, false)
+    ): View {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_combat_settings, container, false)
         return binding.root
     }
 

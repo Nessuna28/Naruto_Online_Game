@@ -191,6 +191,7 @@ class FightFragment : Fragment() {
         viewModel.rounds.observe(viewLifecycleOwner) {
             setColorForRounds(it)
             runViewsRound()
+            viewModel.resetPointsForNewRound()
         }
 
         viewModel.toastMessage.observe(viewLifecycleOwner, Observer { message ->
@@ -538,7 +539,7 @@ class FightFragment : Fragment() {
          }
      }
 
-    fun runViewWinnerOrLoser() {
+    private fun runViewWinnerOrLoser() {
 
         if (viewModel.selectTimer.value != "kein Zeitlimit") {
             if (viewModel.remainingTime.value == 0) {
@@ -574,25 +575,21 @@ class FightFragment : Fragment() {
         super.onDestroyView()
     }
 
-    @SuppressLint("ResourceAsColor")
-    fun setColorForRounds(it: Int) {
+    private fun setColorForRounds(rounds: Int) {
 
-        val orangeColor = ContextCompat.getColor(requireContext(), R.color.primary)
-        val greyColor = ContextCompat.getColor(requireContext(), R.color.darkgrey)
-
-        if (it == 1) {
+        if (rounds == 1) {
             if (player.lifePoints > 0) {
-                binding.mcRound1Player?.setCardBackgroundColor(orangeColor)
-                binding.mcRound1PlayerForOneRound?.setCardBackgroundColor(orangeColor)
-                binding.mcRound1Enemy?.setCardBackgroundColor(greyColor)
-                binding.mcRound1EnemyForOneRound?.setCardBackgroundColor(greyColor)
+                binding.mcRound1Player?.setCardBackgroundColor(Color.rgb(255, 100, 0))
+                binding.mcRound1PlayerForOneRound?.setCardBackgroundColor(Color.rgb(255, 100, 0))
+                binding.mcRound1Enemy?.setCardBackgroundColor(Color.DKGRAY)
+                binding.mcRound1EnemyForOneRound?.setCardBackgroundColor(Color.DKGRAY)
             } else if (enemy.lifePoints > 0){
-                binding.mcRound1Player?.setCardBackgroundColor(greyColor)
-                binding.mcRound1PlayerForOneRound?.setCardBackgroundColor(greyColor)
-                binding.mcRound1Enemy?.setCardBackgroundColor(orangeColor)
-                binding.mcRound1EnemyForOneRound?.setCardBackgroundColor(orangeColor)
+                binding.mcRound1Player?.setCardBackgroundColor(Color.DKGRAY)
+                binding.mcRound1PlayerForOneRound?.setCardBackgroundColor(Color.DKGRAY)
+                binding.mcRound1Enemy?.setCardBackgroundColor(Color.rgb(255, 100, 0))
+                binding.mcRound1EnemyForOneRound?.setCardBackgroundColor(Color.rgb(255, 100, 0))
             }
-        } else if (it == 2) {
+        } else if (rounds == 2) {
             if (player.lifePoints > 0) {
                 binding.mcRound2Player?.setCardBackgroundColor(Color.rgb(255, 100, 0))
                 binding.mcRound2Enemy?.setCardBackgroundColor(Color.DKGRAY)
@@ -600,7 +597,7 @@ class FightFragment : Fragment() {
                 binding.mcRound2Player?.setCardBackgroundColor(Color.DKGRAY)
                 binding.mcRound2Enemy?.setCardBackgroundColor(Color.rgb(255,100,0))
             }
-        } else if (it == 3) {
+        } else if (rounds == 3) {
             if (player.lifePoints > 0) {
                 binding.mcRound3Player?.setCardBackgroundColor(Color.rgb(255, 100, 0))
                 binding.mcRound3Enemy?.setCardBackgroundColor(Color.DKGRAY)
