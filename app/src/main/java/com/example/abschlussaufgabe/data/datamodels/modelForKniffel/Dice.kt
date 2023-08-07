@@ -9,5 +9,4 @@ class Dice(
     val diceSide4: DiceSide,
     val diceSide5: DiceSide,
     val diceSide6: DiceSide,
-) {
-}
+)

@@ -3,5 +3,6 @@ package com.example.abschlussaufgabe.data.datamodels.modelForKniffel
 class DiceSide(
 
     val image: Int,
-    val value: Int
+    var value: Int,
+    var toKeep: Boolean
 )

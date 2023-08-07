@@ -8,9 +8,9 @@ import com.example.abschlussaufgabe.data.datamodels.modelForKniffel.Dice
 import com.example.abschlussaufgabe.data.datamodels.modelForKniffel.DiceSide
 import com.example.abschlussaufgabe.data.datamodels.modelForKniffel.KniffelValue
 import com.example.abschlussaufgabe.data.datamodels.modelForKniffel.dataList.DiceList
+import kotlin.collections.MutableList
 
 
-const val TAGKNIFFELVIEWMODEL = "KniffelViewModel"
 
 class KniffelViewModel(application: Application): AndroidViewModel(application) {
 
@@ -26,29 +26,29 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
         get() = _selectedDice
 
 
-    private val _randomDice1 = MutableLiveData<DiceSide>()
-    val randomDice1: LiveData<DiceSide>
-        get() = _randomDice1
+    private val _rolledDice1 = MutableLiveData<DiceSide>()
+    val rolledDice1: LiveData<DiceSide>
+        get() = _rolledDice1
 
 
-    private val _randomDice2 = MutableLiveData<DiceSide>()
-    val randomDice2: LiveData<DiceSide>
-        get() = _randomDice2
+    private val _rolledDice2 = MutableLiveData<DiceSide>()
+    val rolledDice2: LiveData<DiceSide>
+        get() = _rolledDice2
 
 
-    private val _randomDice3 = MutableLiveData<DiceSide>()
-    val randomDice3: LiveData<DiceSide>
-        get() = _randomDice3
+    private val _rolledDice3 = MutableLiveData<DiceSide>()
+    val rolledDice3: LiveData<DiceSide>
+        get() = _rolledDice3
 
 
-    private val _randomDice4 = MutableLiveData<DiceSide>()
-    val randomDice4: LiveData<DiceSide>
-        get() = _randomDice4
+    private val _rolledDice4 = MutableLiveData<DiceSide>()
+    val rolledDice4: LiveData<DiceSide>
+        get() = _rolledDice4
 
 
-    private val _randomDice5 = MutableLiveData<DiceSide>()
-    val randomDice5: LiveData<DiceSide>
-        get() = _randomDice5
+    private val _rolledDice5 = MutableLiveData<DiceSide>()
+    val rolledDice5: LiveData<DiceSide>
+        get() = _rolledDice5
 
 
     private val _attempts = MutableLiveData(3)
@@ -66,11 +66,6 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
         get() = _values
 
 
-    private val _randomList = MutableLiveData<List<DiceSide>>()
-    val randomList: LiveData<List<DiceSide>>
-        get() = _randomList
-
-
     // Variablen der Punkte für die linke Spalte und für die rechte Spalte
 
     private var leftColumn: Int = 0
@@ -82,27 +77,23 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
     private var one: Int = 0
     private var two: Int = 0
     private var three: Int = 0
-    private var four: Int = values.value?.four?.first ?: 0
-    private var five: Int = values.value?.five?.first ?: 0
-    private var six: Int = values.value?.six?.first ?: 0
-    private var bonus: Int = values.value?.bonus?.first ?: 0
-    private var threesome: Int = values.value?.threesome?.first ?: 0
-    private var foursome: Int = values.value?.foursome?.first ?: 0
-    private var fullHouse: Int = values.value?.fullHouse?.first ?: 0
-    private var bigStreet: Int = values.value?.bigStreet?.first ?: 0
-    private var littleStreet: Int = values.value?.littleStreet?.first ?: 0
-    private var kniffel: Int = values.value?.kniffel?.first ?: 0
-    private var chance: Int = values.value?.chance?.first ?: 0
-
-    // Liste mit Würfeln die der Spieler behalten möchte
-    private val _diceToKeep = MutableLiveData<List<DiceSide>>()
-    val diceToKeep: LiveData<List<DiceSide>>
-        get() = _diceToKeep
+    private var four: Int = 0
+    private var five: Int = 0
+    private var six: Int = 0
+    private var bonus: Int = 0
+    private var threesome: Int = 0
+    private var foursome: Int = 0
+    private var fullHouse: Int = 0
+    private var bigStreet: Int = 0
+    private var littleStreet: Int = 0
+    private var kniffel: Int = 0
+    private var chance: Int = 0
 
 
-    private var _listOfRandomDice: MutableList<MutableLiveData<DiceSide>> = mutableListOf(_randomDice1, _randomDice2, _randomDice3, _randomDice4, _randomDice5)
-    val listOfRandomDice: MutableList<MutableLiveData<DiceSide>>
-        get() = _listOfRandomDice
+    // Liste der 5 Würfel zum würfeln
+    private var _listOfRolledDice: MutableList<MutableLiveData<DiceSide>> = mutableListOf(_rolledDice1, _rolledDice2, _rolledDice3, _rolledDice4, _rolledDice5)
+    val listOfRolledDice: MutableList<MutableLiveData<DiceSide>>
+        get() = _listOfRolledDice
 
 
 
@@ -117,23 +108,23 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
 
     fun initValues() {
 
-        val kniffelValue = _values.value ?: KniffelValue()
+        val value = _values.value ?: KniffelValue()
 
-        kniffelValue.one = Pair(one, false)
-        kniffelValue.two = Pair(two, false)
-        kniffelValue.three = Pair(three, false)
-        kniffelValue.four = Pair(four, false)
-        kniffelValue.five = Pair(five, false)
-        kniffelValue.six = Pair(six, false)
-        kniffelValue.threesome = Pair(threesome, false)
-        kniffelValue.foursome = Pair(foursome, false)
-        kniffelValue.fullHouse = Pair(fullHouse, false)
-        kniffelValue.bigStreet = Pair(bigStreet, false)
-        kniffelValue.littleStreet = Pair(littleStreet, false)
-        kniffelValue.kniffel = Pair(kniffel, false)
-        kniffelValue.chance = Pair(chance, false)
+        value.one = Pair(one, false)
+        value.two = Pair(two, false)
+        value.three = Pair(three, false)
+        value.four = Pair(four, false)
+        value.five = Pair(five, false)
+        value.six = Pair(six, false)
+        value.threesome = Pair(threesome, false)
+        value.foursome = Pair(foursome, false)
+        value.fullHouse = Pair(fullHouse, false)
+        value.bigStreet = Pair(bigStreet, false)
+        value.littleStreet = Pair(littleStreet, false)
+        value.kniffel = Pair(kniffel, false)
+        value.chance = Pair(chance, false)
 
-        _values.value = kniffelValue
+        _values.value = _values.value
     }
 
     // speichert die übergebene Auswahl eines Teams in der LiveData-Variable
@@ -170,17 +161,37 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
         list.add(selectedDice.value!!.diceSide5)
         list.add(selectedDice.value!!.diceSide6)
 
-        _randomList.value = list
+        // für jeden Würfel in der Liste wird ein zufälliger Wert aus der Liste der vorhandenen Seiten zugewiesen
+        _listOfRolledDice.forEach { liveData ->
+            liveData.value = list.random()
+        }
+    }
 
-        listOfRandomDice.forEach { liveData ->
-            liveData.value = randomList.value!!.random()
+    fun resetListOfRandomDice() {
+
+        _listOfRolledDice.forEach { liveData ->
+            if (liveData.value!!.toKeep) {
+                liveData.value!!.value = 0
+            }
+        }
+    }
+
+    fun diceToKeep(dice: DiceSide, check: Boolean) {
+
+        when (dice) {
+            rolledDice1.value -> _rolledDice1.value!!.toKeep = check
+            rolledDice2.value -> _rolledDice2.value!!.toKeep = check
+            rolledDice3.value -> _rolledDice3.value!!.toKeep = check
+            rolledDice4.value -> _rolledDice4.value!!.toKeep = check
+            rolledDice5.value -> _rolledDice5.value!!.toKeep = check
         }
     }
 
     // speichert die Werte in den LiveData-Variablen
-    fun setValueDice(listOfRandomDice: MutableList<MutableLiveData<DiceSide>>) {
+    fun setValueDice(listOfRolledDice: MutableList<MutableLiveData<DiceSide>>) {
 
-        val valueList: List<Int> = listOfRandomDice.flatMap { diceLiveData ->
+        // erstellt eine Liste mit nur den Werten der gewürfelten Würfel
+        val valueList: List<Int> = listOfRolledDice.flatMap { diceLiveData ->
             diceLiveData.value?.let { listOf(it.value) } ?: emptyList()
         }
 
@@ -257,69 +268,51 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
             _values.value = _values.value
     }
 
-
+    // setzt das übergebene Paar auf true
     fun setCheckTextViews(pair: Pair<Int, Boolean>) {
 
         val updatedValue = _values.value!!
 
-        when (pair.first) {
-            1 -> updatedValue.one = pair.copy(second = true)
-            2 -> updatedValue.two = pair.copy(second = true)
-            3 -> updatedValue.three = pair.copy(second = true)
-            4 -> updatedValue.four = pair.copy(second = true)
-            6 -> updatedValue.five = pair.copy(second = true)
-            7 -> updatedValue.six = pair.copy(second = true)
-            8 -> updatedValue.threesome = pair.copy(second = true)
-            9 -> updatedValue.foursome = pair.copy(second = true)
-            10 -> updatedValue.fullHouse = pair.copy(second = true)
-            11 -> updatedValue.bigStreet = pair.copy(second = true)
-            12 -> updatedValue.littleStreet = pair.copy(second = true)
-            13 -> updatedValue.kniffel = pair.copy(second = true)
-            14 -> updatedValue.chance = pair.copy(second = true)
+        when (pair) {
+            updatedValue.one -> updatedValue.one = pair.copy(second = true)
+            updatedValue.two -> updatedValue.two = pair.copy(second = true)
+            updatedValue.three -> updatedValue.three = pair.copy(second = true)
+            updatedValue.four -> updatedValue.four = pair.copy(second = true)
+            updatedValue.five -> updatedValue.five = pair.copy(second = true)
+            updatedValue.six -> updatedValue.six = pair.copy(second = true)
+            updatedValue.threesome -> updatedValue.threesome = pair.copy(second = true)
+            updatedValue.foursome -> updatedValue.foursome = pair.copy(second = true)
+            updatedValue.fullHouse -> updatedValue.fullHouse = pair.copy(second = true)
+            updatedValue.bigStreet -> updatedValue.bigStreet = pair.copy(second = true)
+            updatedValue.littleStreet -> updatedValue.littleStreet = pair.copy(second = true)
+            updatedValue.kniffel -> updatedValue.kniffel = pair.copy(second = true)
+            updatedValue.chance -> updatedValue.chance = pair.copy(second = true)
         }
         _values.value = updatedValue
     }
 
+    // ändert die Werte der Paare auf 0 wenn sie false sind
     fun resetValues() {
 
         val kniffelValue = _values.value ?: KniffelValue()
 
-        // ändert die Werte der Paare auf 0 wenn sie false sind
-        val updatedOne = if (kniffelValue.one.second) kniffelValue.one else Pair(0, false)
-        val updatedTwo = if (kniffelValue.two.second) kniffelValue.two else Pair(0, false)
-        val updatedThree = if (kniffelValue.three.second) kniffelValue.three else Pair(0, false)
-        val updatedFour = if (kniffelValue.four.second) kniffelValue.four else Pair(0, false)
-        val updatedFive = if (kniffelValue.five.second) kniffelValue.five else Pair(0, false)
-        val updatedSix = if (kniffelValue.six.second) kniffelValue.six else Pair(0, false)
-        val updatedThreesome = if (kniffelValue.threesome.second) kniffelValue.threesome else Pair(0, false)
-        val updatedFoursome = if (kniffelValue.foursome.second) kniffelValue.foursome else Pair(0, false)
-        val updatedFullHouse = if (kniffelValue.fullHouse.second) kniffelValue.fullHouse else Pair(0, false)
-        val updatedBigStreet = if (kniffelValue.bigStreet.second) kniffelValue.bigStreet else Pair(0, false)
-        val updatedLittleStreet = if (kniffelValue.littleStreet.second) kniffelValue.littleStreet else Pair(0, false)
-        val updatedKniffel = if (kniffelValue.kniffel.second) kniffelValue.kniffel else Pair(0, false)
-        val updatedChance = if (kniffelValue.chance.second) kniffelValue.chance else Pair(0, false)
 
+        if (kniffelValue.one.second) one = 0
+        if (kniffelValue.two.second) two = 0
+        if (kniffelValue.three.second) three = 0
+        if (kniffelValue.four.second) four = 0
+        if (kniffelValue.five.second) five = 0
+        if (kniffelValue.six.second) six = 0
+        if (kniffelValue.threesome.second) threesome = 0
+        if (kniffelValue.foursome.second) foursome = 0
+        if (kniffelValue.fullHouse.second) fullHouse = 0
+        if (kniffelValue.bigStreet.second) bigStreet = 0
+        if (kniffelValue.littleStreet.second) littleStreet = 0
+        if (kniffelValue.kniffel.second) kniffel = 0
+        if (kniffelValue.chance.second) chance = 0
 
-        // Aktualisierte Paare zurück in das KniffelValue-Objekt setzen
-        kniffelValue.one = updatedOne
-        kniffelValue.two = updatedTwo
-        kniffelValue.three = updatedThree
-        kniffelValue.four = updatedFour
-        kniffelValue.five = updatedFive
-        kniffelValue.six = updatedSix
-        kniffelValue.threesome = updatedThreesome
-        kniffelValue.foursome = updatedFoursome
-        kniffelValue.fullHouse = updatedFullHouse
-        kniffelValue.bigStreet = updatedBigStreet
-        kniffelValue.littleStreet = updatedLittleStreet
-        kniffelValue.kniffel = updatedKniffel
-        kniffelValue.chance = updatedChance
-
-
-        _values.value = kniffelValue
+        _values.value = _values.value
     }
-
-
 
     // rechnet die Punkte für den Spieler zusammen
     fun calculatePoints() {
@@ -340,11 +333,6 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
         }
 
         _points.value = total
-    }
-
-    fun keepDice(dice: DiceSide) {
-
-        _diceToKeep.value?.get(dice.value)
     }
 
 }
