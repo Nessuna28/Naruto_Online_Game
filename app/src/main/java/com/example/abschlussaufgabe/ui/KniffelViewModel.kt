@@ -5,12 +5,11 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.data.datamodels.modelForKniffel.Dice
 import com.example.abschlussaufgabe.data.datamodels.modelForKniffel.DiceSide
 import com.example.abschlussaufgabe.data.datamodels.modelForKniffel.KniffelValue
 import com.example.abschlussaufgabe.data.datamodels.modelForKniffel.dataList.DiceList
-import kotlin.collections.MutableList
-
 
 
 class KniffelViewModel(application: Application): AndroidViewModel(application) {
@@ -91,16 +90,37 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
     private var chance: Int = 0
 
 
-    // Variablen für die zufälligen Würfelseiten der 5 Würfel zum würfeln
+    // LiveData-Variablen für die zufälligen Würfelseiten der 5 Würfel zum würfeln
 
-    private lateinit var diceSideRolledDice1: DiceSide
-    private lateinit var diceSideRolledDice2: DiceSide
-    private lateinit var diceSideRolledDice3: DiceSide
-    private lateinit var diceSideRolledDice4: DiceSide
-    private lateinit var diceSideRolledDice5: DiceSide
+    private val _diceSideRolledDice1 = MutableLiveData<DiceSide>()
+    val diceSideRolledDice1: LiveData<DiceSide>
+        get() = _diceSideRolledDice1
+
+
+    private val _diceSideRolledDice2 = MutableLiveData<DiceSide>()
+    val diceSideRolledDice2: LiveData<DiceSide>
+        get() = _diceSideRolledDice2
+
+
+    private val _diceSideRolledDice3 = MutableLiveData<DiceSide>()
+    val diceSideRolledDice3: LiveData<DiceSide>
+        get() = _diceSideRolledDice3
+
+
+    private val _diceSideRolledDice4 = MutableLiveData<DiceSide>()
+    val diceSideRolledDice4: LiveData<DiceSide>
+        get() = _diceSideRolledDice4
+
+
+    private val _diceSideRolledDice5 = MutableLiveData<DiceSide>()
+    val diceSideRolledDice5: LiveData<DiceSide>
+        get() = _diceSideRolledDice5
+
 
     // Liste der Variablen der Würfelseiten
-    private val diceSideList = listOf(diceSideRolledDice1, diceSideRolledDice2, diceSideRolledDice3, diceSideRolledDice4, diceSideRolledDice5)
+    private val diceSideList: List<DiceSide>
+        get() = listOf(diceSideRolledDice1.value!!, diceSideRolledDice2.value!!, diceSideRolledDice3.value!!, diceSideRolledDice4.value!!, diceSideRolledDice5.value!!)
+
 
 
     // Initialisierung
@@ -157,11 +177,49 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
     fun initRollingDice() {
 
         val list = mutableListOf<Dice>()
-        list.add(selectedDice.value!!)
-        list.add(selectedDice.value!!)
-        list.add(selectedDice.value!!)
-        list.add(selectedDice.value!!)
-        list.add(selectedDice.value!!)
+        list.add(Dice("Team Kakashi",
+            listOf(DiceSide(R.drawable.kakashi_face, 1, false),
+                DiceSide(R.drawable.naruto_face, 2, false),
+                DiceSide(R.drawable.sasuke_face, 3, false),
+                DiceSide(R.drawable.sakura_face, 4, false),
+                DiceSide(R.drawable.sai_face, 5, false),
+                DiceSide(R.drawable.kurama, 6, false))))
+        list.add(
+            Dice("Team Kakashi",
+                listOf(DiceSide(R.drawable.kakashi_face, 1, false),
+                    DiceSide(R.drawable.naruto_face, 2, false),
+                    DiceSide(R.drawable.sasuke_face, 3, false),
+                    DiceSide(R.drawable.sakura_face, 4, false),
+                    DiceSide(R.drawable.sai_face, 5, false),
+                    DiceSide(R.drawable.kurama, 6, false)))
+        )
+        list.add(
+            Dice("Team Kakashi",
+                listOf(DiceSide(R.drawable.kakashi_face, 1, false),
+                    DiceSide(R.drawable.naruto_face, 2, false),
+                    DiceSide(R.drawable.sasuke_face, 3, false),
+                    DiceSide(R.drawable.sakura_face, 4, false),
+                    DiceSide(R.drawable.sai_face, 5, false),
+                    DiceSide(R.drawable.kurama, 6, false)))
+        )
+        list.add(
+            Dice("Team Kakashi",
+                listOf(DiceSide(R.drawable.kakashi_face, 1, false),
+                    DiceSide(R.drawable.naruto_face, 2, false),
+                    DiceSide(R.drawable.sasuke_face, 3, false),
+                    DiceSide(R.drawable.sakura_face, 4, false),
+                    DiceSide(R.drawable.sai_face, 5, false),
+                    DiceSide(R.drawable.kurama, 6, false)))
+        )
+        list.add(
+            Dice("Team Kakashi",
+                listOf(DiceSide(R.drawable.kakashi_face, 1, false),
+                    DiceSide(R.drawable.naruto_face, 2, false),
+                    DiceSide(R.drawable.sasuke_face, 3, false),
+                    DiceSide(R.drawable.sakura_face, 4, false),
+                    DiceSide(R.drawable.sai_face, 5, false),
+                    DiceSide(R.drawable.kurama, 6, false)))
+        )
 
 
         // jedem Würfel zum würfeln wird ein Würfel aus der obrigen Liste zugewiesen
@@ -175,11 +233,46 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
     // sucht eine zufällige Würfelseite aus für alle 5 Würfel
     fun rollTheDice() {
 
-        diceSideRolledDice1 = rolledDice1.value!!.diceSideList.random()
-        diceSideRolledDice2 = rolledDice2.value!!.diceSideList.random()
-        diceSideRolledDice3 = rolledDice3.value!!.diceSideList.random()
-        diceSideRolledDice4 = rolledDice4.value!!.diceSideList.random()
-        diceSideRolledDice5 = rolledDice5.value!!.diceSideList.random()
+        if (diceSideRolledDice1.value == null) {
+            _diceSideRolledDice1.value = rolledDice1.value!!.diceSideList.random()
+        } else if (!diceSideRolledDice1.value!!.toKeep) {
+            _diceSideRolledDice1.value = rolledDice1.value!!.diceSideList.random()
+        }
+
+        if (diceSideRolledDice2.value == null) {
+            _diceSideRolledDice2.value = rolledDice2.value!!.diceSideList.random()
+        } else if (!diceSideRolledDice2.value!!.toKeep) {
+            _diceSideRolledDice2.value = rolledDice2.value!!.diceSideList.random()
+        }
+
+        if (diceSideRolledDice3.value == null) {
+            _diceSideRolledDice3.value = rolledDice3.value!!.diceSideList.random()
+        } else if (!diceSideRolledDice3.value!!.toKeep) {
+            _diceSideRolledDice3.value = rolledDice3.value!!.diceSideList.random()
+        }
+
+        if (diceSideRolledDice4.value == null) {
+            _diceSideRolledDice4.value = rolledDice4.value!!.diceSideList.random()
+        } else if (!diceSideRolledDice4.value!!.toKeep) {
+            _diceSideRolledDice4.value = rolledDice4.value!!.diceSideList.random()
+        }
+
+        if (diceSideRolledDice5.value == null) {
+            _diceSideRolledDice5.value = rolledDice5.value!!.diceSideList.random()
+        } else if (!diceSideRolledDice5.value!!.toKeep) {
+            _diceSideRolledDice5.value = rolledDice5.value!!.diceSideList.random()
+        }
+
+        Log.e("Würfel 1", "${_diceSideRolledDice1.value!!.value}")
+        Log.e("Würfel 1", "${_diceSideRolledDice1.value!!.toKeep}")
+        Log.e("Würfel 2", "${_diceSideRolledDice2.value!!.value}")
+        Log.e("Würfel 2", "${_diceSideRolledDice2.value!!.toKeep}")
+        Log.e("Würfel 3", "${_diceSideRolledDice3.value!!.value}")
+        Log.e("Würfel 3", "${_diceSideRolledDice3.value!!.toKeep}")
+        Log.e("Würfel 4", "${_diceSideRolledDice4.value!!.value}")
+        Log.e("Würfel 4", "${_diceSideRolledDice4.value!!.toKeep}")
+        Log.e("Würfel 5", "${_diceSideRolledDice5.value!!.value}")
+        Log.e("Würfel 5", "${_diceSideRolledDice5.value!!.toKeep}")
     }
 
     // setzt den Boolean der Würfel in der Liste auf false
@@ -190,35 +283,70 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
         }
     }
 
-    // ändert den Wert des übergeben Würfels auf true oder false, je nach dem was übergeben wird
-    fun diceToKeep(dice: Dice, check: Boolean) {
+    // ändert den Wert des Würfels auf true oder false, je nach dem was übergeben wird
 
-        when (dice) {
-            rolledDice1.value -> diceSideRolledDice1.toKeep = check
-            rolledDice2.value -> diceSideRolledDice2.toKeep = check
-            rolledDice3.value -> diceSideRolledDice3.toKeep = check
-            rolledDice4.value -> diceSideRolledDice4.toKeep = check
-            rolledDice5.value -> diceSideRolledDice5.toKeep = check
-        }
+    fun keepDice1(check: Boolean) {
+
+        _diceSideRolledDice1.value!!.toKeep = check
+    }
+
+    fun keepDice2(check: Boolean) {
+
+        _diceSideRolledDice2.value!!.toKeep = check
+    }
+
+    fun keepDice3(check: Boolean) {
+
+        _diceSideRolledDice3.value!!.toKeep = check
+    }
+
+    fun keepDice4(check: Boolean) {
+
+        _diceSideRolledDice4.value!!.toKeep = check
+    }
+
+    fun keepDice5(check: Boolean) {
+
+        _diceSideRolledDice5.value!!.toKeep = check
     }
 
     // speichert die Werte in den LiveData-Variablen
-    fun setValueDice() {
+    fun setValues() {
+
+        resetValues()
 
         // erstellt eine Liste mit nur den Werten der gewürfelten Würfel
         val valueList: List<Int> = diceSideList.map { it.value }
 
+        Log.e("ValueList", "$valueList")
+
+        // Initialisiere die Zählvariablen für jede Augenzahl
+        var oneCount = 0
+        var twoCount = 0
+        var threeCount = 0
+        var fourCount = 0
+        var fiveCount = 0
+        var sixCount = 0
+
         // die einzelnen Augen zusammen zählen
         for (i in valueList) {
             when (i) {
-                1 -> one += i
-                2 -> two += i
-                3 -> three += i
-                4 -> four += i
-                5 -> five += i
-                6 -> six += i
+                1 -> oneCount += i
+                2 -> twoCount += i
+                3 -> threeCount += i
+                4 -> fourCount += i
+                5 -> fiveCount += i
+                6 -> sixCount += i
             }
         }
+
+        // Setze die Werte entsprechend der Zählungen
+        one = oneCount
+        two = twoCount
+        three = threeCount
+        four = fourCount
+        five = fiveCount
+        six = sixCount
 
             // das Full House zählen
             // Gruppieren der Zahlen und ihre Häufigkeit zählen
@@ -277,6 +405,7 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
             // alle Augen für die Chance zählen
             chance = valueList.sum()
 
+            initValues()
 
             _values.value = _values.value
     }
@@ -320,7 +449,7 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
         if (!kniffelValue.fullHouse.second) fullHouse = 0
         if (!kniffelValue.bigStreet.second) bigStreet = 0
         if (!kniffelValue.littleStreet.second) littleStreet = 0
-        if (kniffelValue.kniffel.second) kniffel = 0
+        if (!kniffelValue.kniffel.second) kniffel = 0
         if (!kniffelValue.chance.second) chance = 0
 
         _values.value = kniffelValue
@@ -337,14 +466,18 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
 
         var total = 0
 
-        if (leftColumn >= 65) {
-            bonus = 35
-             total += leftColumn + rightColumn + bonus
+        bonus = if (leftColumn >= 65) {
+            35
         } else {
-            total += leftColumn + rightColumn
+            0
         }
 
+        total = leftColumn + rightColumn + bonus
+
+
         _points.value = total
+
+        Log.e("Points", "$leftColumn, $rightColumn")
     }
 
 }

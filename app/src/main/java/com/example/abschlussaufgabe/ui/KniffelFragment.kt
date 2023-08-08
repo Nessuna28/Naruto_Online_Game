@@ -31,11 +31,11 @@ class KniffelFragment : Fragment() {
 
     private lateinit var selectedDice: Dice
 
-    private var dice1IsClick = false
-    private var dice2IsClick = false
-    private var dice3IsClick = false
-    private var dice4IsClick = false
-    private var dice5IsClick = false
+    private var dice1IsClicked = false
+    private var dice2IsClicked = false
+    private var dice3IsClicked = false
+    private var dice4IsClicked = false
+    private var dice5IsClicked = false
 
 
     @Deprecated("Deprecated in Java")
@@ -156,6 +156,26 @@ class KniffelFragment : Fragment() {
             }
         }
 
+        kniffelViewModel.diceSideRolledDice1.observe(viewLifecycleOwner) {
+            binding.ivRolledDice1.setImageResource(it.image)
+        }
+
+        kniffelViewModel.diceSideRolledDice2.observe(viewLifecycleOwner) {
+            binding.ivRolledDice2.setImageResource(it.image)
+        }
+
+        kniffelViewModel.diceSideRolledDice3.observe(viewLifecycleOwner) {
+            binding.ivRolledDice3.setImageResource(it.image)
+        }
+
+        kniffelViewModel.diceSideRolledDice4.observe(viewLifecycleOwner) {
+            binding.ivRolledDice4.setImageResource(it.image)
+        }
+
+        kniffelViewModel.diceSideRolledDice5.observe(viewLifecycleOwner) {
+            binding.ivRolledDice5.setImageResource(it.image)
+        }
+
 
         // Button
 
@@ -164,63 +184,63 @@ class KniffelFragment : Fragment() {
                 kniffelViewModel.calculateAttempts()
                 kniffelViewModel.initRollingDice()
                 kniffelViewModel.rollTheDice()
-                kniffelViewModel.initValues()
-                kniffelViewModel.setValueDice()
+                kniffelViewModel.setValues()
+                resetCheckIsClicked()
             }
         }
 
         binding.mcRolledDice1.setOnClickListener {
-            if (!dice1IsClick) {
-                kniffelViewModel.diceToKeep(kniffelViewModel.rolledDice1.value!!, true)
+            dice1IsClicked = if (!dice1IsClicked) {
+                kniffelViewModel.keepDice1(true)
                 //binding.mcRolledDice1.setCardBackgroundColor(Color.GREEN)
-                dice1IsClick = true
+                true
             } else {
-                kniffelViewModel.diceToKeep(kniffelViewModel.rolledDice1.value!!, false)
-                dice1IsClick = false
+                kniffelViewModel.keepDice1(false)
+                false
             }
         }
 
         binding.mcRolledDice2.setOnClickListener {
-            if (!dice2IsClick) {
-                kniffelViewModel.diceToKeep(kniffelViewModel.rolledDice2.value!!, true)
+            dice2IsClicked = if (!dice2IsClicked) {
+                kniffelViewModel.keepDice2(true)
                 //binding.mcRolledDice1.setCardBackgroundColor(Color.GREEN)
-                dice2IsClick = true
+                true
             } else {
-                kniffelViewModel.diceToKeep(kniffelViewModel.rolledDice2.value!!, false)
-                dice2IsClick = false
+                kniffelViewModel.keepDice2(false)
+                false
             }
         }
 
         binding.mcRolledDice3.setOnClickListener {
-            if (!dice3IsClick) {
-                kniffelViewModel.diceToKeep(kniffelViewModel.rolledDice3.value!!, true)
+            dice3IsClicked = if (!dice3IsClicked) {
+                kniffelViewModel.keepDice3(true)
                 //binding.mcRolledDice1.setCardBackgroundColor(Color.GREEN)
-                dice3IsClick = true
+                true
             } else {
-                kniffelViewModel.diceToKeep(kniffelViewModel.rolledDice3.value!!, false)
-                dice3IsClick = false
+                kniffelViewModel.keepDice3(false)
+                false
             }
         }
 
         binding.mcRolledDice4.setOnClickListener {
-            if (!dice4IsClick) {
-                kniffelViewModel.diceToKeep(kniffelViewModel.rolledDice4.value!!, true)
+            dice4IsClicked = if (!dice4IsClicked) {
+                kniffelViewModel.keepDice4(true)
                 //binding.mcRolledDice1.setCardBackgroundColor(Color.GREEN)
-                dice4IsClick = true
+                true
             } else {
-                kniffelViewModel.diceToKeep(kniffelViewModel.rolledDice4.value!!, false)
-                dice4IsClick = false
+                kniffelViewModel.keepDice4(false)
+                false
             }
         }
 
         binding.mcRolledDice5.setOnClickListener {
-            if (!dice5IsClick) {
-                kniffelViewModel.diceToKeep(kniffelViewModel.rolledDice5.value!!, true)
+            dice5IsClicked = if (!dice5IsClicked) {
+                kniffelViewModel.keepDice5(true)
                 //binding.mcRolledDice1.setCardBackgroundColor(Color.GREEN)
-                dice5IsClick = true
+                true
             } else {
-                kniffelViewModel.diceToKeep(kniffelViewModel.rolledDice5.value!!, false)
-                dice5IsClick = false
+                kniffelViewModel.keepDice5(false)
+                false
             }
         }
 
@@ -328,11 +348,6 @@ class KniffelFragment : Fragment() {
         binding.ivRolledDice5.setImageResource(selectedDice.diceSideList[0].image)
     }
 
-    private fun setRandomImages() {
-
-
-    }
-
     private fun setValueColorOfGray() {
 
         binding.tv1erValue.setTextColor(Color.GRAY)
@@ -368,5 +383,14 @@ class KniffelFragment : Fragment() {
             binding.tvKniffelValue -> value.kniffel.let { kniffelViewModel.setCheckTextViews(it) }
             binding.tvChanceValue -> value.chance.let { kniffelViewModel.setCheckTextViews(it) }
         }
+    }
+
+    private fun resetCheckIsClicked() {
+
+        dice1IsClicked = false
+        dice2IsClicked = false
+        dice3IsClicked = false
+        dice4IsClicked = false
+        dice5IsClicked = false
     }
 }
