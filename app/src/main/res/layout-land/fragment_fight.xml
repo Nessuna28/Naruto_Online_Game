@@ -449,7 +449,7 @@
             app:layout_constraintTop_toTopOf="@+id/iv_backgroundFight"
             app:srcCompat="@drawable/winner" />
 
-        <com.google.android.material.card.MaterialCardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/mc_round1Player"
             android:layout_width="16dp"
             android:layout_height="15dp"
@@ -460,7 +460,7 @@
             app:layout_constraintStart_toEndOf="@+id/tv_characterNamePlayer"
             app:layout_constraintTop_toTopOf="@+id/tv_characterNamePlayer" />
 
-        <com.google.android.material.card.MaterialCardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/mc_round2Player"
             android:layout_width="16dp"
             android:layout_height="15dp"
@@ -471,7 +471,7 @@
             app:layout_constraintStart_toEndOf="@+id/mc_round1Player"
             app:layout_constraintTop_toTopOf="@+id/tv_characterNamePlayer" />
 
-        <com.google.android.material.card.MaterialCardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/mc_round3Player"
             android:layout_width="16dp"
             android:layout_height="15dp"

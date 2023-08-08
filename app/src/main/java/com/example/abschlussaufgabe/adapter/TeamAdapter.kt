@@ -30,12 +30,12 @@ class TeamAdapter(
         val team = dataset[position]
 
         holder.binding.tvTeamName.text = team.teamName
-        holder.binding.ivDice1.setImageResource(team.diceSide1.image)
-        holder.binding.ivDice2.setImageResource(team.diceSide2.image)
-        holder.binding.ivDice3.setImageResource(team.diceSide3.image)
-        holder.binding.ivDice4.setImageResource(team.diceSide4.image)
-        holder.binding.ivDice5.setImageResource(team.diceSide5.image)
-        holder.binding.ivDice6.setImageResource(team.diceSide6.image)
+        holder.binding.ivDice1.setImageResource(team.diceSideList[0].image)
+        holder.binding.ivDice2.setImageResource(team.diceSideList[1].image)
+        holder.binding.ivDice3.setImageResource(team.diceSideList[2].image)
+        holder.binding.ivDice4.setImageResource(team.diceSideList[3].image)
+        holder.binding.ivDice5.setImageResource(team.diceSideList[4].image)
+        holder.binding.ivDice6.setImageResource(team.diceSideList[5].image)
 
         holder.itemView.setOnClickListener {
             onTeamClick(team)

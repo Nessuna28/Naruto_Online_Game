@@ -14,12 +14,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.adapter.TeamAdapter
 import com.example.abschlussaufgabe.data.datamodels.modelForKniffel.Dice
-import com.example.abschlussaufgabe.data.datamodels.modelForKniffel.DiceSide
 import com.example.abschlussaufgabe.databinding.FragmentKniffelBinding
 import com.example.abschlussaufgabe.databinding.PopupLayoutBinding
 
@@ -32,6 +30,12 @@ class KniffelFragment : Fragment() {
     private lateinit var binding: FragmentKniffelBinding
 
     private lateinit var selectedDice: Dice
+
+    private var dice1IsClick = false
+    private var dice2IsClick = false
+    private var dice3IsClick = false
+    private var dice4IsClick = false
+    private var dice5IsClick = false
 
 
     @Deprecated("Deprecated in Java")
@@ -123,31 +127,33 @@ class KniffelFragment : Fragment() {
 
         kniffelViewModel.selectedDice.observe(viewLifecycleOwner) {
             selectedDice = kniffelViewModel.selectedDice.value!!
-            binding.ivDice1.setImageResource(it.diceSide1.image)
-            binding.ivDice2.setImageResource(it.diceSide2.image)
-            binding.ivDice3.setImageResource(it.diceSide3.image)
-            binding.ivDice4.setImageResource(it.diceSide4.image)
-            binding.ivDice5.setImageResource(it.diceSide5.image)
-            binding.ivDice6.setImageResource(it.diceSide6.image)
+            binding.ivDice1.setImageResource(it.diceSideList[0].image)
+            binding.ivDice2.setImageResource(it.diceSideList[1].image)
+            binding.ivDice3.setImageResource(it.diceSideList[2].image)
+            binding.ivDice4.setImageResource(it.diceSideList[3].image)
+            binding.ivDice5.setImageResource(it.diceSideList[4].image)
+            binding.ivDice6.setImageResource(it.diceSideList[5].image)
 
             resetRolledDice()
         }
 
         kniffelViewModel.values.observe(viewLifecycleOwner) {
-            binding.tv1erValue.text = it.one.first.toString()
-            binding.tv2erValue.text = it.two.first.toString()
-            binding.tv3erValue.text = it.three.first.toString()
-            binding.tv4erValue.text = it.four.first.toString()
-            binding.tv5erValue.text = it.five.first.toString()
-            binding.tv6erValue.text = it.six.first.toString()
-            binding.tvBonusValue.text = it.bonus.first.toString()
-            binding.tv3xValue.text = it.threesome.first.toString()
-            binding.tv4xValue.text = it.foursome.first.toString()
-            binding.tvFullHouseValue.text = it.fullHouse.first.toString()
-            binding.tvBigStreetValue.text = it.bigStreet.first.toString()
-            binding.tvLittleStreetValue.text = it.littleStreet.first.toString()
-            binding.tvKniffelValue.text = it.kniffel.first.toString()
-            binding.tvChanceValue.text = it.chance.first.toString()
+            if (it != null) {
+                binding.tv1erValue.text = it.one.first.toString()
+                binding.tv2erValue.text = it.two.first.toString()
+                binding.tv3erValue.text = it.three.first.toString()
+                binding.tv4erValue.text = it.four.first.toString()
+                binding.tv5erValue.text = it.five.first.toString()
+                binding.tv6erValue.text = it.six.first.toString()
+                binding.tvBonusValue.text = it.bonus.first.toString()
+                binding.tv3xValue.text = it.threesome.first.toString()
+                binding.tv4xValue.text = it.foursome.first.toString()
+                binding.tvFullHouseValue.text = it.fullHouse.first.toString()
+                binding.tvBigStreetValue.text = it.bigStreet.first.toString()
+                binding.tvLittleStreetValue.text = it.littleStreet.first.toString()
+                binding.tvKniffelValue.text = it.kniffel.first.toString()
+                binding.tvChanceValue.text = it.chance.first.toString()
+            }
         }
 
 
@@ -156,60 +162,65 @@ class KniffelFragment : Fragment() {
         binding.btnRollTheDice.setOnClickListener {
             if (kniffelViewModel.attempts.value != 0) {
                 kniffelViewModel.calculateAttempts()
+                kniffelViewModel.initRollingDice()
                 kniffelViewModel.rollTheDice()
-                kniffelViewModel.setValueDice(kniffelViewModel.listOfRolledDice)
                 kniffelViewModel.initValues()
-                setRandomImages()
+                kniffelViewModel.setValueDice()
             }
         }
 
         binding.mcRolledDice1.setOnClickListener {
-            if (!kniffelViewModel.rolledDice1.value!!.toKeep) {
-                kniffelViewModel.listOfRolledDice.remove(kniffelViewModel.rolledDice1)
+            if (!dice1IsClick) {
                 kniffelViewModel.diceToKeep(kniffelViewModel.rolledDice1.value!!, true)
+                //binding.mcRolledDice1.setCardBackgroundColor(Color.GREEN)
+                dice1IsClick = true
             } else {
-                kniffelViewModel.listOfRolledDice.add(kniffelViewModel.rolledDice1 as MutableLiveData<DiceSide>)
                 kniffelViewModel.diceToKeep(kniffelViewModel.rolledDice1.value!!, false)
+                dice1IsClick = false
             }
         }
 
         binding.mcRolledDice2.setOnClickListener {
-            if (!kniffelViewModel.rolledDice2.value!!.toKeep) {
-                kniffelViewModel.listOfRolledDice.remove(kniffelViewModel.rolledDice2)
+            if (!dice2IsClick) {
                 kniffelViewModel.diceToKeep(kniffelViewModel.rolledDice2.value!!, true)
+                //binding.mcRolledDice1.setCardBackgroundColor(Color.GREEN)
+                dice2IsClick = true
             } else {
-                kniffelViewModel.listOfRolledDice.add(kniffelViewModel.rolledDice2 as MutableLiveData<DiceSide>)
                 kniffelViewModel.diceToKeep(kniffelViewModel.rolledDice2.value!!, false)
+                dice2IsClick = false
             }
         }
 
         binding.mcRolledDice3.setOnClickListener {
-            if (!kniffelViewModel.rolledDice3.value!!.toKeep) {
-                kniffelViewModel.listOfRolledDice.remove(kniffelViewModel.rolledDice3)
+            if (!dice3IsClick) {
                 kniffelViewModel.diceToKeep(kniffelViewModel.rolledDice3.value!!, true)
+                //binding.mcRolledDice1.setCardBackgroundColor(Color.GREEN)
+                dice3IsClick = true
             } else {
-                kniffelViewModel.listOfRolledDice.add(kniffelViewModel.rolledDice3 as MutableLiveData<DiceSide>)
                 kniffelViewModel.diceToKeep(kniffelViewModel.rolledDice3.value!!, false)
+                dice3IsClick = false
             }
         }
 
         binding.mcRolledDice4.setOnClickListener {
-            if (!kniffelViewModel.rolledDice4.value!!.toKeep) {
-                kniffelViewModel.listOfRolledDice.remove(kniffelViewModel.rolledDice4)
+            if (!dice4IsClick) {
                 kniffelViewModel.diceToKeep(kniffelViewModel.rolledDice4.value!!, true)
+                //binding.mcRolledDice1.setCardBackgroundColor(Color.GREEN)
+                dice4IsClick = true
             } else {
-                kniffelViewModel.listOfRolledDice.add(kniffelViewModel.rolledDice4 as MutableLiveData<DiceSide>)
                 kniffelViewModel.diceToKeep(kniffelViewModel.rolledDice4.value!!, false)
+                dice4IsClick = false
             }
         }
 
         binding.mcRolledDice5.setOnClickListener {
-            if (!kniffelViewModel.rolledDice5.value!!.toKeep) {
-                kniffelViewModel.listOfRolledDice.remove(kniffelViewModel.rolledDice5)
+            if (!dice5IsClick) {
                 kniffelViewModel.diceToKeep(kniffelViewModel.rolledDice5.value!!, true)
+                //binding.mcRolledDice1.setCardBackgroundColor(Color.GREEN)
+                dice5IsClick = true
             } else {
-                kniffelViewModel.listOfRolledDice.add(kniffelViewModel.rolledDice5 as MutableLiveData<DiceSide>)
                 kniffelViewModel.diceToKeep(kniffelViewModel.rolledDice5.value!!, false)
+                dice5IsClick = false
             }
         }
 
@@ -217,8 +228,9 @@ class KniffelFragment : Fragment() {
             binding.btnRollTheDice.isEnabled = true
             kniffelViewModel.setAttempts(3)
             binding.btnRollTheDice.setBackgroundColor(Color.rgb(255, 105, 0))
-            kniffelViewModel.resetListOfRandomDice()
+            kniffelViewModel.setRolledDiceOfFalse()
             kniffelViewModel.resetValues()
+            kniffelViewModel.initValues()
             kniffelViewModel.calculatePoints()
         }
 
@@ -309,20 +321,16 @@ class KniffelFragment : Fragment() {
 
     private fun resetRolledDice() {
 
-        binding.ivRolledDice1.setImageResource(selectedDice.diceSide1.image)
-        binding.ivRolledDice2.setImageResource(selectedDice.diceSide1.image)
-        binding.ivRolledDice3.setImageResource(selectedDice.diceSide1.image)
-        binding.ivRolledDice4.setImageResource(selectedDice.diceSide1.image)
-        binding.ivRolledDice5.setImageResource(selectedDice.diceSide1.image)
+        binding.ivRolledDice1.setImageResource(selectedDice.diceSideList[0].image)
+        binding.ivRolledDice2.setImageResource(selectedDice.diceSideList[0].image)
+        binding.ivRolledDice3.setImageResource(selectedDice.diceSideList[0].image)
+        binding.ivRolledDice4.setImageResource(selectedDice.diceSideList[0].image)
+        binding.ivRolledDice5.setImageResource(selectedDice.diceSideList[0].image)
     }
 
     private fun setRandomImages() {
 
-            binding.ivRolledDice1.setImageResource(kniffelViewModel.rolledDice1.value!!.image)
-            binding.ivRolledDice2.setImageResource(kniffelViewModel.rolledDice2.value!!.image)
-            binding.ivRolledDice3.setImageResource(kniffelViewModel.rolledDice3.value!!.image)
-            binding.ivRolledDice4.setImageResource(kniffelViewModel.rolledDice4.value!!.image)
-            binding.ivRolledDice5.setImageResource(kniffelViewModel.rolledDice5.value!!.image)
+
     }
 
     private fun setValueColorOfGray() {

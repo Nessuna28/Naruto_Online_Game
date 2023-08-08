@@ -44,7 +44,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     private var mediaPlayer: MediaPlayer? = null
 
-    var characters = repository.characters
+    val characters = repository.characters
 
 
     private val _profile = MutableLiveData<Profile>()
@@ -793,10 +793,8 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         _enemy.value!!.lifePoints = enemy.value!!.lifePointsStart
         _enemy.value!!.chakraPoints = enemy.value!!.chakraPointsStart
 
-        _player.value!!.lifePoints = _player.value!!.lifePoints
-        _player.value!!.chakraPoints = _player.value!!.chakraPoints
+        _player.value = _player.value
         _enemy.value = _enemy.value
-
     }
 
 
