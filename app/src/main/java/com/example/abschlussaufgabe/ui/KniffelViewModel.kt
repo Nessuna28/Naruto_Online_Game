@@ -66,6 +66,9 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
         get() = _values
 
 
+    private lateinit var valuesToCalculate: KniffelValue
+
+
     // Variablen der Punkte für die linke Spalte und für die rechte Spalte
 
     private var leftColumn: Int = 0
@@ -135,19 +138,19 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
 
         val value = _values.value ?: KniffelValue()
 
-        if (!value.one.second) value.one = Pair(one, false)
-        if (!value.two.second) value.two = Pair(two, false)
-        if (!value.three.second) value.three = Pair(three, false)
-        if (!value.four.second) value.four = Pair(four, false)
-        if (!value.five.second) value.five = Pair(five, false)
-        if (!value.six.second) value.six = Pair(six, false)
-        if (!value.threesome.second) value.threesome = Pair(threesome, false)
-        if (!value.foursome.second) value.foursome = Pair(foursome, false)
-        if (!value.fullHouse.second) value.fullHouse = Pair(fullHouse, false)
-        if (!value.bigStreet.second) value.bigStreet = Pair(bigStreet, false)
-        if (!value.littleStreet.second) value.littleStreet = Pair(littleStreet, false)
-        if (!value.kniffel.second) value.kniffel = Pair(kniffel, false)
-        if (!value.chance.second) value.chance = Pair(chance, false)
+        if (!value.one.second) value.one = Pair(0, false)
+        if (!value.two.second) value.two = Pair(0, false)
+        if (!value.three.second) value.three = Pair(0, false)
+        if (!value.four.second) value.four = Pair(0, false)
+        if (!value.five.second) value.five = Pair(0, false)
+        if (!value.six.second) value.six = Pair(0, false)
+        if (!value.threesome.second) value.threesome = Pair(0, false)
+        if (!value.foursome.second) value.foursome = Pair(0, false)
+        if (!value.fullHouse.second) value.fullHouse = Pair(0, false)
+        if (!value.bigStreet.second) value.bigStreet = Pair(0, false)
+        if (!value.littleStreet.second) value.littleStreet = Pair(0, false)
+        if (!value.kniffel.second) value.kniffel = Pair(0, false)
+        if (!value.chance.second) value.chance = Pair(0, false)
 
         _values.value = value
     }
@@ -331,22 +334,15 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
         // die einzelnen Augen zusammen zählen
         for (i in valueList) {
             when (i) {
-                1 -> oneCount += i
-                2 -> twoCount += i
-                3 -> threeCount += i
-                4 -> fourCount += i
-                5 -> fiveCount += i
-                6 -> sixCount += i
+                1 -> one += i
+                2 -> two += i
+                3 -> three += i
+                4 -> four += i
+                5 -> five += i
+                6 -> six += i
             }
         }
 
-        // Setze die Werte entsprechend der Zählungen
-        one = oneCount
-        two = twoCount
-        three = threeCount
-        four = fourCount
-        five = fiveCount
-        six = sixCount
 
             // das Full House zählen
             // Gruppieren der Zahlen und ihre Häufigkeit zählen
