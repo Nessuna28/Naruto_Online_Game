@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
@@ -20,6 +21,7 @@ import com.example.abschlussaufgabe.adapter.TeamAdapter
 import com.example.abschlussaufgabe.data.datamodels.modelForKniffel.Dice
 import com.example.abschlussaufgabe.databinding.FragmentKniffelBinding
 import com.example.abschlussaufgabe.databinding.PopupLayoutBinding
+import com.google.android.material.card.MaterialCardView
 
 
 class KniffelFragment : Fragment() {
@@ -31,11 +33,20 @@ class KniffelFragment : Fragment() {
 
     private lateinit var selectedDice: Dice
 
+    // Variablen für den Check ob die Würfel geklickt sind
+
     private var dice1IsClicked = false
     private var dice2IsClicked = false
     private var dice3IsClicked = false
     private var dice4IsClicked = false
     private var dice5IsClicked = false
+
+    // Variablen für die Farbe
+
+    private val primary = Color.rgb(255, 105, 0)
+    private val green = Color.GREEN
+    private val black = Color.BLACK
+    private val gray = Color.GRAY
 
 
     @Deprecated("Deprecated in Java")
@@ -121,7 +132,7 @@ class KniffelFragment : Fragment() {
             binding.tvAttemptsValue.text = it.toString()
             if (it == 0) {
                 binding.btnRollTheDice.isEnabled = false
-                binding.btnRollTheDice.setBackgroundColor(Color.GRAY)
+                binding.btnRollTheDice.setBackgroundColor(gray)
             }
         }
 
@@ -192,10 +203,11 @@ class KniffelFragment : Fragment() {
         binding.mcRolledDice1.setOnClickListener {
             dice1IsClicked = if (!dice1IsClicked) {
                 kniffelViewModel.keepDice1(true)
-                //binding.mcRolledDice1.setCardBackgroundColor(Color.GREEN)
+                setColorDice(it, green)
                 true
             } else {
                 kniffelViewModel.keepDice1(false)
+                setColorDice(it, primary)
                 false
             }
         }
@@ -203,10 +215,11 @@ class KniffelFragment : Fragment() {
         binding.mcRolledDice2.setOnClickListener {
             dice2IsClicked = if (!dice2IsClicked) {
                 kniffelViewModel.keepDice2(true)
-                //binding.mcRolledDice1.setCardBackgroundColor(Color.GREEN)
+                setColorDice(it, green)
                 true
             } else {
                 kniffelViewModel.keepDice2(false)
+                setColorDice(it, primary)
                 false
             }
         }
@@ -214,10 +227,11 @@ class KniffelFragment : Fragment() {
         binding.mcRolledDice3.setOnClickListener {
             dice3IsClicked = if (!dice3IsClicked) {
                 kniffelViewModel.keepDice3(true)
-                //binding.mcRolledDice1.setCardBackgroundColor(Color.GREEN)
+                setColorDice(it, green)
                 true
             } else {
                 kniffelViewModel.keepDice3(false)
+                setColorDice(it, primary)
                 false
             }
         }
@@ -225,10 +239,11 @@ class KniffelFragment : Fragment() {
         binding.mcRolledDice4.setOnClickListener {
             dice4IsClicked = if (!dice4IsClicked) {
                 kniffelViewModel.keepDice4(true)
-                //binding.mcRolledDice1.setCardBackgroundColor(Color.GREEN)
+                setColorDice(it, green)
                 true
             } else {
                 kniffelViewModel.keepDice4(false)
+                setColorDice(it, primary)
                 false
             }
         }
@@ -236,10 +251,11 @@ class KniffelFragment : Fragment() {
         binding.mcRolledDice5.setOnClickListener {
             dice5IsClicked = if (!dice5IsClicked) {
                 kniffelViewModel.keepDice5(true)
-                //binding.mcRolledDice1.setCardBackgroundColor(Color.GREEN)
+                setColorDice(it, green)
                 true
             } else {
                 kniffelViewModel.keepDice5(false)
+                setColorDice(it, primary)
                 false
             }
         }
@@ -247,88 +263,89 @@ class KniffelFragment : Fragment() {
         binding.btnOk.setOnClickListener {
             binding.btnRollTheDice.isEnabled = true
             kniffelViewModel.setAttempts(3)
-            binding.btnRollTheDice.setBackgroundColor(Color.rgb(255, 105, 0))
+            binding.btnRollTheDice.setBackgroundColor(primary)
             kniffelViewModel.setRolledDiceOfFalse()
             kniffelViewModel.resetValues()
             kniffelViewModel.initValues()
             kniffelViewModel.calculatePoints()
+            resetColorDice()
         }
 
         binding.tv1erValue.setOnClickListener {
             onTextViewClicked(it)
-            binding.tv1erValue.setTextColor(Color.BLACK)
+            setTextColorValues(it as TextView, black)
             binding.btnOk.isEnabled = true
         }
 
         binding.tv2erValue.setOnClickListener {
             onTextViewClicked(it)
-            binding.tv2erValue.setTextColor(Color.BLACK)
+            setTextColorValues(it as TextView, black)
             binding.btnOk.isEnabled = true
         }
 
         binding.tv3erValue.setOnClickListener {
             onTextViewClicked(it)
-            binding.tv3erValue.setTextColor(Color.BLACK)
+            setTextColorValues(it as TextView, black)
             binding.btnOk.isEnabled = true
         }
 
         binding.tv4erValue.setOnClickListener {
             onTextViewClicked(it)
-            binding.tv4erValue.setTextColor(Color.BLACK)
+            setTextColorValues(it as TextView, black)
             binding.btnOk.isEnabled = true
         }
 
         binding.tv5erValue.setOnClickListener {
             onTextViewClicked(it)
-            binding.tv5erValue.setTextColor(Color.BLACK)
+            setTextColorValues(it as TextView, black)
             binding.btnOk.isEnabled = true
         }
 
         binding.tv6erValue.setOnClickListener {
             onTextViewClicked(it)
-            binding.tv6erValue.setTextColor(Color.BLACK)
+            setTextColorValues(it as TextView, black)
             binding.btnOk.isEnabled = true
         }
 
         binding.tv3xValue.setOnClickListener {
             onTextViewClicked(it)
-            binding.tv3xValue.setTextColor(Color.BLACK)
+            setTextColorValues(it as TextView, black)
             binding.btnOk.isEnabled = true
         }
 
         binding.tv4xValue.setOnClickListener {
             onTextViewClicked(it)
-            binding.tv4xValue.setTextColor(Color.BLACK)
+            setTextColorValues(it as TextView, black)
             binding.btnOk.isEnabled = true
         }
 
         binding.tvFullHouseValue.setOnClickListener {
             onTextViewClicked(it)
-            binding.tvFullHouseValue.setTextColor(Color.BLACK)
+            setTextColorValues(it as TextView, black)
             binding.btnOk.isEnabled = true
         }
 
         binding.tvBigStreetValue.setOnClickListener {
             onTextViewClicked(it)
-            binding.tvBigStreetValue.setTextColor(Color.BLACK)
+            setTextColorValues(it as TextView, black)
             binding.btnOk.isEnabled = true
         }
 
         binding.tvLittleStreetValue.setOnClickListener {
             onTextViewClicked(it)
-            binding.tvLittleStreetValue.setTextColor(Color.BLACK)
+            setTextColorValues(it as TextView, black)
             binding.btnOk.isEnabled = true
         }
 
         binding.tvKniffelValue.setOnClickListener {
             onTextViewClicked(it)
-            binding.tvKniffelValue.setTextColor(Color.BLACK)
+            setTextColorValues(it as TextView, black)
             binding.btnOk.isEnabled = true
         }
 
         binding.tvChanceValue.setOnClickListener {
             onTextViewClicked(it)
-            binding.tvChanceValue.setTextColor(Color.BLACK)
+            setTextColorValues(it as TextView, black)
             binding.btnOk.isEnabled = true
         }
 
@@ -346,23 +363,6 @@ class KniffelFragment : Fragment() {
         binding.ivRolledDice3.setImageResource(selectedDice.diceSideList[0].image)
         binding.ivRolledDice4.setImageResource(selectedDice.diceSideList[0].image)
         binding.ivRolledDice5.setImageResource(selectedDice.diceSideList[0].image)
-    }
-
-    private fun setValueColorOfGray() {
-
-        binding.tv1erValue.setTextColor(Color.GRAY)
-        binding.tv2erValue.setTextColor(Color.GRAY)
-        binding.tv3erValue.setTextColor(Color.GRAY)
-        binding.tv4erValue.setTextColor(Color.GRAY)
-        binding.tv5erValue.setTextColor(Color.GRAY)
-        binding.tv6erValue.setTextColor(Color.GRAY)
-        binding.tv3xValue.setTextColor(Color.GRAY)
-        binding.tv4xValue.setTextColor(Color.GRAY)
-        binding.tvFullHouseValue.setTextColor(Color.GRAY)
-        binding.tvBigStreetValue.setTextColor(Color.GRAY)
-        binding.tvLittleStreetValue.setTextColor(Color.GRAY)
-        binding.tvKniffelValue.setTextColor(Color.GRAY)
-        binding.tvChanceValue.setTextColor(Color.GRAY)
     }
 
     private fun onTextViewClicked(textView: View) {
@@ -392,5 +392,41 @@ class KniffelFragment : Fragment() {
         dice3IsClicked = false
         dice4IsClicked = false
         dice5IsClicked = false
+    }
+
+    private fun setColorDice(dice: View, color: Int) {
+
+        dice.background.setTint(color)
+    }
+
+    private fun resetColorDice() {
+
+        binding.mcRolledDice1.background.setTint(primary)
+        binding.mcRolledDice2.background.setTint(primary)
+        binding.mcRolledDice3.background.setTint(primary)
+        binding.mcRolledDice4.background.setTint(primary)
+        binding.mcRolledDice5.background.setTint(primary)
+    }
+
+    private fun setValueColorOfGray() {
+
+        binding.tv1erValue.setTextColor(gray)
+        binding.tv2erValue.setTextColor(gray)
+        binding.tv3erValue.setTextColor(gray)
+        binding.tv4erValue.setTextColor(gray)
+        binding.tv5erValue.setTextColor(gray)
+        binding.tv6erValue.setTextColor(gray)
+        binding.tv3xValue.setTextColor(gray)
+        binding.tv4xValue.setTextColor(gray)
+        binding.tvFullHouseValue.setTextColor(gray)
+        binding.tvBigStreetValue.setTextColor(gray)
+        binding.tvLittleStreetValue.setTextColor(gray)
+        binding.tvKniffelValue.setTextColor(gray)
+        binding.tvChanceValue.setTextColor(gray)
+    }
+
+    private fun setTextColorValues(textView: TextView, textColor: Int) {
+
+        textView.setTextColor(textColor)
     }
 }

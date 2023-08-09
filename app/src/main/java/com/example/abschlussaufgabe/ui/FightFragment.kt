@@ -580,31 +580,31 @@ class FightFragment : Fragment() {
 
         if (rounds == 1) {
             if (player.lifePoints > 0) {
-                binding.mcRound1Player?.setCardBackgroundColor(Color.rgb(255, 100, 0))
-                binding.mcRound1PlayerForOneRound?.setCardBackgroundColor(Color.rgb(255, 100, 0))
-                binding.mcRound1Enemy?.setCardBackgroundColor(Color.DKGRAY)
-                binding.mcRound1EnemyForOneRound?.setCardBackgroundColor(Color.DKGRAY)
+                binding.mcRound1Player?.background?.setTint(Color.rgb(255, 105, 0))
+                binding.mcRound1PlayerForOneRound?.background?.setTint(Color.rgb(255, 105, 0))
+                binding.mcRound1Enemy?.background?.setTint(Color.DKGRAY)
+                binding.mcRound1EnemyForOneRound?.background?.setTint(Color.DKGRAY)
             } else if (enemy.lifePoints > 0){
-                binding.mcRound1Player?.setCardBackgroundColor(Color.DKGRAY)
-                binding.mcRound1PlayerForOneRound?.setCardBackgroundColor(Color.DKGRAY)
-                binding.mcRound1Enemy?.setCardBackgroundColor(Color.rgb(255, 100, 0))
-                binding.mcRound1EnemyForOneRound?.setCardBackgroundColor(Color.rgb(255, 100, 0))
+                binding.mcRound1Player?.background?.setTint(Color.DKGRAY)
+                binding.mcRound1PlayerForOneRound?.background?.setTint(Color.DKGRAY)
+                binding.mcRound1Enemy?.background?.setTint(Color.rgb(255, 105, 0))
+                binding.mcRound1EnemyForOneRound?.background?.setTint(Color.rgb(255, 105, 0))
             }
         } else if (rounds == 2) {
             if (player.lifePoints > 0) {
-                binding.mcRound2Player?.setCardBackgroundColor(Color.rgb(255, 100, 0))
-                binding.mcRound2Enemy?.setCardBackgroundColor(Color.DKGRAY)
+                binding.mcRound2Player?.background?.setTint(Color.rgb(255, 105, 0))
+                binding.mcRound2Enemy?.background?.setTint(Color.DKGRAY)
             } else if (enemy.lifePoints > 0) {
-                binding.mcRound2Player?.setCardBackgroundColor(Color.DKGRAY)
-                binding.mcRound2Enemy?.setCardBackgroundColor(Color.rgb(255,100,0))
+                binding.mcRound2Player?.background?.setTint(Color.DKGRAY)
+                binding.mcRound2Enemy?.background?.setTint(Color.rgb(255, 105, 0))
             }
         } else if (rounds == 3) {
             if (player.lifePoints > 0) {
-                binding.mcRound3Player?.setCardBackgroundColor(Color.rgb(255, 100, 0))
-                binding.mcRound3Enemy?.setCardBackgroundColor(Color.DKGRAY)
+                binding.mcRound3Player?.background?.setTint(Color.rgb(255, 105, 0))
+                binding.mcRound3Enemy?.background?.setTint(Color.DKGRAY)
             } else if (enemy.lifePoints > 0) {
-                binding.mcRound3Player?.setCardBackgroundColor(Color.DKGRAY)
-                binding.mcRound3Enemy?.setCardBackgroundColor(Color.rgb(255, 100, 0))
+                binding.mcRound3Player?.background?.setTint(Color.DKGRAY)
+                binding.mcRound3Enemy?.background?.setTint(Color.rgb(255, 105, 0))
             }
         }
     }

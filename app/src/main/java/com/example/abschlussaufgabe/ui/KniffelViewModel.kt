@@ -66,9 +66,6 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
         get() = _values
 
 
-    private lateinit var valuesToCalculate: KniffelValue
-
-
     // Variablen der Punkte für die linke Spalte und für die rechte Spalte
 
     private var leftColumn: Int = 0
@@ -125,6 +122,10 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
         get() = listOf(diceSideRolledDice1.value!!, diceSideRolledDice2.value!!, diceSideRolledDice3.value!!, diceSideRolledDice4.value!!, diceSideRolledDice5.value!!)
 
 
+    private val _gameOver = MutableLiveData<Boolean>()
+    val gameOver: LiveData<Boolean>
+        get() = _gameOver
+
 
     // Initialisierung
     init {
@@ -138,19 +139,19 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
 
         val value = _values.value ?: KniffelValue()
 
-        if (!value.one.second) value.one = Pair(0, false)
-        if (!value.two.second) value.two = Pair(0, false)
-        if (!value.three.second) value.three = Pair(0, false)
-        if (!value.four.second) value.four = Pair(0, false)
-        if (!value.five.second) value.five = Pair(0, false)
-        if (!value.six.second) value.six = Pair(0, false)
-        if (!value.threesome.second) value.threesome = Pair(0, false)
-        if (!value.foursome.second) value.foursome = Pair(0, false)
-        if (!value.fullHouse.second) value.fullHouse = Pair(0, false)
-        if (!value.bigStreet.second) value.bigStreet = Pair(0, false)
-        if (!value.littleStreet.second) value.littleStreet = Pair(0, false)
-        if (!value.kniffel.second) value.kniffel = Pair(0, false)
-        if (!value.chance.second) value.chance = Pair(0, false)
+        if (!value.one.second) value.one = Pair(one, false)
+        if (!value.two.second) value.two = Pair(two, false)
+        if (!value.three.second) value.three = Pair(three, false)
+        if (!value.four.second) value.four = Pair(four, false)
+        if (!value.five.second) value.five = Pair(five, false)
+        if (!value.six.second) value.six = Pair(six, false)
+        if (!value.threesome.second) value.threesome = Pair(threesome, false)
+        if (!value.foursome.second) value.foursome = Pair(foursome, false)
+        if (!value.fullHouse.second) value.fullHouse = Pair(fullHouse, false)
+        if (!value.bigStreet.second) value.bigStreet = Pair(bigStreet, false)
+        if (!value.littleStreet.second) value.littleStreet = Pair(littleStreet, false)
+        if (!value.kniffel.second) value.kniffel = Pair(kniffel, false)
+        if (!value.chance.second) value.chance = Pair(chance, false)
 
         _values.value = value
     }
@@ -323,13 +324,6 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
 
         Log.e("ValueList", "$valueList")
 
-        // Initialisiere die Zählvariablen für jede Augenzahl
-        var oneCount = 0
-        var twoCount = 0
-        var threeCount = 0
-        var fourCount = 0
-        var fiveCount = 0
-        var sixCount = 0
 
         // die einzelnen Augen zusammen zählen
         for (i in valueList) {
@@ -454,8 +448,8 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
     // rechnet die Punkte für den Spieler zusammen
     fun calculatePoints() {
 
-        val left = one + two + three + four + five + six
-        val right = threesome + foursome + fullHouse + bigStreet + littleStreet + kniffel + chance
+        val left = values.value!!.one.first + values.value!!.two.first + values.value!!.three.first + values.value!!.four.first + values.value!!.five.first + values.value!!.six.first
+        val right = values.value!!.threesome.first + values.value!!.foursome.first + values.value!!.fullHouse.first + values.value!!.bigStreet.first + values.value!!.littleStreet.first + values.value!!.kniffel.first + values.value!!.chance.first
 
         leftColumn = left
         rightColumn = right
@@ -476,4 +470,20 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
         Log.e("Points", "$leftColumn, $rightColumn")
     }
 
+    fun gameOver() {
+
+        _gameOver.value = values.value!!.one.second &&
+                values.value!!.two.second &&
+                values.value!!.three.second &&
+                values.value!!.four.second &&
+                values.value!!.five.second &&
+                values.value!!.six.second &&
+                values.value!!.threesome.second &&
+                values.value!!.foursome.second &&
+                values.value!!.fullHouse.second &&
+                values.value!!.bigStreet.second &&
+                values.value!!.littleStreet.second &&
+                values.value!!.kniffel.second &&
+                values.value!!.chance.second
+    }
 }
