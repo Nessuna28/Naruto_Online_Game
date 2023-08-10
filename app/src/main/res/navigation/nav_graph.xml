@@ -168,7 +168,11 @@
     <fragment
         android:id="@+id/kniffelFragment"
         android:name="com.example.abschlussaufgabe.ui.KniffelFragment"
-        android:label="KniffelFragment" />
+        android:label="KniffelFragment" >
+        <action
+            android:id="@+id/action_kniffelFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/selectionGameFragment"
         android:name="com.example.abschlussaufgabe.ui.SelectionGameFragment"
@@ -185,5 +189,14 @@
         <action
             android:id="@+id/action_selectionGameFragment_to_difficultyLevelAndRoundSelectionFragment"
             app:destination="@id/difficultyLevelAndRoundSelectionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/logInFragment"
+        android:name="com.example.abschlussaufgabe.ui.LogInFragment"
+        android:label="fragment_log_in"
+        tools:layout="@layout/fragment_log_in" >
+        <action
+            android:id="@+id/action_logInFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>
