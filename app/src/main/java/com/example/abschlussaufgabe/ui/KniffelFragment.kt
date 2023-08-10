@@ -296,241 +296,62 @@ class KniffelFragment : Fragment() {
 
 
         // OnClickListener für die TextViews der Werte
+        // die oberen Variablen als Check werden hier geändert ob geklickt oder nicht
 
         binding.tv1erValue.setOnClickListener {
-            if (!oneIsClicked) {
-                onTextViewClicked(it, true)
-                setTextColorValues(it as TextView, black)
-                binding.btnOk.isEnabled = true
-                binding.btnOk.setBackgroundColor(primary)
-                binding.btnOk.setTextColor(white)
-                oneIsClicked = true
-            } else {
-                onTextViewClicked(it, false)
-                setTextColorValues(it as TextView, gray)
-                binding.btnOk.isEnabled = false
-                binding.btnOk.setBackgroundColor(gray)
-                binding.btnOk.setTextColor(primary)
-                oneIsClicked = false
-            }
+            oneIsClicked = actionForClickingValue(oneIsClicked, it)
         }
 
         binding.tv2erValue.setOnClickListener {
-            if (!twoIsClicked) {
-                onTextViewClicked(it, true)
-                setTextColorValues(it as TextView, black)
-                binding.btnOk.isEnabled = true
-                binding.btnOk.setBackgroundColor(primary)
-                binding.btnOk.setTextColor(white)
-                twoIsClicked = true
-            } else {
-                onTextViewClicked(it, false)
-                setTextColorValues(it as TextView, gray)
-                binding.btnOk.isEnabled = false
-                binding.btnOk.setBackgroundColor(gray)
-                binding.btnOk.setTextColor(primary)
-                twoIsClicked = false
-            }
+            twoIsClicked = actionForClickingValue(twoIsClicked, it)
         }
 
         binding.tv3erValue.setOnClickListener {
-            if (!threeIsClicked) {
-                onTextViewClicked(it, true)
-                setTextColorValues(it as TextView, black)
-                binding.btnOk.isEnabled = true
-                binding.btnOk.setBackgroundColor(primary)
-                binding.btnOk.setTextColor(white)
-                threeIsClicked = true
-            } else {
-                onTextViewClicked(it, false)
-                setTextColorValues(it as TextView, gray)
-                binding.btnOk.isEnabled = false
-                binding.btnOk.setBackgroundColor(gray)
-                binding.btnOk.setTextColor(primary)
-                threeIsClicked = false
-            }
+            threeIsClicked = actionForClickingValue(threeIsClicked, it)
         }
 
         binding.tv4erValue.setOnClickListener {
-            if (!fourIsClicked) {
-                onTextViewClicked(it, true)
-                setTextColorValues(it as TextView, black)
-                binding.btnOk.isEnabled = true
-                binding.btnOk.setBackgroundColor(primary)
-                binding.btnOk.setTextColor(white)
-                fourIsClicked = true
-            } else {
-                onTextViewClicked(it, false)
-                setTextColorValues(it as TextView, gray)
-                binding.btnOk.isEnabled = false
-                binding.btnOk.setBackgroundColor(gray)
-                binding.btnOk.setTextColor(primary)
-                fourIsClicked = false
-            }
+            fourIsClicked = actionForClickingValue(fourIsClicked, it)
         }
 
         binding.tv5erValue.setOnClickListener {
-            if (!fiveIsClicked) {
-                onTextViewClicked(it, true)
-                setTextColorValues(it as TextView, black)
-                binding.btnOk.isEnabled = true
-                binding.btnOk.setBackgroundColor(primary)
-                binding.btnOk.setTextColor(white)
-                fiveIsClicked = true
-            } else {
-                onTextViewClicked(it, false)
-                setTextColorValues(it as TextView, gray)
-                binding.btnOk.isEnabled = false
-                binding.btnOk.setBackgroundColor(gray)
-                binding.btnOk.setTextColor(primary)
-                fiveIsClicked = false
-            }
+            fiveIsClicked = actionForClickingValue(fiveIsClicked, it)
         }
 
         binding.tv6erValue.setOnClickListener {
-            if (!sixIsClicked) {
-                onTextViewClicked(it, true)
-                setTextColorValues(it as TextView, black)
-                binding.btnOk.isEnabled = true
-                binding.btnOk.setBackgroundColor(primary)
-                binding.btnOk.setTextColor(white)
-                sixIsClicked = true
-            } else {
-                onTextViewClicked(it, false)
-                setTextColorValues(it as TextView, gray)
-                binding.btnOk.isEnabled = false
-                binding.btnOk.setBackgroundColor(gray)
-                binding.btnOk.setTextColor(primary)
-                sixIsClicked = false
-            }
+            actionForClickingValue(sixIsClicked, it)
         }
 
         binding.tv3xValue.setOnClickListener {
-            if (!threesomeIsClicked) {
-                onTextViewClicked(it, true)
-                setTextColorValues(it as TextView, black)
-                binding.btnOk.isEnabled = true
-                binding.btnOk.setBackgroundColor(primary)
-                binding.btnOk.setTextColor(white)
-                threesomeIsClicked = true
-            } else {
-                onTextViewClicked(it, false)
-                setTextColorValues(it as TextView, gray)
-                binding.btnOk.isEnabled = false
-                binding.btnOk.setBackgroundColor(gray)
-                binding.btnOk.setTextColor(primary)
-                threesomeIsClicked = false
-            }
+            threesomeIsClicked = actionForClickingValue(threesomeIsClicked, it)
         }
 
         binding.tv4xValue.setOnClickListener {
-            if (!foursomeIsClicked) {
-                onTextViewClicked(it, true)
-                setTextColorValues(it as TextView, black)
-                binding.btnOk.isEnabled = true
-                binding.btnOk.setBackgroundColor(primary)
-                binding.btnOk.setTextColor(white)
-                foursomeIsClicked = true
-            } else {
-                onTextViewClicked(it, false)
-                setTextColorValues(it as TextView, gray)
-                binding.btnOk.isEnabled = false
-                binding.btnOk.setBackgroundColor(gray)
-                binding.btnOk.setTextColor(primary)
-                foursomeIsClicked = false
-            }
+            foursomeIsClicked = actionForClickingValue(foursomeIsClicked, it)
         }
 
         binding.tvFullHouseValue.setOnClickListener {
-            if (!fullHouseIsClicked) {
-                onTextViewClicked(it, true)
-                setTextColorValues(it as TextView, black)
-                binding.btnOk.isEnabled = true
-                binding.btnOk.setBackgroundColor(primary)
-                binding.btnOk.setTextColor(white)
-                fullHouseIsClicked = true
-            } else {
-                onTextViewClicked(it, false)
-                setTextColorValues(it as TextView, gray)
-                binding.btnOk.isEnabled = false
-                binding.btnOk.setBackgroundColor(gray)
-                binding.btnOk.setTextColor(primary)
-                fullHouseIsClicked = false
-            }
+            actionForClickingValue(fullHouseIsClicked, it)
         }
 
         binding.tvBigStreetValue.setOnClickListener {
-            if (!bigStreetIsClicked) {
-                onTextViewClicked(it, true)
-                setTextColorValues(it as TextView, black)
-                binding.btnOk.isEnabled = true
-                binding.btnOk.setBackgroundColor(primary)
-                binding.btnOk.setTextColor(white)
-                bigStreetIsClicked = true
-            } else {
-                onTextViewClicked(it, false)
-                setTextColorValues(it as TextView, gray)
-                binding.btnOk.isEnabled = false
-                binding.btnOk.setBackgroundColor(gray)
-                binding.btnOk.setTextColor(primary)
-                bigStreetIsClicked = false
-            }
+            bigStreetIsClicked = actionForClickingValue(bigStreetIsClicked, it)
         }
 
         binding.tvLittleStreetValue.setOnClickListener {
-            if (!littleStreetIsClicked) {
-                onTextViewClicked(it, true)
-                setTextColorValues(it as TextView, black)
-                binding.btnOk.isEnabled = true
-                binding.btnOk.setBackgroundColor(primary)
-                binding.btnOk.setTextColor(white)
-                littleStreetIsClicked = true
-            } else {
-                onTextViewClicked(it, false)
-                setTextColorValues(it as TextView, gray)
-                binding.btnOk.isEnabled = false
-                binding.btnOk.setBackgroundColor(gray)
-                binding.btnOk.setTextColor(primary)
-                littleStreetIsClicked = false
-            }
+            littleStreetIsClicked = actionForClickingValue(littleStreetIsClicked, it)
         }
 
         binding.tvKniffelValue.setOnClickListener {
-            if (!kniffelIsClicked) {
-                onTextViewClicked(it, true)
-                setTextColorValues(it as TextView, black)
-                binding.btnOk.isEnabled = true
-                binding.btnOk.setBackgroundColor(primary)
-                binding.btnOk.setTextColor(white)
-                kniffelIsClicked = true
-            } else {
-                onTextViewClicked(it, false)
-                setTextColorValues(it as TextView, gray)
-                binding.btnOk.isEnabled = false
-                binding.btnOk.setBackgroundColor(gray)
-                binding.btnOk.setTextColor(primary)
-                kniffelIsClicked = false
-            }
+            kniffelIsClicked = actionForClickingValue(kniffelIsClicked, it)
         }
 
         binding.tvChanceValue.setOnClickListener {
-            if (!chanceIsClicked) {
-                onTextViewClicked(it, true)
-                setTextColorValues(it as TextView, black)
-                binding.btnOk.isEnabled = true
-                binding.btnOk.setBackgroundColor(primary)
-                binding.btnOk.setTextColor(white)
-                chanceIsClicked = true
-            } else {
-                onTextViewClicked(it, false)
-                setTextColorValues(it as TextView, gray)
-                binding.btnOk.isEnabled = false
-                binding.btnOk.setBackgroundColor(gray)
-                binding.btnOk.setTextColor(primary)
-                chanceIsClicked = false
-            }
+            chanceIsClicked = actionForClickingValue(chanceIsClicked, it)
         }
 
+
+        // wenn das Spiel beendet ist wird ein Dialog geöffnet
         kniffelViewModel.isGameOver.observe(viewLifecycleOwner) {
             if (it) {
                 kniffelViewModel.resetAllPoints()
@@ -601,6 +422,30 @@ class KniffelFragment : Fragment() {
             binding.tvKniffelValue -> value.kniffel.let { kniffelViewModel.setCheckTextViews(it, check) }
             binding.tvChanceValue -> value.chance.let { kniffelViewModel.setCheckTextViews(it, check) }
         }
+    }
+
+    // wenn die Textview geklickt wird werden einzelne Funktionen ausgeführt
+    // bei nochmaligen Klick werden diese Änderungen wieder rückgängig gemacht
+    private fun actionForClickingValue(variable: Boolean, it: View): Boolean {
+
+        var updateVariable = variable
+
+        if (!updateVariable) {
+            onTextViewClicked(it, true)
+            setTextColorValues(it as TextView, black)
+            binding.btnOk.isEnabled = true
+            binding.btnOk.setBackgroundColor(primary)
+            binding.btnOk.setTextColor(white)
+            updateVariable = true
+        } else {
+            onTextViewClicked(it, false)
+            setTextColorValues(it as TextView, gray)
+            binding.btnOk.isEnabled = false
+            binding.btnOk.setBackgroundColor(gray)
+            binding.btnOk.setTextColor(primary)
+            updateVariable = false
+        }
+        return updateVariable
     }
 
     private fun resetCheckIsClickedDice() {
