@@ -45,7 +45,7 @@
             android:fontFamily="@font/akaya_telivigala"
             android:text="@string/titleVictorys"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/rv_statistic"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_statisticTitle" />
 
         <TextView

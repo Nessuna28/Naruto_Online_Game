@@ -59,10 +59,6 @@ class ResultFragment : Fragment() {
                     binding.ivCharacterImage?.setImageResource(it.imagePose)
                     binding.vvCharacterVideo?.setVideoPath(it.video)
                     binding.vvCharacterVideo?.start()
-                    binding.vvCharacterVideo?.setOnErrorListener { mp, what, extra ->
-                        Log.e("VideoPlayer", "Error occurred while playing the video. Error code: $what")
-                        return@setOnErrorListener true
-                    }
                     context?.let { it1 -> viewModel.setSound(it1, it.sound) }
                 }
 
@@ -73,10 +69,6 @@ class ResultFragment : Fragment() {
                     binding.ivCharacterImage?.setImageResource(it.imageSad)
                     binding.vvCharacterVideo?.setVideoPath(it.video)
                     binding.vvCharacterVideo?.start()
-                    binding.vvCharacterVideo?.setOnErrorListener { mp, what, extra ->
-                        Log.e("VideoPlayer", "Error occurred while playing the video. Error code: $what")
-                        return@setOnErrorListener true
-                    }
                     context?.let { it1 -> viewModel.setSound(it1, it.sound) }
                 }
             }
