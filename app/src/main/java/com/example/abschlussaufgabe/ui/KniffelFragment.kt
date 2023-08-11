@@ -7,6 +7,7 @@ import android.app.Dialog
 import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -56,6 +57,16 @@ class KniffelFragment : Fragment() {
     private var littleStreetIsClicked = false
     private var kniffelIsClicked = false
     private var chanceIsClicked = false
+
+    // Variablen für den Check ob Ok-Button geklickt wurde
+    private var okButtonClicked = false
+    // Variable für die jetztige Runde
+    private var currentRound = 1
+    // Variable für eine Liste der ein Boolean übergeben wird wenn der Ok-Button geklickt wurde
+    private var rounds = mutableListOf<Boolean>()
+    // Variable für eine Liste die einen View und einen Boolean übergeben bekommt
+    // zum checken ob ich den View noch ändern kann
+    private var listOfPair = mutableListOf<Pair<View, Boolean>>()
 
     // Variablen für die Farbe
 
@@ -141,6 +152,10 @@ class KniffelFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        repeat(13) {
+            rounds.add(false)
+        }
+
         kniffelViewModel.points.observe(viewLifecycleOwner) {
             binding.tvPoints.text = it.toString()
         }
@@ -222,6 +237,9 @@ class KniffelFragment : Fragment() {
         }
 
         binding.btnOk.setOnClickListener {
+            okButtonClicked = !okButtonClicked
+            currentRound++
+            //rounds[currentRound] = true
             binding.btnRollTheDice.isEnabled = true
             kniffelViewModel.setAttempts(3)
             binding.btnRollTheDice.setBackgroundColor(primary)
@@ -299,27 +317,51 @@ class KniffelFragment : Fragment() {
         // die oberen Variablen als Check werden hier geändert ob geklickt oder nicht
 
         binding.tv1erValue.setOnClickListener {
-            oneIsClicked = actionForClickingValue(oneIsClicked, it)
+            val currentViewPair = listOfPair.find { it.first == it }
+            val currentViewBoolean = currentViewPair?.second ?: false
+            if (!currentViewBoolean) {
+                oneIsClicked = actionForClickingValue(oneIsClicked, it)
+            }
         }
 
         binding.tv2erValue.setOnClickListener {
-            twoIsClicked = actionForClickingValue(twoIsClicked, it)
+            val currentViewPair = listOfPair.find { it.first == it }
+            val currentViewBoolean = currentViewPair?.second ?: false
+            if (!currentViewBoolean) {
+                twoIsClicked = actionForClickingValue(twoIsClicked, it)
+            }
         }
 
         binding.tv3erValue.setOnClickListener {
-            threeIsClicked = actionForClickingValue(threeIsClicked, it)
+            val currentViewPair = listOfPair.find { it.first == it }
+            val currentViewBoolean = currentViewPair?.second ?: false
+            if (!currentViewBoolean) {
+                threeIsClicked = actionForClickingValue(threeIsClicked, it)
+            }
         }
 
         binding.tv4erValue.setOnClickListener {
-            fourIsClicked = actionForClickingValue(fourIsClicked, it)
+            val currentViewPair = listOfPair.find { it.first == it }
+            val currentViewBoolean = currentViewPair?.second ?: false
+            if (!currentViewBoolean) {
+                fourIsClicked = actionForClickingValue(fourIsClicked, it)
+            }
         }
 
         binding.tv5erValue.setOnClickListener {
-            fiveIsClicked = actionForClickingValue(fiveIsClicked, it)
+            val currentViewPair = listOfPair.find { it.first == it }
+            val currentViewBoolean = currentViewPair?.second ?: false
+            if (!currentViewBoolean) {
+                fiveIsClicked = actionForClickingValue(fiveIsClicked, it)
+            }
         }
 
         binding.tv6erValue.setOnClickListener {
-            actionForClickingValue(sixIsClicked, it)
+            val currentViewPair = listOfPair.find { it.first == it }
+            val currentViewBoolean = currentViewPair?.second ?: false
+            if (!currentViewBoolean) {
+                sixIsClicked = actionForClickingValue(sixIsClicked, it)
+            }
         }
 
         binding.tv3xValue.setOnClickListener {
@@ -424,6 +466,11 @@ class KniffelFragment : Fragment() {
         }
     }
 
+    private fun fillTheListOfPair(view: View, check: Boolean) {
+
+        listOfPair.add(Pair(view, check))
+    }
+
     // wenn die Textview geklickt wird werden einzelne Funktionen ausgeführt
     // bei nochmaligen Klick werden diese Änderungen wieder rückgängig gemacht
     private fun actionForClickingValue(variable: Boolean, it: View): Boolean {
@@ -438,16 +485,19 @@ class KniffelFragment : Fragment() {
             binding.btnOk.setTextColor(white)
             updateVariable = true
         } else {
-            onTextViewClicked(it, false)
-            setTextColorValues(it as TextView, gray)
-            binding.btnOk.isEnabled = false
-            binding.btnOk.setBackgroundColor(gray)
-            binding.btnOk.setTextColor(primary)
-            updateVariable = false
+                onTextViewClicked(it, false)
+                setTextColorValues(it as TextView, gray)
+                binding.btnOk.isEnabled = false
+                binding.btnOk.setBackgroundColor(gray)
+                binding.btnOk.setTextColor(primary)
+                updateVariable = false
         }
+
+        fillTheListOfPair(it, true)
         return updateVariable
     }
 
+    // setzt alle 5 Würfel wieder auf nicht angeklickt
     private fun resetCheckIsClickedDice() {
 
         dice1IsClicked = false
@@ -457,6 +507,7 @@ class KniffelFragment : Fragment() {
         dice5IsClicked = false
     }
 
+    // setzt alle TextViews auf nicht angeklickt
     private fun resetCheckIsClickedTextView() {
 
         oneIsClicked = false
@@ -472,12 +523,17 @@ class KniffelFragment : Fragment() {
         littleStreetIsClicked = false
         kniffelIsClicked = false
         chanceIsClicked = false
+
+        okButtonClicked = false
     }
 
+    // setzt die Farbe bei dem übergebenen Würfel auf eine übergebene Farbe
     private fun setColorDice(dice: View, color: Int) {
 
         dice.background.setTint(color)
     }
+
+    // Farben werden zurückgesetzt
 
     private fun resetColorDice() {
 
@@ -505,6 +561,7 @@ class KniffelFragment : Fragment() {
         binding.tvChanceValue.setTextColor(gray)
     }
 
+    // setzt den Text der übergeben TextView auf die übergeben Farbe
     private fun setTextColorValues(textView: TextView, textColor: Int) {
 
         textView.setTextColor(textColor)
