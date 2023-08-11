@@ -28,10 +28,9 @@
             android:id="@+id/iv_vs"
             android:layout_width="401dp"
             android:layout_height="239dp"
-            android:layout_marginTop="90dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_characterNamePlayer"
             app:srcCompat="@drawable/vs" />
 
         <TextView

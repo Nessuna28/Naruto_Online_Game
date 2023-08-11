@@ -27,8 +27,8 @@
 
         <VideoView
             android:id="@+id/vv_characterVideo"
-            android:layout_width="400dp"
-            android:layout_height="250dp"
+            android:layout_width="377dp"
+            android:layout_height="205dp"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="24dp"
             app:layout_constraintBottom_toTopOf="@+id/btn_selection"
@@ -38,10 +38,10 @@
             android:id="@+id/iv_characterImage"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="70dp"
             android:rotation="9"
-            app:layout_constraintEnd_toStartOf="@+id/vv_characterVideo"
+            app:layout_constraintStart_toEndOf="@+id/tv_titleRounds"
             app:layout_constraintTop_toBottomOf="@+id/tv_userName"
             app:srcCompat="@drawable/naruto_pose" />
 

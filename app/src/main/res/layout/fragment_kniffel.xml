@@ -14,8 +14,8 @@
 
         <TextView
             android:id="@+id/tv_3xValue"
-            android:layout_width="20sp"
-            android:layout_height="20sp"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
             android:layout_marginStart="8dp"
             android:background="@color/grey"
             android:gravity="center"
@@ -28,8 +28,8 @@
 
         <TextView
             android:id="@+id/tv_3erValue"
-            android:layout_width="20sp"
-            android:layout_height="20sp"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
             android:gravity="center"
             android:layout_marginStart="8dp"
             android:text="@string/kniffelValue"
@@ -42,8 +42,8 @@
 
         <TextView
             android:id="@+id/tv_fullHouseValue"
-            android:layout_width="20sp"
-            android:layout_height="20sp"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
             android:layout_marginStart="8dp"
             android:background="@color/grey"
             android:gravity="center"
@@ -56,8 +56,8 @@
 
         <TextView
             android:id="@+id/tv_4erValue"
-            android:layout_width="20sp"
-            android:layout_height="20sp"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
             android:gravity="center"
             android:layout_marginStart="8dp"
             android:text="@string/kniffelValue"
@@ -70,8 +70,8 @@
 
         <TextView
             android:id="@+id/tv_bigStreetValue"
-            android:layout_width="20sp"
-            android:layout_height="20sp"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
             android:layout_marginStart="8dp"
             android:background="@color/grey"
             android:gravity="center"
@@ -84,8 +84,8 @@
 
         <TextView
             android:id="@+id/tv_5erValue"
-            android:layout_width="20sp"
-            android:layout_height="20sp"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
             android:gravity="center"
             android:layout_marginStart="8dp"
             android:text="@string/kniffelValue"
@@ -98,8 +98,8 @@
 
         <TextView
             android:id="@+id/tv_littleStreetValue"
-            android:layout_width="20sp"
-            android:layout_height="20sp"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
             android:layout_marginStart="8dp"
             android:background="@color/grey"
             android:gravity="center"
@@ -112,8 +112,8 @@
 
         <TextView
             android:id="@+id/tv_6erValue"
-            android:layout_width="20sp"
-            android:layout_height="20sp"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
             android:gravity="center"
             android:layout_marginStart="8dp"
             android:text="@string/kniffelValue"
@@ -126,8 +126,8 @@
 
         <TextView
             android:id="@+id/tv_kniffelValue"
-            android:layout_width="20sp"
-            android:layout_height="20sp"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
             android:layout_marginStart="8dp"
             android:background="@color/grey"
             android:gravity="center"
@@ -140,8 +140,8 @@
 
         <TextView
             android:id="@+id/tv_bonusValue"
-            android:layout_width="20sp"
-            android:layout_height="20sp"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
             android:layout_marginStart="8dp"
             android:gravity="center"
             android:text="@string/kniffelValue"
@@ -154,8 +154,8 @@
 
         <TextView
             android:id="@+id/tv_chanceValue"
-            android:layout_width="20sp"
-            android:layout_height="20sp"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
             android:layout_marginStart="8dp"
             android:gravity="center"
             android:text="@string/kniffelValue"
@@ -168,8 +168,8 @@
 
         <TextView
             android:id="@+id/tv_2erValue"
-            android:layout_width="20sp"
-            android:layout_height="20sp"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
             android:gravity="center"
             android:layout_marginStart="8dp"
             android:text="@string/kniffelValue"
@@ -182,8 +182,8 @@
 
         <TextView
             android:id="@+id/tv_4xValue"
-            android:layout_width="20sp"
-            android:layout_height="20sp"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
             android:layout_marginStart="8dp"
             android:background="@color/grey"
             android:gravity="center"
@@ -221,7 +221,7 @@
             android:id="@+id/mc_dice1"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             android:backgroundTint="@color/primary"
             app:cardCornerRadius="5dp"
@@ -662,8 +662,8 @@
 
         <TextView
             android:id="@+id/tv_1erValue"
-            android:layout_width="20sp"
-            android:layout_height="20sp"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
             android:gravity="center"
             android:layout_marginStart="8dp"
             android:text="@string/kniffelValue"
@@ -883,7 +883,7 @@
                     android:id="@+id/mc_rolledDice1"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_marginStart="59dp"
+                    android:layout_marginStart="24dp"
                     android:backgroundTint="@color/primary"
                     app:cardCornerRadius="5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -898,7 +898,7 @@
                             android:id="@+id/iv_rolledDice1"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/anko_face"
+                            android:src="@drawable/kurenai_face"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -925,7 +925,7 @@
                             android:id="@+id/iv_rolledDice2"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/anko_face"
+                            android:src="@drawable/kurenai_face"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -952,7 +952,7 @@
                             android:id="@+id/iv_rolledDice3"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/anko_face"
+                            android:src="@drawable/kurenai_face"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -979,7 +979,7 @@
                             android:id="@+id/iv_rolledDice4"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/anko_face"
+                            android:src="@drawable/kurenai_face"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -992,11 +992,9 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginEnd="48dp"
                     android:backgroundTint="@color/primary"
                     app:cardCornerRadius="5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/mc_rolledDice4"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -1008,7 +1006,7 @@
                             android:id="@+id/iv_rolledDice5"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/anko_face"
+                            android:src="@drawable/kurenai_face"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"

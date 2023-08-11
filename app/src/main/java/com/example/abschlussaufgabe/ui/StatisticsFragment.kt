@@ -35,7 +35,7 @@ class StatisticsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_statistics, container, false)
         return binding.root
     }
@@ -44,11 +44,11 @@ class StatisticsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.victory.observe(viewLifecycleOwner) {
-            binding.tvVictorys?.text = it.toString()
+            binding.tvVictorys.text = it.toString()
         }
 
         viewModel.defeat.observe(viewLifecycleOwner) {
-            binding.tvDefeats?.text = it.toString()
+            binding.tvDefeats.text = it.toString()
         }
 
         viewModel.dataList.observe(viewLifecycleOwner) {

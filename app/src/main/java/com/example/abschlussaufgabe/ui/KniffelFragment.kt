@@ -7,10 +7,15 @@ import android.app.Dialog
 import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
@@ -19,6 +24,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.adapter.TeamAdapter
 import com.example.abschlussaufgabe.data.datamodels.modelForKniffel.Dice
+import com.example.abschlussaufgabe.data.datamodels.modelForKniffel.DiceSide
 import com.example.abschlussaufgabe.databinding.FragmentKniffelBinding
 import com.example.abschlussaufgabe.databinding.PopupLayoutBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -59,10 +65,13 @@ class KniffelFragment : Fragment() {
 
     // Variablen für den Check ob Ok-Button geklickt wurde
     private var okButtonClicked = false
+
     // Variable für die jetztige Runde
     private var currentRound = 1
+
     // Variable für eine Liste der ein Boolean übergeben wird wenn der Ok-Button geklickt wurde
     private var rounds = mutableListOf<Boolean>()
+
     // Variable für eine Liste die einen View und einen Boolean übergeben bekommt
     // zum checken ob ich den View noch ändern kann
     private var listOfPair = mutableListOf<Pair<View, Boolean>>()
@@ -141,7 +150,7 @@ class KniffelFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_kniffel, container, false)
 
         return binding.root
@@ -212,6 +221,7 @@ class KniffelFragment : Fragment() {
 
         kniffelViewModel.diceSideRolledDice3.observe(viewLifecycleOwner) {
             binding.ivRolledDice3.setImageResource(it!!.image)
+
         }
 
         kniffelViewModel.diceSideRolledDice4.observe(viewLifecycleOwner) {
@@ -230,6 +240,13 @@ class KniffelFragment : Fragment() {
                 kniffelViewModel.calculateAttempts()
                 kniffelViewModel.initRollingDice()
                 kniffelViewModel.rollTheDice()
+
+                //if (!dice1IsClicked) changingImagesWhenThrowingTheDice(binding.ivRolledDice1)
+                //if (!dice2IsClicked) changingImagesWhenThrowingTheDice(binding.ivRolledDice2)
+                //if (!dice3IsClicked) changingImagesWhenThrowingTheDice(binding.ivRolledDice3)
+                //if (!dice4IsClicked) changingImagesWhenThrowingTheDice(binding.ivRolledDice4)
+                //if (!dice5IsClicked) changingImagesWhenThrowingTheDice(binding.ivRolledDice5)
+
                 kniffelViewModel.setValues()
                 resetCheckIsClickedDice()
             }
@@ -317,23 +334,23 @@ class KniffelFragment : Fragment() {
         // die oberen Variablen als Check werden hier geändert ob geklickt oder nicht
 
         binding.tv1erValue.setOnClickListener {
-                oneIsClicked = actionForClickingValue(oneIsClicked, it)
+            oneIsClicked = actionForClickingValue(oneIsClicked, it)
         }
 
         binding.tv2erValue.setOnClickListener {
-                twoIsClicked = actionForClickingValue(twoIsClicked, it)
+            twoIsClicked = actionForClickingValue(twoIsClicked, it)
         }
 
         binding.tv3erValue.setOnClickListener {
-                threeIsClicked = actionForClickingValue(threeIsClicked, it)
+            threeIsClicked = actionForClickingValue(threeIsClicked, it)
         }
 
         binding.tv4erValue.setOnClickListener {
-                fourIsClicked = actionForClickingValue(fourIsClicked, it)
+            fourIsClicked = actionForClickingValue(fourIsClicked, it)
         }
 
         binding.tv5erValue.setOnClickListener {
-                fiveIsClicked = actionForClickingValue(fiveIsClicked, it)
+            fiveIsClicked = actionForClickingValue(fiveIsClicked, it)
         }
 
         binding.tv6erValue.setOnClickListener {
@@ -380,10 +397,12 @@ class KniffelFragment : Fragment() {
                 // Erstelle den MaterialAlertDialogBuilder
                 val builder = MaterialAlertDialogBuilder(requireContext())
                 builder.setTitle("Das Spiel ist beendet")
-                    .setMessage("""Du hast $points Punkte erzielt.
+                    .setMessage(
+                        """Du hast $points Punkte erzielt.
                         |
                         |
-                        |Möchtest du noch eine Runde spielen?""".trimMargin())
+                        |Möchtest du noch eine Runde spielen?""".trimMargin()
+                    )
                     .setPositiveButton("Ja") { dialog, which ->
                         findNavController().navigate(R.id.kniffelFragment)
                     }
@@ -393,7 +412,6 @@ class KniffelFragment : Fragment() {
                     .show()
             }
         }
-
 
 
         // Navigation
@@ -430,17 +448,64 @@ class KniffelFragment : Fragment() {
         when (textView) {
             binding.tv1erValue -> kniffelViewModel.changeOneBoolean(Pair(value.one.first, check))
             binding.tv2erValue -> kniffelViewModel.changeTwoBoolean(Pair(value.two.first, check))
-            binding.tv3erValue -> kniffelViewModel.changeThreeBoolean(Pair(value.three.first, check))
+            binding.tv3erValue -> kniffelViewModel.changeThreeBoolean(
+                Pair(
+                    value.three.first,
+                    check
+                )
+            )
+
             binding.tv4erValue -> kniffelViewModel.changeFourBoolean(Pair(value.four.first, check))
             binding.tv5erValue -> kniffelViewModel.changeFiveBoolean(Pair(value.five.first, check))
             binding.tv6erValue -> kniffelViewModel.changeSixBoolean(Pair(value.six.first, check))
-            binding.tv3xValue -> kniffelViewModel.changeThreesomeBoolean(Pair(value.threesome.first, check))
-            binding.tv4xValue -> kniffelViewModel.changeFoursomeBoolean(Pair(value.foursome.first, check))
-            binding.tvFullHouseValue -> kniffelViewModel.changeFullHouseBoolean(Pair(value.fullHouse.first, check))
-            binding.tvBigStreetValue -> kniffelViewModel.changeBigStreetBoolean(Pair(value.bigStreet.first, check))
-            binding.tvLittleStreetValue -> kniffelViewModel.changeLittleStreetBoolean(Pair(value.littleStreet.first, check))
-            binding.tvKniffelValue -> kniffelViewModel.changeKniffelBoolean(Pair(value.kniffel.first, check))
-            binding.tvChanceValue -> kniffelViewModel.changeChanceBoolean(Pair(value.chance.first, check))
+            binding.tv3xValue -> kniffelViewModel.changeThreesomeBoolean(
+                Pair(
+                    value.threesome.first,
+                    check
+                )
+            )
+
+            binding.tv4xValue -> kniffelViewModel.changeFoursomeBoolean(
+                Pair(
+                    value.foursome.first,
+                    check
+                )
+            )
+
+            binding.tvFullHouseValue -> kniffelViewModel.changeFullHouseBoolean(
+                Pair(
+                    value.fullHouse.first,
+                    check
+                )
+            )
+
+            binding.tvBigStreetValue -> kniffelViewModel.changeBigStreetBoolean(
+                Pair(
+                    value.bigStreet.first,
+                    check
+                )
+            )
+
+            binding.tvLittleStreetValue -> kniffelViewModel.changeLittleStreetBoolean(
+                Pair(
+                    value.littleStreet.first,
+                    check
+                )
+            )
+
+            binding.tvKniffelValue -> kniffelViewModel.changeKniffelBoolean(
+                Pair(
+                    value.kniffel.first,
+                    check
+                )
+            )
+
+            binding.tvChanceValue -> kniffelViewModel.changeChanceBoolean(
+                Pair(
+                    value.chance.first,
+                    check
+                )
+            )
         }
     }
 
@@ -463,12 +528,12 @@ class KniffelFragment : Fragment() {
             binding.btnOk.setTextColor(white)
             updateVariable = true
         } else {
-                onTextViewClicked(it, false)
-                setTextColorValues(it as TextView, gray)
-                binding.btnOk.isEnabled = false
-                binding.btnOk.setBackgroundColor(gray)
-                binding.btnOk.setTextColor(primary)
-                updateVariable = false
+            onTextViewClicked(it, false)
+            setTextColorValues(it as TextView, gray)
+            binding.btnOk.isEnabled = false
+            binding.btnOk.setBackgroundColor(gray)
+            binding.btnOk.setTextColor(primary)
+            updateVariable = false
         }
         return updateVariable
     }
@@ -541,5 +606,18 @@ class KniffelFragment : Fragment() {
     private fun setTextColorValues(textView: TextView, textColor: Int) {
 
         textView.setTextColor(textColor)
+    }
+
+    private fun changingImagesWhenThrowingTheDice(dice: ImageView, imageIndex: Int = 0) {
+
+        if (imageIndex < selectedDice.diceSideList.size) {
+            dice.setImageResource(selectedDice.diceSideList[imageIndex].image)
+
+            Handler().postDelayed({
+                changingImagesWhenThrowingTheDice(dice, imageIndex + 1)
+            }, 100)
+        } else {
+            kniffelViewModel.rollTheDice()
+        }
     }
 }

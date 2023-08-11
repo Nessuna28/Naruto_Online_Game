@@ -1,14 +1,11 @@
 package com.example.abschlussaufgabe.ui
 
 import android.content.pm.ActivityInfo
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.VideoView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -105,7 +102,7 @@ class ResultFragment : Fragment() {
             viewModel.resultEnemy.value!!,
             viewModel.victory.value!!,
             viewModel.defeat.value!!)
-
+        
         viewModel.updateDatabase(data)
 
 

@@ -133,6 +133,7 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
         initValues()
     }
 
+
     // Funktionen
 
     fun initValues() {
@@ -181,20 +182,23 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
     fun initRollingDice() {
 
         val list = mutableListOf<Dice>()
+        var index = 0
 
-        if (selectedDice.value!!.teamName == "Team Kakashi") {
-            list.add(DiceList().diceList[0])
-            list.add(DiceList().diceList[0])
-            list.add(DiceList().diceList[0])
-            list.add(DiceList().diceList[0])
-            list.add(DiceList().diceList[0])
-        } else if (selectedDice.value!!.teamName == "Team Gaara") {
-            list.add(DiceList().diceList[1])
-            list.add(DiceList().diceList[1])
-            list.add(DiceList().diceList[1])
-            list.add(DiceList().diceList[1])
-            list.add(DiceList().diceList[1])
+        // es werden je nach dem für welche Würfelbilder sich der Spieler entschieden hat,
+        // 5 Würfel mit der getroffenen Auswahl der Liste zugefügt
+        when(selectedDice.value!!.teamName) {
+            "Team Kakashi" -> index = 0
+            "Team Asuma" -> index = 1
+            "Team Kurenai" -> index = 2
+            "Team Maito Gai" -> index = 3
+            "Team Gaara" -> index = 4
         }
+
+        list.add(DiceList().diceList[index])
+        list.add(DiceList().diceList[index])
+        list.add(DiceList().diceList[index])
+        list.add(DiceList().diceList[index])
+        list.add(DiceList().diceList[index])
 
 
         // jedem Würfel zum würfeln wird ein Würfel aus der obrigen Liste zugewiesen
