@@ -181,49 +181,20 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
     fun initRollingDice() {
 
         val list = mutableListOf<Dice>()
-        list.add(Dice("Team Kakashi",
-            listOf(DiceSide(R.drawable.kakashi_face, 1, false),
-                DiceSide(R.drawable.naruto_face, 2, false),
-                DiceSide(R.drawable.sasuke_face, 3, false),
-                DiceSide(R.drawable.sakura_face, 4, false),
-                DiceSide(R.drawable.sai_face, 5, false),
-                DiceSide(R.drawable.kurama, 6, false))))
-        list.add(
-            Dice("Team Kakashi",
-                listOf(DiceSide(R.drawable.kakashi_face, 1, false),
-                    DiceSide(R.drawable.naruto_face, 2, false),
-                    DiceSide(R.drawable.sasuke_face, 3, false),
-                    DiceSide(R.drawable.sakura_face, 4, false),
-                    DiceSide(R.drawable.sai_face, 5, false),
-                    DiceSide(R.drawable.kurama, 6, false)))
-        )
-        list.add(
-            Dice("Team Kakashi",
-                listOf(DiceSide(R.drawable.kakashi_face, 1, false),
-                    DiceSide(R.drawable.naruto_face, 2, false),
-                    DiceSide(R.drawable.sasuke_face, 3, false),
-                    DiceSide(R.drawable.sakura_face, 4, false),
-                    DiceSide(R.drawable.sai_face, 5, false),
-                    DiceSide(R.drawable.kurama, 6, false)))
-        )
-        list.add(
-            Dice("Team Kakashi",
-                listOf(DiceSide(R.drawable.kakashi_face, 1, false),
-                    DiceSide(R.drawable.naruto_face, 2, false),
-                    DiceSide(R.drawable.sasuke_face, 3, false),
-                    DiceSide(R.drawable.sakura_face, 4, false),
-                    DiceSide(R.drawable.sai_face, 5, false),
-                    DiceSide(R.drawable.kurama, 6, false)))
-        )
-        list.add(
-            Dice("Team Kakashi",
-                listOf(DiceSide(R.drawable.kakashi_face, 1, false),
-                    DiceSide(R.drawable.naruto_face, 2, false),
-                    DiceSide(R.drawable.sasuke_face, 3, false),
-                    DiceSide(R.drawable.sakura_face, 4, false),
-                    DiceSide(R.drawable.sai_face, 5, false),
-                    DiceSide(R.drawable.kurama, 6, false)))
-        )
+
+        if (selectedDice.value!!.teamName == "Team Kakashi") {
+            list.add(DiceList().diceList[0])
+            list.add(DiceList().diceList[0])
+            list.add(DiceList().diceList[0])
+            list.add(DiceList().diceList[0])
+            list.add(DiceList().diceList[0])
+        } else if (selectedDice.value!!.teamName == "Team Gaara") {
+            list.add(DiceList().diceList[1])
+            list.add(DiceList().diceList[1])
+            list.add(DiceList().diceList[1])
+            list.add(DiceList().diceList[1])
+            list.add(DiceList().diceList[1])
+        }
 
 
         // jedem Würfel zum würfeln wird ein Würfel aus der obrigen Liste zugewiesen
@@ -404,27 +375,70 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
     }
 
     // setzt das übergebene Paar auf true oder false, je nach dem was übergeben wird
-    fun setCheckTextViews(pair: Pair<Int, Boolean>, check: Boolean) {
 
-        val values = _values.value!!
+    fun changeOneBoolean(pair: Pair<Int, Boolean>) {
 
-        when (pair) {
-            values.one -> values.one = pair.copy(second = check)
-            values.two -> values.two = pair.copy(second = check)
-            values.three -> values.three = pair.copy(second = check)
-            values.four -> values.four = pair.copy(second = check)
-            values.five -> values.five = pair.copy(second = check)
-            values.six -> values.six = pair.copy(second = check)
-            values.threesome -> values.threesome = pair.copy(second = check)
-            values.foursome -> values.foursome = pair.copy(second = check)
-            values.fullHouse -> values.fullHouse = pair.copy(second = check)
-            values.bigStreet -> values.bigStreet = pair.copy(second = check)
-            values.littleStreet -> values.littleStreet = pair.copy(second = check)
-            values.kniffel -> values.kniffel = pair.copy(second = check)
-            values.chance -> values.chance = pair.copy(second = check)
-        }
+        _values.value!!.one = pair
+    }
 
-        _values.value = values
+    fun changeTwoBoolean(pair: Pair<Int, Boolean>) {
+
+        _values.value!!.two = pair
+    }
+
+    fun changeThreeBoolean(pair: Pair<Int, Boolean>) {
+
+        _values.value!!.three = pair
+    }
+
+    fun changeFourBoolean(pair: Pair<Int, Boolean>) {
+
+        _values.value!!.four = pair
+    }
+
+    fun changeFiveBoolean(pair: Pair<Int, Boolean>) {
+
+        _values.value!!.five = pair
+    }
+
+    fun changeSixBoolean(pair: Pair<Int, Boolean>) {
+
+        _values.value!!.six = pair
+    }
+
+    fun changeThreesomeBoolean(pair: Pair<Int, Boolean>) {
+
+        _values.value!!.threesome = pair
+    }
+
+    fun changeFoursomeBoolean(pair: Pair<Int, Boolean>) {
+
+        _values.value!!.foursome = pair
+    }
+
+    fun changeFullHouseBoolean(pair: Pair<Int, Boolean>) {
+
+        _values.value!!.fullHouse = pair
+    }
+
+    fun changeBigStreetBoolean(pair: Pair<Int, Boolean>) {
+
+        _values.value!!.bigStreet = pair
+    }
+
+    fun changeLittleStreetBoolean(pair: Pair<Int, Boolean>) {
+
+        _values.value!!.littleStreet = pair
+    }
+
+    fun changeKniffelBoolean(pair: Pair<Int, Boolean>) {
+
+        _values.value!!.kniffel = pair
+    }
+
+    fun changeChanceBoolean(pair: Pair<Int, Boolean>) {
+
+        _values.value!!.chance = pair
     }
 
     // ändert die Werte der Paare auf 0 wenn sie false sind
@@ -438,6 +452,7 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
         if (!values.four.second) four = 0
         if (!values.five.second) five = 0
         if (!values.six.second) six = 0
+        if (!values.bonus.second) six = 0
         if (!values.threesome.second) threesome = 0
         if (!values.foursome.second) foursome = 0
         if (!values.fullHouse.second) fullHouse = 0
@@ -460,11 +475,15 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
 
         var total = 0
 
-        bonus = if (leftColumn >= 65) {
-            35
+        if (leftColumn >= 65) {
+            bonus = 35
+            _values.value!!.bonus = Pair(bonus, true)
         } else {
-            0
+            bonus = 0
+            _values.value!!.bonus = Pair(bonus, false)
         }
+
+        _values.value = _values.value
 
         total = leftColumn + rightColumn + bonus
 
@@ -472,6 +491,7 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
         _points.value = total
 
         Log.e("Spalten", "$leftColumn, $rightColumn")
+        Log.e("Bonus", "${values.value!!.bonus.first}")
         Log.e("Points", "${points.value}")
     }
 
@@ -484,7 +504,6 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
                 values.value!!.four.second &&
                 values.value!!.five.second &&
                 values.value!!.six.second &&
-                values.value!!.bonus.second &&
                 values.value!!.threesome.second &&
                 values.value!!.foursome.second &&
                 values.value!!.fullHouse.second &&
@@ -518,12 +537,5 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
         rightColumn = 0
 
         _points.value = 0
-        _selectedDice.value = null
-
-        _diceSideRolledDice1.value = null
-        _diceSideRolledDice2.value = null
-        _diceSideRolledDice3.value = null
-        _diceSideRolledDice4.value = null
-        _diceSideRolledDice5.value = null
     }
 }
