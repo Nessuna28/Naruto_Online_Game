@@ -722,6 +722,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
             if (player.value!!.lifePoints <= 0 || enemy.value!!.lifePoints <= 0) {
                 _rounds.value = rounds.value!!.plus(1)
                 Handler().removeCallbacks(runnable)
+                _roundBegan.value = false
             }
 
             if (player.value!!.lifePoints > 0) {
@@ -734,6 +735,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
                 _rounds.value = rounds.value!!.plus(1)
                 stopTimer()
                 Handler().removeCallbacks(runnable)
+                _roundBegan.value = false
                 if (player.value!!.lifePoints < enemy.value!!.lifePoints) {
                     _roundsWonEnemy.value = roundsWonEnemy.value!!.plus(1)
                 } else if (player.value!!.lifePoints > enemy.value!!.lifePoints) {
@@ -744,6 +746,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
                     _rounds.value = rounds.value!!.plus(1)
                     stopTimer()
                     Handler().removeCallbacks(runnable)
+                    _roundBegan.value = false
                 }
 
                 if (player.value!!.lifePoints > 0) {
@@ -756,8 +759,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
             _roundsWonPlayer.value = _roundsWonPlayer.value
             _roundsWonEnemy.value = _roundsWonEnemy.value
         }
-
-        //resetPointsForNewRound()
 
         _rounds.value = _rounds.value
         _roundsWonPlayer.value = _roundsWonPlayer.value
@@ -797,7 +798,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         _enemy.value = _enemy.value
     }
 
-
+    // setzt alle Werte zurück auf 0
     fun resetToDefaultRounds() {
 
         _gameEnd.value = false

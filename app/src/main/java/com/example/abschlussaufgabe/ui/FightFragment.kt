@@ -1,17 +1,14 @@
 package com.example.abschlussaufgabe.ui
 
 
-import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -37,6 +34,11 @@ class FightFragment : Fragment() {
     private lateinit var enemy: CharacterForFight
 
     private val handler = Handler()
+
+    // Variablen für die Farben
+    private val white = Color.WHITE
+    private val primary = Color.rgb(255, 105, 0)
+    private val darkGray = Color.DKGRAY
 
 
 
@@ -73,6 +75,8 @@ class FightFragment : Fragment() {
                 binding.mcRound1EnemyForOneRound?.visibility = View.INVISIBLE
             }
         }
+
+        resetColorForRound()
 
         viewModel.selectTimer.observe(viewLifecycleOwner) {
             if (it == "kein Zeitlimit") {
@@ -138,12 +142,13 @@ class FightFragment : Fragment() {
             binding.chakraPointsBarViewEnemy?.setCurrentChakraPoints(it.chakraPoints)
         }
 
-        viewModel.startRound(true)
 
         viewModel.roundBegan.observe(viewLifecycleOwner) {
             if (it) {
-                runViewsRound()
-                handler.postDelayed(viewModel.runnable, 6000)
+                if (viewModel.selectTimer.value != "kein Zeitlimit") {
+                    viewModel.startTimer()
+                }
+                handler.postDelayed(viewModel.runnable, 1000)
             }
         }
 
@@ -162,13 +167,15 @@ class FightFragment : Fragment() {
         }
 
         viewModel.attackEnemy.observe(viewLifecycleOwner) {
-            binding.ivImage2Enemy?.setImageResource(it.image)
+            if (viewModel.roundBegan.value == true) {
+                binding.ivImage2Enemy?.setImageResource(it.image)
                 if (player.lifePoints > 0 && enemy.lifePoints > 0 || viewModel.remainingTime.value!! > 0) {
                     viewModel.playRoundEnemy()
                     actionOfSelectionEnemy(it)
                 } else {
                     viewModel.endRound()
                 }
+            }
         }
 
         viewModel.roundsWonPlayer.observe(viewLifecycleOwner) {
@@ -208,7 +215,9 @@ class FightFragment : Fragment() {
 
         viewModel.gameEnd.observe(viewLifecycleOwner) {
             if (it) {
-                findNavController().navigate(FightFragmentDirections.actionFightFragmentToResultFragment())
+                handler.postDelayed({
+                    findNavController().navigate(FightFragmentDirections.actionFightFragmentToResultFragment())
+                }, 3000)
             }
         }
     }
@@ -430,6 +439,7 @@ class FightFragment : Fragment() {
         }
     }
 
+    // setzt die Attacken für den Spieler auf sichtbar
     private fun visibleAttacks() {
 
             binding.ivRound?.visibility = View.INVISIBLE
@@ -444,6 +454,7 @@ class FightFragment : Fragment() {
             binding.rvToolsPlayer?.visibility = View.VISIBLE
     }
 
+    // setzt die Attacken für den Spieler auf unsichtbar
     private fun invisibleAttacks() {
 
         binding.tvTitleDefense?.visibility = View.INVISIBLE
@@ -456,6 +467,8 @@ class FightFragment : Fragment() {
         binding.rvToolsPlayer?.visibility = View.INVISIBLE
     }
 
+    // zeigt nach und nach die Views in welcher Runde man sich befindet und Fight, je nach dem ob man 1 oder 3 Runden spielt
+    // danach werden die Attacken sichtbar gemacht und der Timer startet
      fun runViewsRound() {
 
          if (viewModel.rounds.value!! == 0) {
@@ -485,10 +498,10 @@ class FightFragment : Fragment() {
                              handler.postDelayed({
                                  binding.ivFight?.visibility = View.INVISIBLE
 
-                                 visibleAttacks()
-                                 if (viewModel.selectTimer.value != "kein Zeitlimit") {
-                                     viewModel.startTimer()
-                                 }
+                                 handler.postDelayed({
+                                     viewModel.startRound(true)
+                                     visibleAttacks()
+                                 }, 1000)
                              }, 2000)
                          }, 2000)
                      }, 2000)
@@ -505,10 +518,10 @@ class FightFragment : Fragment() {
                          handler.postDelayed({
                              binding.ivFight?.visibility = View.INVISIBLE
 
-                             visibleAttacks()
-                             if (viewModel.selectTimer.value != "kein Zeitlimit") {
-                                 viewModel.startTimer()
-                             }
+                             handler.postDelayed({
+                                 viewModel.startRound(true)
+                                 visibleAttacks()
+                             }, 1000)
                          }, 2000)
                      }, 2000)
                  }, 2000)
@@ -529,10 +542,10 @@ class FightFragment : Fragment() {
                          handler.postDelayed({
                              binding.ivFight?.visibility = View.INVISIBLE
 
-                             visibleAttacks()
-                             if (viewModel.selectTimer.value != "kein Zeitlimit") {
-                                 viewModel.startTimer()
-                             }
+                             handler.postDelayed({
+                                 viewModel.startRound(true)
+                                 visibleAttacks()
+                             }, 1000)
                          }, 2000)
                      }, 2000)
                  }, 2000)
@@ -580,33 +593,46 @@ class FightFragment : Fragment() {
 
         if (rounds == 1) {
             if (player.lifePoints > 0) {
-                binding.mcRound1Player?.background?.setTint(Color.rgb(255, 105, 0))
-                binding.mcRound1PlayerForOneRound?.background?.setTint(Color.rgb(255, 105, 0))
-                binding.mcRound1Enemy?.background?.setTint(Color.DKGRAY)
-                binding.mcRound1EnemyForOneRound?.background?.setTint(Color.DKGRAY)
+                binding.mcRound1Player?.background?.setTint(primary)
+                binding.mcRound1PlayerForOneRound?.background?.setTint(primary)
+                binding.mcRound1Enemy?.background?.setTint(darkGray)
+                binding.mcRound1EnemyForOneRound?.background?.setTint(darkGray)
             } else if (enemy.lifePoints > 0){
-                binding.mcRound1Player?.background?.setTint(Color.DKGRAY)
-                binding.mcRound1PlayerForOneRound?.background?.setTint(Color.DKGRAY)
-                binding.mcRound1Enemy?.background?.setTint(Color.rgb(255, 105, 0))
-                binding.mcRound1EnemyForOneRound?.background?.setTint(Color.rgb(255, 105, 0))
+                binding.mcRound1Player?.background?.setTint(darkGray)
+                binding.mcRound1PlayerForOneRound?.background?.setTint(darkGray)
+                binding.mcRound1Enemy?.background?.setTint(primary)
+                binding.mcRound1EnemyForOneRound?.background?.setTint(primary)
             }
         } else if (rounds == 2) {
             if (player.lifePoints > 0) {
-                binding.mcRound2Player?.background?.setTint(Color.rgb(255, 105, 0))
-                binding.mcRound2Enemy?.background?.setTint(Color.DKGRAY)
+                binding.mcRound2Player?.background?.setTint(primary)
+                binding.mcRound2Enemy?.background?.setTint(darkGray)
             } else if (enemy.lifePoints > 0) {
-                binding.mcRound2Player?.background?.setTint(Color.DKGRAY)
-                binding.mcRound2Enemy?.background?.setTint(Color.rgb(255, 105, 0))
+                binding.mcRound2Player?.background?.setTint(darkGray)
+                binding.mcRound2Enemy?.background?.setTint(primary)
             }
         } else if (rounds == 3) {
             if (player.lifePoints > 0) {
-                binding.mcRound3Player?.background?.setTint(Color.rgb(255, 105, 0))
-                binding.mcRound3Enemy?.background?.setTint(Color.DKGRAY)
+                binding.mcRound3Player?.background?.setTint(primary)
+                binding.mcRound3Enemy?.background?.setTint(darkGray)
             } else if (enemy.lifePoints > 0) {
-                binding.mcRound3Player?.background?.setTint(Color.DKGRAY)
-                binding.mcRound3Enemy?.background?.setTint(Color.rgb(255, 105, 0))
+                binding.mcRound3Player?.background?.setTint(darkGray)
+                binding.mcRound3Enemy?.background?.setTint(primary)
             }
         }
+    }
+
+    private fun resetColorForRound() {
+
+        binding.mcRound1Player?.background?.setTint(white)
+        binding.mcRound2Player?.background?.setTint(white)
+        binding.mcRound3Player?.background?.setTint(white)
+        binding.mcRound1PlayerForOneRound?.background?.setTint(white)
+
+        binding.mcRound1Enemy?.background?.setTint(white)
+        binding.mcRound2Enemy?.background?.setTint(white)
+        binding.mcRound3Enemy?.background?.setTint(white)
+        binding.mcRound1EnemyForOneRound?.background?.setTint(white)
     }
 }
 

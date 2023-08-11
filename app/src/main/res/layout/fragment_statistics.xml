@@ -36,17 +36,65 @@
             app:layout_constraintStart_toEndOf="@+id/iv_back"
             app:layout_constraintTop_toTopOf="@+id/iv_back" />
 
+        <TextView
+            android:id="@+id/tv_titleVictorys"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/akaya_telivigala"
+            android:text="@string/titleVictorys"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/rv_statistic"
+            app:layout_constraintTop_toBottomOf="@+id/tv_statisticTitle" />
+
+        <TextView
+            android:id="@+id/tv_victorys"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:fontFamily="@font/akaya_telivigala"
+            android:text="2"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_titleVictorys"
+            app:layout_constraintStart_toEndOf="@+id/tv_titleVictorys"
+            app:layout_constraintTop_toTopOf="@+id/tv_titleVictorys" />
+
+        <TextView
+            android:id="@+id/tv_titleDefeats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="70dp"
+            android:fontFamily="@font/akaya_telivigala"
+            android:text="@string/titleDefeats"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_victorys"
+            app:layout_constraintStart_toEndOf="@+id/tv_victorys"
+            app:layout_constraintTop_toTopOf="@+id/tv_victorys" />
+
+        <TextView
+            android:id="@+id/tv_defeats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:fontFamily="@font/akaya_telivigala"
+            android:text="1"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_titleDefeats"
+            app:layout_constraintStart_toEndOf="@+id/tv_titleDefeats"
+            app:layout_constraintTop_toTopOf="@+id/tv_titleDefeats" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_statistic"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:scrollbars="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_statisticTitle"
+            app:layout_constraintTop_toBottomOf="@+id/tv_titleVictorys"
             tools:listitem="@layout/statistic_item" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
