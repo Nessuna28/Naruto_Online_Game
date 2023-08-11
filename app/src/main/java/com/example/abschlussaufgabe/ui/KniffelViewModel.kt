@@ -192,6 +192,8 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
             "Team Kurenai" -> index = 2
             "Team Maito Gai" -> index = 3
             "Team Gaara" -> index = 4
+            "Team legendäre Sannin" -> index = 5
+            "Team Hokage" -> index = 6
         }
 
         list.add(DiceList().diceList[index])

@@ -52,6 +52,24 @@ class DiceList {
                 DiceSide(R.drawable.shukaku, 6, false))
         ),
 
+        Dice("Team legendäre Sannin",
+            listOf(DiceSide(R.drawable.tsunade_face, 1,false),
+                DiceSide(R.drawable.jiraiya_face, 2, false),
+                DiceSide(R.drawable.orochimaru_face, 3, false),
+                DiceSide(R.drawable.katsuyu, 4, false),
+                DiceSide(R.drawable.gamabunta, 5, false),
+                DiceSide(R.drawable.manda, 6, false))
+        ),
+
+        Dice("Team Hokage",
+            listOf(DiceSide(R.drawable.hashirama_face, 1,false),
+                DiceSide(R.drawable.tobirama_face, 2, false),
+                DiceSide(R.drawable.sarutobi_face, 3, false),
+                DiceSide(R.drawable.minato_face, 4, false),
+                DiceSide(R.drawable.tsunade_face, 5, false),
+                DiceSide(R.drawable.kakashi_face, 6, false))
+        ),
+
 
     )
 }
