@@ -51,50 +51,82 @@
             android:id="@+id/tv_titleGames"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:fontFamily="@font/akaya_telivigala"
             android:text="@string/games"
-            android:textSize="20sp"
+            android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/iv_back"
-            app:layout_constraintStart_toEndOf="@+id/iv_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/iv_back" />
 
         <TextView
             android:id="@+id/tv_fight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/akaya_telivigala"
             android:text="@string/titleFight"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_titleGames" />
+            app:layout_constraintBottom_toBottomOf="@+id/iv_fight"
+            app:layout_constraintStart_toEndOf="@+id/iv_fight"
+            app:layout_constraintTop_toTopOf="@+id/iv_fight" />
 
         <TextView
             android:id="@+id/tv_kniffel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/akaya_telivigala"
             android:text="@string/kniffel"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/tv_fight"
-            app:layout_constraintStart_toStartOf="@+id/tv_fight"
-            app:layout_constraintTop_toBottomOf="@+id/tv_fight" />
+            app:layout_constraintBottom_toBottomOf="@+id/iv_kniffel"
+            app:layout_constraintStart_toEndOf="@+id/iv_kniffel"
+            app:layout_constraintTop_toTopOf="@+id/iv_kniffel" />
 
         <TextView
             android:id="@+id/tv_memory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_width="77dp"
+            android:layout_height="27dp"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/akaya_telivigala"
             android:text="@string/memory"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/tv_kniffel"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+            app:layout_constraintStart_toEndOf="@+id/imageView3"
             app:layout_constraintStart_toStartOf="@+id/tv_kniffel"
-            app:layout_constraintTop_toBottomOf="@+id/tv_kniffel" />
+            app:layout_constraintTop_toTopOf="@+id/imageView3" />
+
+        <ImageView
+            android:id="@+id/iv_kniffel"
+            android:layout_width="81dp"
+            android:layout_height="71dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="@+id/iv_fight"
+            app:layout_constraintTop_toBottomOf="@+id/iv_fight"
+            app:srcCompat="@drawable/kniffel" />
+
+        <ImageView
+            android:id="@+id/iv_fight"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_titleGames"
+            app:srcCompat="@drawable/fight_image" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="85dp"
+            android:layout_height="77dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="@+id/iv_kniffel"
+            app:layout_constraintTop_toBottomOf="@+id/iv_kniffel"
+            app:srcCompat="@drawable/memory" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

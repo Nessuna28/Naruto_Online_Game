@@ -49,7 +49,7 @@ class LocationSelectionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         fightViewModel.locationList.observe(viewLifecycleOwner) {
-            binding.rvLocation?.adapter = LocationAdapter(it, viewModel)
+            binding.rvLocation?.adapter = LocationAdapter(it, fightViewModel)
         }
 
         fightViewModel.location.observe(viewLifecycleOwner) {

@@ -75,8 +75,8 @@ class CharacterSelectionFragment : Fragment() {
         }
 
         fightViewModel.characterForFight.observe(viewLifecycleOwner) {
-            binding.rvCharactersPlayer?.adapter = SelectionCharacterPlayerAdapter(it, viewModel)
-            binding.rvCharactersEnemy?.adapter = SelectionCharacterEnemyAdapter(it, viewModel)
+            binding.rvCharactersPlayer?.adapter = SelectionCharacterPlayerAdapter(it, fightViewModel)
+            binding.rvCharactersEnemy?.adapter = SelectionCharacterEnemyAdapter(it, fightViewModel)
         }
 
         fightViewModel.player.observe(viewLifecycleOwner) {
@@ -86,10 +86,10 @@ class CharacterSelectionFragment : Fragment() {
             binding.ivSelectionPlayer?.setImageResource(it.image)
             binding.tvTitleJutsusPlayer?.visibility = View.VISIBLE
             binding.rvJutsusPlayer?.visibility = View.VISIBLE
-            binding.rvJutsusPlayer?.adapter = JutsuPlayerAdapter(it.jutsus, viewModel)
+            binding.rvJutsusPlayer?.adapter = JutsuPlayerAdapter(it.jutsus, fightViewModel)
             binding.tvTitleTraitsPlayer?.visibility = View.VISIBLE
             binding.rvTraitsPlayer?.visibility = View.VISIBLE
-            binding.rvTraitsPlayer?.adapter = TraitPlayerAdapter(it.uniqueTraits, viewModel)
+            binding.rvTraitsPlayer?.adapter = TraitPlayerAdapter(it.uniqueTraits, fightViewModel)
         }
 
         fightViewModel.enemy.observe(viewLifecycleOwner) {
