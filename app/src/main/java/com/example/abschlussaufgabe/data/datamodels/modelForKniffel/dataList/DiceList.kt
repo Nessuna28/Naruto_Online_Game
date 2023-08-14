@@ -88,6 +88,5 @@ class DiceList {
                 DiceSide(R.drawable.kabuto_face, 6, false))
         ),
 
-
     )
 }
