@@ -5,11 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.Jutsu
 import com.example.abschlussaufgabe.databinding.JutsuPlayerItemBinding
-import com.example.abschlussaufgabe.ui.MainViewModel
+import com.example.abschlussaufgabe.ui.FightViewModel
 
 
 class JutsuPlayerAdapter(private var dataset: List<Jutsu>,
-                         private var viewModel: MainViewModel
+                         private var fightViewModel: FightViewModel
 ): RecyclerView.Adapter<JutsuPlayerAdapter.ItemViewHolder>() {
 
 
@@ -35,7 +35,7 @@ class JutsuPlayerAdapter(private var dataset: List<Jutsu>,
         holder.binding.tvJutsuPlayer.text = jutsu.name
 
         holder.binding.tvJutsuPlayer.setOnClickListener {
-            viewModel.setAttackPlayer(jutsu)
+            fightViewModel.setAttackPlayer(jutsu)
         }
     }
 }

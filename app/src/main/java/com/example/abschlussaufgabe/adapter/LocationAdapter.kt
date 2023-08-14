@@ -5,10 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.Location
 import com.example.abschlussaufgabe.databinding.LocationItemBinding
+import com.example.abschlussaufgabe.ui.FightViewModel
 import com.example.abschlussaufgabe.ui.MainViewModel
 
 class LocationAdapter(private var dataset: List<Location>,
-                      private var viewModel: MainViewModel
+                      private var fightViewModel: FightViewModel
 ): RecyclerView.Adapter<LocationAdapter.ItemViewHolder>() {
 
 
@@ -34,7 +35,7 @@ class LocationAdapter(private var dataset: List<Location>,
         holder.binding.ivLocation.setImageResource(location.image)
 
         holder.binding.ivLocation.setOnClickListener {
-            viewModel.setLocation(location)
+            fightViewModel.setLocation(location)
         }
     }
 }

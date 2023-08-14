@@ -20,6 +20,7 @@ import com.example.abschlussaufgabe.databinding.FragmentLocationSelectionBinding
 class LocationSelectionFragment : Fragment() {
 
     private val viewModel: MainViewModel by activityViewModels()
+    private val fightViewModel: FightViewModel by activityViewModels()
 
     private lateinit var binding: FragmentLocationSelectionBinding
 
@@ -47,11 +48,11 @@ class LocationSelectionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.locationList.observe(viewLifecycleOwner) {
+        fightViewModel.locationList.observe(viewLifecycleOwner) {
             binding.rvLocation?.adapter = LocationAdapter(it, viewModel)
         }
 
-        viewModel.location.observe(viewLifecycleOwner) {
+        fightViewModel.location.observe(viewLifecycleOwner) {
             if (it != null) {
                 binding.tvLocationName?.text = it.name
             }
@@ -63,14 +64,14 @@ class LocationSelectionFragment : Fragment() {
         binding.btnOk?.setOnClickListener {
             binding.btnOk!!.setBackgroundColor(Color.GREEN)
             binding.btnOk!!.setTextColor(Color.WHITE)
-            viewModel.confirmSelectionLocation(true)
+            fightViewModel.confirmSelectionLocation(true)
             binding.rvLocation?.isEnabled = false
             binding.btnFurther?.setBackgroundColor(Color.rgb(255, 105, 0))
             binding.btnFurther?.visibility = View.VISIBLE
         }
 
         binding.btnRandom?.setOnClickListener {
-            viewModel.randomLocation()
+            fightViewModel.randomLocation()
         }
 
         binding.ivBack?.setOnClickListener {
@@ -78,7 +79,7 @@ class LocationSelectionFragment : Fragment() {
         }
 
         binding.btnFurther?.setOnClickListener {
-            if (viewModel.selectionConfirmLocation.value == true) {
+            if (fightViewModel.selectionConfirmLocation.value == true) {
                 findNavController().navigate(LocationSelectionFragmentDirections.actionLocationSelectionFragmentToFightFragment())
             } // TODO: Toast schreiben
         }

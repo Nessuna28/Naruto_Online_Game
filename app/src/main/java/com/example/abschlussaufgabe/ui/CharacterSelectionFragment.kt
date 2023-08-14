@@ -24,6 +24,7 @@ import com.example.abschlussaufgabe.databinding.FragmentCharacterSelectionBindin
 class CharacterSelectionFragment : Fragment() {
 
     private val viewModel: MainViewModel by activityViewModels()
+    private val fightViewModel: FightViewModel by activityViewModels()
 
     private lateinit var binding: FragmentCharacterSelectionBinding
 
@@ -40,7 +41,7 @@ class CharacterSelectionFragment : Fragment() {
         viewModel.imageBackground.value?.let { viewModel.hideImages(it) }
         viewModel.imageTitle.value?.let { viewModel.hideImages(it) }
 
-        val firstCharacter = viewModel.characterForFight.value!!.first()
+        val firstCharacter = fightViewModel.characterForFight.value!!.first()
         binding.tvCharacterNamePlayer?.text = firstCharacter.name
         binding.tvCharacterNameEnemy?.text = firstCharacter.name
         binding.ivSelectionPlayer?.setImageResource(firstCharacter.image)
@@ -73,12 +74,12 @@ class CharacterSelectionFragment : Fragment() {
             binding.tvEnemyName?.text = it
         }
 
-        viewModel.characterForFight.observe(viewLifecycleOwner) {
+        fightViewModel.characterForFight.observe(viewLifecycleOwner) {
             binding.rvCharactersPlayer?.adapter = SelectionCharacterPlayerAdapter(it, viewModel)
             binding.rvCharactersEnemy?.adapter = SelectionCharacterEnemyAdapter(it, viewModel)
         }
 
-        viewModel.player.observe(viewLifecycleOwner) {
+        fightViewModel.player.observe(viewLifecycleOwner) {
             binding.tvCharacterNamePlayer?.visibility = View.VISIBLE
             binding.tvCharacterNamePlayer?.text = it.name
             binding.ivSelectionPlayer?.visibility = View.VISIBLE
@@ -91,7 +92,7 @@ class CharacterSelectionFragment : Fragment() {
             binding.rvTraitsPlayer?.adapter = TraitPlayerAdapter(it.uniqueTraits, viewModel)
         }
 
-        viewModel.enemy.observe(viewLifecycleOwner) {
+        fightViewModel.enemy.observe(viewLifecycleOwner) {
             binding.tvCharacterNameEnemy?.visibility = View.VISIBLE
             binding.tvCharacterNameEnemy?.text = it.name
             binding.ivSelectionEnemy?.visibility = View.VISIBLE
@@ -108,10 +109,10 @@ class CharacterSelectionFragment : Fragment() {
         // OnClickListerner & Navigation
 
         binding.btnOkPlayer?.setOnClickListener {
-            if (viewModel.player.isInitialized) {
-                binding.ivSelectionPlayer?.setImageResource(viewModel.player.value!!.imagePose)
+            if (fightViewModel.player.isInitialized) {
+                binding.ivSelectionPlayer?.setImageResource(fightViewModel.player.value!!.imagePose)
                 it.setBackgroundColor(Color.GREEN)
-                viewModel.confirmSelectionPlayer(true)
+                fightViewModel.confirmSelectionPlayer(true)
                 binding.rvCharactersPlayer?.isEnabled = false
                 binding.rvCharactersEnemy?.isEnabled = true
                 check()
@@ -119,35 +120,35 @@ class CharacterSelectionFragment : Fragment() {
         }
 
         binding.btnRandomPlayer?.setOnClickListener {
-            viewModel.randomCharacterForPlayer()
-            viewModel.confirmSelectionPlayer(true)
+            fightViewModel.randomCharacterForPlayer()
+            fightViewModel.confirmSelectionPlayer(true)
         }
 
 
         binding.btnOkEnemy?.setOnClickListener {
-            if (viewModel.enemy.isInitialized) {
-                binding.ivSelectionEnemy?.setImageResource(viewModel.enemy.value!!.imagePose)
+            if (fightViewModel.enemy.isInitialized) {
+                binding.ivSelectionEnemy?.setImageResource(fightViewModel.enemy.value!!.imagePose)
                 it.setBackgroundColor(Color.GREEN)
-                viewModel.confirmSelectionEnemy(true)
+                fightViewModel.confirmSelectionEnemy(true)
                 binding.rvCharactersEnemy?.isEnabled = false
                 check()
             }
         }
 
         binding.btnRandomEnemy?.setOnClickListener {
-            viewModel.randomCharacterForEnemy()
-            viewModel.confirmSelectionEnemy(true)
+            fightViewModel.randomCharacterForEnemy()
+            fightViewModel.confirmSelectionEnemy(true)
         }
 
 
         binding.btnFurther?.setOnClickListener {
-            if (viewModel.selectionConfirmedPlayer.value == true && viewModel.selectionConfirmedEnemy.value == true) {
+            if (fightViewModel.selectionConfirmedPlayer.value == true && fightViewModel.selectionConfirmedEnemy.value == true) {
                 findNavController().navigate(CharacterSelectionFragmentDirections.actionCharacterSelectionFragmentToLocationSelectionFragment())
             } // TODO: Toast schreiben
         }
 
         binding.btnReset?.setOnClickListener {
-            viewModel.resetSelectionData()
+            fightViewModel.resetSelectionData()
             resetToDefault()
         }
 
@@ -162,7 +163,7 @@ class CharacterSelectionFragment : Fragment() {
 
     private fun check() {
 
-        if (viewModel.selectionConfirmedPlayer.value == true && viewModel.selectionConfirmedEnemy.value == true) {
+        if (fightViewModel.selectionConfirmedPlayer.value == true && fightViewModel.selectionConfirmedEnemy.value == true) {
             binding.btnFurther?.visibility = View.VISIBLE
             binding.btnFurther?.setBackgroundColor(Color.rgb(255, 105, 0))
         }

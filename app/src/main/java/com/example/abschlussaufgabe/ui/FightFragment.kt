@@ -27,6 +27,7 @@ import com.example.abschlussaufgabe.databinding.FragmentFightBinding
 class FightFragment : Fragment() {
 
     private val viewModel: MainViewModel by activityViewModels()
+    private val fightViewModel: FightViewModel by activityViewModels()
 
     private lateinit var binding: FragmentFightBinding
 
@@ -58,11 +59,11 @@ class FightFragment : Fragment() {
 
         invisibleAttacks()
 
-        handler.removeCallbacks(viewModel.runnable)
-        viewModel.resetPointsForNewGame()
-        viewModel.resetToDefaultRounds()
+        handler.removeCallbacks(fightViewModel.runnable)
+        fightViewModel.resetPointsForNewGame()
+        fightViewModel.resetToDefaultRounds()
 
-        viewModel.selectRounds.observe(viewLifecycleOwner) {
+        fightViewModel.selectRounds.observe(viewLifecycleOwner) {
             if (it == "1") {
                 binding.mcRound1Player?.visibility = View.INVISIBLE
                 binding.mcRound2Player?.visibility = View.INVISIBLE
@@ -78,11 +79,11 @@ class FightFragment : Fragment() {
 
         resetColorForRound()
 
-        viewModel.selectTimer.observe(viewLifecycleOwner) {
+        fightViewModel.selectTimer.observe(viewLifecycleOwner) {
             if (it == "kein Zeitlimit") {
                 binding.tvTimer?.visibility = View.INVISIBLE
                 binding.ivTimer?.setImageResource(R.drawable.no_time)
-                viewModel.stopTimer()
+                fightViewModel.stopTimer()
             } else {
                 binding.ivTimer?.visibility = View.INVISIBLE
             }
@@ -102,18 +103,18 @@ class FightFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        player = viewModel.player.value!!
-        enemy = viewModel.enemy.value!!
+        player = fightViewModel.player.value!!
+        enemy = fightViewModel.enemy.value!!
 
         viewModel.profile.observe(viewLifecycleOwner) {
             binding.tvNamePlayer?.text = it.userName
         }
 
-        viewModel.location.observe(viewLifecycleOwner) {
+        fightViewModel.location.observe(viewLifecycleOwner) {
             binding.ivBackgroundFight?.setImageResource(it.image)
         }
 
-        viewModel.player.observe(viewLifecycleOwner) {
+        fightViewModel.player.observe(viewLifecycleOwner) {
             binding.ivCharacterImagePlayer?.setImageResource(it.imageFace)
             binding.ivImage1Player?.setImageResource(it.image)
             binding.ivImageDouble1Player?.setImageResource(it.image)
@@ -124,13 +125,13 @@ class FightFragment : Fragment() {
             binding.chakraPointsBarViewPlayer?.setMaxChakraPoints(it.chakraPointsStart)
             binding.chakraPointsBarViewPlayer?.setCurrentChakraPoints(it.chakraPoints)
 
-            binding.rvDefensePlayer?.adapter = DefensePlayerAdapter(it.defense, viewModel)
-            binding.rvToolsPlayer?.adapter = ToolPlayerAdapter(it.tools, viewModel)
-            binding.rvUniqueTraitsPlayer?.adapter = TraitPlayerAdapter(it.uniqueTraits, viewModel)
-            binding.rvJutsuPlayer?.adapter = JutsuPlayerAdapter(it.jutsus, viewModel)
+            binding.rvDefensePlayer?.adapter = DefensePlayerAdapter(it.defense, fightViewModel)
+            binding.rvToolsPlayer?.adapter = ToolPlayerAdapter(it.tools, fightViewModel)
+            binding.rvUniqueTraitsPlayer?.adapter = TraitPlayerAdapter(it.uniqueTraits, fightViewModel)
+            binding.rvJutsuPlayer?.adapter = JutsuPlayerAdapter(it.jutsus, fightViewModel)
         }
 
-        viewModel.enemy.observe(viewLifecycleOwner) {
+        fightViewModel.enemy.observe(viewLifecycleOwner) {
             binding.ivCharacterImageEnemy?.setImageResource(it.imageFace)
             binding.ivImage1Enemy?.setImageResource(it.image)
             binding.ivImageDouble1Enemy?.setImageResource(it.image)
@@ -143,66 +144,66 @@ class FightFragment : Fragment() {
         }
 
 
-        viewModel.roundBegan.observe(viewLifecycleOwner) {
+        fightViewModel.roundBegan.observe(viewLifecycleOwner) {
             if (it) {
-                if (viewModel.selectTimer.value != "kein Zeitlimit") {
-                    viewModel.startTimer()
+                if (fightViewModel.selectTimer.value != "kein Zeitlimit") {
+                    fightViewModel.startTimer()
                 }
-                handler.postDelayed(viewModel.runnable, 1000)
+                handler.postDelayed(fightViewModel.runnable, 1000)
             }
         }
 
-        viewModel.remainingTime.observe(viewLifecycleOwner) {
+        fightViewModel.remainingTime.observe(viewLifecycleOwner) {
             binding.tvTimer?.text = it.toString()
         }
 
-        viewModel.attackPlayer.observe(viewLifecycleOwner) {
+        fightViewModel.attackPlayer.observe(viewLifecycleOwner) {
             binding.ivImage2Player?.setImageResource(it.image)
             actionOfSelectionPlayer(it)
-            viewModel.playRoundPlayer()
-            if (player.lifePoints <= 0 || enemy.lifePoints <= 0 || viewModel.remainingTime.value == 0) {
+            fightViewModel.playRoundPlayer()
+            if (player.lifePoints <= 0 || enemy.lifePoints <= 0 || fightViewModel.remainingTime.value == 0) {
                 invisibleAttacks()
-                viewModel.endRound()
+                fightViewModel.endRound()
             }
         }
 
-        viewModel.attackEnemy.observe(viewLifecycleOwner) {
-            if (viewModel.roundBegan.value == true) {
+        fightViewModel.attackEnemy.observe(viewLifecycleOwner) {
+            if (fightViewModel.roundBegan.value == true) {
                 binding.ivImage2Enemy?.setImageResource(it.image)
-                if (player.lifePoints > 0 && enemy.lifePoints > 0 || viewModel.remainingTime.value!! > 0) {
-                    viewModel.playRoundEnemy()
+                if (player.lifePoints > 0 && enemy.lifePoints > 0 || fightViewModel.remainingTime.value!! > 0) {
+                    fightViewModel.playRoundEnemy()
                     actionOfSelectionEnemy(it)
                 } else {
-                    viewModel.endRound()
+                    fightViewModel.endRound()
                 }
             }
         }
 
-        viewModel.roundsWonPlayer.observe(viewLifecycleOwner) {
-            if (viewModel.selectRounds.value == "3") {
-                if (it >= 2 && viewModel.rounds.value!! >= 2) {
-                    viewModel.setResult(true)
-                } else if (viewModel.rounds.value!! >= 2 && it < 2) {
-                    viewModel.setResult(false)
-                } else if (viewModel.rounds.value!! >= 2 && it == 0) {
-                    viewModel.setResult(false)
+        fightViewModel.roundsWonPlayer.observe(viewLifecycleOwner) {
+            if (fightViewModel.selectRounds.value == "3") {
+                if (it >= 2 && fightViewModel.rounds.value!! >= 2) {
+                    fightViewModel.setResult(true)
+                } else if (fightViewModel.rounds.value!! >= 2 && it < 2) {
+                    fightViewModel.setResult(false)
+                } else if (fightViewModel.rounds.value!! >= 2 && it == 0) {
+                    fightViewModel.setResult(false)
                 }
-            } else if (viewModel.selectRounds.value == "1") {
-                if (it == 1 && viewModel.rounds.value == 1) {
-                    viewModel.setResult(true)
+            } else if (fightViewModel.selectRounds.value == "1") {
+                if (it == 1 && fightViewModel.rounds.value == 1) {
+                    fightViewModel.setResult(true)
                 } else {
-                    viewModel.setResult(false)
+                    fightViewModel.setResult(false)
                 }
             }
         }
 
-        viewModel.rounds.observe(viewLifecycleOwner) {
+        fightViewModel.rounds.observe(viewLifecycleOwner) {
             setColorForRounds(it)
             runViewsRound()
-            viewModel.resetPointsForNewRound()
+            fightViewModel.resetPointsForNewRound()
         }
 
-        viewModel.toastMessage.observe(viewLifecycleOwner, Observer { message ->
+        fightViewModel.toastMessage.observe(viewLifecycleOwner, Observer { message ->
             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
         })
 
@@ -213,7 +214,7 @@ class FightFragment : Fragment() {
             findNavController().navigate(FightFragmentDirections.actionFightFragmentToCharacterSelectionFragment())
         }
 
-        viewModel.gameEnd.observe(viewLifecycleOwner) {
+        fightViewModel.gameEnd.observe(viewLifecycleOwner) {
             if (it) {
                 handler.postDelayed({
                     findNavController().navigate(FightFragmentDirections.actionFightFragmentToResultFragment())
@@ -471,19 +472,19 @@ class FightFragment : Fragment() {
     // danach werden die Attacken sichtbar gemacht und der Timer startet
      fun runViewsRound() {
 
-         if (viewModel.rounds.value!! == 0) {
+         if (fightViewModel.rounds.value!! == 0) {
              binding.ivRound?.setImageResource(R.drawable.round_1)
-         } else if (viewModel.rounds.value!! == 1) {
+         } else if (fightViewModel.rounds.value!! == 1) {
              binding.ivRound?.setImageResource(R.drawable.round_2)
-         } else if (viewModel.rounds.value!! == 2) {
+         } else if (fightViewModel.rounds.value!! == 2) {
              binding.ivRound?.setImageResource(R.drawable.round_3)
          }
 
          binding.ivRound?.visibility = View.INVISIBLE
          binding.ivFight?.visibility = View.INVISIBLE
 
-         if (viewModel.selectRounds.value == "3") {
-             if (viewModel.rounds.value!! > 0 && player.lifePoints < 2 && enemy.lifePoints < 2) {
+         if (fightViewModel.selectRounds.value == "3") {
+             if (fightViewModel.rounds.value!! > 0 && player.lifePoints < 2 && enemy.lifePoints < 2) {
                  runViewWinnerOrLoser()
 
                  handler.postDelayed({
@@ -499,7 +500,7 @@ class FightFragment : Fragment() {
                                  binding.ivFight?.visibility = View.INVISIBLE
 
                                  handler.postDelayed({
-                                     viewModel.startRound(true)
+                                     fightViewModel.startRound(true)
                                      visibleAttacks()
                                  }, 1000)
                              }, 2000)
@@ -519,15 +520,15 @@ class FightFragment : Fragment() {
                              binding.ivFight?.visibility = View.INVISIBLE
 
                              handler.postDelayed({
-                                 viewModel.startRound(true)
+                                 fightViewModel.startRound(true)
                                  visibleAttacks()
                              }, 1000)
                          }, 2000)
                      }, 2000)
                  }, 2000)
              }
-         } else if (viewModel.selectRounds.value == "1") {
-             if (viewModel.rounds.value!! > 0) {
+         } else if (fightViewModel.selectRounds.value == "1") {
+             if (fightViewModel.rounds.value!! > 0) {
                  runViewWinnerOrLoser()
                  visibleAttacks()
              } else {
@@ -543,7 +544,7 @@ class FightFragment : Fragment() {
                              binding.ivFight?.visibility = View.INVISIBLE
 
                              handler.postDelayed({
-                                 viewModel.startRound(true)
+                                 fightViewModel.startRound(true)
                                  visibleAttacks()
                              }, 1000)
                          }, 2000)
@@ -555,8 +556,8 @@ class FightFragment : Fragment() {
 
     private fun runViewWinnerOrLoser() {
 
-        if (viewModel.selectTimer.value != "kein Zeitlimit") {
-            if (viewModel.remainingTime.value == 0) {
+        if (fightViewModel.selectTimer.value != "kein Zeitlimit") {
+            if (fightViewModel.remainingTime.value == 0) {
                 if (player.lifePoints > enemy.lifePoints) {
                     binding.ivResult?.setImageResource(R.drawable.winner)
                 } else if (player.lifePoints < enemy.lifePoints) {

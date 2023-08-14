@@ -17,6 +17,7 @@ import com.example.abschlussaufgabe.databinding.FragmentCombatSettingsBinding
 class CombatSettingsFragment : Fragment() {
 
     private val viewModel: MainViewModel by activityViewModels()
+    private val fightViewModel: FightViewModel by activityViewModels()
 
     private lateinit var binding: FragmentCombatSettingsBinding
 
@@ -126,10 +127,10 @@ class CombatSettingsFragment : Fragment() {
 
 
         binding.btnOkPlayer?.setOnClickListener {
-            viewModel.selectFight(selectionFight)
-            viewModel.selectRounds(selectionRounds)
-            viewModel.selectTimer(selectionTimer)
-            viewModel.selectDifficultyLevel(selectionDifficultyLevel)
+            fightViewModel.selectFight(selectionFight)
+            fightViewModel.selectRounds(selectionRounds)
+            fightViewModel.selectTimer(selectionTimer)
+            fightViewModel.selectDifficultyLevel(selectionDifficultyLevel)
             it.setBackgroundColor(Color.GREEN)
             binding.btnFurther?.visibility = View.VISIBLE
         }

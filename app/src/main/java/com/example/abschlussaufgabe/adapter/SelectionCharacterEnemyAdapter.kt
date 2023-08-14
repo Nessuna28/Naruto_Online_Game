@@ -5,12 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.CharacterForFight
 import com.example.abschlussaufgabe.databinding.SelectionCharacterEnemyItemBinding
-import com.example.abschlussaufgabe.ui.MainViewModel
+import com.example.abschlussaufgabe.ui.FightViewModel
 
 
 class SelectionCharacterEnemyAdapter(
     private var dataset: List<CharacterForFight>,
-    private var viewModel: MainViewModel
+    private var fightViewModel: FightViewModel
 ): RecyclerView.Adapter<SelectionCharacterEnemyAdapter.ItemViewHolder>() {
 
 
@@ -36,7 +36,7 @@ class SelectionCharacterEnemyAdapter(
         holder.binding.ivCharacter.setImageResource(characterForFight.imageFace)
 
         holder.binding.ivCharacter.setOnClickListener {
-            viewModel.setEnemy(characterForFight)
+            fightViewModel.setEnemy(characterForFight)
         }
     }
 }

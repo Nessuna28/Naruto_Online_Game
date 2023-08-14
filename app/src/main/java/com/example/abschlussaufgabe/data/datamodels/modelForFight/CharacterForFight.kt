@@ -9,7 +9,7 @@ data class CharacterForFight(
     val imageAttack: Int,
     val imageSad: Int,
     val sound: Int,
-    val video: String,
+    val video: Int,
     val name: String,
     var jutsus: List<Jutsu>,
     val tools: List<Tool>,

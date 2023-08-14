@@ -5,11 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.Defense
 import com.example.abschlussaufgabe.databinding.DefensePlayerItemBinding
-import com.example.abschlussaufgabe.ui.MainViewModel
+import com.example.abschlussaufgabe.ui.FightViewModel
 
 
 class DefensePlayerAdapter(private var dataset: List<Defense>,
-                           private var viewModel: MainViewModel
+                           private var fightViewModel: FightViewModel
 ): RecyclerView.Adapter<DefensePlayerAdapter.ItemViewHolder>() {
 
 
@@ -35,7 +35,7 @@ class DefensePlayerAdapter(private var dataset: List<Defense>,
         holder.binding.tvDefense.text = defense.name
 
         holder.binding.tvDefense.setOnClickListener {
-            viewModel.setAttackPlayer(defense)
+            fightViewModel.setAttackPlayer(defense)
         }
     }
 }

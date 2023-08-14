@@ -5,11 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.Tool
 import com.example.abschlussaufgabe.databinding.ToolPlayerItemBinding
-import com.example.abschlussaufgabe.ui.MainViewModel
-
+import com.example.abschlussaufgabe.ui.FightViewModel
 
 class ToolPlayerAdapter(private var dataset: List<Tool>,
-                        private var viewModel: MainViewModel
+                        private var fightViewModel: FightViewModel
 ): RecyclerView.Adapter<ToolPlayerAdapter.ItemViewHolder>() {
 
 
@@ -35,7 +34,7 @@ class ToolPlayerAdapter(private var dataset: List<Tool>,
         holder.binding.tvTool.text = tool.name
 
         holder.binding.tvTool.setOnClickListener {
-            viewModel.setAttackPlayer(tool)
+            fightViewModel.setAttackPlayer(tool)
         }
     }
 }
