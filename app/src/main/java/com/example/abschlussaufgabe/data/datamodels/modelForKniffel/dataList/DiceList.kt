@@ -70,6 +70,24 @@ class DiceList {
                 DiceSide(R.drawable.kakashi_face, 6, false))
         ),
 
+        Dice("Team Akazuki",
+            listOf(DiceSide(R.drawable.itachi_face, 1,false),
+                DiceSide(R.drawable.kisame_face, 2, false),
+                DiceSide(R.drawable.kakuzu_face, 3, false),
+                DiceSide(R.drawable.hidan_face, 4, false),
+                DiceSide(R.drawable.sasori_face, 5, false),
+                DiceSide(R.drawable.deidara_face, 6, false))
+        ),
+
+        Dice("Team Gehilfen",
+            listOf(DiceSide(R.drawable.pain_face, 1,false),
+                DiceSide(R.drawable.konan_face, 2, false),
+                DiceSide(R.drawable.jugo_face, 3, false),
+                DiceSide(R.drawable.suigetsu_face, 4, false),
+                DiceSide(R.drawable.karin_face, 5, false),
+                DiceSide(R.drawable.kabuto_face, 6, false))
+        ),
+
 
     )
 }
