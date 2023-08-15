@@ -18,12 +18,12 @@ interface PlayerDatabaseDao {
 
     // Funktion die alle Daten aus der Tabelle zurück gibt
     @Query("SELECT * FROM player_table")
-    fun getAllData(): LiveData<List<DataPlayer>>
+    fun getAllData(): List<DataPlayer>
 
 
     // Funktion mit der Daten anhand des Namen aus der Tabelle zurückgegeben werden
     @Query("SELECT * FROM player_table WHERE characterName = :name")
-    fun getDataByName(name: String): LiveData<DataPlayer>
+    fun getDataByName(name: String): DataPlayer
 
 
     // Funktion mit der Daten in die Tabelle eingefügt werden können

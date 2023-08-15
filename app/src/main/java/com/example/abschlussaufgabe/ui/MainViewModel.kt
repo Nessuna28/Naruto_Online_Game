@@ -34,9 +34,6 @@ import java.util.Locale
 
 
 
-const val TAGVIEWMODEL = "MainViewModel"
-
-
 class MainViewModel(application: Application): AndroidViewModel(application) {
 
     private val database = PlayerDatabase.getDatabase(application)
@@ -64,6 +61,11 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _imageHome
 
 
+    val _imageSettings = MutableLiveData<ImageView>()
+    val imageSettings: LiveData<ImageView>
+        get() = _imageSettings
+
+
     val _imageBackground = MutableLiveData<ImageView>()
     val imageBackground: LiveData<ImageView>
         get() = _imageBackground
@@ -79,12 +81,13 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _userName
 
 
-
+    val _imageProfile = MutableLiveData<MaterialCardView>()
+    val imageProfile: LiveData<MaterialCardView>
+        get() = _imageProfile
 
 
 
     // für die Datenbank
-
     private val _userNameEnemy = MutableLiveData<String>()
     val userNameEnemy: LiveData<String>
         get() = _userNameEnemy
@@ -165,7 +168,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
             try {
                 repository.getAllCharacters()
             } catch (e: Exception) {
-                Log.e(TAGVIEWMODEL, "Error loading Data: $e")
+                Log.e("MainViewModel", "Error loading Data: $e")
             }
         }
     }
@@ -177,7 +180,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
                 repository.getCharacter(name)
                 println(characters)
             } catch (e: Exception) {
-                Log.e(TAGVIEWMODEL, "Error loading Data: $e")
+                Log.e("MainViewModel", "Error loading Data: $e")
             }
         }
     }
@@ -234,11 +237,23 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     // speichert Daten des Spielers in der Datenbank
     fun updateDatabase(dataPlayer: DataPlayer) {
 
+        Log.e("MainViewModel", "$dataPlayer")
         viewModelScope.launch {
             try {
                 repository.insertData(dataPlayer)
             } catch (e: Exception) {
-                Log.e(TAGVIEWMODEL, "Error loading Data from Database: $e")
+                Log.e("MainViewModel", "Error loading Data to Database: $e")
+            }
+        }
+    }
+
+    fun loadData() {
+
+        viewModelScope.launch {
+            try {
+                repository.getAllData()
+            } catch (e: Exception) {
+                Log.e("MainViewModel", "Error loading Data: $e")
             }
         }
     }

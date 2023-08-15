@@ -199,9 +199,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginBottom="12dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_titleKniffel"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_titleKniffel"
             app:srcCompat="@drawable/baseline_arrow_back_24" />
 
         <TextView
@@ -1033,15 +1034,16 @@
             android:id="@+id/tv_titleKniffel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
             android:fontFamily="@font/akaya_telivigala"
+            android:gravity="center"
             android:text="@string/titleKniffel"
             android:textSize="30sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_back"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/iv_back" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

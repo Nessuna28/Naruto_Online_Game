@@ -29,6 +29,8 @@ class HomeFragment : Fragment() {
         viewModel.imageHome.value?.let { viewModel.hideImages(it) }
         viewModel.imageBackground.value?.let { viewModel.showImages(it) }
         viewModel.userName.value?.let { viewModel.showTextView(it) }
+        viewModel.imageSettings.value?.let { viewModel.showImages(it) }
+        viewModel.imageProfile.value?.let { viewModel.showMaterialCard(it) }
 
         context?.let { viewModel.stopSound() }
     }
@@ -57,7 +59,7 @@ class HomeFragment : Fragment() {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSelectionGameFragment())
         }
 
-        viewModel.materialCard.value!!.setOnClickListener {
+        viewModel.imageProfile.value!!.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProfileFragment())
         }
     }

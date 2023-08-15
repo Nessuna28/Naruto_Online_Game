@@ -15,8 +15,6 @@ import coil.load
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.databinding.FragmentCharacterDetailBinding
 
-const val TAGDETAIL = "CharacterDetailFragment"
-
 
 class CharacterDetailFragment : Fragment() {
 
@@ -24,27 +22,30 @@ class CharacterDetailFragment : Fragment() {
 
     private lateinit var binding: FragmentCharacterDetailBinding
 
-    private var name = ""
-    private var image = ""
-    private var clan = ""
-    private var rank = ""
-    private var natureTyp = ""
-    private var jutsus = ""
-    private var uniqueTraits = ""
-    private var tools = ""
-    private var personal = ""
-    private var family = ""
+    private var id = 0
 
+
+    override fun onStart() {
+        super.onStart()
+
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+
+        viewModel.imageTitle.value?.let { viewModel.showImages(it) }
+        viewModel.imageHome.value?.let { viewModel.showImages(it) }
+        viewModel.imageBackground.value?.let { viewModel.showImages(it) }
+        viewModel.materialCard.value?.let { viewModel.showMaterialCard(it) }
+        viewModel.userName.value?.let { viewModel.showTextView(it) }
+        viewModel.imageSettings.value?.let { viewModel.showImages(it) }
+        viewModel.imageProfile.value?.let { viewModel.showMaterialCard(it) }
+
+        context?.let { viewModel.stopSound() }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         arguments?.let {
-            name = it.getString("name").toString()
-            image = it.getString("images").toString()
-            natureTyp = it.getString("natureType").toString()
-            jutsus = it.getString("jutsus").toString()
-            tools = it.getString("tools").toString()
+            id = it.getInt("id")
         }
     }
 
@@ -52,7 +53,7 @@ class CharacterDetailFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_character_detail, container, false)
         return binding.root
     }
@@ -60,19 +61,27 @@ class CharacterDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.tvCharacterName.text = name
+        val character = viewModel.characters.value?.find { it.id == id }
+
+        binding.tvCharacterName.text = character!!.name
 
         try {
-            val imgUri = image.toUri().buildUpon().scheme("https").build()
+            val imgUri = character.images[0].toUri().buildUpon().scheme("https").build()
             binding.ivCharacterImage.load(imgUri)
         } catch (e: Exception) {
-            Log.e(TAGDETAIL, "Error: ${e.message} im CharacterDetailFragment")
+            Log.e("CharacterDetail", "Error: ${e.message} im CharacterDetailFragment")
             binding.ivCharacterImage.setImageResource(R.drawable.no_picture)
         }
 
-        binding.tvNatureTyp.text = natureTyp
-        binding.tvJutsu.text = jutsus
-        binding.tvTools.text = tools
+        //binding.tvClan.text = character.personal.clan
+        binding.tvRank.text = character.rank.toString()
+        binding.tvNatureTyp.text = character.natureType.toString()
+        binding.tvJutsu.text = character.jutsu.toString()
+        binding.tvUniqueTraits.text = character.uniqueTraits.toString()
+        binding.tvTools.text = character.tools.toString()
+        //binding.tvPersonal.text = character.personal.toString()
+        binding.tvFamily.text = character.family.toString()
+
 
 
         binding.ivBack.setOnClickListener {
@@ -81,6 +90,10 @@ class CharacterDetailFragment : Fragment() {
 
         viewModel.imageHome.value?.setOnClickListener {
             findNavController().navigate(CharacterDetailFragmentDirections.actionCharacterDetailFragmentToHomeFragment())
+        }
+
+        viewModel.imageProfile.value?.setOnClickListener {
+            findNavController().navigate(CharacterDetailFragmentDirections.actionCharacterDetailFragmentToProfileFragment())
         }
     }
 }

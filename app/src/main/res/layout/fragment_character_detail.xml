@@ -18,29 +18,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="140dp"
             android:src="@drawable/baseline_arrow_back_24"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_titleDetails"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/tv_titleDetails" />
 
         <TextView
             android:id="@+id/tv_characterName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/akaya_telivigala"
             android:text="@string/name"
             android:textColor="@color/primary"
-            android:textSize="16sp"
+            android:textSize="24sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_back"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.489"
             app:layout_constraintStart_toStartOf="@+id/iv_back"
-            app:layout_constraintTop_toTopOf="@+id/iv_back" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_titleDetails" />
 
         <ImageView
             android:id="@+id/iv_characterImage"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="32dp"
+            android:layout_width="139dp"
+            android:layout_height="108dp"
+            android:layout_marginTop="8dp"
             android:src="@drawable/naruto_all"
             app:layout_constraintEnd_toEndOf="@+id/tv_characterName"
             app:layout_constraintStart_toStartOf="@+id/tv_characterName"
@@ -51,176 +53,206 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/akaya_telivigala"
             android:text="@string/clan"
             android:textColor="@color/primary"
+            android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_clan"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_clan" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_characterImage" />
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/akaya_telivigala"
             android:text="@string/rank"
             android:textColor="@color/primary"
+            android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_rank"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_rank" />
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/tv_clan" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/akaya_telivigala"
             android:text="@string/natureType"
             android:textColor="@color/primary"
+            android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_natureTyp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_natureTyp" />
+            app:layout_constraintStart_toStartOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/tv_rank" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/akaya_telivigala"
             android:text="@string/titleJutsus"
             android:textColor="@color/primary"
+            android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_jutsu"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_jutsu" />
+            app:layout_constraintStart_toStartOf="@+id/textView3"
+            app:layout_constraintTop_toBottomOf="@+id/tv_natureTyp" />
 
         <TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/akaya_telivigala"
             android:text="@string/titleUniqueTraits"
             android:textColor="@color/primary"
+            android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_uniqueTraits"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_uniqueTraits" />
+            app:layout_constraintStart_toStartOf="@+id/textView4"
+            app:layout_constraintTop_toBottomOf="@+id/tv_jutsu" />
 
         <TextView
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/akaya_telivigala"
             android:text="@string/titleTools"
             android:textColor="@color/primary"
+            android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_tools"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_tools" />
+            app:layout_constraintStart_toStartOf="@+id/textView5"
+            app:layout_constraintTop_toBottomOf="@+id/tv_uniqueTraits" />
 
         <TextView
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/akaya_telivigala"
             android:text="@string/personal"
             android:textColor="@color/primary"
+            android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_personal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_personal" />
+            app:layout_constraintStart_toStartOf="@+id/textView6"
+            app:layout_constraintTop_toBottomOf="@+id/tv_tools" />
 
         <TextView
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/akaya_telivigala"
             android:text="@string/family"
             android:textColor="@color/primary"
+            android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_family"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_family" />
+            app:layout_constraintStart_toStartOf="@+id/textView7"
+            app:layout_constraintTop_toBottomOf="@+id/tv_personal" />
 
         <TextView
             android:id="@+id/tv_clan"
-            android:layout_width="wrap_content"
+            android:layout_width="300sp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="115dp"
-            android:text="TextView"
+            android:text=""
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_characterImage" />
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="@+id/textView" />
 
         <TextView
             android:id="@+id/tv_rank"
-            android:layout_width="wrap_content"
+            android:layout_width="300sp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="115dp"
-            android:text="TextView"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:text=""
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_clan" />
+            app:layout_constraintStart_toEndOf="@+id/textView2"
+            app:layout_constraintTop_toTopOf="@+id/textView2" />
 
         <TextView
             android:id="@+id/tv_natureTyp"
-            android:layout_width="wrap_content"
+            android:layout_width="300sp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="115dp"
-            android:text="TextView"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:text=""
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_rank" />
+            app:layout_constraintStart_toEndOf="@+id/textView3"
+            app:layout_constraintTop_toTopOf="@+id/textView3" />
 
         <TextView
             android:id="@+id/tv_jutsu"
-            android:layout_width="wrap_content"
+            android:layout_width="300sp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="115dp"
-            android:text="TextView"
+            android:ellipsize="end"
+            android:maxLines="5"
+            android:text=""
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_natureTyp" />
+            app:layout_constraintStart_toEndOf="@+id/textView4"
+            app:layout_constraintTop_toTopOf="@+id/textView4" />
 
         <TextView
             android:id="@+id/tv_uniqueTraits"
-            android:layout_width="wrap_content"
+            android:layout_width="180sp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="115dp"
-            android:text="TextView"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text=""
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_jutsu" />
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/textView5"
+            app:layout_constraintTop_toTopOf="@+id/textView5" />
 
         <TextView
             android:id="@+id/tv_tools"
-            android:layout_width="wrap_content"
+            android:layout_width="300sp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="115dp"
-            android:text="TextView"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:text=""
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_uniqueTraits" />
+            app:layout_constraintStart_toEndOf="@+id/textView6"
+            app:layout_constraintTop_toTopOf="@+id/textView6" />
 
         <TextView
             android:id="@+id/tv_personal"
-            android:layout_width="wrap_content"
+            android:layout_width="300sp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="115dp"
-            android:text="TextView"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:text=""
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_tools" />
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/textView7"
+            app:layout_constraintTop_toTopOf="@+id/textView7" />
 
         <TextView
             android:id="@+id/tv_family"
+            android:layout_width="300sp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="5"
+            android:text=""
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView8"
+            app:layout_constraintTop_toTopOf="@+id/textView8" />
+
+        <TextView
+            android:id="@+id/tv_titleDetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="115dp"
-            android:text="TextView"
+            android:layout_marginTop="60dp"
+            android:text="@string/details"
+            android:fontFamily="@font/akaya_telivigala"
+            android:textStyle="bold"
+            android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_personal" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

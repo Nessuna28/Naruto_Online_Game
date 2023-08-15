@@ -110,6 +110,10 @@ class FightFragment : Fragment() {
             binding.tvNamePlayer?.text = it.userName
         }
 
+        viewModel.userNameEnemy.observe(viewLifecycleOwner) {
+            binding.tvNameEnemy?.text = it
+        }
+
         fightViewModel.location.observe(viewLifecycleOwner) {
             binding.ivBackgroundFight?.setImageResource(it.image)
         }

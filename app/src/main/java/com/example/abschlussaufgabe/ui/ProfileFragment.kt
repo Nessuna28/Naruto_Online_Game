@@ -27,9 +27,9 @@ class ProfileFragment : Fragment() {
         viewModel.imageBackground.value?.let { viewModel.hideImages(it) }
         viewModel.materialCard.value?.let { viewModel.hideMaterialCard(it) }
         viewModel.userName.value?.let { viewModel.hideTextView(it) }
-        viewModel.imageBackground.value?.let { viewModel.hideImages(it) }
         viewModel.imageTitle.value?.let { viewModel.showImages(it) }
         viewModel.imageHome.value?.let { viewModel.showImages(it) }
+        viewModel.imageSettings.value?.let { viewModel.showImages(it) }
     }
 
     override fun onCreateView(

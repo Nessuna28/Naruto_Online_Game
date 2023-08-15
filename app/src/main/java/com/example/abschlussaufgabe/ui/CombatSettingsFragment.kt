@@ -48,6 +48,7 @@ class CombatSettingsFragment : Fragment() {
         viewModel.userName.value?.let { viewModel.showTextView(it) }
         viewModel.imageBackground.value?.let { viewModel.hideImages(it) }
         viewModel.imageTitle.value?.let { viewModel.hideImages(it) }
+        viewModel.imageSettings.value?.let { viewModel.showImages(it) }
 
         selectionFight = getString(fight[currentFightIndex])
         selectionRounds = getString(rounds[currentRoundsIndex])

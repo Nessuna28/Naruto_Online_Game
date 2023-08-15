@@ -18,25 +18,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="16dp"
             android:src="@drawable/baseline_arrow_back_24"
-            app:layout_constraintBottom_toTopOf="@+id/ti_search"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_characterTitle"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/tv_characterTitle" />
 
         <TextView
             android:id="@+id/tv_characterTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/infosAboutCharacters"
+            android:layout_marginTop="60dp"
             android:fontFamily="@font/akaya_telivigala"
+            android:text="@string/infosAboutCharacters"
             android:textSize="30sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_back"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/iv_back" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/ti_search"

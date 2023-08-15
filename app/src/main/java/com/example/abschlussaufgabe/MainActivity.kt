@@ -31,6 +31,8 @@ class MainActivity : AppCompatActivity() {
         viewModel._imageBackground.value = binding.ivBackground
         viewModel._materialCard.value = binding.materialCardView
         viewModel._userName.value = binding.tvUserName
+        viewModel._imageSettings.value = binding.ivSettings
+        viewModel._imageProfile.value = binding.mcProfile
 
 
         binding.ivSettings.setOnClickListener {

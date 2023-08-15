@@ -30,6 +30,9 @@ class StatisticsFragment : Fragment() {
 
         viewModel.imageTitle.value?.let { viewModel.showImages(it) }
         viewModel.imageHome.value?.let { viewModel.showImages(it) }
+
+
+        viewModel.loadData()
     }
 
     override fun onCreateView(

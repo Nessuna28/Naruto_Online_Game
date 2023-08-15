@@ -137,7 +137,9 @@ class KniffelFragment : Fragment() {
         viewModel.imageHome.value?.let { viewModel.showImages(it) }
         viewModel.imageTitle.value?.let { viewModel.showImages(it) }
         viewModel.materialCard.value?.let { viewModel.showMaterialCard(it) }
+        viewModel.imageSettings.value?.let { viewModel.showImages(it) }
         viewModel.userName.value?.let { viewModel.hideTextView(it) }
+        viewModel.imageProfile.value?.let { viewModel.showMaterialCard(it) }
 
         context?.let { viewModel.setSound(it, R.raw.song_theme) }
 
@@ -428,6 +430,14 @@ class KniffelFragment : Fragment() {
                     dialog.dismiss()
                 }
                 .show()
+        }
+
+        viewModel.imageProfile.value!!.setOnClickListener {
+            findNavController().navigate(KniffelFragmentDirections.actionKniffelFragmentToProfileFragment())
+        }
+
+        viewModel.imageHome.value!!.setOnClickListener {
+            findNavController().navigate(KniffelFragmentDirections.actionKniffelFragmentToHomeFragment())
         }
     }
 

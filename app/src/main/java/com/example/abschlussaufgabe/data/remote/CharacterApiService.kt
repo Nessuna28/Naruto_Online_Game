@@ -9,7 +9,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-const val BASE_URL = "https://api.narutodb.xyz/"
+const val BASE_URL = "https://narutodb.xyz/api/"
 
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
@@ -23,7 +23,7 @@ private val retrofit = Retrofit.Builder()
 
 interface CharacterApiService {
 
-    @GET("character/search")
+    @GET("character/search?")
     suspend fun getCharacter(@Query("name") name: String): Character
 
     @GET("character")

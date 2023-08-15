@@ -42,29 +42,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
             android:src="@drawable/baseline_arrow_back_24"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_titleGames"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_title" />
+            app:layout_constraintTop_toTopOf="@+id/tv_titleGames" />
 
         <TextView
             android:id="@+id/tv_titleGames"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             android:fontFamily="@font/akaya_telivigala"
             android:text="@string/games"
             android:textSize="30sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_back"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/iv_back" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_title" />
 
         <TextView
             android:id="@+id/tv_fight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="24dp"
             android:fontFamily="@font/akaya_telivigala"
             android:text="@string/titleFight"
             android:textSize="20sp"
@@ -77,26 +77,23 @@
             android:id="@+id/tv_kniffel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:fontFamily="@font/akaya_telivigala"
             android:text="@string/kniffel"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/iv_kniffel"
-            app:layout_constraintStart_toEndOf="@+id/iv_kniffel"
+            app:layout_constraintStart_toStartOf="@+id/tv_fight"
             app:layout_constraintTop_toTopOf="@+id/iv_kniffel" />
 
         <TextView
             android:id="@+id/tv_memory"
             android:layout_width="77dp"
             android:layout_height="27dp"
-            android:layout_marginStart="16dp"
             android:fontFamily="@font/akaya_telivigala"
             android:text="@string/memory"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-            app:layout_constraintStart_toEndOf="@+id/imageView3"
             app:layout_constraintStart_toStartOf="@+id/tv_kniffel"
             app:layout_constraintTop_toTopOf="@+id/imageView3" />
 

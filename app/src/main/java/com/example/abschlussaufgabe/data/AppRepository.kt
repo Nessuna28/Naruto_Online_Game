@@ -49,18 +49,25 @@ class AppRepository(private val api: CharacterApi, private val database: PlayerD
     // für die Datenbank
 
     private val _dataList = MutableLiveData<List<DataPlayer>>()
-            val dataList: LiveData<List<DataPlayer>>
-                get() = _dataList
+    val dataList: LiveData<List<DataPlayer>>
+        get() = _dataList
 
 
     suspend fun insertData(dataPlayer: DataPlayer) {
 
-        if (dataList.value?.isEmpty() == true) {
-            try {
-                database.playerDao.insertData(dataPlayer)
-            } catch (e: Exception) {
-                Log.e(TAG, "Failed to insert into database: $e")
-            }
+        try {
+            database.playerDao.insertData(dataPlayer)
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to insert into database: $e")
+        }
+    }
+
+    suspend fun getAllData() {
+
+        try {
+            _dataList.value = database.playerDao.getAllData()
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed load database: $e")
         }
     }
 }

@@ -41,17 +41,11 @@ class CharacterAdapter(private var dataset: List<Character>
             holder.binding.ivImageCharacter.setImageResource(R.drawable.no_picture)
         }
 
-        holder.binding.ivName.setText(character.name)
+        holder.binding.ivName.text = character.name
 
         holder.binding.mcCharacter.setOnClickListener {
             holder.itemView.findNavController().navigate(AboutTheCharactersFragmentDirections
-                .actionAboutTheCharactersFragmentToCharacterDetailFragment(
-                    character.name,
-                    character.images[0],
-                    character.natureType.toTypedArray(),
-                    character.jutsu.toTypedArray(),
-                    character.tools.toTypedArray()
-            ))
+                .actionAboutTheCharactersFragmentToCharacterDetailFragment(character.id))
         }
     }
 }

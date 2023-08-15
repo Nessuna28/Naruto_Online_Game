@@ -102,23 +102,12 @@
             android:id="@+id/action_characterDetailFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
         <argument
-            android:name="name"
-            app:argType="string" />
-        <argument
-            android:name="images"
-            app:argType="string" />
-        <argument
-            android:name="natureTyp"
-            app:argType="string[]" />
-        <argument
-            android:name="jutsus"
-            app:argType="string[]" />
-        <argument
-            android:name="tools"
-            app:argType="string[]" />
+            android:name="id"
+            app:argType="integer" />
         <action
-            android:id="@+id/action_characterDetailFragment_to_profileFragment4"
+            android:id="@+id/action_characterDetailFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/resultFragment"
@@ -142,16 +131,16 @@
         android:name="com.example.abschlussaufgabe.ui.ProfileFragment"
         android:label="ProfileFragment" >
         <action
-            android:id="@+id/action_profileFragment_to_aboutTheCharactersFragment5"
+            android:id="@+id/action_profileFragment_to_aboutTheCharactersFragment"
             app:destination="@id/aboutTheCharactersFragment" />
         <action
-            android:id="@+id/action_profileFragment_to_characterDetailFragment4"
+            android:id="@+id/action_profileFragment_to_characterDetailFragment"
             app:destination="@id/characterDetailFragment" />
         <action
-            android:id="@+id/action_profileFragment_to_homeFragment3"
+            android:id="@+id/action_profileFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
         <action
-            android:id="@+id/action_profileFragment_to_statisticsFragment3"
+            android:id="@+id/action_profileFragment_to_statisticsFragment"
             app:destination="@id/statisticsFragment" />
     </fragment>
     <fragment
@@ -172,6 +161,9 @@
         <action
             android:id="@+id/action_kniffelFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_kniffelFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/selectionGameFragment"

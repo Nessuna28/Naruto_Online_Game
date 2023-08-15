@@ -85,4 +85,5 @@
     <string name="teamName">Team</string>
     <string name="chooseTeam">Wähle ein Team!</string>
     <string name="titleKniffel">Kniffel</string>
+    <string name="details">Detaillierte Ansicht</string>
 </resources>
