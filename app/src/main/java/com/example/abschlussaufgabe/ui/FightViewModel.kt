@@ -185,15 +185,6 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
         get() = _gameEnd
 
 
-    private val _victory = MutableLiveData(0)
-    val victory: LiveData<Int>
-        get() = _victory
-
-
-    private val _defeat = MutableLiveData(0)
-    val defeat: LiveData<Int>
-        get() = _defeat
-
 
 
     init {
@@ -623,21 +614,6 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
             _resultEnemy.value = "Sieg"
         }
     }
-
-
-    // zählt die Siege und Niederlagen
-    fun countVictorysAndDefeats(result: String) {
-
-        if (result == "Sieg") {
-            _victory.value = victory.value!!.plus(1)
-        } else {
-            _defeat.value = defeat.value!!.plus(1)
-        }
-
-        _victory.value = _victory.value
-        _defeat.value = _defeat.value
-    }
-
 
     // Funktion um den Toast anzuzeigen
     fun showToast(message: String) {

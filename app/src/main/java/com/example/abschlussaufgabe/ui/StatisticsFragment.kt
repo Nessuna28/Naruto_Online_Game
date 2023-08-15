@@ -18,7 +18,6 @@ import com.example.abschlussaufgabe.databinding.FragmentStatisticsBinding
 class StatisticsFragment : Fragment() {
 
     private val viewModel: MainViewModel by activityViewModels()
-    private val fightViewModel: FightViewModel by activityViewModels()
 
     private lateinit var binding: FragmentStatisticsBinding
 
@@ -47,11 +46,11 @@ class StatisticsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        fightViewModel.victory.observe(viewLifecycleOwner) {
+        viewModel.victory.observe(viewLifecycleOwner) {
             binding.tvVictorys.text = it.toString()
         }
 
-        fightViewModel.defeat.observe(viewLifecycleOwner) {
+        viewModel.defeat.observe(viewLifecycleOwner) {
             binding.tvDefeats.text = it.toString()
         }
 

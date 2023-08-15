@@ -17,23 +17,23 @@ interface PlayerDatabaseDao {
 
 
     // Funktion die alle Daten aus der Tabelle zurück gibt
-    @Query("SELECT * FROM player_table")
-    fun getAllData(): List<DataPlayer>
+    @Query("SELECT * FROM player_table ORDER BY date DESC")
+    suspend fun getAllData(): List<DataPlayer>
 
 
     // Funktion mit der Daten anhand des Namen aus der Tabelle zurückgegeben werden
     @Query("SELECT * FROM player_table WHERE characterName = :name")
-    fun getDataByName(name: String): DataPlayer
+    suspend fun getDataByName(name: String): DataPlayer
 
 
     // Funktion mit der Daten in die Tabelle eingefügt werden können
     @Update
-    fun updateData(data: DataPlayer)
+    suspend fun updateData(data: DataPlayer)
 
 
     // Funktion mit der Daten anhand des Namen aus der Tabelle gelöscht werden können
     @Query("DELETE FROM player_table WHERE characterName = :name")
-    fun deleteByName(name: String)
+    suspend fun deleteByName(name: String)
 
 
     // Funktion die alle Daten aus der Tabelle löscht

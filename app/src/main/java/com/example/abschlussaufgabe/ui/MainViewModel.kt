@@ -11,23 +11,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.abschlussaufgabe.data.AppRepository
 import com.example.abschlussaufgabe.data.datamodels.Profile
-import com.example.abschlussaufgabe.data.datamodels.modelForFight.CharacterForFight
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.fightDataForDatabase.DataPlayer
-import com.example.abschlussaufgabe.data.datamodels.modelForFight.dataLists.CharacterListForFight
-import com.example.abschlussaufgabe.data.datamodels.modelForFight.dataLists.LocationList
-import com.example.abschlussaufgabe.data.datamodels.modelForFight.Location
 import com.example.abschlussaufgabe.data.local.PlayerDatabase
 import com.example.abschlussaufgabe.data.remote.CharacterApi
 import com.google.android.material.card.MaterialCardView
 import kotlinx.coroutines.launch
 import android.content.Context
-import android.os.CountDownTimer
-import android.os.Handler
 import android.widget.TextView
 import com.example.abschlussaufgabe.R
-import com.example.abschlussaufgabe.data.datamodels.modelForFight.Attack
-import com.example.abschlussaufgabe.data.datamodels.modelForFight.Jutsu
-import com.example.abschlussaufgabe.data.datamodels.modelForFight.UniqueTrait
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -86,20 +77,28 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _imageProfile
 
 
+    // für die Statistik
 
-    // für die Datenbank
     private val _userNameEnemy = MutableLiveData<String>()
     val userNameEnemy: LiveData<String>
         get() = _userNameEnemy
 
 
 
-    // für die Statistik
-    private val _dataList = MutableLiveData<List<DataPlayer>>(repository.dataList.value)
+    // für die Datenbank
+    private val _dataList = MutableLiveData<List<DataPlayer>>()
     val dataList: LiveData<List<DataPlayer>>
         get() = _dataList
 
 
+    private val _victory = MutableLiveData<Int>(0)
+    val victory: LiveData<Int>
+        get() = _victory
+
+
+    private val _defeat = MutableLiveData<Int>(0)
+    val defeat: LiveData<Int>
+        get() = _defeat
 
 
     // Initialisierung
@@ -210,6 +209,16 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         mediaPlayer = null
     }
 
+    /*private fun playNextSong(currentIndex: Int, audioList: List<Int>) {
+        currentIndex = (currentIndex + 1) % audioList.size
+        mediaPlayer.reset()
+        prepareMediaPlayer()
+        mediaPlayer.start()
+    }
+
+     */
+
+
     fun stopSound() {
 
         mediaPlayer?.stop()
@@ -227,7 +236,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     // gibt das heutige Datum zurück
     fun getTodayDate(): String {
 
-        val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault())
         val todayDate = Date()
 
         return dateFormat.format(todayDate)
@@ -241,20 +250,39 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         viewModelScope.launch {
             try {
                 repository.insertData(dataPlayer)
+                _dataList.value = repository.getAllData()
+                countVictorysAndDefeats()
             } catch (e: Exception) {
                 Log.e("MainViewModel", "Error loading Data to Database: $e")
             }
         }
     }
 
+    // läd die Daten aus der Datenbank
     fun loadData() {
 
         viewModelScope.launch {
             try {
-                repository.getAllData()
+                _dataList.value = repository.getAllData()
+                countVictorysAndDefeats()
             } catch (e: Exception) {
                 Log.e("MainViewModel", "Error loading Data: $e")
             }
         }
     }
+
+    // zählt die Siege und Niederlagen
+    fun countVictorysAndDefeats() {
+
+        if (victory.value!! + defeat.value!! != dataList.value!!.size) {
+            dataList.value!!.forEach {
+                if (it.result == "Sieg") {
+                    _victory.value = _victory.value?.plus(1)
+                } else if (it.result == "Niederlage") {
+                    _defeat.value = _defeat.value?.plus(1)
+                }
+            }
+        }
+    }
+
 }

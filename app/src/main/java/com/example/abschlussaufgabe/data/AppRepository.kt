@@ -46,12 +46,6 @@ class AppRepository(private val api: CharacterApi, private val database: PlayerD
     }
 
 
-    // für die Datenbank
-
-    private val _dataList = MutableLiveData<List<DataPlayer>>()
-    val dataList: LiveData<List<DataPlayer>>
-        get() = _dataList
-
 
     suspend fun insertData(dataPlayer: DataPlayer) {
 
@@ -62,12 +56,13 @@ class AppRepository(private val api: CharacterApi, private val database: PlayerD
         }
     }
 
-    suspend fun getAllData() {
+    suspend fun getAllData(): List<DataPlayer> {
 
-        try {
-            _dataList.value = database.playerDao.getAllData()
+        return try {
+            database.playerDao.getAllData()
         } catch (e: Exception) {
             Log.e(TAG, "Failed load database: $e")
+            emptyList()
         }
     }
 }

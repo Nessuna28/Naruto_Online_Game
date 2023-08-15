@@ -79,7 +79,6 @@ class ResultFragment : Fragment() {
         binding.tvRounds?.text = fightViewModel.rounds.value.toString()
         binding.tvRoundsWon?.text = fightViewModel.roundsWonPlayer.value.toString()
 
-        fightViewModel.countVictorysAndDefeats(fightViewModel.result.value!!)
 
 
         // der Datenbank hinzufügen
@@ -89,22 +88,24 @@ class ResultFragment : Fragment() {
 
         val today = viewModel.getTodayDate()
 
-        val data = DataPlayer(1,
-            today,
-            viewModel.profile.value!!.userName,
-            charakter.name,
-            charakter.image,
-            charakter.lifePoints,
-            fightViewModel.result.value!!,
-            viewModel.userNameEnemy.value!!,
-            charakterEnemy.name,
-            charakterEnemy.image,
-            charakterEnemy.lifePoints,
-            fightViewModel.resultEnemy.value!!,
-            fightViewModel.victory.value!!,
-            fightViewModel.defeat.value!!)
+
+        val data = DataPlayer(
+
+            date = today,
+            userName = viewModel.profile.value!!.userName,
+            characterName = charakter.name,
+            characterImage = charakter.image,
+            lifePoints = charakter.lifePoints,
+            result = fightViewModel.result.value!!,
+            userNameEnemy = viewModel.userNameEnemy.value!!,
+            characterNameEnemy = charakterEnemy.name,
+            characterImageEnemy = charakterEnemy.image,
+            lifePointsEnemy = charakterEnemy.lifePoints,
+            resultEnemy = fightViewModel.resultEnemy.value!!,
+           )
         
         viewModel.updateDatabase(data)
+
 
 
         // Navigation

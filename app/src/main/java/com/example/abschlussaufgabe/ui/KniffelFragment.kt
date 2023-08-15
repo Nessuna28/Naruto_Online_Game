@@ -8,13 +8,10 @@ import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
@@ -24,7 +21,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.adapter.TeamAdapter
 import com.example.abschlussaufgabe.data.datamodels.modelForKniffel.Dice
-import com.example.abschlussaufgabe.data.datamodels.modelForKniffel.DiceSide
 import com.example.abschlussaufgabe.databinding.FragmentKniffelBinding
 import com.example.abschlussaufgabe.databinding.PopupLayoutBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -142,10 +138,6 @@ class KniffelFragment : Fragment() {
         viewModel.imageProfile.value?.let { viewModel.showMaterialCard(it) }
 
         context?.let { viewModel.setSound(it, R.raw.song_theme) }
-
-        kniffelViewModel.setAttempts(3)
-
-        setValueColorOfGray()
     }
 
     override fun onCreateView(
@@ -396,6 +388,8 @@ class KniffelFragment : Fragment() {
                 resetColorDice()
                 resetCheckIsClickedDice()
                 resetCheckIsClickedTextView()
+                kniffelViewModel.setAttempts(3)
+                setTextColorValuesOfGray()
                 // Erstelle den MaterialAlertDialogBuilder
                 val builder = MaterialAlertDialogBuilder(requireContext())
                 builder.setTitle("Das Spiel ist beendet")
@@ -595,7 +589,7 @@ class KniffelFragment : Fragment() {
         binding.mcRolledDice5.background.setTint(primary)
     }
 
-    private fun setValueColorOfGray() {
+    private fun setTextColorValuesOfGray() {
 
         binding.tv1erValue.setTextColor(gray)
         binding.tv2erValue.setTextColor(gray)

@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 data class DataPlayer(
 
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    val id: Int = 0,
 
     val date: String,
     val userName: String,
@@ -21,7 +21,4 @@ data class DataPlayer(
     val characterImageEnemy: Int,
     val lifePointsEnemy: Int,
     val resultEnemy: String,
-
-    val victories: Int,
-    val defeats: Int
 )
