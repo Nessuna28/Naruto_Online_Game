@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.UniqueTrait
 import com.example.abschlussaufgabe.databinding.TraitPlayerItemBinding
-import com.example.abschlussaufgabe.ui.FightViewModel
+import com.example.abschlussaufgabe.FightViewModel
 
 class TraitPlayerAdapter(private var dataset: List<UniqueTrait>,
                          private var fightViewModel: FightViewModel

@@ -8,7 +8,6 @@ data class Profile(
     val userName: String,
     val birthday: String,
     val phone: String,
-    val email: String,
-    val password: String
+    val email: String
 
 )

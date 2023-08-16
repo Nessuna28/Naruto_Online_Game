@@ -1,4 +1,4 @@
-package com.example.abschlussaufgabe.ui
+package com.example.abschlussaufgabe
 
 import android.app.Application
 import android.content.Context
@@ -7,7 +7,6 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.data.datamodels.modelForKniffel.Dice
 import com.example.abschlussaufgabe.data.datamodels.modelForKniffel.DiceSide
 import com.example.abschlussaufgabe.data.datamodels.modelForKniffel.KniffelValue

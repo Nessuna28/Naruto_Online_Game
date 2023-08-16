@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.CharacterForFight
 import com.example.abschlussaufgabe.databinding.SelectionCharacterPlayerItemBinding
-import com.example.abschlussaufgabe.ui.FightViewModel
+import com.example.abschlussaufgabe.FightViewModel
 
 
 class SelectionCharacterPlayerAdapter(

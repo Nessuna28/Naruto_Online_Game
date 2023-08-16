@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.abschlussaufgabe.MainViewModel
 import com.example.abschlussaufgabe.R
+import com.example.abschlussaufgabe.data.datamodels.Profile
 import com.example.abschlussaufgabe.databinding.FragmentProfileBinding
 
 
@@ -18,6 +20,8 @@ class ProfileFragment : Fragment() {
     private val viewModel: MainViewModel by activityViewModels()
 
     private lateinit var binding: FragmentProfileBinding
+
+    private var previousFragmentTag: String? = null
 
     override fun onStart() {
         super.onStart()
@@ -36,7 +40,7 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
         return binding.root
     }
@@ -52,15 +56,25 @@ class ProfileFragment : Fragment() {
             binding.tvBirthday.text = it.birthday
             binding.tvPhoneNumber.text = it.phone
             binding.tvEmail.text = it.email
-            binding.tvPassword.text = "*********"
         }
 
+        findNavController().addOnDestinationChangedListener { _, destination, _ ->
+            val currentFragmentTag = destination.label.toString()
+            previousFragmentTag = currentFragmentTag
+        }
+
+        // der Zurück-Button navigiert nur zurück wenn ich nicht vom Profil bearbeiten komme
+        // komme ich vom Profil bearbeiten dann navigiert der Zurück-Button zum Home
         binding.ivBack.setOnClickListener {
-            findNavController().navigateUp()
+            if (previousFragmentTag == "fragment_edit_profile_tag") {
+                findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToHomeFragment())
+            } else {
+                findNavController().navigateUp()
+            }
         }
 
         binding.ivEdit.setOnClickListener {
-            //TODO:
+            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment())
         }
     }
 }

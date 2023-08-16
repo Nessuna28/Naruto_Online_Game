@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.abschlussaufgabe.MainViewModel
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.databinding.FragmentHomeBinding
 
@@ -25,6 +26,7 @@ class HomeFragment : Fragment() {
 
         requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 
+        viewModel.materialCard.value?.let { viewModel.showMaterialCard(it) }
         viewModel.imageTitle.value?.let { viewModel.hideImages(it) }
         viewModel.imageHome.value?.let { viewModel.hideImages(it) }
         viewModel.imageBackground.value?.let { viewModel.showImages(it) }
@@ -39,7 +41,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         return binding.root
     }

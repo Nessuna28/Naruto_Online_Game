@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.Jutsu
 import com.example.abschlussaufgabe.databinding.JutsuPlayerItemBinding
-import com.example.abschlussaufgabe.ui.FightViewModel
+import com.example.abschlussaufgabe.FightViewModel
 
 
 class JutsuPlayerAdapter(private var dataset: List<Jutsu>,

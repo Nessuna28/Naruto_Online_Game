@@ -8,7 +8,6 @@ import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +18,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.abschlussaufgabe.KniffelViewModel
+import com.example.abschlussaufgabe.MainViewModel
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.adapter.TeamAdapter
 import com.example.abschlussaufgabe.data.datamodels.modelForKniffel.Dice
@@ -91,17 +92,17 @@ class KniffelFragment : Fragment() {
         val popupDialog = Popup()
         popupDialog.show(parentFragmentManager, "Popup")
 
-        // abhören der Teamauswahl im ViewModel
-        kniffelViewModel.selectedDice.observe(viewLifecycleOwner) { selectedTeam ->
+
+        kniffelViewModel.selectedDice.observe(viewLifecycleOwner) {
             // Überprüft, ob ein Team ausgewählt wurde um das Popup zu schließen
-            if (selectedTeam != null && popupDialog.isVisible) {
+            if (it != null && popupDialog.isVisible) {
                 popupDialog.dismiss()
             }
         }
 
-        // Hinzufügen eines Observers für das automatische Schließen des Popups
-        kniffelViewModel.selectedDice.observe(viewLifecycleOwner) { selectedTeam ->
-            if (selectedTeam != null) {
+        // Observer für das automatische Schließen des Popups
+        kniffelViewModel.selectedDice.observe(viewLifecycleOwner) {
+            if (it != null) {
                 popupDialog.dismiss()
                 kniffelViewModel.setSongs()
                 context?.let { kniffelViewModel.playFirstSong(it) }

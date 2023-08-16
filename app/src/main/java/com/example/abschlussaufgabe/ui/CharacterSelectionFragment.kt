@@ -11,6 +11,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.abschlussaufgabe.FightViewModel
+import com.example.abschlussaufgabe.MainViewModel
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.adapter.SelectionCharacterPlayerAdapter
 import com.example.abschlussaufgabe.adapter.JutsuEnemyAdapter

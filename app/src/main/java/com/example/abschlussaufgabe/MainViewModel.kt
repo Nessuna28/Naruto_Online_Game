@@ -1,4 +1,4 @@
-package com.example.abschlussaufgabe.ui
+package com.example.abschlussaufgabe
 
 import android.app.Application
 import android.media.MediaPlayer
@@ -18,11 +18,11 @@ import com.google.android.material.card.MaterialCardView
 import kotlinx.coroutines.launch
 import android.content.Context
 import android.widget.TextView
-import com.example.abschlussaufgabe.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-
 
 
 class MainViewModel(application: Application): AndroidViewModel(application) {
@@ -38,6 +38,8 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     private val _profile = MutableLiveData<Profile>()
     val profile: LiveData<Profile>
         get() = _profile
+
+
 
 
     // für den Homescreen
@@ -106,16 +108,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         loadCharacters()
         searchCharacter("")
         dataList
-
-        setProfile(Profile(
-            R.drawable.profile_picture,
-            "Freier",
-            "Angelique",
-            "Nessuna",
-            "13.02.1985",
-            "sag ich nicht",
-            "pittiplatsch@web.de",
-            "123456") )
     }
 
 
@@ -187,7 +179,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     // setzt die jeweiligen Sounds und spielt sie ab
 
-    fun setSound(context: Context, sound: Int) {
+    fun playSound(context: Context, sound: Int) {
 
         mediaPlayer?.release()
 
@@ -209,16 +201,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         mediaPlayer = null
     }
 
-    /*private fun playNextSong(currentIndex: Int, audioList: List<Int>) {
-        currentIndex = (currentIndex + 1) % audioList.size
-        mediaPlayer.reset()
-        prepareMediaPlayer()
-        mediaPlayer.start()
-    }
-
-     */
-
-
     fun stopSound() {
 
         mediaPlayer?.stop()
@@ -233,7 +215,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     }
 
 
-    // gibt das heutige Datum zurück
+    // gibt das heutige Datum mit Uhrzeit zurück
     fun getTodayDate(): String {
 
         val dateFormat = SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault())

@@ -5,8 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.Location
 import com.example.abschlussaufgabe.databinding.LocationItemBinding
-import com.example.abschlussaufgabe.ui.FightViewModel
-import com.example.abschlussaufgabe.ui.MainViewModel
+import com.example.abschlussaufgabe.FightViewModel
 
 class LocationAdapter(private var dataset: List<Location>,
                       private var fightViewModel: FightViewModel

@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.Tool
 import com.example.abschlussaufgabe.databinding.ToolPlayerItemBinding
-import com.example.abschlussaufgabe.ui.FightViewModel
+import com.example.abschlussaufgabe.FightViewModel
 
 class ToolPlayerAdapter(private var dataset: List<Tool>,
                         private var fightViewModel: FightViewModel

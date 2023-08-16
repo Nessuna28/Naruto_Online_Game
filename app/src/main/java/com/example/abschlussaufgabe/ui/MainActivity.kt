@@ -1,12 +1,12 @@
-package com.example.abschlussaufgabe
+package com.example.abschlussaufgabe.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.abschlussaufgabe.databinding.ActivityMainBinding
-import com.example.abschlussaufgabe.ui.MainViewModel
+import com.example.abschlussaufgabe.MainViewModel
 import androidx.activity.viewModels
-
+import com.example.abschlussaufgabe.R
 
 
 class MainActivity : AppCompatActivity() {
@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         viewModel.profile.observe(this) {
-            binding.tvUserName?.text = it.userName
+            binding.tvUserName.text = it.userName
             binding.ivProfilePhoto.setImageResource(it.profileImage)
         }
 

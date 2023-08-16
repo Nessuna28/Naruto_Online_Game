@@ -86,4 +86,20 @@
     <string name="chooseTeam">Wähle ein Team!</string>
     <string name="titleKniffel">Kniffel</string>
     <string name="details">Detaillierte Ansicht</string>
+    <string name="welcome">Willkommen</string>
+    <string name="registration">Anmeldung</string>
+    <string name="forgotPassword">Passwort vergessen?</string>
+    <string name="logIn">Log In</string>
+    <string name="newHere">Neu hier?</string>
+    <string name="register">Registrieren</string>
+    <string name="titleRegistration">Registrierung</string>
+    <string name="password">Passwort</string>
+    <string name="passwordRepeat">Passwort wiederholen</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="btnRegister">Registrieren</string>
+    <string name="titlePasswordReset">Passwort zurücksetzen</string>
+    <string name="requestPassword">Passwort anfordern</string>
+    <string name="verifyEmail">Sie bekommen in Kürze eine Email. \nBitte klicken Sie auf den Link und verifizieren Sie ihre Email-Adresse.</string>
+    <string name="editProfile">Profil bearbeiten</string>
+    <string name="save">Speichern</string>
 </resources>

@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.Defense
 import com.example.abschlussaufgabe.databinding.DefensePlayerItemBinding
-import com.example.abschlussaufgabe.ui.FightViewModel
+import com.example.abschlussaufgabe.FightViewModel
 
 
 class DefensePlayerAdapter(private var dataset: List<Defense>,

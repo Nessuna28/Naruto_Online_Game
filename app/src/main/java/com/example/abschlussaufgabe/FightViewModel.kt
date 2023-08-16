@@ -1,4 +1,4 @@
-package com.example.abschlussaufgabe.ui
+package com.example.abschlussaufgabe
 
 import android.app.Application
 import android.os.CountDownTimer
