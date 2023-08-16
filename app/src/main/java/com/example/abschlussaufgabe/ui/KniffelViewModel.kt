@@ -1,6 +1,8 @@
 package com.example.abschlussaufgabe.ui
 
 import android.app.Application
+import android.content.Context
+import android.media.MediaPlayer
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -14,6 +16,10 @@ import com.example.abschlussaufgabe.data.datamodels.modelForKniffel.dataList.Dic
 
 class KniffelViewModel(application: Application): AndroidViewModel(application) {
 
+    private var mediaPlayer: MediaPlayer? = null
+    private var currentIndex = 0
+
+
     // LiveData-Variablen
 
     private val _diceList = MutableLiveData<List<Dice>>()
@@ -24,6 +30,9 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
     private val _selectedDice = MutableLiveData<Dice?>()
     val selectedDice: LiveData<Dice?>
         get() = _selectedDice
+
+
+    private var songList = mutableListOf<Int>()
 
 
     private val _rolledDice1 = MutableLiveData<Dice>()
@@ -212,6 +221,89 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
         _rolledDice4.value = list[3]
         _rolledDice5.value = list[4]
     }
+
+    fun setSongs() {
+
+        if (selectedDice.value != null) {
+            when(selectedDice.value!!.teamName) {
+                "Team Kakashi" -> {
+                    songList.add(R.raw.song_kakashi)
+                    songList.add(R.raw.song_naruto)
+                    songList.add(R.raw.song_sasuke)
+                    songList.add(R.raw.song_sakura)
+                }
+
+                "Team Asuma" -> {
+                    songList.add(R.raw.song_asuma)
+                    songList.add(R.raw.song_shikamaru)
+                }
+
+                "Team Kurenai" -> {
+                    songList.add(R.raw.song_kiba)
+                    songList.add(R.raw.song_hinata)
+                }
+
+                "Team Maito Gai" -> {
+                    songList.add(R.raw.song_maitogai)
+                    songList.add(R.raw.song_neji)
+                    songList.add(R.raw.song_rocklee)
+                }
+
+                "Team Gaara" -> {
+                    songList.add(R.raw.song_gaara)
+                }
+
+                "Team legendäre Sannin" -> {
+                    songList.add(R.raw.song_tsunade)
+                    songList.add(R.raw.song_jiraiya)
+                    songList.add(R.raw.song_orochimaru)
+                }
+
+                "Team Hokage" -> {
+                    songList.add(R.raw.song_minato)
+                    songList.add(R.raw.song_tsunade)
+                    songList.add(R.raw.song_kakashi)
+                }
+
+                "Team Akazuki" -> {
+                    songList.add(R.raw.song_deidara)
+                }
+
+                "Team Gehilfen" -> {
+                    songList.add(R.raw.song_pain)
+                }
+            }
+        }
+
+        Log.e("Kniffel", "$songList")
+    }
+
+    // spielt eine Liste an Songs ab
+    private fun prepareMediaPlayer(context: Context) {
+        mediaPlayer = MediaPlayer.create(context, songList[currentIndex])
+        mediaPlayer?.setOnCompletionListener {
+            // Wenn die Wiedergabe beendet ist, spielen Sie das nächste Lied ab
+            playNextSong(context)
+        }
+    }
+
+    fun playFirstSong(context: Context) {
+        prepareMediaPlayer(context)
+        mediaPlayer?.start()
+    }
+
+    private fun playNextSong(context: Context) {
+        currentIndex = (currentIndex + 1) % songList.size
+        mediaPlayer?.reset()
+        prepareMediaPlayer(context)
+        mediaPlayer?.start()
+    }
+
+    fun stopSound() {
+
+        mediaPlayer?.stop()
+    }
+
 
     // sucht eine zufällige Würfelseite aus für alle 5 Würfel
     fun rollTheDice() {

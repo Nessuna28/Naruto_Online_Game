@@ -57,7 +57,7 @@ class ResultFragment : Fragment() {
                     binding.ivCharacterImage?.setImageResource(it.imagePose)
                     binding.vvCharacterVideo?.setVideoPath(it.video.toString())
                     binding.vvCharacterVideo?.start()
-                    context?.let { it1 -> viewModel.setSound(it1, it.sound) }
+                    context?.let { it1 -> viewModel.playSound(it1, it.sound) }
                 }
 
             } else {
@@ -67,7 +67,7 @@ class ResultFragment : Fragment() {
                     binding.ivCharacterImage?.setImageResource(it.imageSad)
                     binding.vvCharacterVideo?.setVideoPath(it.video.toString())
                     binding.vvCharacterVideo?.start()
-                    context?.let { it1 -> viewModel.setSound(it1, it.sound) }
+                    context?.let { it1 -> viewModel.playSound(it1, it.sound) }
                 }
             }
         }

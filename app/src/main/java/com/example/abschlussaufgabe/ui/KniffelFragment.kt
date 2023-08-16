@@ -8,6 +8,7 @@ import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -81,6 +82,7 @@ class KniffelFragment : Fragment() {
     private val white = Color.WHITE
 
 
+
     @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -94,6 +96,15 @@ class KniffelFragment : Fragment() {
             // Überprüft, ob ein Team ausgewählt wurde um das Popup zu schließen
             if (selectedTeam != null && popupDialog.isVisible) {
                 popupDialog.dismiss()
+            }
+        }
+
+        // Hinzufügen eines Observers für das automatische Schließen des Popups
+        kniffelViewModel.selectedDice.observe(viewLifecycleOwner) { selectedTeam ->
+            if (selectedTeam != null) {
+                popupDialog.dismiss()
+                kniffelViewModel.setSongs()
+                context?.let { kniffelViewModel.playFirstSong(it) }
             }
         }
     }
@@ -136,8 +147,6 @@ class KniffelFragment : Fragment() {
         viewModel.imageSettings.value?.let { viewModel.showImages(it) }
         viewModel.userName.value?.let { viewModel.hideTextView(it) }
         viewModel.imageProfile.value?.let { viewModel.showMaterialCard(it) }
-
-        context?.let { viewModel.setSound(it, R.raw.song_theme) }
     }
 
     override fun onCreateView(
@@ -157,6 +166,7 @@ class KniffelFragment : Fragment() {
         repeat(13) {
             rounds.add(false)
         }
+
 
         kniffelViewModel.points.observe(viewLifecycleOwner) {
             binding.tvPoints.text = it.toString()
@@ -404,6 +414,7 @@ class KniffelFragment : Fragment() {
                     }
                     .setNegativeButton("Nein") { dialog, which ->
                         findNavController().navigate(R.id.homeFragment)
+                        kniffelViewModel.stopSound()
                     }
                     .show()
             }
