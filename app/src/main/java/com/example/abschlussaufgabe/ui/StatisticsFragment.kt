@@ -67,15 +67,15 @@ class StatisticsFragment : Fragment() {
         }
 
         viewModel.imageHome.value?.setOnClickListener {
-            findNavController().navigate(CharacterSelectionFragmentDirections.actionCharacterSelectionFragmentToHomeFragment())
+            findNavController().navigate(StatisticsFragmentDirections.actionStatisticsFragmentToHomeFragment())
         }
 
         viewModel.imageProfile.value!!.setOnClickListener {
-            findNavController().navigate(CharacterSelectionFragmentDirections.actionCharacterSelectionFragmentToProfileFragment())
+            findNavController().navigate(StatisticsFragmentDirections.actionStatisticsFragmentToProfileFragment())
         }
 
         viewModel.tvUserName.value!!.setOnClickListener {
-            findNavController().navigate(CharacterSelectionFragmentDirections.actionCharacterSelectionFragmentToProfileFragment())
+            findNavController().navigate(StatisticsFragmentDirections.actionStatisticsFragmentToProfileFragment())
         }
     }
 }
