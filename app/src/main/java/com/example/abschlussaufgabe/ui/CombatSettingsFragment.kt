@@ -141,7 +141,7 @@ class CombatSettingsFragment : Fragment() {
         // Navigation
 
         binding.btnFurther?.setOnClickListener {
-            findNavController().navigate(CombatSettingsFragmentDirections.actionDifficultyLevelAndRoundSelectionFragmentToCharacterSelectionFragment())
+            findNavController().navigate(CombatSettingsFragmentDirections.actionCombatSettingsFragmentToCharacterSelectionFragment())
         }
 
         binding.ivBack?.setOnClickListener {
@@ -149,11 +149,15 @@ class CombatSettingsFragment : Fragment() {
         }
 
         viewModel.imageHome.value?.setOnClickListener {
-            findNavController().navigate(CharacterSelectionFragmentDirections.actionCharacterSelectionFragmentToHomeFragment())
+            findNavController().navigate(CombatSettingsFragmentDirections.actionCombatSettingsFragmentToHomeFragment())
         }
 
-        viewModel.materialCard.value!!.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProfileFragment())
+        viewModel.imageProfile.value!!.setOnClickListener {
+            findNavController().navigate(CombatSettingsFragmentDirections.actionCombatSettingsFragmentToProfileFragment())
+        }
+
+        viewModel.tvUserName.value!!.setOnClickListener {
+            findNavController().navigate(CombatSettingsFragmentDirections.actionCombatSettingsFragmentToProfileFragment())
         }
     }
 }

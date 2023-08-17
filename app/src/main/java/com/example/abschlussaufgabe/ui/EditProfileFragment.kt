@@ -61,7 +61,7 @@ class EditProfileFragment : Fragment() {
 
     private fun createProfile() {
 
-        val profileImage = R.drawable.profile_picture // TODO: Bild ändern
+        val profileImage = binding.ivProfilePhoto.imageAlpha
         val firstName = binding.tietFirstName.text.toString()
         val lastName = binding.tietLastName.text.toString()
         val userName = binding.tietUserName.text.toString()

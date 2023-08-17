@@ -26,9 +26,8 @@ class SelectionGameFragment : Fragment() {
 
         requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 
-        viewModel.imageTitle.value?.let { viewModel.hideImages(it) }
-        viewModel.imageHome.value?.let { viewModel.showImages(it) }
-        viewModel.tvUserName.value?.let { viewModel.showTextView(it) }
+        viewModel.imageTitle.value?.let { viewModel.showImages(it) }
+        viewModel.materialCard.value?.let { viewModel.showMaterialCard(it) }
 
         context?.let { viewModel.stopSound() }
     }
@@ -46,7 +45,7 @@ class SelectionGameFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.tvFight.setOnClickListener {
-            findNavController().navigate(SelectionGameFragmentDirections.actionSelectionGameFragmentToDifficultyLevelAndRoundSelectionFragment())
+            findNavController().navigate(SelectionGameFragmentDirections.actionSelectionGameFragmentToCombatSettingsFragment())
         }
 
         binding.tvKniffel.setOnClickListener {
@@ -63,6 +62,14 @@ class SelectionGameFragment : Fragment() {
 
         viewModel.imageHome.value!!.setOnClickListener {
             findNavController().navigate(SelectionGameFragmentDirections.actionSelectionGameFragmentToHomeFragment())
+        }
+
+        viewModel.imageProfile.value!!.setOnClickListener {
+            findNavController().navigate(SelectionGameFragmentDirections.actionSelectionGameFragmentToProfileFragment())
+        }
+
+        viewModel.tvUserName.value!!.setOnClickListener {
+            findNavController().navigate(SelectionGameFragmentDirections.actionSelectionGameFragmentToProfileFragment())
         }
     }
 }

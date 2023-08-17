@@ -30,7 +30,6 @@ class MainActivity : AppCompatActivity() {
         viewModel._imageProfile.value = binding.mcProfile
         viewModel._tvUserName.value = binding.tvUserName
         viewModel._imageHome.value = binding.ivHome
-        viewModel._imageLogout.value = binding.ivLogout
         viewModel._imageSettings.value = binding.ivSettings
         viewModel._imageBackground.value = binding.ivBackground
         viewModel._materialCard.value = binding.materialCardView

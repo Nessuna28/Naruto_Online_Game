@@ -59,8 +59,7 @@
             <ImageView
                 android:id="@+id/iv_profilePhoto"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/profile_picture" />
+                android:layout_height="match_parent" />
         </com.google.android.material.card.MaterialCardView>
 
         <TextView
@@ -137,7 +136,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="120dp"
             android:fontFamily="@font/akaya_telivigala"
-            android:text="TextView"
+            android:text=""
             app:layout_constraintBottom_toBottomOf="@+id/tv_titleLastName"
             app:layout_constraintStart_toEndOf="@+id/tv_titleLastName"
             app:layout_constraintTop_toTopOf="@+id/tv_titleLastName" />
@@ -148,7 +147,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:fontFamily="@font/akaya_telivigala"
-            android:text="TextView"
+            android:text=""
             app:layout_constraintBottom_toBottomOf="@+id/tv_titleFirstName"
             app:layout_constraintStart_toStartOf="@+id/tv_lastName"
             app:layout_constraintTop_toTopOf="@+id/tv_titleFirstName" />
@@ -159,7 +158,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:fontFamily="@font/akaya_telivigala"
-            android:text="TextView"
+            android:text=""
             app:layout_constraintBottom_toBottomOf="@+id/tv_titleUserName"
             app:layout_constraintStart_toStartOf="@+id/tv_firstName"
             app:layout_constraintTop_toTopOf="@+id/tv_titleUserName" />
@@ -169,7 +168,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/akaya_telivigala"
-            android:text="TextView"
+            android:text=""
             app:layout_constraintBottom_toBottomOf="@+id/tv_titleBirthday"
             app:layout_constraintStart_toStartOf="@+id/tv_userName"
             app:layout_constraintTop_toTopOf="@+id/tv_titleBirthday" />
@@ -180,7 +179,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
             android:fontFamily="@font/akaya_telivigala"
-            android:text="TextView"
+            android:text=""
             app:layout_constraintBottom_toBottomOf="@+id/tv_titlePhone"
             app:layout_constraintStart_toStartOf="@+id/tv_birthday"
             app:layout_constraintTop_toTopOf="@+id/tv_titlePhone" />
@@ -190,10 +189,44 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/akaya_telivigala"
-            android:text="TextView"
+            android:text=""
             app:layout_constraintBottom_toBottomOf="@+id/tv_titleEmail"
             app:layout_constraintStart_toStartOf="@+id/tv_phoneNumber"
             app:layout_constraintTop_toTopOf="@+id/tv_titleEmail" />
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_titleEmail"
+            app:layout_constraintTop_toBottomOf="@+id/tv_titleEmail">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/iv_logout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/baseline_logout_24" />
+
+            <TextView
+                android:id="@+id/tv_logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/logout"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_logout"
+                app:layout_constraintStart_toEndOf="@+id/iv_logout"
+                app:layout_constraintTop_toTopOf="@+id/iv_logout" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

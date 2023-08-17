@@ -102,4 +102,5 @@
     <string name="verifyEmail">Sie bekommen in Kürze eine Email. \nBitte klicken Sie auf den Link und verifizieren Sie ihre Email-Adresse.</string>
     <string name="editProfile">Profil bearbeiten</string>
     <string name="save">Speichern</string>
+    <string name="logout">Ausloggen</string>
 </resources>

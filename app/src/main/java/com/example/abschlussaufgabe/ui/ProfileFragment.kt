@@ -2,6 +2,7 @@ package com.example.abschlussaufgabe.ui
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.abschlussaufgabe.AuthViewModel
 import com.example.abschlussaufgabe.MainViewModel
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.databinding.FragmentProfileBinding
@@ -17,6 +19,7 @@ import com.example.abschlussaufgabe.databinding.FragmentProfileBinding
 class ProfileFragment : Fragment() {
 
     private val viewModel: MainViewModel by activityViewModels()
+    private val authViewModel: AuthViewModel by activityViewModels()
 
     private lateinit var binding: FragmentProfileBinding
 
@@ -57,6 +60,8 @@ class ProfileFragment : Fragment() {
             binding.tvBirthday.text = it.birthday
             binding.tvPhoneNumber.text = it.phone
             binding.tvEmail.text = it.email
+
+            Log.e("Profile", "$it")
         }
 
         findNavController().addOnDestinationChangedListener { _, destination, _ ->
@@ -78,6 +83,11 @@ class ProfileFragment : Fragment() {
 
         binding.ivEdit.setOnClickListener {
             findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment())
+        }
+
+        binding.cvLogout.setOnClickListener {
+            authViewModel.logout()
+            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToLogInFragment())
         }
     }
 }

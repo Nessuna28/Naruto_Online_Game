@@ -88,5 +88,13 @@ class LocationSelectionFragment : Fragment() {
         viewModel.imageHome.value?.setOnClickListener {
             findNavController().navigate(LocationSelectionFragmentDirections.actionLocationSelectionFragmentToHomeFragment())
         }
+
+        viewModel.imageProfile.value!!.setOnClickListener {
+            findNavController().navigate(LocationSelectionFragmentDirections.actionLocationSelectionFragmentToProfileFragment())
+        }
+
+        viewModel.tvUserName.value!!.setOnClickListener {
+            findNavController().navigate(LocationSelectionFragmentDirections.actionLocationSelectionFragmentToProfileFragment())
+        }
     }
 }

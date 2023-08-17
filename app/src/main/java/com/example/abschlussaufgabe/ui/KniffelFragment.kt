@@ -442,6 +442,10 @@ class KniffelFragment : Fragment() {
             findNavController().navigate(KniffelFragmentDirections.actionKniffelFragmentToProfileFragment())
         }
 
+        viewModel.tvUserName.value!!.setOnClickListener {
+            findNavController().navigate(KniffelFragmentDirections.actionKniffelFragmentToProfileFragment())
+        }
+
         viewModel.imageHome.value!!.setOnClickListener {
             findNavController().navigate(KniffelFragmentDirections.actionKniffelFragmentToHomeFragment())
         }

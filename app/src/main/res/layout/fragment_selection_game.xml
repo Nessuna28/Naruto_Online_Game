@@ -13,30 +13,6 @@
         tools:context=".ui.HomeFragment">
 
 
-        <TextView
-            android:id="@+id/tv_subtitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/subtitle"
-            android:textColor="@color/primary"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_title"
-            app:layout_constraintEnd_toEndOf="@+id/iv_title" />
-
-        <ImageView
-            android:id="@+id/iv_title"
-            android:layout_width="335dp"
-            android:layout_height="190dp"
-            android:layout_marginTop="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.355"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/title" />
-
         <ImageView
             android:id="@+id/iv_back"
             android:layout_width="wrap_content"
@@ -51,14 +27,14 @@
             android:id="@+id/tv_titleGames"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="60dp"
             android:fontFamily="@font/akaya_telivigala"
             android:text="@string/games"
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_title" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_fight"

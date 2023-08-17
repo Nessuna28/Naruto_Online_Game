@@ -31,8 +31,7 @@ class ResultFragment : Fragment() {
         requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
 
         viewModel.imageBackground.value?.let { viewModel.hideImages(it) }
-        viewModel.materialCard.value?.let { viewModel.showMaterialCard(it) }
-        viewModel.imageHome.value?.let { viewModel.showImages(it) }
+        viewModel.materialCard.value?.let { viewModel.hideMaterialCard(it) }
     }
 
     override fun onCreateView(

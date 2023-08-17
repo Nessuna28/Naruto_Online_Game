@@ -1,5 +1,6 @@
 package com.example.abschlussaufgabe.data.datamodels
 
+import android.widget.ImageView
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 

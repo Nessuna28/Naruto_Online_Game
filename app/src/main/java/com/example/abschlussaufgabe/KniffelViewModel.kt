@@ -273,8 +273,6 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
                 }
             }
         }
-
-        Log.e("Kniffel", "$songList")
     }
 
     // spielt eine Liste an Songs ab

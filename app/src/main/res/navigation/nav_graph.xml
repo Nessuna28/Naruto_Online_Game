@@ -8,7 +8,8 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.abschlussaufgabe.ui.HomeFragment"
-        android:label="HomeFragment" >
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_aboutTheCharactersFragment"
             app:destination="@id/aboutTheCharactersFragment" />
@@ -39,6 +40,9 @@
         <action
             android:id="@+id/action_characterSelectionFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_characterSelectionFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/locationSelectionFragment"
@@ -54,6 +58,9 @@
         <action
             android:id="@+id/action_locationSelectionFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_locationSelectionFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/fightFragment"
@@ -100,7 +107,8 @@
     <fragment
         android:id="@+id/characterDetailFragment"
         android:name="com.example.abschlussaufgabe.ui.CharacterDetailFragment"
-        android:label="CharacterDetailFragment" >
+        android:label="CharacterDetailFragment"
+        tools:layout="@layout/fragment_character_detail">
         <action
             android:id="@+id/action_characterDetailFragment_to_aboutTheCharactersFragment"
             app:destination="@id/aboutTheCharactersFragment" />
@@ -118,7 +126,8 @@
     <fragment
         android:id="@+id/resultFragment"
         android:name="com.example.abschlussaufgabe.ui.ResultFragment"
-        android:label="ResultFragment" >
+        android:label="ResultFragment"
+        tools:layout="@layout/fragment_result">
         <action
             android:id="@+id/action_resultFragment_to_fightFragment"
             app:destination="@id/fightFragment" />
@@ -129,13 +138,14 @@
             android:id="@+id/action_resultFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
         <action
-            android:id="@+id/action_resultFragment_to_difficultyLevelAndRoundSelectionFragment"
-            app:destination="@id/difficultyLevelAndRoundSelectionFragment" />
+            android:id="@+id/action_resultFragment_to_combatSettingsFragment"
+            app:destination="@id/combatSettingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.abschlussaufgabe.ui.ProfileFragment"
-        android:label="ProfileFragment" >
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_profileFragment_to_aboutTheCharactersFragment"
             app:destination="@id/aboutTheCharactersFragment" />
@@ -151,22 +161,33 @@
         <action
             android:id="@+id/action_profileFragment_to_editProfileFragment"
             app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_logInFragment"
+            app:destination="@id/logInFragment" />
     </fragment>
     <fragment
-        android:id="@+id/difficultyLevelAndRoundSelectionFragment"
+        android:id="@+id/combatSettingsFragment"
         android:name="com.example.abschlussaufgabe.ui.CombatSettingsFragment"
-        android:label="DifficultyLevelAndRoundSelectionFragment" >
+        android:label="CombatSettingsFragment"
+        tools:layout="@layout/fragment_combat_settings">
         <action
-            android:id="@+id/action_difficultyLevelAndRoundSelectionFragment_to_characterSelectionFragment"
+            android:id="@+id/action_combatSettingsFragment_to_characterSelectionFragment"
             app:destination="@id/characterSelectionFragment" />
         <action
-            android:id="@+id/action_difficultyLevelAndRoundSelectionFragment_to_homeFragment"
+            android:id="@+id/action_combatSettings_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_combatSettingsFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_combatSettingsFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/kniffelFragment"
         android:name="com.example.abschlussaufgabe.ui.KniffelFragment"
-        android:label="KniffelFragment" >
+        android:label="KniffelFragment"
+        tools:layout="@layout/fragment_kniffel">
         <action
             android:id="@+id/action_kniffelFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -177,7 +198,8 @@
     <fragment
         android:id="@+id/selectionGameFragment"
         android:name="com.example.abschlussaufgabe.ui.SelectionGameFragment"
-        android:label="SelectionGameFragment" >
+        android:label="SelectionGameFragment"
+        tools:layout="@layout/fragment_selection_game">
         <action
             android:id="@+id/action_selectionGameFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -188,8 +210,8 @@
             android:id="@+id/action_selectionGameFragment_to_kniffelFragment"
             app:destination="@id/kniffelFragment" />
         <action
-            android:id="@+id/action_selectionGameFragment_to_difficultyLevelAndRoundSelectionFragment"
-            app:destination="@id/difficultyLevelAndRoundSelectionFragment" />
+            android:id="@+id/action_selectionGameFragment_to_combatSettingsFragment"
+            app:destination="@id/combatSettingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/logInFragment"
@@ -212,7 +234,8 @@
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.abschlussaufgabe.ui.RegisterFragment"
-        android:label="RegisterFragment" >
+        android:label="RegisterFragment"
+        tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_logInFragment"
             app:destination="@id/logInFragment" />
@@ -220,7 +243,8 @@
     <fragment
         android:id="@+id/passwordResetFragment"
         android:name="com.example.abschlussaufgabe.ui.PasswordResetFragment"
-        android:label="PasswordResetFragment" >
+        android:label="PasswordResetFragment"
+        tools:layout="@layout/fragment_password_reset">
         <action
             android:id="@+id/action_passwordResetFragment_to_logInFragment"
             app:destination="@id/logInFragment" />
@@ -228,7 +252,8 @@
     <fragment
         android:id="@+id/editProfileFragment"
         android:name="com.example.abschlussaufgabe.ui.EditProfileFragment"
-        android:label="EditProfileFragment" >
+        android:label="EditProfileFragment"
+        tools:layout="@layout/fragment_edit_profile">
         <action
             android:id="@+id/action_editProfileFragment_to_profileFragment"
             app:destination="@id/profileFragment" />

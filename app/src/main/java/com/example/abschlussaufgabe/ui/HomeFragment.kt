@@ -2,6 +2,7 @@ package com.example.abschlussaufgabe.ui
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.AuthViewModel
+import com.example.abschlussaufgabe.KniffelViewModel
 import com.example.abschlussaufgabe.MainViewModel
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.databinding.FragmentHomeBinding
@@ -20,16 +22,11 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
 
     private val viewModel: MainViewModel by activityViewModels()
+    private val kniffelViewModel: KniffelViewModel by activityViewModels()
 
 
     override fun onStart() {
         super.onStart()
-
-        viewModel.profile.observe(viewLifecycleOwner) {
-            if (it == null) {
-                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToEditProfileFragment())
-            }
-        }
 
 
         requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
@@ -41,9 +38,9 @@ class HomeFragment : Fragment() {
         viewModel.tvUserName.value?.let { viewModel.showTextView(it) }
         viewModel.imageSettings.value?.let { viewModel.showImages(it) }
         viewModel.imageProfile.value?.let { viewModel.showMaterialCard(it) }
-        viewModel.imageLogout.value?.let { viewModel.showImages(it) }
 
         context?.let { viewModel.stopSound() }
+        context?.let { kniffelViewModel.stopSound() }
     }
 
     override fun onCreateView(
@@ -57,6 +54,12 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.profile.observe(viewLifecycleOwner) {
+            if (it == null) {
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToEditProfileFragment())
+            }
+        }
 
         binding.tvCharacterTitle.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToAboutTheCharactersFragment())
@@ -74,8 +77,8 @@ class HomeFragment : Fragment() {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProfileFragment())
         }
 
-        viewModel.imageLogout.value!!.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToLogInFragment())
+        viewModel.tvUserName.value!!.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProfileFragment())
         }
     }
 }

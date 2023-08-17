@@ -29,7 +29,7 @@ class StatisticsFragment : Fragment() {
         activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 
         viewModel.imageTitle.value?.let { viewModel.showImages(it) }
-        viewModel.imageHome.value?.let { viewModel.showImages(it) }
+        viewModel.materialCard.value?.let { viewModel.showMaterialCard(it) }
 
 
         viewModel.loadDataGame()
@@ -68,6 +68,14 @@ class StatisticsFragment : Fragment() {
 
         viewModel.imageHome.value?.setOnClickListener {
             findNavController().navigate(CharacterSelectionFragmentDirections.actionCharacterSelectionFragmentToHomeFragment())
+        }
+
+        viewModel.imageProfile.value!!.setOnClickListener {
+            findNavController().navigate(CharacterSelectionFragmentDirections.actionCharacterSelectionFragmentToProfileFragment())
+        }
+
+        viewModel.tvUserName.value!!.setOnClickListener {
+            findNavController().navigate(CharacterSelectionFragmentDirections.actionCharacterSelectionFragmentToProfileFragment())
         }
     }
 }

@@ -96,5 +96,9 @@ class CharacterDetailFragment : Fragment() {
         viewModel.imageProfile.value?.setOnClickListener {
             findNavController().navigate(CharacterDetailFragmentDirections.actionCharacterDetailFragmentToProfileFragment())
         }
+
+        viewModel.tvUserName.value!!.setOnClickListener {
+            findNavController().navigate(CharacterDetailFragmentDirections.actionCharacterDetailFragmentToProfileFragment())
+        }
     }
 }

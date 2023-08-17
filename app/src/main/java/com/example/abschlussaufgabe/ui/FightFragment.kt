@@ -54,7 +54,6 @@ class FightFragment : Fragment() {
 
         viewModel.imageBackground.value?.let { viewModel.hideImages(it) }
         viewModel.materialCard.value?.let { viewModel.hideMaterialCard(it) }
-        viewModel.tvUserName.value?.let { viewModel.hideTextView(it) }
 
         binding.ivImage2Player?.visibility = View.INVISIBLE
         binding.ivImage2Enemy?.visibility = View.INVISIBLE

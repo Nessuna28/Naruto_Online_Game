@@ -54,11 +54,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _imageHome
 
 
-    val _imageLogout = MutableLiveData<ImageView>()
-    val imageLogout: LiveData<ImageView>
-        get() = _imageLogout
-
-
     val _imageSettings = MutableLiveData<ImageView>()
     val imageSettings: LiveData<ImageView>
         get() = _imageSettings
@@ -111,13 +106,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         loadCharacters()
         searchCharacter("")
         dataList
-    }
-
-
-    // Profil initialisieren
-    fun setProfile(profile: Profile) {
-
-        _profile.value = profile
     }
 
 
