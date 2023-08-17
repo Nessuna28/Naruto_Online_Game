@@ -189,6 +189,7 @@
             android:id="@+id/tv_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/akaya_telivigala"
             android:text="TextView"
             app:layout_constraintBottom_toBottomOf="@+id/tv_titleEmail"
             app:layout_constraintStart_toStartOf="@+id/tv_phoneNumber"

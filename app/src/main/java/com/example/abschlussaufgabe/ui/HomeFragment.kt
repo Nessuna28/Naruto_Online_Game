@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.abschlussaufgabe.AuthViewModel
 import com.example.abschlussaufgabe.MainViewModel
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.databinding.FragmentHomeBinding
@@ -24,15 +25,23 @@ class HomeFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
+        viewModel.profile.observe(viewLifecycleOwner) {
+            if (it == null) {
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToEditProfileFragment())
+            }
+        }
+
+
         requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 
         viewModel.materialCard.value?.let { viewModel.showMaterialCard(it) }
         viewModel.imageTitle.value?.let { viewModel.hideImages(it) }
         viewModel.imageHome.value?.let { viewModel.hideImages(it) }
         viewModel.imageBackground.value?.let { viewModel.showImages(it) }
-        viewModel.userName.value?.let { viewModel.showTextView(it) }
+        viewModel.tvUserName.value?.let { viewModel.showTextView(it) }
         viewModel.imageSettings.value?.let { viewModel.showImages(it) }
         viewModel.imageProfile.value?.let { viewModel.showMaterialCard(it) }
+        viewModel.imageLogout.value?.let { viewModel.showImages(it) }
 
         context?.let { viewModel.stopSound() }
     }
@@ -63,6 +72,10 @@ class HomeFragment : Fragment() {
 
         viewModel.imageProfile.value!!.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProfileFragment())
+        }
+
+        viewModel.imageLogout.value!!.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToLogInFragment())
         }
     }
 }

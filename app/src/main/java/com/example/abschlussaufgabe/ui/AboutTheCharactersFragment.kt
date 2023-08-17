@@ -30,7 +30,7 @@ class AboutTheCharactersFragment : Fragment() {
 
         viewModel.imageTitle.value?.let { viewModel.showImages(it) }
         viewModel.imageHome.value?.let { viewModel.showImages(it) }
-        viewModel.userName.value?.let { viewModel.showTextView(it) }
+        viewModel.tvUserName.value?.let { viewModel.showTextView(it) }
         viewModel.materialCard.value?.let { viewModel.showMaterialCard(it) }
         viewModel.imageProfile.value?.let { viewModel.showMaterialCard(it) }
         viewModel.imageSettings.value?.let { viewModel.showImages(it) }

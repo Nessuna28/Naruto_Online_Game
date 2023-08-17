@@ -2,6 +2,7 @@ package com.example.abschlussaufgabe.data.datamodels.modelForFight.fightDataForD
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.firebase.auth.FirebaseAuth
 
 @Entity(tableName = "player_table")
 data class DataPlayer(

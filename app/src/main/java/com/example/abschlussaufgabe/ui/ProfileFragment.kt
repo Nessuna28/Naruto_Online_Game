@@ -11,7 +11,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.MainViewModel
 import com.example.abschlussaufgabe.R
-import com.example.abschlussaufgabe.data.datamodels.Profile
 import com.example.abschlussaufgabe.databinding.FragmentProfileBinding
 
 
@@ -30,10 +29,12 @@ class ProfileFragment : Fragment() {
 
         viewModel.imageBackground.value?.let { viewModel.hideImages(it) }
         viewModel.materialCard.value?.let { viewModel.hideMaterialCard(it) }
-        viewModel.userName.value?.let { viewModel.hideTextView(it) }
+        viewModel.tvUserName.value?.let { viewModel.hideTextView(it) }
         viewModel.imageTitle.value?.let { viewModel.showImages(it) }
         viewModel.imageHome.value?.let { viewModel.showImages(it) }
         viewModel.imageSettings.value?.let { viewModel.showImages(it) }
+
+        viewModel.loadDataProfile()
     }
 
     override fun onCreateView(
@@ -66,11 +67,13 @@ class ProfileFragment : Fragment() {
         // der Zurück-Button navigiert nur zurück wenn ich nicht vom Profil bearbeiten komme
         // komme ich vom Profil bearbeiten dann navigiert der Zurück-Button zum Home
         binding.ivBack.setOnClickListener {
-            if (previousFragmentTag == "fragment_edit_profile_tag") {
+            if (previousFragmentTag == "fragment_edit_profile_tag" || previousFragmentTag == "fragment_log_in_tag") {
                 findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToHomeFragment())
             } else {
                 findNavController().navigateUp()
             }
+
+            //findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToHomeFragment())
         }
 
         binding.ivEdit.setOnClickListener {

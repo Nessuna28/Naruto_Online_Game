@@ -12,14 +12,13 @@ import androidx.lifecycle.viewModelScope
 import com.example.abschlussaufgabe.data.AppRepository
 import com.example.abschlussaufgabe.data.datamodels.Profile
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.fightDataForDatabase.DataPlayer
-import com.example.abschlussaufgabe.data.local.PlayerDatabase
+import com.example.abschlussaufgabe.data.local.GameDatabase
 import com.example.abschlussaufgabe.data.remote.CharacterApi
 import com.google.android.material.card.MaterialCardView
 import kotlinx.coroutines.launch
 import android.content.Context
 import android.widget.TextView
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
+import com.example.abschlussaufgabe.data.local.ProfileDatabase
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -27,8 +26,9 @@ import java.util.Locale
 
 class MainViewModel(application: Application): AndroidViewModel(application) {
 
-    private val database = PlayerDatabase.getDatabase(application)
-    private val repository = AppRepository(CharacterApi, database)
+    private val gameDatabase = GameDatabase.getDatabase(application)
+    private val profileDatabase = ProfileDatabase.getDatabase(application)
+    private val repository = AppRepository(CharacterApi, gameDatabase, profileDatabase)
 
     private var mediaPlayer: MediaPlayer? = null
 
@@ -54,6 +54,11 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _imageHome
 
 
+    val _imageLogout = MutableLiveData<ImageView>()
+    val imageLogout: LiveData<ImageView>
+        get() = _imageLogout
+
+
     val _imageSettings = MutableLiveData<ImageView>()
     val imageSettings: LiveData<ImageView>
         get() = _imageSettings
@@ -69,17 +74,15 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _materialCard
 
 
-    val _userName = MutableLiveData<TextView>()
-    val userName: LiveData<TextView>
-        get() = _userName
+    val _tvUserName = MutableLiveData<TextView>()
+    val tvUserName: LiveData<TextView>
+        get() = _tvUserName
 
 
     val _imageProfile = MutableLiveData<MaterialCardView>()
     val imageProfile: LiveData<MaterialCardView>
         get() = _imageProfile
 
-
-    // für die Statistik
 
     private val _userNameEnemy = MutableLiveData<String>()
     val userNameEnemy: LiveData<String>
@@ -225,34 +228,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     }
 
 
-    // speichert Daten des Spielers in der Datenbank
-    fun updateDatabase(dataPlayer: DataPlayer) {
-
-        Log.e("MainViewModel", "$dataPlayer")
-        viewModelScope.launch {
-            try {
-                repository.insertData(dataPlayer)
-                _dataList.value = repository.getAllData()
-                countVictorysAndDefeats()
-            } catch (e: Exception) {
-                Log.e("MainViewModel", "Error loading Data to Database: $e")
-            }
-        }
-    }
-
-    // läd die Daten aus der Datenbank
-    fun loadData() {
-
-        viewModelScope.launch {
-            try {
-                _dataList.value = repository.getAllData()
-                countVictorysAndDefeats()
-            } catch (e: Exception) {
-                Log.e("MainViewModel", "Error loading Data: $e")
-            }
-        }
-    }
-
     // zählt die Siege und Niederlagen
     fun countVictorysAndDefeats() {
 
@@ -263,6 +238,61 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
                 } else if (it.result == "Niederlage") {
                     _defeat.value = _defeat.value?.plus(1)
                 }
+            }
+        }
+    }
+
+    // für die Datenbanken
+
+    // speichert die Spieldaten des Spielers in der Datenbank
+    fun insertDatabaseGame(dataPlayer: DataPlayer) {
+
+        Log.e("MainViewModel", "$dataPlayer")
+        viewModelScope.launch {
+            try {
+                repository.insertDataGame(dataPlayer)
+                _dataList.value = repository.getAllDataGame()
+                countVictorysAndDefeats()
+            } catch (e: Exception) {
+                Log.e("MainViewModel", "Error loading Data to Database: $e")
+            }
+        }
+    }
+
+    // läd die Daten aus der Datenbank
+    fun loadDataGame() {
+
+        viewModelScope.launch {
+            try {
+                _dataList.value = repository.getAllDataGame()
+                countVictorysAndDefeats()
+            } catch (e: Exception) {
+                Log.e("MainViewModel", "Error loading Data: $e")
+            }
+        }
+    }
+
+    // speichert die Profildaten des Users in der Datenbank
+    fun insertDatabaseProfile(profile: Profile) {
+
+        viewModelScope.launch {
+            try {
+                repository.insertDataProfile(profile)
+                _profile.value = repository.getAllDataProfile()
+            } catch (e: Exception) {
+                Log.e("MainViewModel", "Error loading Data to Database: $e")
+            }
+        }
+    }
+
+    // läd die Daten aus der Datenbank
+    fun loadDataProfile() {
+
+        viewModelScope.launch {
+            try {
+                _profile.value = repository.getAllDataProfile()
+            } catch (e: Exception) {
+                Log.e("MainViewModel", "Error loading Data: $e")
             }
         }
     }

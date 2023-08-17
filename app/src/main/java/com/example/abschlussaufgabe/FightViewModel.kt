@@ -155,9 +155,19 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
         get() = _result
 
 
+    private val _lifePointsPlayer = MutableLiveData(0)
+    val lifePointsPlayer: LiveData<Int>
+        get() = _lifePointsPlayer
+
+
     private val _resultEnemy = MutableLiveData("")
     val resultEnemy: LiveData<String>
         get() = _resultEnemy
+
+
+    private val _lifePointsEnemy = MutableLiveData(0)
+    val lifePointsEnemy: LiveData<Int>
+        get() = _lifePointsEnemy
 
 
     private val _roundsWonPlayer = MutableLiveData(0)
@@ -567,6 +577,10 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
     // wenn man noch Lebenspunkte übrig hat dann nimmt man diese mit in die nächste Runde
     fun resetPointsForNewRound() {
 
+        setLifePointsEnemy(enemy.value!!.lifePoints)
+        setLifePointsEnemy(enemy.value!!.lifePoints)
+
+
         if (player.value!!.lifePoints <= 0) {
             _player.value!!.lifePoints = player.value!!.lifePointsStart
         } else {
@@ -613,6 +627,16 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
             _result.value = "Niederlage"
             _resultEnemy.value = "Sieg"
         }
+    }
+
+    fun setLifePointsPlayer(lifePoints: Int) {
+
+        _lifePointsPlayer.value = lifePoints
+    }
+
+    fun setLifePointsEnemy(lifePoints: Int) {
+
+        _lifePointsEnemy.value = lifePoints
     }
 
     // Funktion um den Toast anzuzeigen

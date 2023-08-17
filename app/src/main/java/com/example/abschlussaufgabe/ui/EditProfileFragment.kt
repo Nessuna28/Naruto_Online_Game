@@ -13,7 +13,6 @@ import com.example.abschlussaufgabe.MainViewModel
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.data.datamodels.Profile
 import com.example.abschlussaufgabe.databinding.FragmentEditProfileBinding
-import com.example.abschlussaufgabe.databinding.FragmentProfileBinding
 
 
 class EditProfileFragment : Fragment() {
@@ -22,6 +21,8 @@ class EditProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentEditProfileBinding
 
+
+
     override fun onStart() {
         super.onStart()
 
@@ -29,7 +30,7 @@ class EditProfileFragment : Fragment() {
 
         viewModel.imageBackground.value?.let { viewModel.hideImages(it) }
         viewModel.materialCard.value?.let { viewModel.hideMaterialCard(it) }
-        viewModel.userName.value?.let { viewModel.hideTextView(it) }
+        viewModel.tvUserName.value?.let { viewModel.hideTextView(it) }
         viewModel.imageTitle.value?.let { viewModel.showImages(it) }
         viewModel.imageHome.value?.let { viewModel.showImages(it) }
         viewModel.imageSettings.value?.let { viewModel.showImages(it) }
@@ -56,6 +57,8 @@ class EditProfileFragment : Fragment() {
         }
     }
 
+
+
     private fun createProfile() {
 
         val profileImage = R.drawable.profile_picture // TODO: Bild ändern
@@ -67,8 +70,18 @@ class EditProfileFragment : Fragment() {
         val email = binding.tietEmail.text.toString()
 
 
-        val profile = Profile(profileImage, firstName, lastName, userName, birthday, phone, email)
+        val profile = Profile(
+            profileImage = profileImage,
+            lastName = lastName,
+            firstName = firstName,
+            userName = userName,
+            birthday = birthday,
+            phone = phone,
+            email = email)
 
-        viewModel.setProfile(profile)
+        viewModel.insertDatabaseProfile(profile)
+
     }
 }
+
+

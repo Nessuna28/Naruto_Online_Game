@@ -12,16 +12,6 @@
         android:layout_height="match_parent"
         tools:context=".ui.EditProfileFragment">
 
-        <ImageView
-            android:id="@+id/iv_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:src="@drawable/baseline_arrow_back_24"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_titleProfile"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_titleProfile" />
-
         <TextView
             android:id="@+id/tv_titleProfile"
             android:layout_width="wrap_content"
@@ -49,8 +39,7 @@
             <ImageView
                 android:id="@+id/iv_profilePhoto"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@tools:sample/avatars" />
+                android:layout_height="match_parent" />
         </com.google.android.material.card.MaterialCardView>
 
         <TextView

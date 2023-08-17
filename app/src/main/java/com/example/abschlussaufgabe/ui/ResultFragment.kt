@@ -97,16 +97,16 @@ class ResultFragment : Fragment() {
             userName = viewModel.profile.value!!.userName,
             characterName = charakter.name,
             characterImage = charakter.image,
-            lifePoints = charakter.lifePoints,
+            lifePoints = fightViewModel.lifePointsPlayer.value!!,
             result = fightViewModel.result.value!!,
             userNameEnemy = viewModel.userNameEnemy.value!!,
             characterNameEnemy = charakterEnemy.name,
             characterImageEnemy = charakterEnemy.image,
-            lifePointsEnemy = charakterEnemy.lifePoints,
+            lifePointsEnemy = fightViewModel.lifePointsEnemy.value!!,
             resultEnemy = fightViewModel.resultEnemy.value!!,
            )
         
-        viewModel.updateDatabase(data)
+        viewModel.insertDatabaseGame(data)
 
 
 

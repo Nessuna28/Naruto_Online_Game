@@ -4,23 +4,23 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.abschlussaufgabe.data.datamodels.modelForFight.fightDataForDatabase.DataPlayer
+import com.example.abschlussaufgabe.data.datamodels.Profile
 
-@Database(entities = [DataPlayer::class], version = 1)
-abstract class PlayerDatabase: RoomDatabase() {
+@Database(entities = [Profile::class], version = 1)
+abstract class ProfileDatabase: RoomDatabase() {
 
-    abstract val playerDao: PlayerDatabaseDao
+    abstract val profileDao: ProfileDao
 
     companion object {
-        private lateinit var INSTANCE: PlayerDatabase
+        private lateinit var INSTANCE: ProfileDatabase
 
-        fun getDatabase(context: Context): PlayerDatabase {
+        fun getDatabase(context: Context): ProfileDatabase {
             synchronized(this) {
                 if (!this::INSTANCE.isInitialized) {
                     INSTANCE = Room.databaseBuilder(
                         context.applicationContext,
-                        PlayerDatabase::class.java,
-                        "player_database"
+                        ProfileDatabase::class.java,
+                        "profile_database"
                     ).build()
                 }
                 return INSTANCE

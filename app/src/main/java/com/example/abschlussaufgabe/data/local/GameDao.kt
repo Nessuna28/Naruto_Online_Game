@@ -1,6 +1,6 @@
 package com.example.abschlussaufgabe.data.local
 
-import androidx.lifecycle.LiveData
+
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -9,7 +9,7 @@ import androidx.room.Update
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.fightDataForDatabase.DataPlayer
 
 @Dao
-interface PlayerDatabaseDao {
+interface GameDao {
 
     // Funktion die die Daten in die Tabelle einfügt
     @Insert(onConflict = OnConflictStrategy.REPLACE)

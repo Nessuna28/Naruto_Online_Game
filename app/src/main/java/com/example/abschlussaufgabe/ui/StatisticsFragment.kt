@@ -32,7 +32,7 @@ class StatisticsFragment : Fragment() {
         viewModel.imageHome.value?.let { viewModel.showImages(it) }
 
 
-        viewModel.loadData()
+        viewModel.loadDataGame()
     }
 
     override fun onCreateView(

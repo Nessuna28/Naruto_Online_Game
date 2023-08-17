@@ -28,7 +28,7 @@ class SelectionGameFragment : Fragment() {
 
         viewModel.imageTitle.value?.let { viewModel.hideImages(it) }
         viewModel.imageHome.value?.let { viewModel.showImages(it) }
-        viewModel.userName.value?.let { viewModel.showTextView(it) }
+        viewModel.tvUserName.value?.let { viewModel.showTextView(it) }
 
         context?.let { viewModel.stopSound() }
     }

@@ -35,7 +35,7 @@ class CharacterDetailFragment : Fragment() {
         viewModel.imageHome.value?.let { viewModel.showImages(it) }
         viewModel.imageBackground.value?.let { viewModel.showImages(it) }
         viewModel.materialCard.value?.let { viewModel.showMaterialCard(it) }
-        viewModel.userName.value?.let { viewModel.showTextView(it) }
+        viewModel.tvUserName.value?.let { viewModel.showTextView(it) }
         viewModel.imageSettings.value?.let { viewModel.showImages(it) }
         viewModel.imageProfile.value?.let { viewModel.showMaterialCard(it) }
 

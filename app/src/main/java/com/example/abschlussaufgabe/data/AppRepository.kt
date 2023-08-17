@@ -3,18 +3,17 @@ package com.example.abschlussaufgabe.data
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.abschlussaufgabe.data.datamodels.Profile
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.fightDataForDatabase.DataPlayer
 import com.example.abschlussaufgabe.data.datamodels.modelsApi.Character
-import com.example.abschlussaufgabe.data.local.PlayerDatabase
-import com.example.abschlussaufgabe.data.local.PlayerDatabaseDao
+import com.example.abschlussaufgabe.data.local.GameDatabase
+import com.example.abschlussaufgabe.data.local.ProfileDatabase
 import com.example.abschlussaufgabe.data.remote.CharacterApi
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 
 const val TAG = "AppRepository"
 
-class AppRepository(private val api: CharacterApi, private val database: PlayerDatabase) {
+class AppRepository(private val api: CharacterApi, private val gameDatabase: GameDatabase, private val profileDatabase: ProfileDatabase) {
 
     // für die Charakterinformationen
 
@@ -46,23 +45,51 @@ class AppRepository(private val api: CharacterApi, private val database: PlayerD
     }
 
 
+    // für die Datenbank
 
-    suspend fun insertData(dataPlayer: DataPlayer) {
+    suspend fun insertDataGame(dataPlayer: DataPlayer) {
 
         try {
-            database.playerDao.insertData(dataPlayer)
+            gameDatabase.playerDao.insertData(dataPlayer)
         } catch (e: Exception) {
             Log.e(TAG, "Failed to insert into database: $e")
         }
     }
 
-    suspend fun getAllData(): List<DataPlayer> {
+    suspend fun getAllDataGame(): List<DataPlayer> {
 
         return try {
-            database.playerDao.getAllData()
+            gameDatabase.playerDao.getAllData()
         } catch (e: Exception) {
             Log.e(TAG, "Failed load database: $e")
             emptyList()
+        }
+    }
+
+
+    suspend fun insertDataProfile(user: Profile) {
+
+        try {
+            profileDatabase.profileDao.insertData(user)
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to insert into database: $e")
+        }
+    }
+
+    suspend fun getAllDataProfile(): Profile {
+
+        return try {
+            profileDatabase.profileDao.getAllData()
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed load database: $e")
+            Profile(
+                profileImage = 0,
+                lastName = "",
+                firstName = "",
+                userName = "",
+                birthday = "",
+                phone = "",
+                email = "")
         }
     }
 }

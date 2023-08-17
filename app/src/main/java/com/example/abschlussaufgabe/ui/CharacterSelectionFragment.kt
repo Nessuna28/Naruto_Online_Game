@@ -39,7 +39,7 @@ class CharacterSelectionFragment : Fragment() {
 
         viewModel.materialCard.value?.let { viewModel.showMaterialCard(it) }
         viewModel.imageHome.value?.let { viewModel.showImages(it) }
-        viewModel.userName.value?.let { viewModel.showTextView(it) }
+        viewModel.tvUserName.value?.let { viewModel.showTextView(it) }
         viewModel.imageBackground.value?.let { viewModel.hideImages(it) }
         viewModel.imageTitle.value?.let { viewModel.hideImages(it) }
 

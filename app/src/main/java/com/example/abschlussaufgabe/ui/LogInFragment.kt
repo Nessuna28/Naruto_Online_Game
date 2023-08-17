@@ -2,6 +2,7 @@ package com.example.abschlussaufgabe.ui
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -64,6 +65,7 @@ class LogInFragment : Fragment() {
                 findNavController().navigate(LogInFragmentDirections.actionLogInFragmentToHomeFragment())
             }
         }
+
 
         binding.tvRegister.setOnClickListener {
             findNavController().navigate(LogInFragmentDirections.actionLogInFragmentToRegisterFragment())
