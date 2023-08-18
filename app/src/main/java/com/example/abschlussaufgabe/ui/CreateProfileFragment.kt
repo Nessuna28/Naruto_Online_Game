@@ -10,26 +10,24 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.MainViewModel
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.data.datamodels.Profile
-import com.example.abschlussaufgabe.databinding.FragmentEditProfileBinding
+import com.example.abschlussaufgabe.databinding.FragmentCreateProfileBinding
 
 
-class EditProfileFragment : Fragment() {
+class CreateProfileFragment : Fragment() {
 
     private val viewModel: MainViewModel by activityViewModels()
 
-    private lateinit var binding: FragmentEditProfileBinding
+    private lateinit var binding: FragmentCreateProfileBinding
 
     private val PICK_IMAGE_REQUEST = 1
     private lateinit var profileImage: Uri
-
-    private var email = ""
-
 
 
     override fun onStart() {
@@ -45,43 +43,29 @@ class EditProfileFragment : Fragment() {
         viewModel.imageSettings.value?.let { viewModel.showImages(it) }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        arguments?.let {
-            email = it.getString("email").toString()
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_edit_profile, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_create_profile, container, false)
         return binding.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val user = viewModel.profile.value?.find { it.email == email }
-
-        binding.tietLastName.hint = user?.lastName
-        binding.tietFirstName.hint = user?.firstName
-        binding.tietUserName.hint = user?.userName
-        binding.tietBirthday.hint = user?.birthday
-        binding.tietPhone.hint = user?.phone
-        binding.tietEmail.hint = user?.email
-
         binding.ivProfilePhoto.setOnClickListener {
-                openImagePicker()
+            openImagePicker()
         }
 
         binding.btnSave.setOnClickListener {
-            if (user!!.email == email) {
-                changeProfile()
+            createProfile()
+            if (binding.tietEmail.text.isNullOrBlank() && binding.tietUserName.text.isNullOrBlank()) {
+                Toast.makeText(context, R.string.requestMandatoryField, Toast.LENGTH_SHORT).show()
+            } else {
+                findNavController().navigate(CreateProfileFragmentDirections.actionCreateProfileFragmentToProfileFragment(viewModel.currentUser.value!!.email.toString()))
             }
-            findNavController().navigate(EditProfileFragmentDirections.actionEditProfileFragmentToProfileFragment(viewModel.currentUser.value!!.email.toString()))
         }
 
         binding.btnCancel.setOnClickListener {
@@ -103,7 +87,7 @@ class EditProfileFragment : Fragment() {
         }
     }
 
-    private fun changeProfile() {
+    private fun createProfile() {
 
         val firstName = binding.tietFirstName.text.toString()
         val lastName = binding.tietLastName.text.toString()
@@ -123,8 +107,8 @@ class EditProfileFragment : Fragment() {
             phone = phone,
             email = email)
 
-        viewModel.changeDataProfile(profile)
+        viewModel.insertDatabaseProfile(profile)
+
     }
+
 }
-
-

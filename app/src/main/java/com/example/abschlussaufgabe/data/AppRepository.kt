@@ -1,8 +1,10 @@
 package com.example.abschlussaufgabe.data
 
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.data.datamodels.Profile
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.fightDataForDatabase.DataPlayer
 import com.example.abschlussaufgabe.data.datamodels.modelsApi.Character
@@ -47,6 +49,7 @@ class AppRepository(private val api: CharacterApi, private val gameDatabase: Gam
 
     // für die Datenbank
 
+    // für die Datenbank für die Spieldaten
     suspend fun insertDataGame(dataPlayer: DataPlayer) {
 
         try {
@@ -66,7 +69,16 @@ class AppRepository(private val api: CharacterApi, private val gameDatabase: Gam
         }
     }
 
+    suspend fun deleteAllDataGame() {
 
+        try {
+            gameDatabase.playerDao.deleteAllData()
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to delete database: $e")
+        }
+    }
+
+    // für die Datenbank für die Profildaten
     suspend fun insertDataProfile(user: Profile) {
 
         try {
@@ -78,18 +90,41 @@ class AppRepository(private val api: CharacterApi, private val gameDatabase: Gam
 
     suspend fun getAllDataProfile(): Profile {
 
+        val imageList = listOf(R.drawable.anko_face, R.drawable.asuma_face, R.drawable.choji_face, R.drawable.deidara_face, R.drawable.gaara_face, R.drawable.gai_face, R.drawable.hidan_face, R.drawable.hinata_face, R.drawable.ino_face, R.drawable.itachi_face, R.drawable.jiraiya_face, R.drawable.kabuto_face, R.drawable.kiba_face, R.drawable.naruto_face, R.drawable.sasuke_face, R.drawable.sakura_face, R.drawable.kakashi_face)
+        val randomImage = imageList.random()
+
+        val randomImageUri = Uri.parse("android.resource://drawable/${randomImage}")
+
         return try {
             profileDatabase.profileDao.getAllData()
         } catch (e: Exception) {
             Log.e(TAG, "Failed load database: $e")
             Profile(
-                profileImage = 0,
+                profileImage = randomImageUri,
                 lastName = "",
                 firstName = "",
                 userName = "",
                 birthday = "",
                 phone = "",
                 email = "")
+        }
+    }
+
+    suspend fun updateDataProfile(profile: Profile) {
+
+        try {
+            profileDatabase.profileDao.updateData(profile)
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to update database: $e")
+        }
+    }
+
+    suspend fun deleteAllDataProfile() {
+
+        try {
+            profileDatabase.profileDao.deleteAllData()
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to delete database: $e")
         }
     }
 }

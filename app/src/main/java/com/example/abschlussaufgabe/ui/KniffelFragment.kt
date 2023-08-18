@@ -400,7 +400,9 @@ class KniffelFragment : Fragment() {
                 resetCheckIsClickedDice()
                 resetCheckIsClickedTextView()
                 kniffelViewModel.setAttempts(3)
-                setTextColorValuesOfGray()
+                setTextColorValuesOfWhite()
+                resetRolledDice()
+                kniffelViewModel.stopSound()
                 // Erstelle den MaterialAlertDialogBuilder
                 val builder = MaterialAlertDialogBuilder(requireContext())
                 builder.setTitle("Das Spiel ist beendet")
@@ -415,7 +417,6 @@ class KniffelFragment : Fragment() {
                     }
                     .setNegativeButton("Nein") { dialog, which ->
                         findNavController().navigate(R.id.homeFragment)
-                        kniffelViewModel.stopSound()
                     }
                     .show()
             }
@@ -439,11 +440,11 @@ class KniffelFragment : Fragment() {
         }
 
         viewModel.imageProfile.value!!.setOnClickListener {
-            findNavController().navigate(KniffelFragmentDirections.actionKniffelFragmentToProfileFragment())
+            findNavController().navigate(KniffelFragmentDirections.actionKniffelFragmentToProfileFragment(viewModel.currentUser.value!!.email.toString()))
         }
 
         viewModel.tvUserName.value!!.setOnClickListener {
-            findNavController().navigate(KniffelFragmentDirections.actionKniffelFragmentToProfileFragment())
+            findNavController().navigate(KniffelFragmentDirections.actionKniffelFragmentToProfileFragment(viewModel.currentUser.value!!.email.toString()))
         }
 
         viewModel.imageHome.value!!.setOnClickListener {
@@ -549,7 +550,7 @@ class KniffelFragment : Fragment() {
             updateVariable = true
         } else {
             onTextViewClicked(it, false)
-            setTextColorValues(it as TextView, gray)
+            setTextColorValues(it as TextView, white)
             binding.btnOk.isEnabled = false
             binding.btnOk.setBackgroundColor(gray)
             binding.btnOk.setTextColor(primary)
@@ -605,21 +606,21 @@ class KniffelFragment : Fragment() {
         binding.mcRolledDice5.background.setTint(primary)
     }
 
-    private fun setTextColorValuesOfGray() {
+    private fun setTextColorValuesOfWhite() {
 
-        binding.tv1erValue.setTextColor(gray)
-        binding.tv2erValue.setTextColor(gray)
-        binding.tv3erValue.setTextColor(gray)
-        binding.tv4erValue.setTextColor(gray)
-        binding.tv5erValue.setTextColor(gray)
-        binding.tv6erValue.setTextColor(gray)
-        binding.tv3xValue.setTextColor(gray)
-        binding.tv4xValue.setTextColor(gray)
-        binding.tvFullHouseValue.setTextColor(gray)
-        binding.tvBigStreetValue.setTextColor(gray)
-        binding.tvLittleStreetValue.setTextColor(gray)
-        binding.tvKniffelValue.setTextColor(gray)
-        binding.tvChanceValue.setTextColor(gray)
+        binding.tv1erValue.setTextColor(white)
+        binding.tv2erValue.setTextColor(white)
+        binding.tv3erValue.setTextColor(white)
+        binding.tv4erValue.setTextColor(white)
+        binding.tv5erValue.setTextColor(white)
+        binding.tv6erValue.setTextColor(white)
+        binding.tv3xValue.setTextColor(white)
+        binding.tv4xValue.setTextColor(white)
+        binding.tvFullHouseValue.setTextColor(white)
+        binding.tvBigStreetValue.setTextColor(white)
+        binding.tvLittleStreetValue.setTextColor(white)
+        binding.tvKniffelValue.setTextColor(white)
+        binding.tvChanceValue.setTextColor(white)
     }
 
     // setzt den Text der übergeben TextView auf die übergeben Farbe

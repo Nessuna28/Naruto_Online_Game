@@ -141,7 +141,7 @@ class CombatSettingsFragment : Fragment() {
         // Navigation
 
         binding.btnFurther?.setOnClickListener {
-            findNavController().navigate(CombatSettingsFragmentDirections.actionCombatSettingsFragmentToCharacterSelectionFragment())
+            findNavController().navigate(CombatSettingsFragmentDirections.actionCombatSettingsFragmentToCharacterSelectionFragment(viewModel.currentUser.value!!.email.toString()))
         }
 
         binding.ivBack?.setOnClickListener {
@@ -153,11 +153,11 @@ class CombatSettingsFragment : Fragment() {
         }
 
         viewModel.imageProfile.value!!.setOnClickListener {
-            findNavController().navigate(CombatSettingsFragmentDirections.actionCombatSettingsFragmentToProfileFragment())
+            findNavController().navigate(CombatSettingsFragmentDirections.actionCombatSettingsFragmentToProfileFragment(viewModel.currentUser.value!!.email.toString()))
         }
 
         viewModel.tvUserName.value!!.setOnClickListener {
-            findNavController().navigate(CombatSettingsFragmentDirections.actionCombatSettingsFragmentToProfileFragment())
+            findNavController().navigate(CombatSettingsFragmentDirections.actionCombatSettingsFragmentToProfileFragment(viewModel.currentUser.value!!.email.toString()))
         }
     }
 }

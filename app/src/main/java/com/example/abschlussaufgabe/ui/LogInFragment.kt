@@ -66,7 +66,6 @@ class LogInFragment : Fragment() {
             }
         }
 
-
         binding.tvRegister.setOnClickListener {
             findNavController().navigate(LogInFragmentDirections.actionLogInFragmentToRegisterFragment())
         }

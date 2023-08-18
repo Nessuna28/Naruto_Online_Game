@@ -43,6 +43,8 @@ class FightFragment : Fragment() {
     private val primary = Color.rgb(255, 105, 0)
     private val darkGray = Color.DKGRAY
 
+    private var email = ""
+
 
 
     override fun onStart() {
@@ -91,6 +93,14 @@ class FightFragment : Fragment() {
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        arguments?.let {
+            email = it.getString("email").toString()
+        }
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -107,9 +117,9 @@ class FightFragment : Fragment() {
         player = fightViewModel.player.value!!
         enemy = fightViewModel.enemy.value!!
 
-        viewModel.profile.observe(viewLifecycleOwner) {
-            binding.tvNamePlayer?.text = it.userName
-        }
+        val user = viewModel.profile.value!!.find { it.email == email }
+        binding.tvNamePlayer?.text = user!!.userName
+
 
         viewModel.userNameEnemy.observe(viewLifecycleOwner) {
             binding.tvNameEnemy?.text = it
@@ -203,9 +213,11 @@ class FightFragment : Fragment() {
         }
 
         fightViewModel.rounds.observe(viewLifecycleOwner) {
-            setColorForRounds(it)
-            runViewsRound()
-            fightViewModel.resetPointsForNewRound()
+            if (!fightViewModel.gameEnd.value!!) {
+                setColorForRounds(it)
+                runViewsRound()
+                fightViewModel.resetPointsForNewRound()
+            }
         }
 
         fightViewModel.toastMessage.observe(viewLifecycleOwner, Observer { message ->
@@ -216,13 +228,13 @@ class FightFragment : Fragment() {
         // Navigation
 
         binding.ivBack?.setOnClickListener {
-            findNavController().navigate(FightFragmentDirections.actionFightFragmentToCharacterSelectionFragment())
+            findNavController().navigate(FightFragmentDirections.actionFightFragmentToCharacterSelectionFragment(viewModel.currentUser.value!!.email.toString()))
         }
 
         fightViewModel.gameEnd.observe(viewLifecycleOwner) {
             if (it) {
                 handler.postDelayed({
-                    findNavController().navigate(FightFragmentDirections.actionFightFragmentToResultFragment())
+                    findNavController().navigate(FightFragmentDirections.actionFightFragmentToResultFragment(viewModel.currentUser.value!!.email.toString()))
                 }, 3000)
             }
         }

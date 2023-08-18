@@ -23,6 +23,8 @@ class ResultFragment : Fragment() {
 
     private lateinit var binding: FragmentResultBinding
 
+    private var email = ""
+
 
 
     override fun onStart() {
@@ -32,6 +34,14 @@ class ResultFragment : Fragment() {
 
         viewModel.imageBackground.value?.let { viewModel.hideImages(it) }
         viewModel.materialCard.value?.let { viewModel.hideMaterialCard(it) }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        arguments?.let {
+            email = it.getString("email").toString()
+        }
     }
 
     override fun onCreateView(
@@ -73,9 +83,8 @@ class ResultFragment : Fragment() {
             }
         }
 
-        viewModel.profile.observe(viewLifecycleOwner) {
-            binding.tvUserName?.text = viewModel.profile.value?.userName
-        }
+        val user = viewModel.profile.value?.find { it.email == email }
+        binding.tvUserName?.text = user!!.userName
 
         binding.tvRounds?.text = fightViewModel.rounds.value.toString()
         binding.tvRoundsWon?.text = fightViewModel.roundsWonPlayer.value.toString()
@@ -93,15 +102,15 @@ class ResultFragment : Fragment() {
         val data = DataPlayer(
 
             date = today,
-            userName = viewModel.profile.value!!.userName,
+            userName = user.userName,
             characterName = charakter.name,
             characterImage = charakter.image,
-            lifePoints = fightViewModel.lifePointsPlayer.value!!,
+            lifePoints = charakter.lifePoints,
             result = fightViewModel.result.value!!,
             userNameEnemy = viewModel.userNameEnemy.value!!,
             characterNameEnemy = charakterEnemy.name,
             characterImageEnemy = charakterEnemy.image,
-            lifePointsEnemy = fightViewModel.lifePointsEnemy.value!!,
+            lifePointsEnemy = charakterEnemy.lifePoints,
             resultEnemy = fightViewModel.resultEnemy.value!!,
            )
         
@@ -112,7 +121,7 @@ class ResultFragment : Fragment() {
         // Navigation
 
         binding.btnAgain?.setOnClickListener {
-            findNavController().navigate(ResultFragmentDirections.actionResultFragmentToFightFragment())
+            findNavController().navigate(ResultFragmentDirections.actionResultFragmentToFightFragment(viewModel.currentUser.value!!.email.toString()))
         }
 
         binding.btnHome?.setOnClickListener {
@@ -120,7 +129,7 @@ class ResultFragment : Fragment() {
         }
 
         binding.btnSelection?.setOnClickListener {
-            findNavController().navigate(ResultFragmentDirections.actionResultFragmentToCharacterSelectionFragment())
+            findNavController().navigate(ResultFragmentDirections.actionResultFragmentToCharacterSelectionFragment(viewModel.currentUser.value!!.email.toString()))
         }
     }
 }

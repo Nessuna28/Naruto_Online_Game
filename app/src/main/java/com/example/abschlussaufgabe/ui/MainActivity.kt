@@ -21,8 +21,9 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         viewModel.profile.observe(this) {
-            binding.tvUserName.text = it.userName
-            binding.ivProfilePhoto.setImageResource(it.profileImage)
+            val user = it.find { it.email == viewModel.currentUser.value!!.email }
+            binding.tvUserName.text = user!!.userName
+            binding.ivProfilePhoto.setImageURI(user.profileImage)
         }
 
 

@@ -65,11 +65,11 @@ class AboutTheCharactersFragment : Fragment() {
         }
 
         viewModel.imageProfile.value!!.setOnClickListener {
-            findNavController().navigate(AboutTheCharactersFragmentDirections.actionAboutTheCharactersFragmentToProfileFragment4())
+            findNavController().navigate(AboutTheCharactersFragmentDirections.actionAboutTheCharactersFragmentToProfileFragment4(viewModel.currentUser.value!!.email.toString()))
         }
 
         viewModel.tvUserName.value!!.setOnClickListener {
-            findNavController().navigate(AboutTheCharactersFragmentDirections.actionAboutTheCharactersFragmentToProfileFragment4())
+            findNavController().navigate(AboutTheCharactersFragmentDirections.actionAboutTheCharactersFragmentToProfileFragment4(viewModel.currentUser.value!!.email.toString()))
         }
     }
 }

@@ -66,11 +66,11 @@ class SelectionGameFragment : Fragment() {
         }
 
         viewModel.imageProfile.value!!.setOnClickListener {
-            findNavController().navigate(SelectionGameFragmentDirections.actionSelectionGameFragmentToProfileFragment())
+            findNavController().navigate(SelectionGameFragmentDirections.actionSelectionGameFragmentToProfileFragment(viewModel.currentUser.value!!.email.toString()))
         }
 
         viewModel.tvUserName.value!!.setOnClickListener {
-            findNavController().navigate(SelectionGameFragmentDirections.actionSelectionGameFragmentToProfileFragment())
+            findNavController().navigate(SelectionGameFragmentDirections.actionSelectionGameFragmentToProfileFragment(viewModel.currentUser.value!!.email.toString()))
         }
     }
 }

@@ -30,6 +30,8 @@ class CharacterSelectionFragment : Fragment() {
 
     private lateinit var binding: FragmentCharacterSelectionBinding
 
+    private var email = ""
+
 
     @SuppressLint("ResourceAsColor")
     override fun onStart() {
@@ -55,6 +57,14 @@ class CharacterSelectionFragment : Fragment() {
         viewModel.setUserNameEnemy("Computer")
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        arguments?.let {
+            email = it.getString("email").toString()
+        }
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,9 +79,10 @@ class CharacterSelectionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.profile.observe(viewLifecycleOwner) {
-            binding.tvPlayerName?.text = it.userName
-        }
+
+        val user = viewModel.profile.value?.find { it.email == email }
+        binding.tvPlayerName?.text = user!!.userName
+
 
         viewModel.userNameEnemy.observe(viewLifecycleOwner) {
             binding.tvEnemyName?.text = it
@@ -164,11 +175,11 @@ class CharacterSelectionFragment : Fragment() {
         }
 
         viewModel.imageProfile.value!!.setOnClickListener {
-            findNavController().navigate(CharacterSelectionFragmentDirections.actionCharacterSelectionFragmentToProfileFragment())
+            findNavController().navigate(CharacterSelectionFragmentDirections.actionCharacterSelectionFragmentToProfileFragment(viewModel.currentUser.value!!.email.toString()))
         }
 
         viewModel.tvUserName.value!!.setOnClickListener {
-            findNavController().navigate(CharacterSelectionFragmentDirections.actionCharacterSelectionFragmentToProfileFragment())
+            findNavController().navigate(CharacterSelectionFragmentDirections.actionCharacterSelectionFragmentToProfileFragment(viewModel.currentUser.value!!.email.toString()))
         }
     }
 

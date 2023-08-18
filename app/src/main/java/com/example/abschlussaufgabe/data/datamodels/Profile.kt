@@ -1,6 +1,6 @@
 package com.example.abschlussaufgabe.data.datamodels
 
-import android.widget.ImageView
+import android.net.Uri
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -8,10 +8,10 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "userData_table")
 data class Profile(
 
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    @PrimaryKey(autoGenerate = false)
+    val id: Int = 1,
 
-    val profileImage: Int,
+    val profileImage: Uri,
     val lastName: String,
     val firstName: String,
     val userName: String,

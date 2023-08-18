@@ -25,19 +25,30 @@ class ProfileFragment : Fragment() {
 
     private var previousFragmentTag: String? = null
 
+    private var email = ""
+
     override fun onStart() {
         super.onStart()
 
         requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 
         viewModel.imageBackground.value?.let { viewModel.hideImages(it) }
-        viewModel.materialCard.value?.let { viewModel.hideMaterialCard(it) }
+        viewModel.materialCard.value?.let { viewModel.showMaterialCard(it) }
         viewModel.tvUserName.value?.let { viewModel.hideTextView(it) }
+        viewModel.imageProfile.value?.let { viewModel.hideMaterialCard(it) }
         viewModel.imageTitle.value?.let { viewModel.showImages(it) }
         viewModel.imageHome.value?.let { viewModel.showImages(it) }
         viewModel.imageSettings.value?.let { viewModel.showImages(it) }
 
         viewModel.loadDataProfile()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        arguments?.let {
+            email = it.getString("email").toString()
+        }
     }
 
     override fun onCreateView(
@@ -52,17 +63,21 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.profile.observe(viewLifecycleOwner) {
-            binding.ivProfilePhoto.setImageResource(it.profileImage)
-            binding.tvLastName.text = it.lastName
-            binding.tvFirstName.text = it.firstName
-            binding.tvUserName.text = it.userName
-            binding.tvBirthday.text = it.birthday
-            binding.tvPhoneNumber.text = it.phone
-            binding.tvEmail.text = it.email
+        val user = viewModel.profile.value?.find { it.email == email }
 
-            Log.e("Profile", "$it")
+        if (user != null) {
+            binding.ivProfilePhoto.setImageURI(user?.profileImage)
+            binding.tvLastName.text = user?.lastName
+            binding.tvFirstName.text = user?.firstName
+            binding.tvUserName.text = user!!.userName
+            binding.tvBirthday.text = user?.birthday
+            binding.tvPhoneNumber.text = user?.phone
+            binding.tvEmail.text = user!!.email
+        } else {
+            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToCreateProfileFragment())
         }
+
+
 
         findNavController().addOnDestinationChangedListener { _, destination, _ ->
             val currentFragmentTag = destination.label.toString()
@@ -72,22 +87,37 @@ class ProfileFragment : Fragment() {
         // der Zurück-Button navigiert nur zurück wenn ich nicht vom Profil bearbeiten komme
         // komme ich vom Profil bearbeiten dann navigiert der Zurück-Button zum Home
         binding.ivBack.setOnClickListener {
-            if (previousFragmentTag == "fragment_edit_profile_tag" || previousFragmentTag == "fragment_log_in_tag") {
+            if (previousFragmentTag == "fragment_edit_profile_tag" || previousFragmentTag == "fragment_create_profile_tag") {
                 findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToHomeFragment())
             } else {
                 findNavController().navigateUp()
             }
-
-            //findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToHomeFragment())
         }
 
         binding.ivEdit.setOnClickListener {
-            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment())
+            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment(viewModel.currentUser.value!!.email.toString()))
         }
 
-        binding.cvLogout.setOnClickListener {
+        binding.ivLogout.setOnClickListener {
             authViewModel.logout()
             findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToLogInFragment())
+        }
+
+        binding.tvLogout.setOnClickListener {
+            authViewModel.logout()
+            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToLogInFragment())
+        }
+
+        viewModel.imageHome.value!!.setOnClickListener {
+            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToHomeFragment())
+        }
+
+        binding.ivDelete.setOnClickListener {
+            viewModel.deleteDataProfile()
+        }
+
+        binding.tvDeleteProfile.setOnClickListener {
+            viewModel.deleteDataProfile()
         }
     }
 }

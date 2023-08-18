@@ -19,6 +19,9 @@ import kotlinx.coroutines.launch
 import android.content.Context
 import android.widget.TextView
 import com.example.abschlussaufgabe.data.local.ProfileDatabase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import okhttp3.internal.notifyAll
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -29,15 +32,21 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     private val gameDatabase = GameDatabase.getDatabase(application)
     private val profileDatabase = ProfileDatabase.getDatabase(application)
     private val repository = AppRepository(CharacterApi, gameDatabase, profileDatabase)
+    private val authViewModel = AuthViewModel()
 
     private var mediaPlayer: MediaPlayer? = null
 
     val characters = repository.characters
 
 
-    private val _profile = MutableLiveData<Profile>()
-    val profile: LiveData<Profile>
+    private val _profile = MutableLiveData<List<Profile>>()
+    val profile: LiveData<List<Profile>>
         get() = _profile
+
+
+    private val _currentUser = MutableLiveData<FirebaseUser>(authViewModel.currentUser.value)
+    val currentUser: LiveData<FirebaseUser>
+        get() = _currentUser
 
 
 
@@ -85,7 +94,9 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
 
 
-    // für die Datenbank
+    // für die Datenbanken
+
+    // für die Datenbank der Spieldaten
     private val _dataList = MutableLiveData<List<DataPlayer>>()
     val dataList: LiveData<List<DataPlayer>>
         get() = _dataList
@@ -101,11 +112,15 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _defeat
 
 
+
+
     // Initialisierung
     init {
         loadCharacters()
         searchCharacter("")
         dataList
+        currentUser
+        profile
     }
 
 
@@ -260,13 +275,28 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
+    // löscht alle Daten aus der Datenbank
+    fun deleteDataGame() {
+
+        viewModelScope.launch {
+            try {
+                repository.deleteAllDataGame()
+                _dataList.value = repository.getAllDataGame()
+                _victory.value = 0
+                _defeat.value = 0
+            } catch (e: Exception) {
+                Log.e("MainViewModel", "Error delete Data: $e")
+            }
+        }
+    }
+
     // speichert die Profildaten des Users in der Datenbank
     fun insertDatabaseProfile(profile: Profile) {
 
         viewModelScope.launch {
             try {
                 repository.insertDataProfile(profile)
-                _profile.value = repository.getAllDataProfile()
+                _profile.value = listOf(repository.getAllDataProfile())
             } catch (e: Exception) {
                 Log.e("MainViewModel", "Error loading Data to Database: $e")
             }
@@ -278,9 +308,34 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
         viewModelScope.launch {
             try {
-                _profile.value = repository.getAllDataProfile()
+                _profile.value = listOf(repository.getAllDataProfile())
             } catch (e: Exception) {
                 Log.e("MainViewModel", "Error loading Data: $e")
+            }
+        }
+    }
+
+    fun changeDataProfile(profile: Profile) {
+
+        viewModelScope.launch {
+            try {
+                repository.updateDataProfile(profile)
+                _profile.value = listOf(repository.getAllDataProfile())
+            } catch (e: Exception) {
+                Log.e("MainViewModel", "Error delete Data: $e")
+            }
+        }
+    }
+
+    // löscht alle Profildaten aus der Datenbank
+    fun deleteDataProfile() {
+
+        viewModelScope.launch {
+            try {
+                repository.deleteAllDataProfile()
+                _profile.value = listOf(repository.getAllDataProfile())
+            } catch (e: Exception) {
+                Log.e("MainViewModel", "Error delete Data: $e")
             }
         }
     }

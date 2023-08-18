@@ -59,8 +59,15 @@ class StatisticsFragment : Fragment() {
             if (it != null) {
                 binding.rvStatistic.adapter = StatisticAdapter(it)
             }
-            Log.e("Statistic", "$it")
         }
+
+        // Button
+        binding.ivDelete?.setOnClickListener {
+            viewModel.deleteDataGame()
+            reloadFragment()
+        }
+
+        // Navigation
 
         binding.ivBack.setOnClickListener {
             findNavController().navigateUp()
@@ -71,11 +78,17 @@ class StatisticsFragment : Fragment() {
         }
 
         viewModel.imageProfile.value!!.setOnClickListener {
-            findNavController().navigate(StatisticsFragmentDirections.actionStatisticsFragmentToProfileFragment())
+            findNavController().navigate(StatisticsFragmentDirections.actionStatisticsFragmentToProfileFragment(viewModel.currentUser.value!!.email.toString()))
         }
 
         viewModel.tvUserName.value!!.setOnClickListener {
-            findNavController().navigate(StatisticsFragmentDirections.actionStatisticsFragmentToProfileFragment())
+            findNavController().navigate(StatisticsFragmentDirections.actionStatisticsFragmentToProfileFragment(viewModel.currentUser.value!!.email.toString()))
         }
+    }
+
+
+    private fun reloadFragment() {
+
+        binding.rvStatistic.adapter = StatisticAdapter(viewModel.dataList.value!!)
     }
 }

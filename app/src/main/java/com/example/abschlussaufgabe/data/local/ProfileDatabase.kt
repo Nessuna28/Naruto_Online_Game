@@ -4,9 +4,12 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.example.abschlussaufgabe.UriTypeConverter
 import com.example.abschlussaufgabe.data.datamodels.Profile
 
 @Database(entities = [Profile::class], version = 1)
+@TypeConverters(UriTypeConverter::class)
 abstract class ProfileDatabase: RoomDatabase() {
 
     abstract val profileDao: ProfileDao
