@@ -4,12 +4,17 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.example.abschlussaufgabe.UriTypeConverter
+import com.example.abschlussaufgabe.data.datamodels.Profile
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.fightDataForDatabase.DataPlayer
 
-@Database(entities = [DataPlayer::class], version = 1)
+@Database(entities = [DataPlayer::class, Profile::class], version = 1)
+@TypeConverters(UriTypeConverter::class)
 abstract class GameDatabase: RoomDatabase() {
 
-    abstract val playerDao: GameDao
+    abstract val gameDao: GameDao
+
 
     companion object {
         private lateinit var INSTANCE: GameDatabase
@@ -20,7 +25,7 @@ abstract class GameDatabase: RoomDatabase() {
                     INSTANCE = Room.databaseBuilder(
                         context.applicationContext,
                         GameDatabase::class.java,
-                        "player_database"
+                        "game_database"
                     ).build()
                 }
                 return INSTANCE

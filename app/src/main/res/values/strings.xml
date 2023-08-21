@@ -108,4 +108,11 @@
     <string name="createProfile">Pofil erstellen</string>
     <string name="textMandatoryField">Pflichtfelder sind mit einem * makiert</string>
     <string name="requestMandatoryField">"Bitte fülle die Pflichtfelder aus!"</string>
+    <string name="settings">"Einstellungen"</string>
+    <string name="lastName">Nachname</string>
+    <string name="firstName">Vorname</string>
+    <string name="e_mail">E-Mail</string>
+    <string name="birthday">Geburtstag</string>
+    <string name="homeTown">Wohnort</string>
+    <string name="titleHomeTown">Wohnort:</string>
 </resources>

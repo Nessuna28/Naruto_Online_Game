@@ -1,6 +1,7 @@
 package com.example.abschlussaufgabe.ui
 
 import android.content.pm.ActivityInfo
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -25,7 +26,6 @@ class ProfileFragment : Fragment() {
 
     private var previousFragmentTag: String? = null
 
-    private var email = ""
 
     override fun onStart() {
         super.onStart()
@@ -43,13 +43,6 @@ class ProfileFragment : Fragment() {
         viewModel.loadDataProfile()
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        arguments?.let {
-            email = it.getString("email").toString()
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,20 +56,15 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val user = viewModel.profile.value?.find { it.email == email }
-
-        if (user != null) {
-            binding.ivProfilePhoto.setImageURI(user?.profileImage)
-            binding.tvLastName.text = user?.lastName
-            binding.tvFirstName.text = user?.firstName
-            binding.tvUserName.text = user!!.userName
-            binding.tvBirthday.text = user?.birthday
-            binding.tvPhoneNumber.text = user?.phone
-            binding.tvEmail.text = user!!.email
-        } else {
-            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToCreateProfileFragment())
+        viewModel.profile.observe(viewLifecycleOwner) {
+            binding.tvLastName.text = it.lastName
+            binding.tvFirstName.text = it.firstName
+            binding.tvUserName.text = it.userName
+            binding.tvBirthday.text = it.birthday
+            binding.tvHomeTown.text = it.homeTown
+            binding.tvEmail.text = it.email
+            binding.ivProfilePhoto.setImageURI(it.profileImage)
         }
-
 
 
         findNavController().addOnDestinationChangedListener { _, destination, _ ->
@@ -95,7 +83,7 @@ class ProfileFragment : Fragment() {
         }
 
         binding.ivEdit.setOnClickListener {
-            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment(viewModel.currentUser.value!!.email.toString()))
+            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment())
         }
 
         binding.ivLogout.setOnClickListener {
@@ -120,4 +108,5 @@ class ProfileFragment : Fragment() {
             viewModel.deleteDataProfile()
         }
     }
+
 }

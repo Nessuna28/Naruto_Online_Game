@@ -1,6 +1,11 @@
 package com.example.abschlussaufgabe.ui
 
+import android.content.Context
 import android.os.Bundle
+import android.util.AttributeSet
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.abschlussaufgabe.databinding.ActivityMainBinding
@@ -15,15 +20,17 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel: MainViewModel by viewModels()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        viewModel.loadDataProfile()
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         viewModel.profile.observe(this) {
-            val user = it.find { it.email == viewModel.currentUser.value!!.email }
-            binding.tvUserName.text = user!!.userName
-            binding.ivProfilePhoto.setImageURI(user.profileImage)
+            binding.tvUserName.text = it.userName
+            binding.ivProfilePhoto.setImageURI(it.profileImage)
         }
 
 

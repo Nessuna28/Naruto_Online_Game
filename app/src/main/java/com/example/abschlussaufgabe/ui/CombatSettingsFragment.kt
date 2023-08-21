@@ -23,19 +23,19 @@ class CombatSettingsFragment : Fragment() {
 
     private lateinit var binding: FragmentCombatSettingsBinding
 
-    val fight = listOf(R.string.single, R.string.team)
-    val rounds = listOf(R.string.oneRound, R.string.threeRounds)
-    val timer = listOf(R.string.noLimit, R.string.second30, R.string.second60, R.string.second90)
-    val difficultyLevel = listOf(R.string.light, R.string.middle, R.string.difficult)
+    private val fight = listOf(R.string.single, R.string.team)
+    private val rounds = listOf(R.string.oneRound, R.string.threeRounds)
+    private val timer = listOf(R.string.noLimit, R.string.second30, R.string.second60, R.string.second90)
+    private val difficultyLevel = listOf(R.string.light, R.string.middle, R.string.difficult)
 
-    var currentFightIndex = 0
-    lateinit var selectionFight: String
-    var currentRoundsIndex = 0
-    lateinit var selectionRounds: String
-    var currentTimerIndex =2
-    lateinit var selectionTimer: String
-    var currentDifficultyLevelIndex = 1
-    lateinit var selectionDifficultyLevel: String
+    private var currentFightIndex = 0
+    private lateinit var selectionFight: String
+    private var currentRoundsIndex = 0
+    private lateinit var selectionRounds: String
+    private var currentTimerIndex =2
+    private lateinit var selectionTimer: String
+    private var currentDifficultyLevelIndex = 1
+    private lateinit var selectionDifficultyLevel: String
 
 
     override fun onStart() {
@@ -141,7 +141,7 @@ class CombatSettingsFragment : Fragment() {
         // Navigation
 
         binding.btnFurther?.setOnClickListener {
-            findNavController().navigate(CombatSettingsFragmentDirections.actionCombatSettingsFragmentToCharacterSelectionFragment(viewModel.currentUser.value!!.email.toString()))
+            findNavController().navigate(CombatSettingsFragmentDirections.actionCombatSettingsFragmentToCharacterSelectionFragment())
         }
 
         binding.ivBack?.setOnClickListener {
@@ -153,11 +153,11 @@ class CombatSettingsFragment : Fragment() {
         }
 
         viewModel.imageProfile.value!!.setOnClickListener {
-            findNavController().navigate(CombatSettingsFragmentDirections.actionCombatSettingsFragmentToProfileFragment(viewModel.currentUser.value!!.email.toString()))
+            findNavController().navigate(CombatSettingsFragmentDirections.actionCombatSettingsFragmentToProfileFragment())
         }
 
         viewModel.tvUserName.value!!.setOnClickListener {
-            findNavController().navigate(CombatSettingsFragmentDirections.actionCombatSettingsFragmentToProfileFragment(viewModel.currentUser.value!!.email.toString()))
+            findNavController().navigate(CombatSettingsFragmentDirections.actionCombatSettingsFragmentToProfileFragment())
         }
     }
 }

@@ -23,7 +23,6 @@ class ResultFragment : Fragment() {
 
     private lateinit var binding: FragmentResultBinding
 
-    private var email = ""
 
 
 
@@ -34,14 +33,6 @@ class ResultFragment : Fragment() {
 
         viewModel.imageBackground.value?.let { viewModel.hideImages(it) }
         viewModel.materialCard.value?.let { viewModel.hideMaterialCard(it) }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        arguments?.let {
-            email = it.getString("email").toString()
-        }
     }
 
     override fun onCreateView(
@@ -83,8 +74,7 @@ class ResultFragment : Fragment() {
             }
         }
 
-        val user = viewModel.profile.value?.find { it.email == email }
-        binding.tvUserName?.text = user!!.userName
+        binding.tvUserName?.text // TODO
 
         binding.tvRounds?.text = fightViewModel.rounds.value.toString()
         binding.tvRoundsWon?.text = fightViewModel.roundsWonPlayer.value.toString()
@@ -102,7 +92,7 @@ class ResultFragment : Fragment() {
         val data = DataPlayer(
 
             date = today,
-            userName = user.userName,
+            userName = "", // TODO
             characterName = charakter.name,
             characterImage = charakter.image,
             lifePoints = charakter.lifePoints,
@@ -121,7 +111,7 @@ class ResultFragment : Fragment() {
         // Navigation
 
         binding.btnAgain?.setOnClickListener {
-            findNavController().navigate(ResultFragmentDirections.actionResultFragmentToFightFragment(viewModel.currentUser.value!!.email.toString()))
+            findNavController().navigate(ResultFragmentDirections.actionResultFragmentToFightFragment())
         }
 
         binding.btnHome?.setOnClickListener {
@@ -129,7 +119,7 @@ class ResultFragment : Fragment() {
         }
 
         binding.btnSelection?.setOnClickListener {
-            findNavController().navigate(ResultFragmentDirections.actionResultFragmentToCharacterSelectionFragment(viewModel.currentUser.value!!.email.toString()))
+            findNavController().navigate(ResultFragmentDirections.actionResultFragmentToCharacterSelectionFragment())
         }
     }
 }

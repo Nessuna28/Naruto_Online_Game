@@ -81,7 +81,7 @@ class LocationSelectionFragment : Fragment() {
 
         binding.btnFurther?.setOnClickListener {
             if (fightViewModel.selectionConfirmLocation.value == true) {
-                findNavController().navigate(LocationSelectionFragmentDirections.actionLocationSelectionFragmentToFightFragment(viewModel.currentUser.value!!.email.toString()))
+                findNavController().navigate(LocationSelectionFragmentDirections.actionLocationSelectionFragmentToFightFragment())
             } // TODO: Toast schreiben
         }
 
@@ -90,11 +90,11 @@ class LocationSelectionFragment : Fragment() {
         }
 
         viewModel.imageProfile.value!!.setOnClickListener {
-            findNavController().navigate(LocationSelectionFragmentDirections.actionLocationSelectionFragmentToProfileFragment(viewModel.currentUser.value!!.email.toString()))
+            findNavController().navigate(LocationSelectionFragmentDirections.actionLocationSelectionFragmentToProfileFragment())
         }
 
         viewModel.tvUserName.value!!.setOnClickListener {
-            findNavController().navigate(LocationSelectionFragmentDirections.actionLocationSelectionFragmentToProfileFragment(viewModel.currentUser.value!!.email.toString()))
+            findNavController().navigate(LocationSelectionFragmentDirections.actionLocationSelectionFragmentToProfileFragment())
         }
     }
 }

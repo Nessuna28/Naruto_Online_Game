@@ -1,7 +1,10 @@
 package com.example.abschlussaufgabe.ui
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
+import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +23,10 @@ class RegisterFragment : Fragment() {
 
     private lateinit var binding: FragmentRegisterBinding
     private val authViewModel: AuthViewModel by activityViewModels()
+    private val viewModel: MainViewModel by activityViewModels()
+
+    private val PICK_IMAGE_REQUEST = 1
+    private var profileImage: Uri = Uri.EMPTY
 
 
     override fun onCreateView(
@@ -33,12 +40,22 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.ivProfilePhoto.setOnClickListener {
+            openImagePicker()
+        }
+
         binding.btnRegister.setOnClickListener {
             val email: String = binding.tietEmail.text.toString()
             val password: String = binding.tietPassword.text.toString()
             val password2: String = binding.tietPasswordRepeat.text.toString()
-            if (email != "" && password != "" && password == password2) {
-                authViewModel.register(email, password)
+            if (email != "" && password != "") {
+                if (password == password2) {
+                    authViewModel.register(email, password)
+                    setProfile()
+                } else {
+                    authViewModel.setMessage("Die beiden Passwörter müssen identisch sein!")
+                    authViewModel.showToast(requireContext())
+                }
             } else {
                 authViewModel.setMessage("Bitte gib deine Email und dein Passwort ein!")
                 authViewModel.showToast(requireContext())
@@ -54,5 +71,69 @@ class RegisterFragment : Fragment() {
                 findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToLogInFragment())
             }
         }
+    }
+
+
+    private fun openImagePicker() {
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        startActivityForResult(intent, PICK_IMAGE_REQUEST)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
+            val selectedImageUri = data.data
+            profileImage = selectedImageUri!!
+        }
+    }
+
+    private fun setProfile() {
+
+        val currentImage: Uri = if(profileImage.toString().isNotEmpty()) {
+            profileImage
+        } else {
+            createProfileImage()
+        }
+
+
+        val user = Profile(
+            id = 1,
+            profileImage = currentImage,
+            lastName = binding.tietLastName.text.toString(),
+            firstName = binding.tietFirstName.text.toString(),
+            userName = binding.tietUserName.text.toString(),
+            birthday = binding.tietBirthday.text.toString(),
+            homeTown = binding.tietHomeTown.text.toString(),
+            email = binding.tietEmail.text.toString()
+            )
+
+        viewModel.insertDatabaseProfile(user)
+    }
+
+
+    private fun createProfileImage(): Uri {
+
+        val imageList = listOf(
+            R.drawable.anko_face,
+            R.drawable.asuma_face,
+            R.drawable.choji_face,
+            R.drawable.deidara_face,
+            R.drawable.gaara_face,
+            R.drawable.gai_face,
+            R.drawable.hidan_face,
+            R.drawable.hinata_face,
+            R.drawable.ino_face,
+            R.drawable.itachi_face,
+            R.drawable.jiraiya_face,
+            R.drawable.kabuto_face,
+            R.drawable.kiba_face,
+            R.drawable.naruto_face,
+            R.drawable.sasuke_face,
+            R.drawable.sakura_face,
+            R.drawable.kakashi_face
+        )
+        val randomImage = imageList.random()
+
+        return Uri.parse("android.resource://drawable/${randomImage}")
     }
 }

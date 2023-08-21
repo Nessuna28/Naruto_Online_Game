@@ -117,16 +117,16 @@
             android:text="@string/titleEmail"
             android:textColor="@color/primary"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/tv_titlePhone"
-            app:layout_constraintTop_toBottomOf="@+id/tv_titlePhone" />
+            app:layout_constraintStart_toStartOf="@+id/tv_titleHomeTown"
+            app:layout_constraintTop_toBottomOf="@+id/tv_titleHomeTown" />
 
 
         <TextView
-            android:id="@+id/tv_titlePhone"
+            android:id="@+id/tv_titleHomeTown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/titlePhone"
+            android:text="@string/homeTown"
             android:textColor="@color/primary"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/tv_titleBirthday"
@@ -176,15 +176,15 @@
             app:layout_constraintTop_toTopOf="@+id/tv_titleBirthday" />
 
         <TextView
-            android:id="@+id/tv_phoneNumber"
+            android:id="@+id/tv_homeTown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
             android:fontFamily="@font/akaya_telivigala"
             android:text=""
-            app:layout_constraintBottom_toBottomOf="@+id/tv_titlePhone"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_titleHomeTown"
             app:layout_constraintStart_toStartOf="@+id/tv_birthday"
-            app:layout_constraintTop_toTopOf="@+id/tv_titlePhone" />
+            app:layout_constraintTop_toTopOf="@+id/tv_titleHomeTown" />
 
         <TextView
             android:id="@+id/tv_email"
@@ -193,7 +193,7 @@
             android:fontFamily="@font/akaya_telivigala"
             android:text=""
             app:layout_constraintBottom_toBottomOf="@+id/tv_titleEmail"
-            app:layout_constraintStart_toStartOf="@+id/tv_phoneNumber"
+            app:layout_constraintStart_toStartOf="@+id/tv_homeTown"
             app:layout_constraintTop_toTopOf="@+id/tv_titleEmail" />
 
 

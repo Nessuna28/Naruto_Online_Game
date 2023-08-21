@@ -42,13 +42,6 @@ class HomeFragment : Fragment() {
         context?.let { viewModel.stopSound() }
         context?.let { kniffelViewModel.stopSound() }
 
-        viewModel.profile.observe(viewLifecycleOwner) {
-            val user = it.find { it.email == viewModel.currentUser.value!!.email }
-
-            if (user!!.email != viewModel.currentUser.value!!.email) {
-                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCreateProfileFragment())
-            }
-        }
     }
 
     override fun onCreateView(
@@ -76,11 +69,12 @@ class HomeFragment : Fragment() {
         }
 
         viewModel.imageProfile.value!!.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProfileFragment(viewModel.currentUser.value!!.email.toString()))
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProfileFragment())
         }
 
         viewModel.tvUserName.value!!.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProfileFragment(viewModel.currentUser.value!!.email.toString()))
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProfileFragment())
+
         }
     }
 }

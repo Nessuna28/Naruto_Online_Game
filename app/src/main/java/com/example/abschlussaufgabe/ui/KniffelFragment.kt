@@ -168,6 +168,7 @@ class KniffelFragment : Fragment() {
             rounds.add(false)
         }
 
+        binding.tvNamePlayer.text // TODO
 
         kniffelViewModel.points.observe(viewLifecycleOwner) {
             binding.tvPoints.text = it.toString()
@@ -440,11 +441,11 @@ class KniffelFragment : Fragment() {
         }
 
         viewModel.imageProfile.value!!.setOnClickListener {
-            findNavController().navigate(KniffelFragmentDirections.actionKniffelFragmentToProfileFragment(viewModel.currentUser.value!!.email.toString()))
+            findNavController().navigate(KniffelFragmentDirections.actionKniffelFragmentToProfileFragment())
         }
 
         viewModel.tvUserName.value!!.setOnClickListener {
-            findNavController().navigate(KniffelFragmentDirections.actionKniffelFragmentToProfileFragment(viewModel.currentUser.value!!.email.toString()))
+            findNavController().navigate(KniffelFragmentDirections.actionKniffelFragmentToProfileFragment())
         }
 
         viewModel.imageHome.value!!.setOnClickListener {

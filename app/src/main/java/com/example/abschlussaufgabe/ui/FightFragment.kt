@@ -43,7 +43,6 @@ class FightFragment : Fragment() {
     private val primary = Color.rgb(255, 105, 0)
     private val darkGray = Color.DKGRAY
 
-    private var email = ""
 
 
 
@@ -93,14 +92,6 @@ class FightFragment : Fragment() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        arguments?.let {
-            email = it.getString("email").toString()
-        }
-    }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -117,8 +108,8 @@ class FightFragment : Fragment() {
         player = fightViewModel.player.value!!
         enemy = fightViewModel.enemy.value!!
 
-        val user = viewModel.profile.value!!.find { it.email == email }
-        binding.tvNamePlayer?.text = user!!.userName
+
+        binding.tvNamePlayer?.text // TODO
 
 
         viewModel.userNameEnemy.observe(viewLifecycleOwner) {
@@ -228,13 +219,13 @@ class FightFragment : Fragment() {
         // Navigation
 
         binding.ivBack?.setOnClickListener {
-            findNavController().navigate(FightFragmentDirections.actionFightFragmentToCharacterSelectionFragment(viewModel.currentUser.value!!.email.toString()))
+            findNavController().navigate(FightFragmentDirections.actionFightFragmentToCharacterSelectionFragment())
         }
 
         fightViewModel.gameEnd.observe(viewLifecycleOwner) {
             if (it) {
                 handler.postDelayed({
-                    findNavController().navigate(FightFragmentDirections.actionFightFragmentToResultFragment(viewModel.currentUser.value!!.email.toString()))
+                    findNavController().navigate(FightFragmentDirections.actionFightFragmentToResultFragment())
                 }, 3000)
             }
         }

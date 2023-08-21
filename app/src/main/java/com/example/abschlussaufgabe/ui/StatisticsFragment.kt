@@ -78,11 +78,11 @@ class StatisticsFragment : Fragment() {
         }
 
         viewModel.imageProfile.value!!.setOnClickListener {
-            findNavController().navigate(StatisticsFragmentDirections.actionStatisticsFragmentToProfileFragment(viewModel.currentUser.value!!.email.toString()))
+            findNavController().navigate(StatisticsFragmentDirections.actionStatisticsFragmentToProfileFragment())
         }
 
         viewModel.tvUserName.value!!.setOnClickListener {
-            findNavController().navigate(StatisticsFragmentDirections.actionStatisticsFragmentToProfileFragment(viewModel.currentUser.value!!.email.toString()))
+            findNavController().navigate(StatisticsFragmentDirections.actionStatisticsFragmentToProfileFragment())
         }
     }
 

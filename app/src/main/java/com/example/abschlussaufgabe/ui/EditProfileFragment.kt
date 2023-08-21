@@ -26,9 +26,8 @@ class EditProfileFragment : Fragment() {
     private lateinit var binding: FragmentEditProfileBinding
 
     private val PICK_IMAGE_REQUEST = 1
-    private lateinit var profileImage: Uri
+    private var profileImage: Uri = viewModel.profile.value!!.profileImage
 
-    private var email = ""
 
 
 
@@ -45,14 +44,6 @@ class EditProfileFragment : Fragment() {
         viewModel.imageSettings.value?.let { viewModel.showImages(it) }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        arguments?.let {
-            email = it.getString("email").toString()
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -64,24 +55,23 @@ class EditProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val user = viewModel.profile.value?.find { it.email == email }
-
-        binding.tietLastName.hint = user?.lastName
-        binding.tietFirstName.hint = user?.firstName
-        binding.tietUserName.hint = user?.userName
-        binding.tietBirthday.hint = user?.birthday
-        binding.tietPhone.hint = user?.phone
-        binding.tietEmail.hint = user?.email
+        viewModel.profile.observe(viewLifecycleOwner) {
+            binding.tietLastName.hint = it.lastName
+            binding.tietFirstName.hint = it.firstName
+            binding.tietUserName.hint = it.userName
+            binding.tietBirthday.hint = it.birthday
+            binding.tietHomeTown.hint = it.homeTown
+            binding.tietEmail.hint = it.email
+            binding.ivProfilePhoto.setImageURI(it.profileImage)
+        }
 
         binding.ivProfilePhoto.setOnClickListener {
                 openImagePicker()
         }
 
         binding.btnSave.setOnClickListener {
-            if (user!!.email == email) {
-                changeProfile()
-            }
-            findNavController().navigate(EditProfileFragmentDirections.actionEditProfileFragmentToProfileFragment(viewModel.currentUser.value!!.email.toString()))
+            changeProfile()
+            findNavController().navigate(EditProfileFragmentDirections.actionEditProfileFragmentToProfileFragment())
         }
 
         binding.btnCancel.setOnClickListener {
@@ -109,7 +99,7 @@ class EditProfileFragment : Fragment() {
         val lastName = binding.tietLastName.text.toString()
         val userName = binding.tietUserName.text.toString()
         val birthday = binding.tietBirthday.text.toString()
-        val phone = binding.tietPhone.text.toString()
+        val homeTown = binding.tietHomeTown.text.toString()
         val email = binding.tietEmail.text.toString()
 
 
@@ -120,8 +110,9 @@ class EditProfileFragment : Fragment() {
             firstName = firstName,
             userName = userName,
             birthday = birthday,
-            phone = phone,
-            email = email)
+            homeTown = homeTown,
+            email = email
+        )
 
         viewModel.changeDataProfile(profile)
     }

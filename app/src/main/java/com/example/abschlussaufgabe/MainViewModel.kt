@@ -18,10 +18,8 @@ import com.google.android.material.card.MaterialCardView
 import kotlinx.coroutines.launch
 import android.content.Context
 import android.widget.TextView
-import com.example.abschlussaufgabe.data.local.ProfileDatabase
-import com.google.firebase.auth.FirebaseAuth
+import com.example.abschlussaufgabe.data.datamodels.modelsApi.Character
 import com.google.firebase.auth.FirebaseUser
-import okhttp3.internal.notifyAll
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -30,20 +28,24 @@ import java.util.Locale
 class MainViewModel(application: Application): AndroidViewModel(application) {
 
     private val gameDatabase = GameDatabase.getDatabase(application)
-    private val profileDatabase = ProfileDatabase.getDatabase(application)
-    private val repository = AppRepository(CharacterApi, gameDatabase, profileDatabase)
+    private val repository = AppRepository(CharacterApi, gameDatabase)
     private val authViewModel = AuthViewModel()
 
     private var mediaPlayer: MediaPlayer? = null
 
-    val characters = repository.characters
+    // LiveData-Variable für Api
+    private val _characters = MutableLiveData(repository.characters)
+    val characters: LiveData<List<Character>>
+        get() = _characters
 
 
-    private val _profile = MutableLiveData<List<Profile>>()
-    val profile: LiveData<List<Profile>>
+    // LiveData-Variable für die Datenbank
+    private val _profile = MutableLiveData<Profile>()
+    val profile: LiveData<Profile>
         get() = _profile
 
 
+    // LiveData-Variable für Firebase
     private val _currentUser = MutableLiveData<FirebaseUser>(authViewModel.currentUser.value)
     val currentUser: LiveData<FirebaseUser>
         get() = _currentUser
@@ -296,7 +298,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         viewModelScope.launch {
             try {
                 repository.insertDataProfile(profile)
-                _profile.value = listOf(repository.getAllDataProfile())
+                _profile.value = repository.getAllDataProfile()
             } catch (e: Exception) {
                 Log.e("MainViewModel", "Error loading Data to Database: $e")
             }
@@ -308,7 +310,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
         viewModelScope.launch {
             try {
-                _profile.value = listOf(repository.getAllDataProfile())
+                _profile.value = repository.getAllDataProfile()
             } catch (e: Exception) {
                 Log.e("MainViewModel", "Error loading Data: $e")
             }
@@ -320,7 +322,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         viewModelScope.launch {
             try {
                 repository.updateDataProfile(profile)
-                _profile.value = listOf(repository.getAllDataProfile())
+                _profile.value = repository.getAllDataProfile()
             } catch (e: Exception) {
                 Log.e("MainViewModel", "Error delete Data: $e")
             }
@@ -333,7 +335,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         viewModelScope.launch {
             try {
                 repository.deleteAllDataProfile()
-                _profile.value = listOf(repository.getAllDataProfile())
+                _profile.value = repository.getAllDataProfile()
             } catch (e: Exception) {
                 Log.e("MainViewModel", "Error delete Data: $e")
             }

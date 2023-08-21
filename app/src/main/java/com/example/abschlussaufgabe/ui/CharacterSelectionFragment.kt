@@ -30,7 +30,6 @@ class CharacterSelectionFragment : Fragment() {
 
     private lateinit var binding: FragmentCharacterSelectionBinding
 
-    private var email = ""
 
 
     @SuppressLint("ResourceAsColor")
@@ -57,14 +56,6 @@ class CharacterSelectionFragment : Fragment() {
         viewModel.setUserNameEnemy("Computer")
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        arguments?.let {
-            email = it.getString("email").toString()
-        }
-    }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -79,9 +70,7 @@ class CharacterSelectionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        val user = viewModel.profile.value?.find { it.email == email }
-        binding.tvPlayerName?.text = user!!.userName
+        binding.tvPlayerName?.text // TODO
 
 
         viewModel.userNameEnemy.observe(viewLifecycleOwner) {
@@ -175,11 +164,11 @@ class CharacterSelectionFragment : Fragment() {
         }
 
         viewModel.imageProfile.value!!.setOnClickListener {
-            findNavController().navigate(CharacterSelectionFragmentDirections.actionCharacterSelectionFragmentToProfileFragment(viewModel.currentUser.value!!.email.toString()))
+            findNavController().navigate(CharacterSelectionFragmentDirections.actionCharacterSelectionFragmentToProfileFragment())
         }
 
         viewModel.tvUserName.value!!.setOnClickListener {
-            findNavController().navigate(CharacterSelectionFragmentDirections.actionCharacterSelectionFragmentToProfileFragment(viewModel.currentUser.value!!.email.toString()))
+            findNavController().navigate(CharacterSelectionFragmentDirections.actionCharacterSelectionFragmentToProfileFragment())
         }
     }
 

@@ -2,33 +2,30 @@ package com.example.abschlussaufgabe.data
 
 import android.net.Uri
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.data.datamodels.Profile
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.fightDataForDatabase.DataPlayer
 import com.example.abschlussaufgabe.data.datamodels.modelsApi.Character
 import com.example.abschlussaufgabe.data.local.GameDatabase
-import com.example.abschlussaufgabe.data.local.ProfileDatabase
 import com.example.abschlussaufgabe.data.remote.CharacterApi
 
 
 const val TAG = "AppRepository"
 
-class AppRepository(private val api: CharacterApi, private val gameDatabase: GameDatabase, private val profileDatabase: ProfileDatabase) {
+class AppRepository(private val api: CharacterApi, private val gameDatabase: GameDatabase) {
 
     // für die Charakterinformationen
 
-    private val _characters = MutableLiveData<List<Character>>()
-    val characters: LiveData<List<Character>>
-        get() = _characters
+    var characters: List<Character> = listOf()
+    lateinit var profile: Profile
+
 
 
     suspend fun getCharacter(name: String) {
 
         try {
             if (name != "") {
-                _characters.value = listOf(api.retrofitService.getCharacter(name))
+                characters = listOf(api.retrofitService.getCharacter(name))
             } else {
                 getAllCharacters()
             }
@@ -40,7 +37,7 @@ class AppRepository(private val api: CharacterApi, private val gameDatabase: Gam
     suspend fun getAllCharacters() {
 
         try {
-            _characters.value = api.retrofitService.getAllCharacters().characters
+            characters = api.retrofitService.getAllCharacters().characters
         } catch (e: Exception) {
             Log.e(TAG, "Error: ${e.message}")
         }
@@ -53,7 +50,7 @@ class AppRepository(private val api: CharacterApi, private val gameDatabase: Gam
     suspend fun insertDataGame(dataPlayer: DataPlayer) {
 
         try {
-            gameDatabase.playerDao.insertData(dataPlayer)
+            gameDatabase.gameDao.insertDataGame(dataPlayer)
         } catch (e: Exception) {
             Log.e(TAG, "Failed to insert into database: $e")
         }
@@ -62,7 +59,7 @@ class AppRepository(private val api: CharacterApi, private val gameDatabase: Gam
     suspend fun getAllDataGame(): List<DataPlayer> {
 
         return try {
-            gameDatabase.playerDao.getAllData()
+            gameDatabase.gameDao.getAllDataGame()
         } catch (e: Exception) {
             Log.e(TAG, "Failed load database: $e")
             emptyList()
@@ -72,7 +69,7 @@ class AppRepository(private val api: CharacterApi, private val gameDatabase: Gam
     suspend fun deleteAllDataGame() {
 
         try {
-            gameDatabase.playerDao.deleteAllData()
+            gameDatabase.gameDao.deleteAllDataGame()
         } catch (e: Exception) {
             Log.e(TAG, "Failed to delete database: $e")
         }
@@ -82,7 +79,7 @@ class AppRepository(private val api: CharacterApi, private val gameDatabase: Gam
     suspend fun insertDataProfile(user: Profile) {
 
         try {
-            profileDatabase.profileDao.insertData(user)
+            gameDatabase.gameDao.insertDataProfile(user)
         } catch (e: Exception) {
             Log.e(TAG, "Failed to insert into database: $e")
         }
@@ -96,7 +93,7 @@ class AppRepository(private val api: CharacterApi, private val gameDatabase: Gam
         val randomImageUri = Uri.parse("android.resource://drawable/${randomImage}")
 
         return try {
-            profileDatabase.profileDao.getAllData()
+            gameDatabase.gameDao.getAllDataProfile()
         } catch (e: Exception) {
             Log.e(TAG, "Failed load database: $e")
             Profile(
@@ -105,7 +102,7 @@ class AppRepository(private val api: CharacterApi, private val gameDatabase: Gam
                 firstName = "",
                 userName = "",
                 birthday = "",
-                phone = "",
+                homeTown = "",
                 email = "")
         }
     }
@@ -113,7 +110,7 @@ class AppRepository(private val api: CharacterApi, private val gameDatabase: Gam
     suspend fun updateDataProfile(profile: Profile) {
 
         try {
-            profileDatabase.profileDao.updateData(profile)
+            gameDatabase.gameDao.updateDataProfile(profile)
         } catch (e: Exception) {
             Log.e(TAG, "Failed to update database: $e")
         }
@@ -122,7 +119,7 @@ class AppRepository(private val api: CharacterApi, private val gameDatabase: Gam
     suspend fun deleteAllDataProfile() {
 
         try {
-            profileDatabase.profileDao.deleteAllData()
+            gameDatabase.gameDao.deleteAllDataProfile()
         } catch (e: Exception) {
             Log.e(TAG, "Failed to delete database: $e")
         }
