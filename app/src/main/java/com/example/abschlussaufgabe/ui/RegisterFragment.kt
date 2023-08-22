@@ -97,7 +97,6 @@ class RegisterFragment : Fragment() {
 
 
         val user = Profile(
-            id = 1,
             profileImage = currentImage,
             lastName = binding.tietLastName.text.toString(),
             firstName = binding.tietFirstName.text.toString(),
@@ -134,6 +133,6 @@ class RegisterFragment : Fragment() {
         )
         val randomImage = imageList.random()
 
-        return Uri.parse("android.resource://drawable/${randomImage}")
+        return Uri.parse("android.resource://com.example.abschlussaufgabe/drawable/${randomImage}")
     }
 }

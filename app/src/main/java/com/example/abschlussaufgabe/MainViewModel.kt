@@ -91,7 +91,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     // Variablen der Datenbank
 
     // für das Profil
-    val profile = repository.profile
+    val profile = repository.getProfileByEmail(currentUser.value!!.email.toString())
 
     // für die Spieldaten
     val dataList = repository.dataList
@@ -259,13 +259,9 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     fun deleteDataGame(dataPlayer: DataPlayer) {
 
         viewModelScope.launch {
-            try {
                 repository.deleteAllDataGame(dataPlayer)
                 _victory.value = 0
                 _defeat.value = 0
-            } catch (e: Exception) {
-                Log.e("MainViewModel", "Error delete Data: $e")
-            }
         }
     }
 
@@ -273,34 +269,23 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     fun insertDatabaseProfile(profile: Profile) {
 
         viewModelScope.launch {
-            try {
                 repository.insertDataProfile(profile)
-            } catch (e: Exception) {
-                Log.e("MainViewModel", "Error loading Data to Database: $e")
-            }
         }
     }
 
     fun changeDataProfile(profile: Profile) {
 
         viewModelScope.launch {
-            try {
-                repository.updateDataProfile(profile)
-            } catch (e: Exception) {
-                Log.e("MainViewModel", "Error delete Data: $e")
-            }
+            repository.updateDataProfile(profile)
         }
+        Log.e("Profile", "$profile")
     }
 
     // löscht alle Profildaten aus der Datenbank
     fun deleteDataProfile(profile: Profile) {
 
         viewModelScope.launch {
-            try {
-                repository.deleteAllDataProfile(profile)
-            } catch (e: Exception) {
-                Log.e("MainViewModel", "Error delete Data: $e")
-            }
+            repository.deleteAllDataProfile(profile)
         }
     }
 

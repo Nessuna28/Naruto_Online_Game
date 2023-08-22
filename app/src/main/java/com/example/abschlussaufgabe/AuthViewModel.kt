@@ -90,4 +90,5 @@ class AuthViewModel: ViewModel() {
 
         val toast = Toast.makeText(context, message.value, duration)
     }
+
 }

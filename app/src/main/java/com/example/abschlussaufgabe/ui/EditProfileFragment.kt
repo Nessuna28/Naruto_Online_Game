@@ -56,12 +56,11 @@ class EditProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.profile.observe(viewLifecycleOwner) {
-            binding.tietLastName.hint = it.lastName
-            binding.tietFirstName.hint = it.firstName
-            binding.tietUserName.hint = it.userName
-            binding.tietBirthday.hint = it.birthday
-            binding.tietHomeTown.hint = it.homeTown
-            binding.tietEmail.hint = it.email
+            binding.tietLastName.setText(it.lastName)
+            binding.tietFirstName.setText(it.firstName)
+            binding.tietUserName.setText(it.userName)
+            binding.tietBirthday.setText(it.birthday)
+            binding.tietHomeTown.setText(it.homeTown)
             binding.ivProfilePhoto.setImageURI(it.profileImage)
         }
 
@@ -95,30 +94,23 @@ class EditProfileFragment : Fragment() {
 
     private fun changeProfile() {
 
-        val firstName = binding.tietFirstName.text.toString()
-        val lastName = binding.tietLastName.text.toString()
-        val userName = binding.tietUserName.text.toString()
-        val birthday = binding.tietBirthday.text.toString()
-        val homeTown = binding.tietHomeTown.text.toString()
-        val email = binding.tietEmail.text.toString()
-
         var currentImage = Uri.EMPTY
 
-        if (profileImage.toString().isEmpty()) {
-            currentImage = viewModel.profile.value!!.profileImage
+        currentImage = if (profileImage.toString().isEmpty()) {
+            viewModel.profile.value!!.profileImage
         } else {
-            currentImage = profileImage
+            profileImage
         }
 
         val profile = Profile(
-            id = 1,
+            id = viewModel.profile.value!!.id,
             profileImage = currentImage,
-            lastName = lastName,
-            firstName = firstName,
-            userName = userName,
-            birthday = birthday,
-            homeTown = homeTown,
-            email = email
+            lastName = binding.tietLastName.text.toString(),
+            firstName = binding.tietFirstName.text.toString(),
+            userName = binding.tietUserName.text.toString(),
+            birthday = binding.tietBirthday.text.toString(),
+            homeTown = binding.tietHomeTown.text.toString(),
+            email = viewModel.profile.value!!.email
         )
 
         viewModel.changeDataProfile(profile)

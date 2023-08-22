@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import com.example.abschlussaufgabe.databinding.ActivityMainBinding
 import com.example.abschlussaufgabe.MainViewModel
 import androidx.activity.viewModels
+import com.example.abschlussaufgabe.AuthViewModel
 import com.example.abschlussaufgabe.R
 
 
@@ -22,8 +23,10 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         viewModel.profile.observe(this) {
-            binding.tvUserName.text = it.userName
-            binding.ivProfilePhoto.setImageURI(it.profileImage)
+            if (it != null) {
+                binding.tvUserName.text = it.userName
+                binding.ivProfilePhoto.setImageURI(it.profileImage)
+            }
         }
 
 

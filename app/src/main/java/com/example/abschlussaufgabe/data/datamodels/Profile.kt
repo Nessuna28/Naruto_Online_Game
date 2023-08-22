@@ -8,8 +8,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "userData_table")
 data class Profile(
 
-    @PrimaryKey(autoGenerate = false)
-    val id: Int = 1,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
 
     val profileImage: Uri,
     val lastName: String,

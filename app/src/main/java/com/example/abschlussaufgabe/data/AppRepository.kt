@@ -1,8 +1,7 @@
 package com.example.abschlussaufgabe.data
 
-import android.net.Uri
 import android.util.Log
-import com.example.abschlussaufgabe.R
+import androidx.lifecycle.LiveData
 import com.example.abschlussaufgabe.data.datamodels.Profile
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.fightDataForDatabase.DataPlayer
 import com.example.abschlussaufgabe.data.datamodels.modelsApi.Character
@@ -19,7 +18,6 @@ class AppRepository(private val api: CharacterApi, private val gameDatabase: Gam
     var characters: List<Character> = listOf()
 
     // für die Datenbank
-    val profile = gameDatabase.gameDao.getAllDataProfile()
     val dataList = gameDatabase.gameDao.getAllDataGame()
 
 
@@ -78,12 +76,22 @@ class AppRepository(private val api: CharacterApi, private val gameDatabase: Gam
         }
     }
 
+    fun getProfileByEmail(email: String): LiveData<Profile> {
+
+        try {
+            return gameDatabase.gameDao.getDataByEmail(email)
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to load Profile: $e")
+            throw e
+        }
+    }
+
     suspend fun updateDataProfile(profile: Profile) {
 
         try {
             gameDatabase.gameDao.updateDataProfile(profile)
         } catch (e: Exception) {
-            Log.e(TAG, "Failed to update database: $e")
+            Log.e(TAG, "Failed to update Profile: $e")
         }
     }
 
@@ -92,7 +100,7 @@ class AppRepository(private val api: CharacterApi, private val gameDatabase: Gam
         try {
             gameDatabase.gameDao.deleteAllDataProfile(profile)
         } catch (e: Exception) {
-            Log.e(TAG, "Failed to delete database: $e")
+            Log.e(TAG, "Failed to delete Profile: $e")
         }
     }
 }

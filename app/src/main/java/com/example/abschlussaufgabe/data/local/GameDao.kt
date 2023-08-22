@@ -41,8 +41,8 @@ interface GameDao {
 
 
     // Funktion mit der Daten anhand des Vornamen aus dem Profil zurückgegeben werden
-    @Query("SELECT * FROM userData_table WHERE firstName = :name")
-    fun getDataByName(name: String): LiveData<Profile>
+    @Query("SELECT * FROM userData_table WHERE email = :email")
+    fun getDataByEmail(email: String): LiveData<Profile>
 
 
     // Funktion mit der Daten aus der Tabelle geändert werden können
