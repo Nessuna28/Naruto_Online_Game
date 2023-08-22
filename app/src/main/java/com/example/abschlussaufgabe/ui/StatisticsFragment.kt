@@ -14,6 +14,7 @@ import com.example.abschlussaufgabe.MainViewModel
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.adapter.StatisticAdapter
 import com.example.abschlussaufgabe.databinding.FragmentStatisticsBinding
+import com.example.abschlussaufgabe.helper.DataTouchHelper
 
 
 class StatisticsFragment : Fragment() {
@@ -30,9 +31,6 @@ class StatisticsFragment : Fragment() {
 
         viewModel.imageTitle.value?.let { viewModel.showImages(it) }
         viewModel.materialCard.value?.let { viewModel.showMaterialCard(it) }
-
-
-        viewModel.loadDataGame()
     }
 
     override fun onCreateView(
@@ -55,16 +53,15 @@ class StatisticsFragment : Fragment() {
             binding.tvDefeats.text = it.toString()
         }
 
-        viewModel.dataList.observe(viewLifecycleOwner) {
-            if (it != null) {
-                binding.rvStatistic.adapter = StatisticAdapter(it)
-            }
-        }
+        val adapter = StatisticAdapter(viewModel)
+        binding.rvStatistic.adapter = adapter
 
-        // Button
-        binding.ivDelete?.setOnClickListener {
-            viewModel.deleteDataGame()
-            reloadFragment()
+        DataTouchHelper {position ->
+            adapter.removeData(position)
+        }.attachToRecyclerView(binding.rvStatistic)
+
+        viewModel.dataList.observe(viewLifecycleOwner) {
+            adapter.replaceDataSet(it)
         }
 
         // Navigation
@@ -84,11 +81,5 @@ class StatisticsFragment : Fragment() {
         viewModel.tvUserName.value!!.setOnClickListener {
             findNavController().navigate(StatisticsFragmentDirections.actionStatisticsFragmentToProfileFragment())
         }
-    }
-
-
-    private fun reloadFragment() {
-
-        binding.rvStatistic.adapter = StatisticAdapter(viewModel.dataList.value!!)
     }
 }

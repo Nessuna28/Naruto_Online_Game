@@ -39,8 +39,6 @@ class ProfileFragment : Fragment() {
         viewModel.imageTitle.value?.let { viewModel.showImages(it) }
         viewModel.imageHome.value?.let { viewModel.showImages(it) }
         viewModel.imageSettings.value?.let { viewModel.showImages(it) }
-
-        viewModel.loadDataProfile()
     }
 
 
@@ -101,11 +99,11 @@ class ProfileFragment : Fragment() {
         }
 
         binding.ivDelete.setOnClickListener {
-            viewModel.deleteDataProfile()
+            viewModel.deleteDataProfile(viewModel.profile.value!!)
         }
 
         binding.tvDeleteProfile.setOnClickListener {
-            viewModel.deleteDataProfile()
+            viewModel.deleteDataProfile(viewModel.profile.value!!)
         }
     }
 

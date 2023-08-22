@@ -39,18 +39,10 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _characters
 
 
-    // LiveData-Variable für die Datenbank
-    private val _profile = MutableLiveData<Profile>()
-    val profile: LiveData<Profile>
-        get() = _profile
-
-
     // LiveData-Variable für Firebase
     private val _currentUser = MutableLiveData<FirebaseUser>(authViewModel.currentUser.value)
     val currentUser: LiveData<FirebaseUser>
         get() = _currentUser
-
-
 
 
     // für den Homescreen
@@ -96,13 +88,15 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
 
 
-    // für die Datenbanken
+    // Variablen der Datenbank
 
-    // für die Datenbank der Spieldaten
-    private val _dataList = MutableLiveData<List<DataPlayer>>()
-    val dataList: LiveData<List<DataPlayer>>
-        get() = _dataList
+    // für das Profil
+    val profile = repository.profile
 
+    // für die Spieldaten
+    val dataList = repository.dataList
+
+    // LiveData-Variable für die Datenbank
 
     private val _victory = MutableLiveData<Int>(0)
     val victory: LiveData<Int>
@@ -120,9 +114,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     init {
         loadCharacters()
         searchCharacter("")
-        dataList
-        currentUser
-        profile
     }
 
 
@@ -256,7 +247,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         viewModelScope.launch {
             try {
                 repository.insertDataGame(dataPlayer)
-                _dataList.value = repository.getAllDataGame()
                 countVictorysAndDefeats()
             } catch (e: Exception) {
                 Log.e("MainViewModel", "Error loading Data to Database: $e")
@@ -264,26 +254,13 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
-    // läd die Daten aus der Datenbank
-    fun loadDataGame() {
-
-        viewModelScope.launch {
-            try {
-                _dataList.value = repository.getAllDataGame()
-                countVictorysAndDefeats()
-            } catch (e: Exception) {
-                Log.e("MainViewModel", "Error loading Data: $e")
-            }
-        }
-    }
 
     // löscht alle Daten aus der Datenbank
-    fun deleteDataGame() {
+    fun deleteDataGame(dataPlayer: DataPlayer) {
 
         viewModelScope.launch {
             try {
-                repository.deleteAllDataGame()
-                _dataList.value = repository.getAllDataGame()
+                repository.deleteAllDataGame(dataPlayer)
                 _victory.value = 0
                 _defeat.value = 0
             } catch (e: Exception) {
@@ -298,21 +275,8 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         viewModelScope.launch {
             try {
                 repository.insertDataProfile(profile)
-                _profile.value = repository.getAllDataProfile()
             } catch (e: Exception) {
                 Log.e("MainViewModel", "Error loading Data to Database: $e")
-            }
-        }
-    }
-
-    // läd die Daten aus der Datenbank
-    fun loadDataProfile() {
-
-        viewModelScope.launch {
-            try {
-                _profile.value = repository.getAllDataProfile()
-            } catch (e: Exception) {
-                Log.e("MainViewModel", "Error loading Data: $e")
             }
         }
     }
@@ -322,7 +286,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         viewModelScope.launch {
             try {
                 repository.updateDataProfile(profile)
-                _profile.value = repository.getAllDataProfile()
             } catch (e: Exception) {
                 Log.e("MainViewModel", "Error delete Data: $e")
             }
@@ -330,12 +293,11 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     }
 
     // löscht alle Profildaten aus der Datenbank
-    fun deleteDataProfile() {
+    fun deleteDataProfile(profile: Profile) {
 
         viewModelScope.launch {
             try {
-                repository.deleteAllDataProfile()
-                _profile.value = repository.getAllDataProfile()
+                repository.deleteAllDataProfile(profile)
             } catch (e: Exception) {
                 Log.e("MainViewModel", "Error delete Data: $e")
             }

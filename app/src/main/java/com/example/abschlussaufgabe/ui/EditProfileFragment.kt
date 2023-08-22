@@ -26,7 +26,7 @@ class EditProfileFragment : Fragment() {
     private lateinit var binding: FragmentEditProfileBinding
 
     private val PICK_IMAGE_REQUEST = 1
-    private var profileImage: Uri = viewModel.profile.value!!.profileImage
+    private var profileImage: Uri = Uri.EMPTY
 
 
 
@@ -102,10 +102,17 @@ class EditProfileFragment : Fragment() {
         val homeTown = binding.tietHomeTown.text.toString()
         val email = binding.tietEmail.text.toString()
 
+        var currentImage = Uri.EMPTY
+
+        if (profileImage.toString().isEmpty()) {
+            currentImage = viewModel.profile.value!!.profileImage
+        } else {
+            currentImage = profileImage
+        }
 
         val profile = Profile(
             id = 1,
-            profileImage = profileImage,
+            profileImage = currentImage,
             lastName = lastName,
             firstName = firstName,
             userName = userName,

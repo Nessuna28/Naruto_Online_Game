@@ -17,7 +17,10 @@ class AppRepository(private val api: CharacterApi, private val gameDatabase: Gam
     // für die Charakterinformationen
 
     var characters: List<Character> = listOf()
-    lateinit var profile: Profile
+
+    // für die Datenbank
+    val profile = gameDatabase.gameDao.getAllDataProfile()
+    val dataList = gameDatabase.gameDao.getAllDataGame()
 
 
 
@@ -56,20 +59,10 @@ class AppRepository(private val api: CharacterApi, private val gameDatabase: Gam
         }
     }
 
-    suspend fun getAllDataGame(): List<DataPlayer> {
-
-        return try {
-            gameDatabase.gameDao.getAllDataGame()
-        } catch (e: Exception) {
-            Log.e(TAG, "Failed load database: $e")
-            emptyList()
-        }
-    }
-
-    suspend fun deleteAllDataGame() {
+    suspend fun deleteAllDataGame(dataPlayer: DataPlayer) {
 
         try {
-            gameDatabase.gameDao.deleteAllDataGame()
+            gameDatabase.gameDao.deleteAllDataGame(dataPlayer)
         } catch (e: Exception) {
             Log.e(TAG, "Failed to delete database: $e")
         }
@@ -85,28 +78,6 @@ class AppRepository(private val api: CharacterApi, private val gameDatabase: Gam
         }
     }
 
-    suspend fun getAllDataProfile(): Profile {
-
-        val imageList = listOf(R.drawable.anko_face, R.drawable.asuma_face, R.drawable.choji_face, R.drawable.deidara_face, R.drawable.gaara_face, R.drawable.gai_face, R.drawable.hidan_face, R.drawable.hinata_face, R.drawable.ino_face, R.drawable.itachi_face, R.drawable.jiraiya_face, R.drawable.kabuto_face, R.drawable.kiba_face, R.drawable.naruto_face, R.drawable.sasuke_face, R.drawable.sakura_face, R.drawable.kakashi_face)
-        val randomImage = imageList.random()
-
-        val randomImageUri = Uri.parse("android.resource://drawable/${randomImage}")
-
-        return try {
-            gameDatabase.gameDao.getAllDataProfile()
-        } catch (e: Exception) {
-            Log.e(TAG, "Failed load database: $e")
-            Profile(
-                profileImage = randomImageUri,
-                lastName = "",
-                firstName = "",
-                userName = "",
-                birthday = "",
-                homeTown = "",
-                email = "")
-        }
-    }
-
     suspend fun updateDataProfile(profile: Profile) {
 
         try {
@@ -116,10 +87,10 @@ class AppRepository(private val api: CharacterApi, private val gameDatabase: Gam
         }
     }
 
-    suspend fun deleteAllDataProfile() {
+    suspend fun deleteAllDataProfile(profile: Profile) {
 
         try {
-            gameDatabase.gameDao.deleteAllDataProfile()
+            gameDatabase.gameDao.deleteAllDataProfile(profile)
         } catch (e: Exception) {
             Log.e(TAG, "Failed to delete database: $e")
         }

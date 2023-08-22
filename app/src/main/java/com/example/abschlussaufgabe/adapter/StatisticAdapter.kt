@@ -1,21 +1,33 @@
 package com.example.abschlussaufgabe.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.abschlussaufgabe.MainViewModel
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.fightDataForDatabase.DataPlayer
 import com.example.abschlussaufgabe.databinding.StatisticItemBinding
 
 
 class StatisticAdapter(
-    private var dataset: List<DataPlayer>,
+    private val viewModel: MainViewModel
 ): RecyclerView.Adapter<StatisticAdapter.ItemViewHolder>() {
 
+    private var dataset: List<DataPlayer> = listOf()
 
-    inner class ItemViewHolder(val binding: StatisticItemBinding) :
+    class ItemViewHolder(val binding: StatisticItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun replaceDataSet(dataSet: List<DataPlayer>) {
+        this.dataset = dataset
+        notifyDataSetChanged()
+    }
 
+    fun removeData(position: Int) {
+        viewModel.deleteDataGame(dataset[position])
+        notifyItemRemoved(position)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val binding = StatisticItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
