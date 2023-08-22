@@ -115,4 +115,6 @@
     <string name="birthday">Geburtstag</string>
     <string name="homeTown">Wohnort</string>
     <string name="titleHomeTown">Wohnort:</string>
+    <string name="newGame">Neues Spiel</string>
+    <string name="reselectDice">Würfel neu wählen</string>
 </resources>

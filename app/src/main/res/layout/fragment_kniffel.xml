@@ -218,6 +218,30 @@
             app:srcCompat="@drawable/baseline_arrow_back_24" />
 
         <TextView
+            android:id="@+id/tv_newGame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/akaya_telivigala"
+            android:text="@string/newGame"
+            android:textStyle="bold"
+            android:textColor="@color/blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_titleKniffel" />
+
+        <TextView
+            android:id="@+id/tv_reselectDice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/akaya_telivigala"
+            android:text="@string/reselectDice"
+            android:textStyle="bold"
+            android:textColor="@color/blue"
+            app:layout_constraintEnd_toEndOf="@+id/tv_newGame"
+            app:layout_constraintTop_toBottomOf="@+id/tv_newGame" />
+
+        <TextView
             android:id="@+id/tv_namePlayer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

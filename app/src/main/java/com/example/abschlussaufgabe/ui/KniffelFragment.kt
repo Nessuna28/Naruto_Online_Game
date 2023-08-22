@@ -7,12 +7,10 @@ import android.app.Dialog
 import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Bundle
-import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
@@ -36,6 +34,7 @@ class KniffelFragment : Fragment() {
     private lateinit var binding: FragmentKniffelBinding
 
     private lateinit var selectedDice: Dice
+
 
     // Variablen für den Check ob die Würfel geklickt sind
 
@@ -93,13 +92,6 @@ class KniffelFragment : Fragment() {
         popupDialog.show(parentFragmentManager, "Popup")
 
 
-        kniffelViewModel.selectedDice.observe(viewLifecycleOwner) {
-            // Überprüft, ob ein Team ausgewählt wurde um das Popup zu schließen
-            if (it != null && popupDialog.isVisible) {
-                popupDialog.dismiss()
-            }
-        }
-
         // Observer für das automatische Schließen des Popups
         kniffelViewModel.selectedDice.observe(viewLifecycleOwner) {
             if (it != null) {
@@ -148,6 +140,8 @@ class KniffelFragment : Fragment() {
         viewModel.imageSettings.value?.let { viewModel.showImages(it) }
         viewModel.tvUserName.value?.let { viewModel.hideTextView(it) }
         viewModel.imageProfile.value?.let { viewModel.showMaterialCard(it) }
+
+        setTextColorValuesAtTheBeginning()
     }
 
     override fun onCreateView(
@@ -168,7 +162,9 @@ class KniffelFragment : Fragment() {
             rounds.add(false)
         }
 
-        binding.tvNamePlayer.text // TODO
+        viewModel.profile.observe(viewLifecycleOwner) {
+            binding.tvNamePlayer.text = it.userName
+        }
 
         kniffelViewModel.points.observe(viewLifecycleOwner) {
             binding.tvPoints.text = it.toString()
@@ -241,6 +237,13 @@ class KniffelFragment : Fragment() {
 
         // Buttons
 
+        // wenn auf den Button würfeln geklickt wird geguckt ob noch Versuche übrig sind und dann
+        // wird ein Versuch abgezogen,
+        // die Werte werden berechnet,
+        // die Würfelbilder ausgewählt,
+        // und dann gewürfelt,
+        // dann werden die Werte gesetzt und
+        // die Checks ob die Würfel ausgesucht wurden wieder auf false gesetzt
         binding.btnRollTheDice.setOnClickListener {
             if (kniffelViewModel.attempts.value != 0) {
                 kniffelViewModel.calculateAttempts()
@@ -258,6 +261,11 @@ class KniffelFragment : Fragment() {
             }
         }
 
+        // beim Klick auf OK werden mehrere Funktionen ausgeführt wie
+        // die Versuche wieder auf 3 gesetzt,
+        // die Werte werden wieder auf 0 gesetzt wenn sie nicht ausgewählt wurden,
+        // die Punkte werden berechnet und
+        // die Farben zurückgesetzt
         binding.btnOk.setOnClickListener {
             okButtonClicked = !okButtonClicked
             currentRound++
@@ -271,9 +279,15 @@ class KniffelFragment : Fragment() {
             kniffelViewModel.calculatePoints()
             resetColorDice()
             resetRolledDice()
+            it.setBackgroundColor(gray)
         }
 
         // OnClickListener der Würfel
+        // prüft ob der Würfel bereits angeklickt wurde, ist die Variable dice..IsClicked false dann ...
+        // ruft die Funktion auf und übergibt ihm true (damit sage ich dass ich den Würfel behalten möchte und er sich nicht mehr ändern soll
+        // setzt die Farbe des Würfels auf grün, damit ich weiß, dass ich ihn ausgewählt habe
+        // setzt danach die Variabel dice..IsClicked auf true
+        // ist die Variable auf true, was bedeutet der Würfel wurde bereits ausgewählt werden die Funktionen rückgängig gemacht
 
         binding.mcRolledDice1.setOnClickListener {
             dice1IsClicked = if (!dice1IsClicked) {
@@ -391,18 +405,35 @@ class KniffelFragment : Fragment() {
             chanceIsClicked = actionForClickingValue(chanceIsClicked, it)
         }
 
+        // bei Klick auf die TextView wird erst gefragt ob man das Spiel wirklich beenden möchte
+        // und dann je nach Auswahl ein neues Spiel gestartet
+        binding.tvNewGame.setOnClickListener {
+            // Erstelle den MaterialAlertDialogBuilder
+            val builder = MaterialAlertDialogBuilder(requireContext())
+            builder.setTitle("Neues Spiel starten")
+                .setMessage("""Möchtest du dieses Spiel wirklich beenden?""".trimMargin())
+                .setPositiveButton("Ja") { dialog, which ->
+                    newGame()
+                    dialog.dismiss()
+                }
+                .setNegativeButton("Nein") { dialog, which ->
+                    dialog.dismiss()
+                }
+                .show()
+        }
+
+        // bei Klick auf die TextView wird das PopUp aufgerufen um sich die Würfelbilder neu auszusuchen
+        binding.tvReselectDice.setOnClickListener {
+            // TODO
+        }
+
 
         // wenn das Spiel beendet ist wird ein Dialog geöffnet
+        // und es werden mehrere Funktionen ausgeführt wie das Zurücksetzen der Farben, das Stoppen des Sounds ect.
         kniffelViewModel.isGameOver.observe(viewLifecycleOwner) {
             if (it) {
                 val points = kniffelViewModel.points.value
-                kniffelViewModel.resetAllPoints()
-                resetColorDice()
-                resetCheckIsClickedDice()
-                resetCheckIsClickedTextView()
-                kniffelViewModel.setAttempts(3)
-                setTextColorValuesOfWhite()
-                resetRolledDice()
+                newGame()
                 kniffelViewModel.stopSound()
                 // Erstelle den MaterialAlertDialogBuilder
                 val builder = MaterialAlertDialogBuilder(requireContext())
@@ -427,17 +458,7 @@ class KniffelFragment : Fragment() {
         // Navigation
 
         binding.ivBack.setOnClickListener {
-            // Erstelle den MaterialAlertDialogBuilder
-            val builder = MaterialAlertDialogBuilder(requireContext())
-            builder.setTitle("Spiel verlassen")
-                .setMessage("""Möchtest du dieses Spiel wirklich beenden?""".trimMargin())
-                .setPositiveButton("OK") { dialog, which ->
-                    findNavController().navigateUp()
-                }
-                .setNegativeButton("Abbrechen") { dialog, which ->
-                    dialog.dismiss()
-                }
-                .show()
+            findNavController().navigateUp()
         }
 
         viewModel.imageProfile.value!!.setOnClickListener {
@@ -454,6 +475,14 @@ class KniffelFragment : Fragment() {
     }
 
     // Funktionen
+
+    // Popup-Fenster für die Auswahl der Bilder auf den Würfeln
+    private fun popUp() {
+
+            // TODO: Funktion schreiben
+    }
+
+    // setzt das gleiche Bild auf alle 5 Würfel
     private fun resetRolledDice() {
 
         binding.ivRolledDice1.setImageResource(selectedDice.diceSideList[0].image)
@@ -463,6 +492,7 @@ class KniffelFragment : Fragment() {
         binding.ivRolledDice5.setImageResource(selectedDice.diceSideList[0].image)
     }
 
+    // übergibt ob die TextViews angeklickt wurden
     private fun onTextViewClicked(textView: View, check: Boolean) {
 
         val value = kniffelViewModel.values.value!!
@@ -470,71 +500,20 @@ class KniffelFragment : Fragment() {
         when (textView) {
             binding.tv1erValue -> kniffelViewModel.changeOneBoolean(Pair(value.one.first, check))
             binding.tv2erValue -> kniffelViewModel.changeTwoBoolean(Pair(value.two.first, check))
-            binding.tv3erValue -> kniffelViewModel.changeThreeBoolean(
-                Pair(
-                    value.three.first,
-                    check
-                )
-            )
-
+            binding.tv3erValue -> kniffelViewModel.changeThreeBoolean(Pair(value.three.first, check))
             binding.tv4erValue -> kniffelViewModel.changeFourBoolean(Pair(value.four.first, check))
             binding.tv5erValue -> kniffelViewModel.changeFiveBoolean(Pair(value.five.first, check))
             binding.tv6erValue -> kniffelViewModel.changeSixBoolean(Pair(value.six.first, check))
-            binding.tv3xValue -> kniffelViewModel.changeThreesomeBoolean(
-                Pair(
-                    value.threesome.first,
-                    check
-                )
-            )
-
-            binding.tv4xValue -> kniffelViewModel.changeFoursomeBoolean(
-                Pair(
-                    value.foursome.first,
-                    check
-                )
-            )
-
-            binding.tvFullHouseValue -> kniffelViewModel.changeFullHouseBoolean(
-                Pair(
-                    value.fullHouse.first,
-                    check
-                )
-            )
-
-            binding.tvBigStreetValue -> kniffelViewModel.changeBigStreetBoolean(
-                Pair(
-                    value.bigStreet.first,
-                    check
-                )
-            )
-
-            binding.tvLittleStreetValue -> kniffelViewModel.changeLittleStreetBoolean(
-                Pair(
-                    value.littleStreet.first,
-                    check
-                )
-            )
-
-            binding.tvKniffelValue -> kniffelViewModel.changeKniffelBoolean(
-                Pair(
-                    value.kniffel.first,
-                    check
-                )
-            )
-
-            binding.tvChanceValue -> kniffelViewModel.changeChanceBoolean(
-                Pair(
-                    value.chance.first,
-                    check
-                )
-            )
+            binding.tv3xValue -> kniffelViewModel.changeThreesomeBoolean(Pair(value.threesome.first, check))
+            binding.tv4xValue -> kniffelViewModel.changeFoursomeBoolean(Pair(value.foursome.first, check))
+            binding.tvFullHouseValue -> kniffelViewModel.changeFullHouseBoolean(Pair(value.fullHouse.first, check))
+            binding.tvBigStreetValue -> kniffelViewModel.changeBigStreetBoolean(Pair(value.bigStreet.first, check))
+            binding.tvLittleStreetValue -> kniffelViewModel.changeLittleStreetBoolean(Pair(value.littleStreet.first, check))
+            binding.tvKniffelValue -> kniffelViewModel.changeKniffelBoolean(Pair(value.kniffel.first, check))
+            binding.tvChanceValue -> kniffelViewModel.changeChanceBoolean(Pair(value.chance.first, check))
         }
     }
 
-    private fun fillTheListOfPair(view: View, check: Boolean) {
-
-        listOfPair.add(Pair(view, check))
-    }
 
     // wenn die Textview geklickt wird werden einzelne Funktionen ausgeführt
     // bei nochmaligen Klick werden diese Änderungen wieder rückgängig gemacht
@@ -607,21 +586,86 @@ class KniffelFragment : Fragment() {
         binding.mcRolledDice5.background.setTint(primary)
     }
 
-    private fun setTextColorValuesOfWhite() {
+    // setzt die Textfarben auf weiß es sei denn die TextViews sind noch ausgewählt
+    private fun setTextColorValuesAtTheBeginning() {
 
-        binding.tv1erValue.setTextColor(white)
-        binding.tv2erValue.setTextColor(white)
-        binding.tv3erValue.setTextColor(white)
-        binding.tv4erValue.setTextColor(white)
-        binding.tv5erValue.setTextColor(white)
-        binding.tv6erValue.setTextColor(white)
-        binding.tv3xValue.setTextColor(white)
-        binding.tv4xValue.setTextColor(white)
-        binding.tvFullHouseValue.setTextColor(white)
-        binding.tvBigStreetValue.setTextColor(white)
-        binding.tvLittleStreetValue.setTextColor(white)
-        binding.tvKniffelValue.setTextColor(white)
-        binding.tvChanceValue.setTextColor(white)
+        if (oneIsClicked) {
+            binding.tv1erValue.setTextColor(black)
+        } else {
+            binding.tv1erValue.setTextColor(white)
+        }
+
+        if (twoIsClicked) {
+            binding.tv2erValue.setTextColor(black)
+        } else {
+            binding.tv2erValue.setTextColor(white)
+        }
+
+        if (threeIsClicked) {
+            binding.tv3erValue.setTextColor(black)
+        } else {
+            binding.tv3erValue.setTextColor(white)
+        }
+
+        if (fourIsClicked) {
+            binding.tv4erValue.setTextColor(black)
+        } else {
+            binding.tv4erValue.setTextColor(white)
+        }
+
+        if (fiveIsClicked) {
+            binding.tv5erValue.setTextColor(black)
+        } else {
+            binding.tv5erValue.setTextColor(white)
+        }
+
+        if (sixIsClicked) {
+            binding.tv6erValue.setTextColor(black)
+        } else {
+            binding.tv6erValue.setTextColor(white)
+        }
+
+        if (threesomeIsClicked) {
+            binding.tv3xValue.setTextColor(black)
+        } else {
+            binding.tv3xValue.setTextColor(white)
+        }
+
+        if (foursomeIsClicked) {
+            binding.tv4xValue.setTextColor(black)
+        } else {
+            binding.tv4xValue.setTextColor(white)
+        }
+
+        if (fullHouseIsClicked) {
+            binding.tvFullHouseValue.setTextColor(black)
+        } else {
+            binding.tvFullHouseValue.setTextColor(white)
+        }
+
+        if (bigStreetIsClicked) {
+            binding.tvBigStreetValue.setTextColor(black)
+        } else {
+            binding.tvBigStreetValue.setTextColor(white)
+        }
+
+        if (littleStreetIsClicked) {
+            binding.tvLittleStreetValue.setTextColor(black)
+        } else {
+            binding.tvLittleStreetValue.setTextColor(white)
+        }
+
+        if (kniffelIsClicked) {
+            binding.tvKniffelValue.setTextColor(black)
+        } else {
+            binding.tvKniffelValue.setTextColor(white)
+        }
+
+        if (chanceIsClicked) {
+            binding.tvChanceValue.setTextColor(black)
+        } else {
+            binding.tvChanceValue.setTextColor(white)
+        }
     }
 
     // setzt den Text der übergeben TextView auf die übergeben Farbe
@@ -630,16 +674,15 @@ class KniffelFragment : Fragment() {
         textView.setTextColor(textColor)
     }
 
-    private fun changingImagesWhenThrowingTheDice(dice: ImageView, imageIndex: Int = 0) {
+    // setzt die Farben und Werte zurück auf Anfang
+    private fun newGame() {
 
-        if (imageIndex < selectedDice.diceSideList.size) {
-            dice.setImageResource(selectedDice.diceSideList[imageIndex].image)
-
-            Handler().postDelayed({
-                changingImagesWhenThrowingTheDice(dice, imageIndex + 1)
-            }, 100)
-        } else {
-            kniffelViewModel.rollTheDice()
-        }
+        kniffelViewModel.resetAllPoints()
+        resetColorDice()
+        resetCheckIsClickedDice()
+        resetCheckIsClickedTextView()
+        kniffelViewModel.setAttempts(3)
+        setTextColorValuesAtTheBeginning()
+        resetRolledDice()
     }
 }
