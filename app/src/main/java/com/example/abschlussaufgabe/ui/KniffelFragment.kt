@@ -458,18 +458,22 @@ class KniffelFragment : Fragment() {
         // Navigation
 
         binding.ivBack.setOnClickListener {
+            kniffelViewModel.stopSound()
             findNavController().navigateUp()
         }
 
         viewModel.imageProfile.value!!.setOnClickListener {
+            kniffelViewModel.stopSound()
             findNavController().navigate(KniffelFragmentDirections.actionKniffelFragmentToProfileFragment())
         }
 
         viewModel.tvUserName.value!!.setOnClickListener {
+            kniffelViewModel.stopSound()
             findNavController().navigate(KniffelFragmentDirections.actionKniffelFragmentToProfileFragment())
         }
 
         viewModel.imageHome.value!!.setOnClickListener {
+            kniffelViewModel.stopSound()
             findNavController().navigate(KniffelFragmentDirections.actionKniffelFragmentToHomeFragment())
         }
     }
@@ -589,79 +593,81 @@ class KniffelFragment : Fragment() {
     // setzt die Textfarben auf weiß es sei denn die TextViews sind noch ausgewählt
     private fun setTextColorValuesAtTheBeginning() {
 
-        if (oneIsClicked) {
+        val  values = kniffelViewModel.values.value!!
+
+        if (values.one.second) {
             binding.tv1erValue.setTextColor(black)
         } else {
             binding.tv1erValue.setTextColor(white)
         }
 
-        if (twoIsClicked) {
+        if (values.two.second) {
             binding.tv2erValue.setTextColor(black)
         } else {
             binding.tv2erValue.setTextColor(white)
         }
 
-        if (threeIsClicked) {
+        if (values.three.second) {
             binding.tv3erValue.setTextColor(black)
         } else {
             binding.tv3erValue.setTextColor(white)
         }
 
-        if (fourIsClicked) {
+        if (values.four.second) {
             binding.tv4erValue.setTextColor(black)
         } else {
             binding.tv4erValue.setTextColor(white)
         }
 
-        if (fiveIsClicked) {
+        if (values.five.second) {
             binding.tv5erValue.setTextColor(black)
         } else {
             binding.tv5erValue.setTextColor(white)
         }
 
-        if (sixIsClicked) {
+        if (values.six.second) {
             binding.tv6erValue.setTextColor(black)
         } else {
             binding.tv6erValue.setTextColor(white)
         }
 
-        if (threesomeIsClicked) {
+        if (values.threesome.second) {
             binding.tv3xValue.setTextColor(black)
         } else {
             binding.tv3xValue.setTextColor(white)
         }
 
-        if (foursomeIsClicked) {
+        if (values.foursome.second) {
             binding.tv4xValue.setTextColor(black)
         } else {
             binding.tv4xValue.setTextColor(white)
         }
 
-        if (fullHouseIsClicked) {
+        if (values.fullHouse.second) {
             binding.tvFullHouseValue.setTextColor(black)
         } else {
             binding.tvFullHouseValue.setTextColor(white)
         }
 
-        if (bigStreetIsClicked) {
+        if (values.bigStreet.second) {
             binding.tvBigStreetValue.setTextColor(black)
         } else {
             binding.tvBigStreetValue.setTextColor(white)
         }
 
-        if (littleStreetIsClicked) {
+        if (values.littleStreet.second) {
             binding.tvLittleStreetValue.setTextColor(black)
         } else {
             binding.tvLittleStreetValue.setTextColor(white)
         }
 
-        if (kniffelIsClicked) {
+        if (values.kniffel.second) {
             binding.tvKniffelValue.setTextColor(black)
         } else {
             binding.tvKniffelValue.setTextColor(white)
         }
 
-        if (chanceIsClicked) {
+        if (values.chance.second) {
             binding.tvChanceValue.setTextColor(black)
         } else {
             binding.tvChanceValue.setTextColor(white)

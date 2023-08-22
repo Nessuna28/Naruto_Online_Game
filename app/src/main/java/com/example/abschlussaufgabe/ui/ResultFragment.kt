@@ -59,7 +59,7 @@ class ResultFragment : Fragment() {
                     binding.ivCharacterImage?.setImageResource(it.imagePose)
                     binding.vvCharacterVideo?.setVideoPath(it.video.toString())
                     binding.vvCharacterVideo?.start()
-                    context?.let { it1 -> viewModel.playSound(it1, it.sound) }
+                    context?.let { it1 -> fightViewModel.playSound(it1, it.sound) }
                 }
 
             } else {
@@ -69,7 +69,7 @@ class ResultFragment : Fragment() {
                     binding.ivCharacterImage?.setImageResource(it.imageSad)
                     binding.vvCharacterVideo?.setVideoPath(it.video.toString())
                     binding.vvCharacterVideo?.start()
-                    context?.let { it1 -> viewModel.playSound(it1, it.sound) }
+                    context?.let { it1 -> fightViewModel.playSound(it1, it.sound) }
                 }
             }
         }
@@ -111,14 +111,17 @@ class ResultFragment : Fragment() {
         // Navigation
 
         binding.btnAgain?.setOnClickListener {
+            fightViewModel.stopSound()
             findNavController().navigate(ResultFragmentDirections.actionResultFragmentToFightFragment())
         }
 
         binding.btnHome?.setOnClickListener {
+            fightViewModel.stopSound()
             findNavController().navigate(ResultFragmentDirections.actionResultFragmentToHomeFragment())
         }
 
         binding.btnSelection?.setOnClickListener {
+            fightViewModel.stopSound()
             findNavController().navigate(ResultFragmentDirections.actionResultFragmentToCharacterSelectionFragment())
         }
     }

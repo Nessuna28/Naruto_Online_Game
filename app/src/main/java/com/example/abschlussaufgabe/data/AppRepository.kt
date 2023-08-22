@@ -47,7 +47,8 @@ class AppRepository(private val api: CharacterApi, private val gameDatabase: Gam
 
     // für die Datenbank
 
-    // für die Datenbank für die Spieldaten
+    // für die Spieldaten
+
     suspend fun insertDataGame(dataPlayer: DataPlayer) {
 
         try {
@@ -57,7 +58,7 @@ class AppRepository(private val api: CharacterApi, private val gameDatabase: Gam
         }
     }
 
-    suspend fun deleteAllDataGame(dataPlayer: DataPlayer) {
+    suspend fun deleteDataGame(dataPlayer: DataPlayer) {
 
         try {
             gameDatabase.gameDao.deleteAllDataGame(dataPlayer)
@@ -66,7 +67,8 @@ class AppRepository(private val api: CharacterApi, private val gameDatabase: Gam
         }
     }
 
-    // für die Datenbank für die Profildaten
+    // für die Profildaten
+
     suspend fun insertDataProfile(user: Profile) {
 
         try {

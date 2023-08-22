@@ -43,7 +43,7 @@ class CombatSettingsFragment : Fragment() {
 
         requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
 
-        context?.let { viewModel.playSound(it, R.raw.song_beginn) }
+        context?.let { fightViewModel.playSound(it, R.raw.song_beginn) }
 
         viewModel.materialCard.value?.let { viewModel.showMaterialCard(it) }
         viewModel.imageHome.value?.let { viewModel.showImages(it) }

@@ -51,7 +51,7 @@ class FightFragment : Fragment() {
 
         requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
 
-        context?.let { viewModel.playSound(it, R.raw.song_theme) }
+        context?.let { fightViewModel.playSound(it, R.raw.song_theme) }
 
         viewModel.imageBackground.value?.let { viewModel.hideImages(it) }
         viewModel.materialCard.value?.let { viewModel.hideMaterialCard(it) }
@@ -97,7 +97,7 @@ class FightFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_fight, container, false)
         return binding.root
     }
@@ -109,8 +109,9 @@ class FightFragment : Fragment() {
         enemy = fightViewModel.enemy.value!!
 
 
-        binding.tvNamePlayer?.text // TODO
-
+        viewModel.profile.observe(viewLifecycleOwner) {
+            binding.tvNamePlayer?.text = it.userName
+        }
 
         viewModel.userNameEnemy.observe(viewLifecycleOwner) {
             binding.tvNameEnemy?.text = it
@@ -163,6 +164,10 @@ class FightFragment : Fragment() {
             binding.tvTimer?.text = it.toString()
         }
 
+        // je nach Attacke wird das Bild angezeigt
+        // je nach dem was für eine Attacke ausgewählt wird werden verschiedene Aktionen ausgeführt
+        // wenn einer keine Lebenspunkte mehr hat oder die Zeit abgelaufen ist werden die Views der Attacken ausgeblendt
+        // und die Runde beendet
         fightViewModel.attackPlayer.observe(viewLifecycleOwner) {
             binding.ivImage2Player?.setImageResource(it.image)
             actionOfSelectionPlayer(it)
@@ -173,6 +178,9 @@ class FightFragment : Fragment() {
             }
         }
 
+        // wenn die Runde beginnt wird je nach Attacke das Bild angezeigt
+        // so lange beide Spieler noch Leben haben und die Zeit noch nicht abgelaufen ist werden Attacken ausgeführt
+        // wenn die Bedingungen nicht mehr erfüllt sind wird die Runde beendet
         fightViewModel.attackEnemy.observe(viewLifecycleOwner) {
             if (fightViewModel.roundBegan.value == true) {
                 binding.ivImage2Enemy?.setImageResource(it.image)
@@ -185,6 +193,7 @@ class FightFragment : Fragment() {
             }
         }
 
+        // je nach gewonnen Runden wird das Ergebnis auf gewonnen oder verloren gesetzt
         fightViewModel.roundsWonPlayer.observe(viewLifecycleOwner) {
             if (fightViewModel.selectRounds.value == "3") {
                 if (it >= 2 && fightViewModel.rounds.value!! >= 2) {
@@ -203,6 +212,8 @@ class FightFragment : Fragment() {
             }
         }
 
+        // wenn die Rundenanzahl sich ändert und das Spiel noch nicht beendet ist werden die Farben für die gewonnen Runden gesetzt und
+        // die jeweiligen Views angezeigt und die Punkte für eine neue Runde zurückgesetzt
         fightViewModel.rounds.observe(viewLifecycleOwner) {
             if (!fightViewModel.gameEnd.value!!) {
                 setColorForRounds(it)
@@ -562,6 +573,7 @@ class FightFragment : Fragment() {
          }
      }
 
+    // setzt die Views je nach dem ob der Spieler gewonnen oder verloren hat
     private fun runViewWinnerOrLoser() {
 
         if (fightViewModel.selectTimer.value != "kein Zeitlimit") {
@@ -598,6 +610,7 @@ class FightFragment : Fragment() {
         super.onDestroyView()
     }
 
+    // setzt die Farben für die gewonnen Runden der Spieler
     private fun setColorForRounds(rounds: Int) {
 
         if (rounds == 1) {
@@ -631,6 +644,7 @@ class FightFragment : Fragment() {
         }
     }
 
+    // setzt die Farben der gewonnen Runden wieder zurück auf weiß
     private fun resetColorForRound() {
 
         binding.mcRound1Player?.background?.setTint(white)

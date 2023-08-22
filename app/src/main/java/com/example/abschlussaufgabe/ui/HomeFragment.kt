@@ -22,7 +22,6 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
 
     private val viewModel: MainViewModel by activityViewModels()
-    private val kniffelViewModel: KniffelViewModel by activityViewModels()
 
 
     override fun onStart() {
@@ -38,10 +37,6 @@ class HomeFragment : Fragment() {
         viewModel.tvUserName.value?.let { viewModel.showTextView(it) }
         viewModel.imageSettings.value?.let { viewModel.showImages(it) }
         viewModel.imageProfile.value?.let { viewModel.showMaterialCard(it) }
-
-        context?.let { viewModel.stopSound() }
-        context?.let { kniffelViewModel.stopSound() }
-
     }
 
     override fun onCreateView(

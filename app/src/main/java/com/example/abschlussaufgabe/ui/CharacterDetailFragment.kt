@@ -38,8 +38,6 @@ class CharacterDetailFragment : Fragment() {
         viewModel.tvUserName.value?.let { viewModel.showTextView(it) }
         viewModel.imageSettings.value?.let { viewModel.showImages(it) }
         viewModel.imageProfile.value?.let { viewModel.showMaterialCard(it) }
-
-        context?.let { viewModel.stopSound() }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

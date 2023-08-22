@@ -29,8 +29,6 @@ class SelectionGameFragment : Fragment() {
         viewModel.imageTitle.value?.let { viewModel.showImages(it) }
         viewModel.materialCard.value?.let { viewModel.showMaterialCard(it) }
         viewModel.tvUserName.value?.let { viewModel.showTextView(it) }
-
-        context?.let { viewModel.stopSound() }
     }
 
     override fun onCreateView(

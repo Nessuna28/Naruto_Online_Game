@@ -1,7 +1,6 @@
 package com.example.abschlussaufgabe
 
 import android.app.Application
-import android.media.MediaPlayer
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
@@ -16,7 +15,6 @@ import com.example.abschlussaufgabe.data.local.GameDatabase
 import com.example.abschlussaufgabe.data.remote.CharacterApi
 import com.google.android.material.card.MaterialCardView
 import kotlinx.coroutines.launch
-import android.content.Context
 import android.widget.TextView
 import com.example.abschlussaufgabe.data.datamodels.modelsApi.Character
 import com.google.firebase.auth.FirebaseUser
@@ -31,7 +29,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     private val repository = AppRepository(CharacterApi, gameDatabase)
     private val authViewModel = AuthViewModel()
 
-    private var mediaPlayer: MediaPlayer? = null
 
     // LiveData-Variable für Api
     private val _characters = MutableLiveData(repository.characters)
@@ -96,7 +93,8 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     // für die Spieldaten
     val dataList = repository.dataList
 
-    // LiveData-Variable für die Datenbank
+
+    // LiveData-Variable für Siege und Niederlagen für die Datenbank
 
     private val _victory = MutableLiveData<Int>(0)
     val victory: LiveData<Int>
@@ -117,7 +115,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     }
 
 
-    // Anzeigen und Ausblenden gewisser Images
+    // Anzeigen und Ausblenden gewisser Images, CardViews oder TextViews
 
     fun hideImages(image: ImageView) {
 
@@ -152,59 +150,22 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     // Alles für die Charakterinformationen
 
+    // zeigt alle Charaktere aus der Liste an
     fun loadCharacters() {
 
         viewModelScope.launch {
-            try {
-                repository.getAllCharacters()
-            } catch (e: Exception) {
-                Log.e("MainViewModel", "Error loading Data: $e")
-            }
+            repository.getAllCharacters()
         }
     }
 
+    // sucht einen Charakter anhand des Namens (leider muss man den kompletten Namen eingeben bevor etwas angezeigt wird)
     fun searchCharacter(name: String) {
 
         viewModelScope.launch {
-            try {
-                repository.getCharacter(name)
-                println(characters)
-            } catch (e: Exception) {
-                Log.e("MainViewModel", "Error loading Data: $e")
-            }
+            repository.getCharacter(name)
+            println(characters)
         }
     }
-
-
-    // setzt die jeweiligen Sounds und spielt sie ab
-
-    fun playSound(context: Context, sound: Int) {
-
-        mediaPlayer?.release()
-
-        mediaPlayer = MediaPlayer.create(context, sound)
-
-        mediaPlayer?.setOnCompletionListener {
-            releaseMediaPlayer()
-        }
-
-        // Lautstärke erhöhen (auf 90% der vollen Lautstärke)
-        mediaPlayer?.setVolume(0.9f, 0.9f)
-
-        mediaPlayer?.start()
-    }
-
-    fun releaseMediaPlayer() {
-
-        mediaPlayer?.release()
-        mediaPlayer = null
-    }
-
-    fun stopSound() {
-
-        mediaPlayer?.stop()
-    }
-
 
 
     // speichert den Usernamen des Gegners
@@ -243,29 +204,22 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     // speichert die Spieldaten des Spielers in der Datenbank
     fun insertDatabaseGame(dataPlayer: DataPlayer) {
 
-        Log.e("MainViewModel", "$dataPlayer")
         viewModelScope.launch {
-            try {
-                repository.insertDataGame(dataPlayer)
-                countVictorysAndDefeats()
-            } catch (e: Exception) {
-                Log.e("MainViewModel", "Error loading Data to Database: $e")
-            }
+            repository.insertDataGame(dataPlayer)
+            countVictorysAndDefeats()
         }
     }
 
-
-    // löscht alle Daten aus der Datenbank
+    // löscht die üergebenen Daten aus der Datenbank
     fun deleteDataGame(dataPlayer: DataPlayer) {
 
         viewModelScope.launch {
-                repository.deleteAllDataGame(dataPlayer)
-                _victory.value = 0
-                _defeat.value = 0
+            repository.deleteDataGame(dataPlayer)
+            countVictorysAndDefeats()
         }
     }
 
-    // speichert die Profildaten des Users in der Datenbank
+    // speichert die übergebenen Profildaten des Users in der Datenbank
     fun insertDatabaseProfile(profile: Profile) {
 
         viewModelScope.launch {
@@ -273,6 +227,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
+    // ändert die Daten des übergebenen Profils
     fun changeDataProfile(profile: Profile) {
 
         viewModelScope.launch {
@@ -281,7 +236,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         Log.e("Profile", "$profile")
     }
 
-    // löscht alle Profildaten aus der Datenbank
+    // löscht die Profildaten des übergebenen Profils aus der Datenbank
     fun deleteDataProfile(profile: Profile) {
 
         viewModelScope.launch {

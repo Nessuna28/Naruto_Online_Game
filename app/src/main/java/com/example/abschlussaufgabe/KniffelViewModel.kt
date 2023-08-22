@@ -130,9 +130,11 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
         get() = listOf(diceSideRolledDice1.value!!, diceSideRolledDice2.value!!, diceSideRolledDice3.value!!, diceSideRolledDice4.value!!, diceSideRolledDice5.value!!)
 
 
+    // LiveData-Variable ob Spiel beendet ist
     private val _isGameOver = MutableLiveData<Boolean>()
     val isGameOver: LiveData<Boolean>
         get() = _isGameOver
+
 
 
     // Initialisierung
@@ -144,6 +146,7 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
 
     // Funktionen
 
+    // die Paare (Werte) mit false initialisieren wenn sie nicht ausgewählt wurden
     fun initValues() {
 
         val value = _values.value ?: KniffelValue()
@@ -221,6 +224,7 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
         _rolledDice5.value = list[4]
     }
 
+    // je nach dem welche Würfelbilder ausgesucht wurden, wird eine Songliste erstellt
     fun setSongs() {
 
         if (selectedDice.value != null) {
@@ -275,7 +279,7 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
         }
     }
 
-    // spielt eine Liste an Songs ab
+    // spielt den nächsten Songs aus der übergebenen Liste ab
     private fun prepareMediaPlayer(context: Context) {
         mediaPlayer = MediaPlayer.create(context, songList[currentIndex])
         mediaPlayer?.setOnCompletionListener {
@@ -284,11 +288,13 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
         }
     }
 
+    // die Funktion wird woanders aufgerufen und spielt dann die komplette Songliste ab (repeat)
     fun playFirstSong(context: Context) {
         prepareMediaPlayer(context)
         mediaPlayer?.start()
     }
 
+    // der Index wird hoch gezählt, der MediaPlayer resetet und die Funktion für den nächsten Song aufgerufen
     private fun playNextSong(context: Context) {
         currentIndex = (currentIndex + 1) % songList.size
         mediaPlayer?.reset()
@@ -296,13 +302,14 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
         mediaPlayer?.start()
     }
 
+    // beendet das Abspielen der Songliste
     fun stopSound() {
 
         mediaPlayer?.stop()
     }
 
 
-    // sucht eine zufällige Würfelseite aus für alle 5 Würfel
+    // sucht eine zufällige Würfelseite aus für alle 5 Würfel wenn sie nicht behalten werden
     fun rollTheDice() {
 
         if (diceSideRolledDice1.value == null) {
@@ -336,13 +343,14 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
         }
     }
 
-    // setzt den Boolean der Würfel in der Liste auf false
+    // setzt den Boolean der 5 Würfel in der Liste auf false
     fun setRolledDiceOfFalse() {
 
         diceSideList.forEach { diceSide ->
                 diceSide.toKeep = false
         }
     }
+
 
     // ändert den Wert des Würfels auf true oder false, je nach dem was übergeben wird
 
@@ -453,23 +461,8 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
             initValues()
 
             _values.value = _values.value
-
-        Log.e("Values", "${values.value!!.one}")
-        Log.e("Values", "${values.value!!.two}")
-        Log.e("Values", "${values.value!!.three}")
-        Log.e("Values", "${values.value!!.four}")
-        Log.e("Values", "${values.value!!.five}")
-        Log.e("Values", "${values.value!!.six}")
-        Log.e("Values", "${values.value!!.threesome}")
-        Log.e("Values", "${values.value!!.foursome}")
-        Log.e("Values", "${values.value!!.fullHouse}")
-        Log.e("Values", "${values.value!!.bigStreet}")
-        Log.e("Values", "${values.value!!.littleStreet}")
-        Log.e("Values", "${values.value!!.kniffel}")
-        Log.e("Values", "${values.value!!.chance}")
-
-        Log.e("GameOver", "${isGameOver.value}")
     }
+
 
     // setzt das übergebene Paar auf true oder false, je nach dem was übergeben wird
 
@@ -572,6 +565,7 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
 
         var total = 0
 
+        // wenn die linke Spalte 65 Punkte hat bekommt der Spieler einen Bonus von 35
         if (leftColumn >= 65) {
             bonus = 35
             _values.value!!.bonus = Pair(bonus, true)
@@ -586,10 +580,6 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
 
 
         _points.value = total
-
-        Log.e("Spalten", "$leftColumn, $rightColumn")
-        Log.e("Bonus", "${values.value!!.bonus.first}")
-        Log.e("Points", "${points.value}")
     }
 
     // wenn alle Werte in values auf true gesetzt wurden wird die Variable isGameOver auf true gesetzt

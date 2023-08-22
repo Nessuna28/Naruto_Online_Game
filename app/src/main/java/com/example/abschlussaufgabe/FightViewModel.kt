@@ -1,6 +1,8 @@
 package com.example.abschlussaufgabe
 
 import android.app.Application
+import android.content.Context
+import android.media.MediaPlayer
 import android.os.CountDownTimer
 import android.os.Handler
 import androidx.fragment.app.activityViewModels
@@ -18,6 +20,7 @@ import com.example.abschlussaufgabe.data.datamodels.modelForFight.dataLists.Loca
 
 class FightViewModel(application: Application): AndroidViewModel(application) {
 
+    private var mediaPlayer: MediaPlayer? = null
 
     // für die Kampfeinstellungen
 
@@ -137,8 +140,10 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
         get() = _attackEnemy
 
 
+    // für den Timer
 
     var timer: CountDownTimer? = null
+
 
     private val _remainingTime = MutableLiveData<Int>()
     val remainingTime: LiveData<Int>
@@ -197,6 +202,36 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
     }
 
 
+
+    // setzt die jeweiligen Sounds und spielt sie ab
+
+    fun playSound(context: Context, sound: Int) {
+
+        mediaPlayer?.release()
+
+        mediaPlayer = MediaPlayer.create(context, sound)
+
+        mediaPlayer?.setOnCompletionListener {
+            releaseMediaPlayer()
+        }
+
+        // Lautstärke erhöhen (auf 90% der vollen Lautstärke)
+        mediaPlayer?.setVolume(0.9f, 0.9f)
+
+        mediaPlayer?.start()
+    }
+
+    fun releaseMediaPlayer() {
+
+        mediaPlayer?.release()
+        mediaPlayer = null
+    }
+
+    // beendet den Sound
+    fun stopSound() {
+
+        mediaPlayer?.stop()
+    }
 
 
     // diese Funktionen speichern die Auswahl in den LiveData-Variablen
@@ -359,6 +394,7 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
+    // startet den Timer je nach dem welche Zeit ausgewählt wurde
     fun startTimer() {
 
         var time: Long = 60000
@@ -386,10 +422,12 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
         timer?.start()
     }
 
+    // stopt den Timer
     fun stopTimer() {
         timer?.cancel()
     }
 
+    // ändert die LiveData-Variable auf true oder false je nach dem ob das Spiel beginnt oder nicht
     fun startRound(check: Boolean) {
 
         _roundBegan.value = check
@@ -568,6 +606,7 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
 
     // setzt die Lebens- und Chakrapunkte wieder auf die Ursprungswerte außer
     // wenn man noch Lebenspunkte übrig hat dann nimmt man diese mit in die nächste Runde
+    // und startet den Timer neu
     fun resetPointsForNewRound() {
 
         if (player.value!!.lifePoints <= 0) {
@@ -578,9 +617,11 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
 
         _player.value!!.chakraPoints = player.value!!.chakraPointsStart
         _enemy.value!!.chakraPoints = enemy.value!!.chakraPointsStart
+
+        startTimer()
     }
 
-    // setzt die Lebens- und Chakrapunkte zurück auf den Anfangswert
+    // setzt die Lebens- und Chakrapunkte zurück auf den Anfangswert und startet den Timer neu
     fun resetPointsForNewGame() {
 
         _player.value!!.lifePoints = player.value!!.lifePointsStart
@@ -591,6 +632,8 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
 
         _player.value = _player.value
         _enemy.value = _enemy.value
+
+        startTimer()
     }
 
     // setzt alle Werte zurück auf 0
