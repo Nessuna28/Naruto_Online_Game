@@ -88,7 +88,13 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     // Variablen der Datenbank
 
     // für das Profil
-    val profile = repository.getProfileByEmail(currentUser.value!!.email.toString())
+    private val currentUserEmail: String?
+        get() = authViewModel.currentUser.value?.email?.toString()
+
+    val profile = currentUserEmail?.let { email ->
+        repository.getProfileByEmail(email)
+    }
+
 
     // für die Spieldaten
     val dataList = repository.dataList
@@ -96,12 +102,12 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     // LiveData-Variable für Siege und Niederlagen für die Datenbank
 
-    private val _victory = MutableLiveData<Int>(0)
+    private val _victory = MutableLiveData(0)
     val victory: LiveData<Int>
         get() = _victory
 
 
-    private val _defeat = MutableLiveData<Int>(0)
+    private val _defeat = MutableLiveData(0)
     val defeat: LiveData<Int>
         get() = _defeat
 
@@ -189,6 +195,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     fun countVictorysAndDefeats() {
 
         if (victory.value!! + defeat.value!! != dataList.value!!.size) {
+            Log.e("ViewModel", "${dataList.value!!.size}")
             dataList.value!!.forEach {
                 if (it.result == "Sieg") {
                     _victory.value = _victory.value?.plus(1)

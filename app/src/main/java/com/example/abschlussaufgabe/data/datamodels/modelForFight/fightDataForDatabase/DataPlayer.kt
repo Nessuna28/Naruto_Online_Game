@@ -14,12 +14,10 @@ data class DataPlayer(
     val userName: String,
     val characterName: String,
     val characterImage: Int,
-    val lifePoints: Int,
     val result: String,
 
     val userNameEnemy: String,
     val characterNameEnemy: String,
     val characterImageEnemy: Int,
-    val lifePointsEnemy: Int,
     val resultEnemy: String,
 )

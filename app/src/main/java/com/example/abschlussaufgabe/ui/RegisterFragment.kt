@@ -13,6 +13,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.AuthViewModel
+import com.example.abschlussaufgabe.FirestoreViewModel
 import com.example.abschlussaufgabe.MainViewModel
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.data.datamodels.Profile
@@ -74,6 +75,8 @@ class RegisterFragment : Fragment() {
     }
 
 
+    // ermöglicht es ein Bild aus der Galerie auszuwählen
+
     private fun openImagePicker() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         startActivityForResult(intent, PICK_IMAGE_REQUEST)
@@ -87,6 +90,8 @@ class RegisterFragment : Fragment() {
         }
     }
 
+    // ertellt eine Variable mit den eingetragenen Daten und übergibt sie der Funktion
+    // die die Daten in der Datenbank speichert
     private fun setProfile() {
 
         val currentImage: Uri = if(profileImage.toString().isNotEmpty()) {
@@ -96,7 +101,8 @@ class RegisterFragment : Fragment() {
         }
 
 
-        val user = Profile(
+        val profile = Profile(
+            userID = "folgt",
             profileImage = currentImage,
             lastName = binding.tietLastName.text.toString(),
             firstName = binding.tietFirstName.text.toString(),
@@ -106,7 +112,7 @@ class RegisterFragment : Fragment() {
             email = binding.tietEmail.text.toString()
             )
 
-        viewModel.insertDatabaseProfile(user)
+        viewModel.insertDatabaseProfile(profile)
     }
 
 

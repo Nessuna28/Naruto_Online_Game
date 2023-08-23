@@ -162,7 +162,7 @@ class KniffelFragment : Fragment() {
             rounds.add(false)
         }
 
-        viewModel.profile.observe(viewLifecycleOwner) {
+        viewModel.profile?.observe(viewLifecycleOwner) {
             binding.tvNamePlayer.text = it.userName
         }
 

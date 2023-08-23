@@ -1,6 +1,9 @@
 package com.example.abschlussaufgabe
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -21,6 +24,12 @@ class AuthViewModel: ViewModel() {
         get() = _registerSuccess
 
 
+    private val _message = MutableLiveData<String>()
+    val message: LiveData<String>
+        get() = _message
+
+
+
 
     fun register(email: String, password: String) {
 
@@ -31,8 +40,7 @@ class AuthViewModel: ViewModel() {
                 }
                 logout()
             } else {
-                // TODO: Toast schreiben
-                //Toast.makeText(this, "Hallo", Toast.LENGTH_LONG)
+
             }
         }
     }
@@ -47,8 +55,7 @@ class AuthViewModel: ViewModel() {
                     Log.e("ERROR", "EMAIL NOT VERIFIED")
                 }
             } else {
-                // TODO: Toast schreiben
-                //Toast.makeText(this, "Hallo", Toast.LENGTH_LONG)
+
             }
         }
     }
@@ -67,6 +74,21 @@ class AuthViewModel: ViewModel() {
         firebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener {
 
         }
+    }
+
+    fun setMessage(message: String) {
+
+        _message.value = message
+    }
+
+    @SuppressLint("ShowToast")
+    fun showToast(context: Context) {
+
+        val context: Context = context
+        val message = message
+        val duration = Toast.LENGTH_SHORT // oder Toast.LENGTH_LONG für eine längere Anzeigedauer
+
+        Toast.makeText(context, message.value, duration)
     }
 
 }

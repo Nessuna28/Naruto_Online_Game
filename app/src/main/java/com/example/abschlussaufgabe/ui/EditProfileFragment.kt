@@ -13,6 +13,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.abschlussaufgabe.AuthViewModel
+import com.example.abschlussaufgabe.FirestoreViewModel
 import com.example.abschlussaufgabe.MainViewModel
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.data.datamodels.Profile
@@ -22,6 +24,8 @@ import com.example.abschlussaufgabe.databinding.FragmentEditProfileBinding
 class EditProfileFragment : Fragment() {
 
     private val viewModel: MainViewModel by activityViewModels()
+    private val storeViewModel: FirestoreViewModel by activityViewModels()
+    private val authViewModel: AuthViewModel by activityViewModels()
 
     private lateinit var binding: FragmentEditProfileBinding
 
@@ -55,7 +59,7 @@ class EditProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.profile.observe(viewLifecycleOwner) {
+        viewModel.profile?.observe(viewLifecycleOwner) {
             binding.tietLastName.setText(it.lastName)
             binding.tietFirstName.setText(it.firstName)
             binding.tietUserName.setText(it.userName)
@@ -79,6 +83,8 @@ class EditProfileFragment : Fragment() {
     }
 
 
+    // ermöglicht es ein Bild aus der Galerie auszuwählen
+
     private fun openImagePicker() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         startActivityForResult(intent, PICK_IMAGE_REQUEST)
@@ -92,12 +98,15 @@ class EditProfileFragment : Fragment() {
         }
     }
 
+    // erstellt eine Variable mit den neu eingegebenen Daten und übergibt sie der Funktion
+    // die die Daten in der Datenbank ändert
+    // speichern der Daten in Firestore
     private fun changeProfile() {
 
         var currentImage = Uri.EMPTY
 
         if (profileImage.toString().isEmpty()) {
-            currentImage = viewModel.profile.value!!.profileImage
+            currentImage = viewModel.profile?.value!!.profileImage
         } else {
             if (profileImage.toString().isEmpty()) {
                 currentImage = createProfileImage()
@@ -107,17 +116,19 @@ class EditProfileFragment : Fragment() {
         }
 
         val profile = Profile(
-            id = viewModel.profile.value!!.id,
+            id = viewModel.profile?.value!!.id,
+            userID = authViewModel.currentUser.value!!.uid,
             profileImage = currentImage,
             lastName = binding.tietLastName.text.toString(),
             firstName = binding.tietFirstName.text.toString(),
             userName = binding.tietUserName.text.toString(),
             birthday = binding.tietBirthday.text.toString(),
             homeTown = binding.tietHomeTown.text.toString(),
-            email = viewModel.profile.value!!.email
+            email = viewModel.profile?.value!!.email
         )
 
         viewModel.changeDataProfile(profile)
+        storeViewModel.addNewUser(profile)
     }
 
     private fun createProfileImage(): Uri {

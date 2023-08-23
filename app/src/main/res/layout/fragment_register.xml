@@ -56,7 +56,7 @@
             app:layout_constraintTop_toBottomOf="@+id/mc_profile">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tiet_firstName"
+                android:id="@+id/tiet_lastName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/lastName" />
@@ -73,7 +73,7 @@
             app:layout_constraintTop_toBottomOf="@+id/til_lastName">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tiet_lastName"
+                android:id="@+id/tiet_firstName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/firstName" />

@@ -6,7 +6,8 @@ import androidx.databinding.DataBindingUtil
 import com.example.abschlussaufgabe.databinding.ActivityMainBinding
 import com.example.abschlussaufgabe.MainViewModel
 import androidx.activity.viewModels
-import com.example.abschlussaufgabe.AuthViewModel
+import androidx.fragment.app.activityViewModels
+import com.example.abschlussaufgabe.FirestoreViewModel
 import com.example.abschlussaufgabe.R
 
 
@@ -15,6 +16,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private val viewModel: MainViewModel by viewModels()
+    private val storeViewModel: FirestoreViewModel by viewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +24,11 @@ class MainActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        viewModel.profile.observe(this) {
+        viewModel.profile?.observe(this) {
+            //binding.ivProfilePhoto.setImageURI(it.profileImage)
+        }
+
+        storeViewModel.currentProfile.observe(this) {
             if (it != null) {
                 binding.tvUserName.text = it.userName
                 binding.ivProfilePhoto.setImageURI(it.profileImage)

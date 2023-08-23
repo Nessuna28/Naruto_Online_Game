@@ -129,7 +129,7 @@
             android:hint=""
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_titleUserName"
-            app:layout_constraintStart_toStartOf="@+id/tiet_firstName"
+            app:layout_constraintStart_toStartOf="@+id/tiet_lastName"
             app:layout_constraintTop_toTopOf="@+id/tv_titleUserName" />
 
         <com.google.android.material.textfield.TextInputEditText

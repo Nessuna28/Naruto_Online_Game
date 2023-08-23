@@ -54,7 +54,7 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.profile.observe(viewLifecycleOwner) {
+        viewModel.profile?.observe(viewLifecycleOwner) {
             binding.tvLastName.text = it.lastName
             binding.tvFirstName.text = it.firstName
             binding.tvUserName.text = it.userName
@@ -99,11 +99,11 @@ class ProfileFragment : Fragment() {
         }
 
         binding.ivDelete.setOnClickListener {
-            viewModel.deleteDataProfile(viewModel.profile.value!!)
+            viewModel.deleteDataProfile(viewModel.profile?.value!!)
         }
 
         binding.tvDeleteProfile.setOnClickListener {
-            viewModel.deleteDataProfile(viewModel.profile.value!!)
+            viewModel.deleteDataProfile(viewModel.profile?.value!!)
         }
     }
 

@@ -397,6 +397,8 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
     // startet den Timer je nach dem welche Zeit ausgewählt wurde
     fun startTimer() {
 
+        stopTimer()
+
         var time: Long = 60000
         if (selectTimer.value == "30 Sekunden") {
             time = 30000
@@ -562,12 +564,12 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
                 _rounds.value = rounds.value!!.plus(1)
                 Handler().removeCallbacks(runnable)
                 _roundBegan.value = false
-            }
 
-            if (player.value!!.lifePoints > 0) {
-                _roundsWonPlayer.value = roundsWonPlayer.value!!.plus(1)
-            } else if (enemy.value!!.lifePoints > 0) {
-                _roundsWonEnemy.value = roundsWonEnemy.value!!.plus(1)
+                if (player.value!!.lifePoints > 0) {
+                    _roundsWonPlayer.value = roundsWonPlayer.value!!.plus(1)
+                } else if (enemy.value!!.lifePoints > 0) {
+                    _roundsWonEnemy.value = roundsWonEnemy.value!!.plus(1)
+                }
             }
         } else {
             if (remainingTime.value == 0) {
@@ -586,12 +588,12 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
                     stopTimer()
                     Handler().removeCallbacks(runnable)
                     _roundBegan.value = false
-                }
 
-                if (player.value!!.lifePoints > 0) {
-                    _roundsWonPlayer.value = roundsWonPlayer.value!!.plus(1)
-                } else if (enemy.value!!.lifePoints > 0) {
-                    _roundsWonEnemy.value = roundsWonEnemy.value!!.plus(1)
+                    if (player.value!!.lifePoints > 0) {
+                        _roundsWonPlayer.value = roundsWonPlayer.value!!.plus(1)
+                    } else if (enemy.value!!.lifePoints > 0) {
+                        _roundsWonEnemy.value = roundsWonEnemy.value!!.plus(1)
+                    }
                 }
             }
 

@@ -35,26 +35,15 @@
             app:layout_constraintTop_toTopOf="@+id/iv_characterImagePlayer" />
 
         <TextView
-            android:id="@+id/tv_lifeValuePlayer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:fontFamily="@font/akaya_telivigala"
-            android:text="@string/value"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_characterNamePlayer"
-            app:layout_constraintStart_toEndOf="@+id/tv_characterNamePlayer"
-            app:layout_constraintTop_toTopOf="@+id/tv_characterNamePlayer" />
-
-        <TextView
             android:id="@+id/tv_resultPlayer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:fontFamily="@font/akaya_telivigala"
             android:text="@string/result"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_lifeValuePlayer"
-            app:layout_constraintStart_toEndOf="@+id/tv_lifeValuePlayer"
-            app:layout_constraintTop_toTopOf="@+id/tv_lifeValuePlayer" />
+            app:layout_constraintBottom_toBottomOf="@+id/tv_characterNamePlayer"
+            app:layout_constraintStart_toEndOf="@+id/tv_characterNamePlayer"
+            app:layout_constraintTop_toTopOf="@+id/tv_characterNamePlayer" />
 
         <TextView
             android:id="@+id/tv_userNamePlayer"
@@ -110,26 +99,15 @@
             app:layout_constraintTop_toTopOf="@+id/iv_characterImageEnemy" />
 
         <TextView
-            android:id="@+id/tv_lifeValueEnemy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:fontFamily="@font/akaya_telivigala"
-            android:text="@string/value"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_characterNameEnemy"
-            app:layout_constraintEnd_toStartOf="@+id/tv_characterNameEnemy"
-            app:layout_constraintTop_toTopOf="@+id/tv_characterNameEnemy" />
-
-        <TextView
             android:id="@+id/tv_resultEnemy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:fontFamily="@font/akaya_telivigala"
             android:text="@string/result"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_lifeValueEnemy"
-            app:layout_constraintEnd_toStartOf="@+id/tv_lifeValueEnemy"
-            app:layout_constraintTop_toTopOf="@+id/tv_lifeValueEnemy" />
+            app:layout_constraintBottom_toBottomOf="@+id/tv_characterNameEnemy"
+            app:layout_constraintEnd_toStartOf="@+id/tv_characterNameEnemy"
+            app:layout_constraintTop_toTopOf="@+id/tv_characterNameEnemy" />
 
         <TextView
             android:id="@+id/tv_date"

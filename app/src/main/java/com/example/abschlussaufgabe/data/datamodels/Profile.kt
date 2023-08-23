@@ -11,6 +11,7 @@ data class Profile(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
 
+    val userID: String,
     val profileImage: Uri,
     val lastName: String,
     val firstName: String,

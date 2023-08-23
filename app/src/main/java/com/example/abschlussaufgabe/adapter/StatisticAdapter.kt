@@ -19,8 +19,8 @@ class StatisticAdapter(
         RecyclerView.ViewHolder(binding.root)
 
     @SuppressLint("NotifyDataSetChanged")
-    fun replaceDataSet(dataSet: List<DataPlayer>) {
-        this.dataset = dataset
+    fun replaceDataSet(dataList: List<DataPlayer>) {
+        this.dataset = dataList
         notifyDataSetChanged()
     }
 
@@ -46,12 +46,10 @@ class StatisticAdapter(
         holder.binding.tvDate.text = dataset.date
         holder.binding.ivCharacterImagePlayer.setImageResource(dataset.characterImage)
         holder.binding.tvCharacterNamePlayer.text = dataset.characterName
-        holder.binding.tvLifeValuePlayer.text = dataset.lifePoints.toString()
         holder.binding.tvResultPlayer.text = dataset.result
         holder.binding.tvUserNamePlayer.text = dataset.userName
         holder.binding.ivCharacterImageEnemy.setImageResource(dataset.characterImageEnemy)
         holder.binding.tvCharacterNameEnemy.text = dataset.characterNameEnemy
-        holder.binding.tvLifeValueEnemy.text = dataset.lifePointsEnemy.toString()
         holder.binding.tvResultEnemy.text = dataset.resultEnemy
         holder.binding.tvUserNameEnemy.text = dataset.userNameEnemy
     }

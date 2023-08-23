@@ -62,7 +62,9 @@ class StatisticsFragment : Fragment() {
 
         viewModel.dataList.observe(viewLifecycleOwner) {
             adapter.replaceDataSet(it)
+            viewModel.countVictorysAndDefeats()
         }
+
 
         // Navigation
 

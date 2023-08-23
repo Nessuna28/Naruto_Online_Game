@@ -74,38 +74,21 @@ class ResultFragment : Fragment() {
             }
         }
 
-        binding.tvUserName?.text // TODO
+        viewModel.profile?.observe(viewLifecycleOwner) {
+            binding.tvUserName?.text = it.userName
+        }
 
-        binding.tvRounds?.text = fightViewModel.rounds.value.toString()
-        binding.tvRoundsWon?.text = fightViewModel.roundsWonPlayer.value.toString()
+        fightViewModel.rounds.observe(viewLifecycleOwner) {
+            binding.tvRounds?.text = it.toString()
+        }
 
+        fightViewModel.roundsWonPlayer.observe(viewLifecycleOwner) {
+            binding.tvRoundsWon?.text = it.toString()
+        }
 
 
         // der Datenbank hinzufügen
-
-        val charakter = fightViewModel.player.value!!
-        val charakterEnemy = fightViewModel.enemy.value!!
-
-        val today = viewModel.getTodayDate()
-
-
-        val data = DataPlayer(
-
-            date = today,
-            userName = "", // TODO
-            characterName = charakter.name,
-            characterImage = charakter.image,
-            lifePoints = charakter.lifePoints,
-            result = fightViewModel.result.value!!,
-            userNameEnemy = viewModel.userNameEnemy.value!!,
-            characterNameEnemy = charakterEnemy.name,
-            characterImageEnemy = charakterEnemy.image,
-            lifePointsEnemy = charakterEnemy.lifePoints,
-            resultEnemy = fightViewModel.resultEnemy.value!!,
-           )
-        
-        viewModel.insertDatabaseGame(data)
-
+        setData()
 
 
         // Navigation
@@ -124,5 +107,31 @@ class ResultFragment : Fragment() {
             fightViewModel.stopSound()
             findNavController().navigate(ResultFragmentDirections.actionResultFragmentToCharacterSelectionFragment())
         }
+    }
+
+    // setzt die aktuellen Daten in eine Variable, die dann der Funktion
+    // zum einfügen in die Datenbank übergeben wird
+    private fun setData() {
+
+        val charakter = fightViewModel.player.value!!
+        val charakterEnemy = fightViewModel.enemy.value!!
+
+        val today = viewModel.getTodayDate()
+
+
+        val data = DataPlayer(
+
+            date = today,
+            userName = viewModel.profile?.value!!.userName,
+            characterName = charakter.name,
+            characterImage = charakter.image,
+            result = fightViewModel.result.value!!,
+            userNameEnemy = viewModel.userNameEnemy.value!!,
+            characterNameEnemy = charakterEnemy.name,
+            characterImageEnemy = charakterEnemy.image,
+            resultEnemy = fightViewModel.resultEnemy.value!!,
+        )
+
+        viewModel.insertDatabaseGame(data)
     }
 }
