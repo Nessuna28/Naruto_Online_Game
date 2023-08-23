@@ -13,7 +13,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.AuthViewModel
-import com.example.abschlussaufgabe.FirestoreViewModel
 import com.example.abschlussaufgabe.MainViewModel
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.data.datamodels.Profile
@@ -99,7 +98,6 @@ class RegisterFragment : Fragment() {
         } else {
             createProfileImage()
         }
-
 
         val profile = Profile(
             userID = "folgt",

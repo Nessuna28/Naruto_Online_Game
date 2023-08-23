@@ -24,9 +24,6 @@ class MainActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        viewModel.profile?.observe(this) {
-            //binding.ivProfilePhoto.setImageURI(it.profileImage)
-        }
 
         storeViewModel.currentProfile.observe(this) {
             if (it != null) {

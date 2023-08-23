@@ -69,7 +69,10 @@ class HomeFragment : Fragment() {
 
         viewModel.tvUserName.value!!.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProfileFragment())
+        }
 
+        viewModel.imageSettings.value!!.setOnClickListener {
+            // TODO: noch schreiben
         }
     }
 }
