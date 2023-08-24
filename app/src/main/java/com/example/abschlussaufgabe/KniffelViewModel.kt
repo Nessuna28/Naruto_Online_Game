@@ -30,12 +30,17 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
     val selectedDice: LiveData<Dice?>
         get() = _selectedDice
 
+    // für das Schließen des Popups
+    // wenn Würfelbilder ausgewählt wurden wird auf true gesetzt und das Popup im Fragment schließt sich
     private val _selected = MutableLiveData<Boolean>(false)
     val selected: LiveData<Boolean>
         get() = _selected
 
 
-    private var songList = mutableListOf<Int>()
+    // Liste der Songs die abgespielt werden
+    private val _songList = MutableLiveData<MutableList<Int>>()
+    val songList: LiveData<MutableList<Int>>
+        get() = _songList
 
 
     private val _rolledDice1 = MutableLiveData<Dice>()
@@ -174,18 +179,26 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
     }
 
     // speichert die übergebene Auswahl eines Teams in der LiveData-Variable
+    // setzt die Variable selected auf true und bestätigt somit das etwas ausgewählt wurde
     fun selectTeam(selection: Dice) {
 
         _selectedDice.value = selection
         _selected.value = true
     }
 
+    // sucht zufällige Würfelbilder aus
     fun selectRandomTeam(): Dice {
 
         val index = listOf(0, 1, 2, 3, 4, 5, 6, 7, 8).random()
         val randomTeam = diceList.value!![index]
 
         return randomTeam
+    }
+
+    // ändert den Wert auf true oder false, je nach dem was übergeben wird
+    fun setSelected(check: Boolean) {
+
+        _selected.value = check
     }
 
     // speichert die übergebenen Versuche in der LiveDta-Variable
@@ -241,61 +254,70 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
     // je nach dem welche Würfelbilder ausgesucht wurden, wird eine Songliste erstellt
     fun setSongs() {
 
+        val listOfSongs = mutableListOf<Int>()
+
         if (selectedDice.value != null) {
             when(selectedDice.value!!.teamName) {
                 "Team Kakashi" -> {
-                    songList.add(R.raw.song_kakashi)
-                    songList.add(R.raw.song_naruto)
-                    songList.add(R.raw.song_sasuke)
-                    songList.add(R.raw.song_sakura)
+                    listOfSongs.add(R.raw.song_kakashi)
+                    listOfSongs.add(R.raw.song_naruto)
+                    listOfSongs.add(R.raw.song_sasuke)
+                    listOfSongs.add(R.raw.song_sakura)
                 }
 
                 "Team Asuma" -> {
-                    songList.add(R.raw.song_asuma)
-                    songList.add(R.raw.song_shikamaru)
+                    listOfSongs.add(R.raw.song_asuma)
+                    listOfSongs.add(R.raw.song_shikamaru)
                 }
 
                 "Team Kurenai" -> {
-                    songList.add(R.raw.song_kiba)
-                    songList.add(R.raw.song_hinata)
+                    listOfSongs.add(R.raw.song_kiba)
+                    listOfSongs.add(R.raw.song_hinata)
                 }
 
                 "Team Maito Gai" -> {
-                    songList.add(R.raw.song_maitogai)
-                    songList.add(R.raw.song_neji)
-                    songList.add(R.raw.song_rocklee)
+                    listOfSongs.add(R.raw.song_maitogai)
+                    listOfSongs.add(R.raw.song_neji)
+                    listOfSongs.add(R.raw.song_rocklee)
                 }
 
                 "Team Gaara" -> {
-                    songList.add(R.raw.song_gaara)
+                    listOfSongs.add(R.raw.song_gaara)
                 }
 
                 "Team legendäre Sannin" -> {
-                    songList.add(R.raw.song_tsunade)
-                    songList.add(R.raw.song_jiraiya)
-                    songList.add(R.raw.song_orochimaru)
+                    listOfSongs.add(R.raw.song_tsunade)
+                    listOfSongs.add(R.raw.song_jiraiya)
+                    listOfSongs.add(R.raw.song_orochimaru)
                 }
 
                 "Team Hokage" -> {
-                    songList.add(R.raw.song_minato)
-                    songList.add(R.raw.song_tsunade)
-                    songList.add(R.raw.song_kakashi)
+                    listOfSongs.add(R.raw.song_minato)
+                    listOfSongs.add(R.raw.song_tsunade)
+                    listOfSongs.add(R.raw.song_kakashi)
                 }
 
                 "Team Akazuki" -> {
-                    songList.add(R.raw.song_deidara)
+                    listOfSongs.add(R.raw.song_deidara)
                 }
 
                 "Team Gehilfen" -> {
-                    songList.add(R.raw.song_pain)
+                    listOfSongs.add(R.raw.song_pain)
                 }
             }
         }
+
+        _songList.value = listOfSongs
+    }
+
+    fun setSongListToEmpty() {
+
+        _songList.value = mutableListOf()
     }
 
     // spielt den nächsten Songs aus der übergebenen Liste ab
     private fun prepareMediaPlayer(context: Context) {
-        mediaPlayer = MediaPlayer.create(context, songList[currentIndex])
+        mediaPlayer = MediaPlayer.create(context, songList.value!![currentIndex])
         mediaPlayer?.setOnCompletionListener {
             // Wenn die Wiedergabe beendet ist, spielen Sie das nächste Lied ab
             playNextSong(context)
@@ -310,7 +332,7 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
 
     // der Index wird hoch gezählt, der MediaPlayer resetet und die Funktion für den nächsten Song aufgerufen
     private fun playNextSong(context: Context) {
-        currentIndex = (currentIndex + 1) % songList.size
+        currentIndex = (currentIndex + 1) % songList.value!!.size
         mediaPlayer?.reset()
         prepareMediaPlayer(context)
         mediaPlayer?.start()

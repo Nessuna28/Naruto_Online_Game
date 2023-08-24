@@ -7,6 +7,7 @@ import android.app.Dialog
 import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -129,11 +130,11 @@ class KniffelFragment : Fragment() {
             return builder.create()
         }
 
+        // Funktion die Funktionen beinhaltet die ausgeführt werden sobald das Popup geschlossen wird
         override fun onDestroyView() {
             super.onDestroyView()
 
             kniffelViewModel.setSongs()
-            context?.let { kniffelViewModel.playFirstSong(it) }
         }
     }
 
@@ -151,6 +152,12 @@ class KniffelFragment : Fragment() {
         viewModel.imageProfile.value?.let { viewModel.showMaterialCard(it) }
 
         setTextColorValuesAtTheBeginning()
+
+        kniffelViewModel.songList.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
+                context?.let { kniffelViewModel.playFirstSong(it) }
+            }
+        }
     }
 
     override fun onCreateView(
@@ -247,7 +254,7 @@ class KniffelFragment : Fragment() {
 
         // Buttons
 
-        // wenn auf den Button würfeln geklickt wird geguckt ob noch Versuche übrig sind und dann
+        // wenn auf den Button würfeln geklickt wird, wird geguckt ob noch Versuche übrig sind und dann
         // wird ein Versuch abgezogen,
         // die Werte werden berechnet,
         // die Würfelbilder ausgewählt,
@@ -259,13 +266,6 @@ class KniffelFragment : Fragment() {
                 kniffelViewModel.calculateAttempts()
                 kniffelViewModel.initRollingDice()
                 kniffelViewModel.rollTheDice()
-
-                //if (!dice1IsClicked) changingImagesWhenThrowingTheDice(binding.ivRolledDice1)
-                //if (!dice2IsClicked) changingImagesWhenThrowingTheDice(binding.ivRolledDice2)
-                //if (!dice3IsClicked) changingImagesWhenThrowingTheDice(binding.ivRolledDice3)
-                //if (!dice4IsClicked) changingImagesWhenThrowingTheDice(binding.ivRolledDice4)
-                //if (!dice5IsClicked) changingImagesWhenThrowingTheDice(binding.ivRolledDice5)
-
                 kniffelViewModel.setValues()
                 resetCheckIsClickedDice()
             }
@@ -279,7 +279,6 @@ class KniffelFragment : Fragment() {
         binding.btnOk.setOnClickListener {
             okButtonClicked = !okButtonClicked
             currentRound++
-            //rounds[currentRound] = true
             binding.btnRollTheDice.isEnabled = true
             kniffelViewModel.setAttempts(3)
             binding.btnRollTheDice.setBackgroundColor(primary)
@@ -290,6 +289,7 @@ class KniffelFragment : Fragment() {
             resetColorDice()
             resetRolledDice()
             it.setBackgroundColor(gray)
+            it.isEnabled = false
         }
 
         // OnClickListener der Würfel
@@ -432,9 +432,11 @@ class KniffelFragment : Fragment() {
                 .show()
         }
 
-        // bei Klick auf die TextView wird das PopUp aufgerufen um sich die Würfelbilder neu auszusuchen
+        // bei Klick auf die TextView wird das PopUp erneut aufgerufen um sich die Würfelbilder neu auszusuchen
         binding.tvReselectDice.setOnClickListener {
-            // TODO
+            kniffelViewModel.stopSound()
+            kniffelViewModel.setSelected(false)
+            popupOpenAgain()
         }
 
 
@@ -445,6 +447,7 @@ class KniffelFragment : Fragment() {
                 val points = kniffelViewModel.points.value
                 newGame()
                 kniffelViewModel.stopSound()
+
                 // Erstelle den MaterialAlertDialogBuilder
                 val builder = MaterialAlertDialogBuilder(requireContext())
                 builder.setTitle("Das Spiel ist beendet")
@@ -458,6 +461,7 @@ class KniffelFragment : Fragment() {
                         findNavController().navigate(R.id.kniffelFragment)
                     }
                     .setNegativeButton("Nein") { dialog, which ->
+                        kniffelViewModel.setSongListToEmpty()
                         findNavController().navigate(R.id.homeFragment)
                     }
                     .show()
@@ -491,9 +495,19 @@ class KniffelFragment : Fragment() {
     // Funktionen
 
     // Popup-Fenster für die Auswahl der Bilder auf den Würfeln
-    private fun popUp() {
+    private fun popupOpenAgain() {
 
-            // TODO: Funktion schreiben
+        // öffnen des Popup-Fragments
+        val popupDialog = Popup()
+        popupDialog.show(parentFragmentManager, "Popup")
+
+
+        // Observer für das automatische Schließen des Popups
+        kniffelViewModel.selected.observe(viewLifecycleOwner) {
+            if (it) {
+                popupDialog.dismiss()
+            }
+        }
     }
 
     // setzt das gleiche Bild auf alle 5 Würfel

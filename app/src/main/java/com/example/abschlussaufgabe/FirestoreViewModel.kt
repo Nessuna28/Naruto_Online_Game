@@ -43,12 +43,10 @@ class FirestoreViewModel: ViewModel() {
         docRef.get()
             .addOnSuccessListener { document ->
                 if (document != null) {
-                    Log.d("Firestore", "DocumentSnapshot data: ${document.data}")
                     val profileImageUri = document.data?.get("profileImage") as? String
                     val profileImage = if (!profileImageUri.isNullOrEmpty()) {
                         Uri.parse(profileImageUri)
                     } else {
-                        // Hier kannst du einen Standard-Uri oder null setzen, wenn kein Bild vorhanden ist
                         null
                     }
                     _currentProfile.value = profileImage?.let {
