@@ -110,7 +110,7 @@ class RegisterFragment : Fragment() {
             email = binding.tietEmail.text.toString()
             )
 
-        viewModel.insertDatabaseProfile(profile)
+        viewModel.insertDataProfile(profile)
     }
 
 

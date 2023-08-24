@@ -15,6 +15,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.FightViewModel
+import com.example.abschlussaufgabe.FirestoreViewModel
 import com.example.abschlussaufgabe.MainViewModel
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.adapter.DefensePlayerAdapter
@@ -30,6 +31,7 @@ class FightFragment : Fragment() {
 
     private val viewModel: MainViewModel by activityViewModels()
     private val fightViewModel: FightViewModel by activityViewModels()
+    private val storeViewModel: FirestoreViewModel by activityViewModels()
 
     private lateinit var binding: FragmentFightBinding
 
@@ -109,7 +111,7 @@ class FightFragment : Fragment() {
         enemy = fightViewModel.enemy.value!!
 
 
-        viewModel.profile?.observe(viewLifecycleOwner) {
+        storeViewModel.currentProfile.observe(viewLifecycleOwner) {
             binding.tvNamePlayer?.text = it.userName
         }
 

@@ -132,6 +132,6 @@ class ResultFragment : Fragment() {
             resultEnemy = fightViewModel.resultEnemy.value!!,
         )
 
-        viewModel.insertDatabaseGame(data)
+        viewModel.insertDataGame(data)
     }
 }

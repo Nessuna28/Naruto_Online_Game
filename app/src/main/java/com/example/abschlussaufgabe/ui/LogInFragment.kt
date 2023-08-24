@@ -99,8 +99,9 @@ class LogInFragment : Fragment() {
         }
 
         if (profile != null) {
-            viewModel.changeDataProfile(profile)
+            viewModel.insertDataProfile(profile)
         }
+
         if (profile != null) {
             storeViewModel.addNewUser(profile)
         }

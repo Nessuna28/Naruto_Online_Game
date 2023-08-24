@@ -89,7 +89,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     // für das Profil
     private val currentUserEmail: String?
-        get() = authViewModel.currentUser.value?.email?.toString()
+        get() = authViewModel.currentUser.value?.email
 
     val profile = currentUserEmail?.let { email ->
         repository.getProfileByEmail(email)
@@ -209,7 +209,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     // für die Datenbanken
 
     // speichert die Spieldaten des Spielers in der Datenbank
-    fun insertDatabaseGame(dataPlayer: DataPlayer) {
+    fun insertDataGame(dataPlayer: DataPlayer) {
 
         viewModelScope.launch {
             repository.insertDataGame(dataPlayer)
@@ -227,7 +227,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     }
 
     // speichert die übergebenen Profildaten des Users in der Datenbank
-    fun insertDatabaseProfile(profile: Profile) {
+    fun insertDataProfile(profile: Profile) {
 
         viewModelScope.launch {
                 repository.insertDataProfile(profile)

@@ -101,7 +101,7 @@ class ProfileFragment : Fragment() {
         }
 
         binding.ivDelete.setOnClickListener {
-            viewModel.deleteDataProfile(viewModel.profile?.value!!)
+            viewModel.deleteDataProfile(viewModel.profile?.value!!) // TODO: Firestore
         }
 
         binding.tvDeleteProfile.setOnClickListener {

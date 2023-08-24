@@ -70,8 +70,7 @@
                     <ImageView
                         android:id="@+id/iv_profilePhoto"
                         android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/profile_picture" />
+                        android:layout_height="30dp" />
                 </com.google.android.material.card.MaterialCardView>
 
                 <TextView
