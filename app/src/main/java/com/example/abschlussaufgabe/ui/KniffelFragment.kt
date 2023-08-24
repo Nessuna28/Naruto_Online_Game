@@ -35,6 +35,7 @@ class KniffelFragment : Fragment() {
 
     private lateinit var binding: FragmentKniffelBinding
 
+    // Variable für die ausgewählten Würfelbilder
     private lateinit var selectedDice: Dice
 
 
@@ -95,15 +96,14 @@ class KniffelFragment : Fragment() {
 
 
         // Observer für das automatische Schließen des Popups
-        kniffelViewModel.selectedDice.observe(viewLifecycleOwner) {
-            if (it != null) {
+        kniffelViewModel.selected.observe(viewLifecycleOwner) {
+            if (it) {
                 popupDialog.dismiss()
-                kniffelViewModel.setSongs()
-                context?.let { kniffelViewModel.playFirstSong(it) }
             }
         }
     }
 
+    // Klasse für Popup
     class Popup : DialogFragment() {
 
         private lateinit var binding: PopupLayoutBinding
@@ -127,6 +127,13 @@ class KniffelFragment : Fragment() {
             val view = onCreateView(LayoutInflater.from(requireContext()), null, null)
             builder.setView(view)
             return builder.create()
+        }
+
+        override fun onDestroyView() {
+            super.onDestroyView()
+
+            kniffelViewModel.setSongs()
+            context?.let { kniffelViewModel.playFirstSong(it) }
         }
     }
 
@@ -181,9 +188,10 @@ class KniffelFragment : Fragment() {
         }
 
         kniffelViewModel.selectedDice.observe(viewLifecycleOwner) {
-            if (kniffelViewModel.selectedDice.value != null) {
-                selectedDice = kniffelViewModel.selectedDice.value!!
+            if (it != null) {
+                selectedDice = it
             }
+
             binding.ivDice1.setImageResource(it!!.diceSideList[0].image)
             binding.ivDice2.setImageResource(it.diceSideList[1].image)
             binding.ivDice3.setImageResource(it.diceSideList[2].image)

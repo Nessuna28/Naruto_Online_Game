@@ -30,6 +30,10 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
     val selectedDice: LiveData<Dice?>
         get() = _selectedDice
 
+    private val _selected = MutableLiveData<Boolean>(false)
+    val selected: LiveData<Boolean>
+        get() = _selected
+
 
     private var songList = mutableListOf<Int>()
 
@@ -140,6 +144,7 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
     // Initialisierung
     init {
         _diceList.value = DiceList().diceList
+        _selectedDice.value = selectRandomTeam()
         initValues()
     }
 
@@ -172,6 +177,15 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
     fun selectTeam(selection: Dice) {
 
         _selectedDice.value = selection
+        _selected.value = true
+    }
+
+    fun selectRandomTeam(): Dice {
+
+        val index = listOf(0, 1, 2, 3, 4, 5, 6, 7, 8).random()
+        val randomTeam = diceList.value!![index]
+
+        return randomTeam
     }
 
     // speichert die übergebenen Versuche in der LiveDta-Variable
