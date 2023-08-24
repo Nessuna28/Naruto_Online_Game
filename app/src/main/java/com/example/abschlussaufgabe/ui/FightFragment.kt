@@ -67,15 +67,15 @@ class FightFragment : Fragment() {
 
         fightViewModel.selectRounds.observe(viewLifecycleOwner) {
             if (it == "1") {
-                binding.mcRound1Player?.visibility = View.INVISIBLE
+                binding.mcRound1Player?.visibility = View.VISIBLE
                 binding.mcRound2Player?.visibility = View.INVISIBLE
-                binding.mcRound3Player?.visibility = View.INVISIBLE
-                binding.mcRound1Enemy?.visibility = View.INVISIBLE
+                binding.mcRound1Enemy?.visibility = View.VISIBLE
                 binding.mcRound2Enemy?.visibility = View.INVISIBLE
-                binding.mcRound3Enemy?.visibility = View.INVISIBLE
             } else if (it == "3") {
-                binding.mcRound1PlayerForOneRound?.visibility = View.INVISIBLE
-                binding.mcRound1EnemyForOneRound?.visibility = View.INVISIBLE
+                binding.mcRound1Player?.visibility = View.VISIBLE
+                binding.mcRound2Player?.visibility = View.VISIBLE
+                binding.mcRound1Enemy?.visibility = View.VISIBLE
+                binding.mcRound2Enemy?.visibility = View.VISIBLE
             }
         }
 
@@ -616,14 +616,10 @@ class FightFragment : Fragment() {
         if (rounds == 1) {
             if (player.lifePoints > 0) {
                 binding.mcRound1Player?.background?.setTint(primary)
-                binding.mcRound1PlayerForOneRound?.background?.setTint(primary)
                 binding.mcRound1Enemy?.background?.setTint(darkGray)
-                binding.mcRound1EnemyForOneRound?.background?.setTint(darkGray)
             } else if (enemy.lifePoints > 0){
                 binding.mcRound1Player?.background?.setTint(darkGray)
-                binding.mcRound1PlayerForOneRound?.background?.setTint(darkGray)
                 binding.mcRound1Enemy?.background?.setTint(primary)
-                binding.mcRound1EnemyForOneRound?.background?.setTint(primary)
             }
         } else if (rounds == 2) {
             if (player.lifePoints > 0) {
@@ -633,14 +629,6 @@ class FightFragment : Fragment() {
                 binding.mcRound2Player?.background?.setTint(darkGray)
                 binding.mcRound2Enemy?.background?.setTint(primary)
             }
-        } else if (rounds == 3) {
-            if (player.lifePoints > 0) {
-                binding.mcRound3Player?.background?.setTint(primary)
-                binding.mcRound3Enemy?.background?.setTint(darkGray)
-            } else if (enemy.lifePoints > 0) {
-                binding.mcRound3Player?.background?.setTint(darkGray)
-                binding.mcRound3Enemy?.background?.setTint(primary)
-            }
         }
     }
 
@@ -649,13 +637,9 @@ class FightFragment : Fragment() {
 
         binding.mcRound1Player?.background?.setTint(white)
         binding.mcRound2Player?.background?.setTint(white)
-        binding.mcRound3Player?.background?.setTint(white)
-        binding.mcRound1PlayerForOneRound?.background?.setTint(white)
 
         binding.mcRound1Enemy?.background?.setTint(white)
         binding.mcRound2Enemy?.background?.setTint(white)
-        binding.mcRound3Enemy?.background?.setTint(white)
-        binding.mcRound1EnemyForOneRound?.background?.setTint(white)
     }
 }
 

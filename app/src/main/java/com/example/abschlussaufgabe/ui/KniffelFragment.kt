@@ -16,6 +16,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.abschlussaufgabe.FirestoreViewModel
 import com.example.abschlussaufgabe.KniffelViewModel
 import com.example.abschlussaufgabe.MainViewModel
 import com.example.abschlussaufgabe.R
@@ -30,6 +31,7 @@ class KniffelFragment : Fragment() {
 
     private val viewModel: MainViewModel by activityViewModels()
     private val kniffelViewModel: KniffelViewModel by activityViewModels()
+    private val storeViewModel: FirestoreViewModel by activityViewModels()
 
     private lateinit var binding: FragmentKniffelBinding
 
@@ -162,7 +164,7 @@ class KniffelFragment : Fragment() {
             rounds.add(false)
         }
 
-        viewModel.profile?.observe(viewLifecycleOwner) {
+        storeViewModel.currentProfile.observe(viewLifecycleOwner) {
             binding.tvNamePlayer.text = it.userName
         }
 
