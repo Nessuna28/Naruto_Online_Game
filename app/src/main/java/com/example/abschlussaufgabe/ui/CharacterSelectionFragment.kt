@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.FightViewModel
+import com.example.abschlussaufgabe.FirestoreViewModel
 import com.example.abschlussaufgabe.MainViewModel
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.adapter.SelectionCharacterPlayerAdapter
@@ -27,6 +28,7 @@ class CharacterSelectionFragment : Fragment() {
 
     private val viewModel: MainViewModel by activityViewModels()
     private val fightViewModel: FightViewModel by activityViewModels()
+    private val storeViewModel: FirestoreViewModel by activityViewModels()
 
     private lateinit var binding: FragmentCharacterSelectionBinding
 
@@ -61,7 +63,7 @@ class CharacterSelectionFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_character_selection, container, false)
         return binding.root
     }
@@ -70,7 +72,13 @@ class CharacterSelectionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.tvPlayerName?.text // TODO
+        storeViewModel.currentProfile.observe(viewLifecycleOwner) {
+            if (it != null) {
+                binding.tvPlayerName?.text = it.userName
+            } else {
+                binding.tvPlayerName?.text = R.string.guest.toString()
+            }
+        }
 
 
         viewModel.userNameEnemy.observe(viewLifecycleOwner) {

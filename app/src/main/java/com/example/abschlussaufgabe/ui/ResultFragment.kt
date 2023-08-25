@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.FightViewModel
+import com.example.abschlussaufgabe.FirestoreViewModel
 import com.example.abschlussaufgabe.MainViewModel
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.fightDataForDatabase.DataPlayer
@@ -20,6 +21,7 @@ class ResultFragment : Fragment() {
 
     private val viewModel: MainViewModel by activityViewModels()
     private val fightViewModel: FightViewModel by activityViewModels()
+    private val storeViewModel: FirestoreViewModel by activityViewModels()
 
     private lateinit var binding: FragmentResultBinding
 
@@ -74,8 +76,12 @@ class ResultFragment : Fragment() {
             }
         }
 
-        viewModel.profile?.observe(viewLifecycleOwner) {
-            binding.tvUserName?.text = it.userName
+        storeViewModel.currentProfile.observe(viewLifecycleOwner) {
+            if (it != null) {
+                binding.tvUserName?.text = it.userName
+            } else {
+                binding.tvUserName?.text = R.string.guest.toString()
+            }
         }
 
         fightViewModel.rounds.observe(viewLifecycleOwner) {
@@ -115,6 +121,13 @@ class ResultFragment : Fragment() {
 
         val charakter = fightViewModel.player.value!!
         val charakterEnemy = fightViewModel.enemy.value!!
+        var userName = ""
+
+        if (storeViewModel.currentProfile.value?.userName != null) {
+            userName = storeViewModel.currentProfile.value!!.userName
+        } else {
+            userName = R.string.guest.toString()
+        }
 
         val today = viewModel.getTodayDate()
 
@@ -122,7 +135,7 @@ class ResultFragment : Fragment() {
         val data = DataPlayer(
 
             date = today,
-            userName = viewModel.profile?.value!!.userName,
+            userName = userName,
             characterName = charakter.name,
             characterImage = charakter.image,
             result = fightViewModel.result.value!!,

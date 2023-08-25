@@ -36,12 +36,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _characters
 
 
-    // LiveData-Variable für Firebase
-    private val _currentUser = MutableLiveData<FirebaseUser>(authViewModel.currentUser.value)
-    val currentUser: LiveData<FirebaseUser>
-        get() = _currentUser
-
-
     // für den Homescreen
 
     val _imageTitle = MutableLiveData<ImageView>()
@@ -83,17 +77,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     val userNameEnemy: LiveData<String>
         get() = _userNameEnemy
 
-
-
-    // Variablen der Datenbank
-
-    // für das Profil
-    private val currentUserEmail: String?
-        get() = authViewModel.currentUser.value?.email
-
-    val profile = currentUserEmail?.let { email ->
-        repository.getProfileByEmail(email)
-    }
 
 
     // für die Spieldaten
@@ -223,31 +206,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         viewModelScope.launch {
             repository.deleteDataGame(dataPlayer)
             countVictorysAndDefeats()
-        }
-    }
-
-    // speichert die übergebenen Profildaten des Users in der Datenbank
-    fun insertDataProfile(profile: Profile) {
-
-        viewModelScope.launch {
-                repository.insertDataProfile(profile)
-        }
-    }
-
-    // ändert die Daten des übergebenen Profils
-    fun changeDataProfile(profile: Profile) {
-
-        viewModelScope.launch {
-            repository.updateDataProfile(profile)
-        }
-        Log.e("Profile", "$profile")
-    }
-
-    // löscht die Profildaten des übergebenen Profils aus der Datenbank
-    fun deleteDataProfile(profile: Profile) {
-
-        viewModelScope.launch {
-            repository.deleteAllDataProfile(profile)
         }
     }
 

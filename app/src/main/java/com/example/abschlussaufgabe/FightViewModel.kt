@@ -5,11 +5,9 @@ import android.content.Context
 import android.media.MediaPlayer
 import android.os.CountDownTimer
 import android.os.Handler
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.abschlussaufgabe.data.datamodels.Profile
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.Attack
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.CharacterForFight
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.Jutsu
@@ -295,7 +293,7 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
     }
 
 
-    // hier wird per Random eine zufällige Auswahl getroffen und die dazugehörigen Daten werden gesetzt
+    // hier wird eine zufällige Auswahl getroffen und die dazugehörigen Daten werden gesetzt
 
     fun randomCharacterForPlayer() {
 
@@ -351,7 +349,7 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
         val traitsList = enemy.value!!.uniqueTraits
         val defenseList = enemy.value!!.defense
 
-        var listOfAllAttacks = mutableListOf<Attack>()
+        val listOfAllAttacks = mutableListOf<Attack>()
 
         for (attack in jutsuList) {
             listOfAllAttacks.add(attack)
@@ -450,7 +448,7 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
                         attackPlayer.value!!.subtractChakra(
                             _player.value!!,
                             player.value!!,
-                            ::showToast
+                            ::setMessage
                         )
                         attackPlayer.value!!.subtractLifePoints(
                             player.value!!,
@@ -458,7 +456,7 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
                             attackEnemy.value!!,
                             _enemy.value!!,
                             enemy.value!!,
-                            ::showToast
+                            ::setMessage
                         )
                     }
                 }
@@ -474,7 +472,7 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
                         attackPlayer.value!!.subtractChakra(
                             _player.value!!,
                             player.value!!,
-                            ::showToast
+                            ::setMessage
                         )
                         attackPlayer.value!!.subtractLifePoints(
                             player.value!!,
@@ -482,7 +480,7 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
                             attackEnemy.value!!,
                             _enemy.value!!,
                             enemy.value!!,
-                            ::showToast
+                            ::setMessage
                         )
                     }
                 }
@@ -508,7 +506,7 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
                         attackEnemy.value!!.subtractChakra(
                             _enemy.value!!,
                             enemy.value!!,
-                            ::showToast
+                            ::setMessage
                         )
                         attackEnemy.value!!.subtractLifePoints(
                             enemy.value!!,
@@ -516,7 +514,7 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
                             attackPlayer.value!!,
                             _player.value!!,
                             player.value!!,
-                            ::showToast
+                            ::setMessage
                         )
                     }
                 }
@@ -532,7 +530,7 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
                         attackEnemy.value!!.subtractChakra(
                             _enemy.value!!,
                             enemy.value!!,
-                            ::showToast
+                            ::setMessage
                         )
                         attackEnemy.value!!.subtractLifePoints(
                             enemy.value!!,
@@ -540,7 +538,7 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
                             attackPlayer.value!!,
                             _player.value!!,
                             player.value!!,
-                            ::showToast
+                            ::setMessage
                         )
                     }
                 }
@@ -664,7 +662,7 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
     }
 
     // Funktion um den Toast anzuzeigen
-    fun showToast(message: String) {
+    fun setMessage(message: String) {
 
         _toastMessage.value = message
     }

@@ -28,29 +28,4 @@ interface GameDao {
     @Delete
     suspend fun deleteAllDataGame(dataPlayer: DataPlayer)
 
-
-
-    // Funktion die die Profildaten vom User einfügt
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertDataProfile(dataUserData: Profile)
-
-
-    // Funktion die alle Daten eines Profils zurück gibt
-    @Query("SELECT * FROM userData_table")
-    fun getAllDataProfile(): LiveData<Profile>
-
-
-    // Funktion mit der Daten anhand des Vornamen aus dem Profil zurückgegeben werden
-    @Query("SELECT * FROM userData_table WHERE email = :email")
-    fun getDataByEmail(email: String): LiveData<Profile>
-
-
-    // Funktion mit der Daten aus der Tabelle geändert werden können
-    @Update
-    suspend fun updateDataProfile(profile: Profile)
-
-
-    // Funktion die die übergebenen Profildaten aus der Tabelle löscht
-    @Delete
-    suspend fun deleteAllDataProfile(profile: Profile)
 }

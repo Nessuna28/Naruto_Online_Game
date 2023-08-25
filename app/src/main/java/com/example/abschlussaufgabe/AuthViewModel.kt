@@ -84,9 +84,8 @@ class AuthViewModel: ViewModel() {
     @SuppressLint("ShowToast")
     fun showToast(context: Context) {
 
-        val context: Context = context
         val message = message
-        val duration = Toast.LENGTH_SHORT // oder Toast.LENGTH_LONG für eine längere Anzeigedauer
+        val duration = Toast.LENGTH_LONG
 
         Toast.makeText(context, message.value, duration)
     }

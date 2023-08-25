@@ -47,7 +47,7 @@ class FirestoreViewModel: ViewModel() {
                     val profileImage = if (!profileImageUri.isNullOrEmpty()) {
                         Uri.parse(profileImageUri)
                     } else {
-                        null
+                        Uri.EMPTY
                     }
                     _currentProfile.value = profileImage?.let {
                         Profile(

@@ -2,6 +2,7 @@ package com.example.abschlussaufgabe.ui
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -64,8 +65,6 @@ class LogInFragment : Fragment() {
 
         authViewModel.currentUser.observe(viewLifecycleOwner) {
             if (it != null) {
-                setProfileWithID()
-                storeViewModel.getUserData(it.uid)
                 findNavController().navigate(LogInFragmentDirections.actionLogInFragmentToHomeFragment())
             }
         }
@@ -76,34 +75,6 @@ class LogInFragment : Fragment() {
 
         binding.tvForgotPassword.setOnClickListener {
             findNavController().navigate(LogInFragmentDirections.actionLogInFragmentToPasswordResetFragment())
-        }
-    }
-
-    // ertellt eine Variable mit den eingetragenen Daten und übergibt sie der Funktion
-    // die die Daten in der Datenbank speichert
-    // speichern in Firestore
-    private fun setProfileWithID() {
-
-
-        val profile = storeViewModel.currentProfile.value?.profileImage?.let {
-            Profile(
-                userID = authViewModel.currentUser.value!!.uid,
-                profileImage = it,
-                lastName = storeViewModel.currentProfile.value!!.lastName,
-                firstName = storeViewModel.currentProfile.value!!.firstName,
-                userName = storeViewModel.currentProfile.value!!.userName,
-                birthday = storeViewModel.currentProfile.value!!.birthday,
-                homeTown = storeViewModel.currentProfile.value!!.homeTown,
-                email = storeViewModel.currentProfile.value!!.email
-            )
-        }
-
-        if (profile != null) {
-            viewModel.insertDataProfile(profile)
-        }
-
-        if (profile != null) {
-            storeViewModel.addNewUser(profile)
         }
     }
 }

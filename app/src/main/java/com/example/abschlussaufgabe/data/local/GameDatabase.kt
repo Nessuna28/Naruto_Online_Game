@@ -9,7 +9,7 @@ import com.example.abschlussaufgabe.UriTypeConverter
 import com.example.abschlussaufgabe.data.datamodels.Profile
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.fightDataForDatabase.DataPlayer
 
-@Database(entities = [DataPlayer::class, Profile::class], version = 1)
+@Database(entities = [DataPlayer::class], version = 1)
 @TypeConverters(UriTypeConverter::class)
 abstract class GameDatabase: RoomDatabase() {
 

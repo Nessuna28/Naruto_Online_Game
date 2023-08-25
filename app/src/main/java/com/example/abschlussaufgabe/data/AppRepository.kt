@@ -46,7 +46,6 @@ class AppRepository(private val api: CharacterApi, private val gameDatabase: Gam
 
 
     // für die Datenbank
-
     // für die Spieldaten
 
     suspend fun insertDataGame(dataPlayer: DataPlayer) {
@@ -67,42 +66,4 @@ class AppRepository(private val api: CharacterApi, private val gameDatabase: Gam
         }
     }
 
-    // für die Profildaten
-
-    suspend fun insertDataProfile(user: Profile) {
-
-        try {
-            gameDatabase.gameDao.insertDataProfile(user)
-        } catch (e: Exception) {
-            Log.e(TAG, "Failed to insert into database: $e")
-        }
-    }
-
-    fun getProfileByEmail(email: String): LiveData<Profile> {
-
-        try {
-            return gameDatabase.gameDao.getDataByEmail(email)
-        } catch (e: Exception) {
-            Log.e(TAG, "Failed to load Profile: $e")
-            throw e
-        }
-    }
-
-    suspend fun updateDataProfile(profile: Profile) {
-
-        try {
-            gameDatabase.gameDao.updateDataProfile(profile)
-        } catch (e: Exception) {
-            Log.e(TAG, "Failed to update Profile: $e")
-        }
-    }
-
-    suspend fun deleteAllDataProfile(profile: Profile) {
-
-        try {
-            gameDatabase.gameDao.deleteAllDataProfile(profile)
-        } catch (e: Exception) {
-            Log.e(TAG, "Failed to delete Profile: $e")
-        }
-    }
 }

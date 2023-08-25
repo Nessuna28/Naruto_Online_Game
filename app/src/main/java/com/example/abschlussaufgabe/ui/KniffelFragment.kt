@@ -179,11 +179,17 @@ class KniffelFragment : Fragment() {
         }
 
         storeViewModel.currentProfile.observe(viewLifecycleOwner) {
-            binding.tvNamePlayer.text = it.userName
+            if (it != null) {
+                binding.tvNamePlayer.text = it.userName
+            } else {
+                binding.tvNamePlayer.text = R.string.guest.toString()
+            }
         }
 
         kniffelViewModel.points.observe(viewLifecycleOwner) {
-            binding.tvPoints.text = it.toString()
+            if (it != null) {
+                binding.tvPoints.text = it.toString()
+            }
         }
 
         kniffelViewModel.attempts.observe(viewLifecycleOwner) {

@@ -57,13 +57,23 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         storeViewModel.currentProfile.observe(viewLifecycleOwner) {
-            binding.tvLastName.text = it.lastName
-            binding.tvFirstName.text = it.firstName
-            binding.tvUserName.text = it.userName
-            binding.tvBirthday.text = it.birthday
-            binding.tvHomeTown.text = it.homeTown
-            binding.tvEmail.text = it.email
-            binding.ivProfilePhoto.setImageURI(it.profileImage)
+            if (it != null) {
+                binding.tvLastName.text = it.lastName
+                binding.tvFirstName.text = it.firstName
+                binding.tvUserName.text = it.userName
+                binding.tvBirthday.text = it.birthday
+                binding.tvHomeTown.text = it.homeTown
+                binding.tvEmail.text = it.email
+                binding.ivProfilePhoto.setImageURI(it.profileImage)
+            } else {
+                binding.tvLastName.text = ""
+                binding.tvFirstName.text = ""
+                binding.tvUserName.text = R.string.guest.toString()
+                binding.tvBirthday.text = ""
+                binding.tvHomeTown.text = ""
+                binding.tvEmail.text = authViewModel.currentUser.value!!.email!!
+                binding.ivProfilePhoto.setImageURI(Uri.EMPTY)
+            }
         }
 
 
@@ -101,11 +111,11 @@ class ProfileFragment : Fragment() {
         }
 
         binding.ivDelete.setOnClickListener {
-            viewModel.deleteDataProfile(viewModel.profile?.value!!) // TODO: Firestore
+            // TODO: Firestore
         }
 
         binding.tvDeleteProfile.setOnClickListener {
-            viewModel.deleteDataProfile(viewModel.profile?.value!!)
+            // TODO: Firestore
         }
     }
 

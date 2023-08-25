@@ -18,22 +18,19 @@ import com.example.abschlussaufgabe.FirestoreViewModel
 import com.example.abschlussaufgabe.MainViewModel
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.data.datamodels.Profile
+import com.example.abschlussaufgabe.databinding.FragmentCreateProfileBinding
 import com.example.abschlussaufgabe.databinding.FragmentEditProfileBinding
 
-
-class EditProfileFragment : Fragment() {
+class CreateProfileFragment : Fragment() {
 
     private val viewModel: MainViewModel by activityViewModels()
     private val storeViewModel: FirestoreViewModel by activityViewModels()
     private val authViewModel: AuthViewModel by activityViewModels()
 
-    private lateinit var binding: FragmentEditProfileBinding
+    private lateinit var binding: FragmentCreateProfileBinding
 
     private val PICK_IMAGE_REQUEST = 1
     private var profileImage: Uri = Uri.EMPTY
-    private var deleteProfileImage = false
-
-
 
 
     override fun onStart() {
@@ -53,34 +50,23 @@ class EditProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_edit_profile, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_create_profile, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        storeViewModel.currentProfile.observe(viewLifecycleOwner) {
-            binding.tietLastName.setText(it.lastName)
-            binding.tietFirstName.setText(it.firstName)
-            binding.tietUserName.setText(it.userName)
-            binding.tietBirthday.setText(it.birthday)
-            binding.tietHomeTown.setText(it.homeTown)
-            binding.ivProfilePhoto.setImageURI(it.profileImage)
-        }
-
         binding.ivProfilePhoto.setOnClickListener {
-                openImagePicker()
-        }
-
-        binding.ivDelete.setOnClickListener {
-            binding.ivProfilePhoto.setImageURI(Uri.EMPTY)
-            deleteProfileImage = true
+            openImagePicker()
         }
 
         binding.btnSave.setOnClickListener {
-            changeProfile()
-            findNavController().navigate(EditProfileFragmentDirections.actionEditProfileFragmentToProfileFragment())
+            authViewModel.currentUser.observe(viewLifecycleOwner) {
+                setProfile(it!!.uid, it.email!!)
+                storeViewModel.getUserData(it.uid)
+            }
+            findNavController().navigate(CreateProfileFragmentDirections.actionCreateProfileFragmentToProfileFragment())
         }
 
         binding.btnCancel.setOnClickListener {
@@ -88,6 +74,7 @@ class EditProfileFragment : Fragment() {
         }
     }
 
+    // Funktionen
 
     // ermöglicht es ein Bild aus der Galerie auszuwählen
 
@@ -104,36 +91,32 @@ class EditProfileFragment : Fragment() {
         }
     }
 
-    // erstellt eine Variable mit den neu eingegebenen Daten und übergibt sie der Funktion
-    // die die Daten in Firestore ändert
-    private fun changeProfile() {
+    // ertellt eine Variable mit den eingetragenen Daten und übergibt sie der Funktion
+    // die die Daten in Firestore speichert
+    private fun setProfile(id: String, email: String) {
 
         var currentImage = Uri.EMPTY
 
-        if (profileImage.toString().isEmpty()) {
-            if (deleteProfileImage) {
-                currentImage = createProfileImage()
-            } else {
-                currentImage = storeViewModel.currentProfile.value!!.profileImage
-            }
-        } else {
+        if(profileImage.toString().isNotEmpty()) {
             currentImage = profileImage
+        } else {
+            currentImage = createProfileImage()
         }
 
-
         val profile = Profile(
-            userID = authViewModel.currentUser.value!!.uid,
+            userID = id,
             profileImage = currentImage,
             lastName = binding.tietLastName.text.toString(),
             firstName = binding.tietFirstName.text.toString(),
             userName = binding.tietUserName.text.toString(),
             birthday = binding.tietBirthday.text.toString(),
             homeTown = binding.tietHomeTown.text.toString(),
-            email = storeViewModel.currentProfile.value!!.email
+            email = email
         )
 
         storeViewModel.addNewUser(profile)
     }
+
 
     private fun createProfileImage(): Uri {
 
@@ -161,5 +144,3 @@ class EditProfileFragment : Fragment() {
         return Uri.parse("android.resource://com.example.abschlussaufgabe/drawable/${randomImage}")
     }
 }
-
-
