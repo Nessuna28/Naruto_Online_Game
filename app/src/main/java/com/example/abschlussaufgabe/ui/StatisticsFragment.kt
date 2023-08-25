@@ -65,6 +65,10 @@ class StatisticsFragment : Fragment() {
             viewModel.countVictorysAndDefeats()
         }
 
+        binding.ivDelete?.setOnClickListener {
+            viewModel.deleteAllDataGame()
+        }
+
 
         // Navigation
 

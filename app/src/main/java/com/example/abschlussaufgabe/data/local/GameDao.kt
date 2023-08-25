@@ -26,6 +26,10 @@ interface GameDao {
 
     // Funktion die die übergebenen Daten aus der Tabelle löscht
     @Delete
-    suspend fun deleteAllDataGame(dataPlayer: DataPlayer)
+    suspend fun deleteDataGame(dataPlayer: DataPlayer)
+
+    @Query("DELETE FROM player_table")
+    suspend fun deleteAllDataGame()
+
 
 }

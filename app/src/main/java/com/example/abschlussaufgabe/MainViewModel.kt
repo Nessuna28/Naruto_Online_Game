@@ -211,4 +211,12 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
+    fun deleteAllDataGame() {
+
+        viewModelScope.launch {
+            repository.deleteAllDataGame()
+            countVictorysAndDefeats()
+        }
+    }
+
 }

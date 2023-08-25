@@ -27,6 +27,7 @@ class HomeFragment : Fragment() {
     private val viewModel: MainViewModel by activityViewModels()
     private val fightViewModel: FightViewModel by activityViewModels()
     private val storeViewModel: FirestoreViewModel by activityViewModels()
+    private val kniffelViewModel: KniffelViewModel by activityViewModels()
 
 
     override fun onStart() {
@@ -44,6 +45,7 @@ class HomeFragment : Fragment() {
         viewModel.imageProfile.value?.let { viewModel.showMaterialCard(it) }
 
         fightViewModel.stopSound()
+        kniffelViewModel.stopSound()
     }
 
     override fun onCreateView(

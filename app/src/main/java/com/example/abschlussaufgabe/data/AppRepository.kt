@@ -60,7 +60,16 @@ class AppRepository(private val api: CharacterApi, private val gameDatabase: Gam
     suspend fun deleteDataGame(dataPlayer: DataPlayer) {
 
         try {
-            gameDatabase.gameDao.deleteAllDataGame(dataPlayer)
+            gameDatabase.gameDao.deleteDataGame(dataPlayer)
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to delete database: $e")
+        }
+    }
+
+    suspend fun deleteAllDataGame() {
+
+        try {
+            gameDatabase.gameDao.deleteAllDataGame()
         } catch (e: Exception) {
             Log.e(TAG, "Failed to delete database: $e")
         }

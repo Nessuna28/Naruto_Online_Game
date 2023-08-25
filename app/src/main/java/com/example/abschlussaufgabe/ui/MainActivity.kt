@@ -29,8 +29,11 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         authViewModel.currentUser.observe(this) {
-            storeViewModel.getUserData(it!!.uid)
+            if (it != null) {
+                storeViewModel.getUserData(it.uid)
+            }
         }
+
         storeViewModel.currentProfile.observe(this) {
             if (it != null) {
                 binding.tvUserName.text = it.userName

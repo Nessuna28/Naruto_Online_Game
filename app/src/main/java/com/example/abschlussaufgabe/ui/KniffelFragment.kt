@@ -155,6 +155,7 @@ class KniffelFragment : Fragment() {
 
         kniffelViewModel.songList.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
+                kniffelViewModel.setSelected(true)
                 context?.let { kniffelViewModel.playFirstSong(it) }
             }
         }
