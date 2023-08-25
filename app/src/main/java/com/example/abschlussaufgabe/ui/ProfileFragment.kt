@@ -111,11 +111,11 @@ class ProfileFragment : Fragment() {
         }
 
         binding.ivDelete.setOnClickListener {
-            // TODO: Firestore
+            storeViewModel.deleteUserData(authViewModel.currentUser.value!!.uid)
         }
 
         binding.tvDeleteProfile.setOnClickListener {
-            // TODO: Firestore
+            storeViewModel.deleteUserData(authViewModel.currentUser.value!!.uid)
         }
     }
 

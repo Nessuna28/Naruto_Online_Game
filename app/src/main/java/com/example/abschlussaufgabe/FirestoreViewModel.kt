@@ -69,4 +69,12 @@ class FirestoreViewModel: ViewModel() {
                 Log.d("Firebase", "get failed with ", exception)
             }
     }
+
+    fun deleteUserData(userId: String) {
+
+        db.collection("profiles").document(userId)
+            .delete()
+            .addOnSuccessListener { Log.d("Firebase", "DocumentSnapshot successfully deleted!") }
+            .addOnFailureListener { e -> Log.w("Firebase", "Error deleting document", e) }
+    }
 }

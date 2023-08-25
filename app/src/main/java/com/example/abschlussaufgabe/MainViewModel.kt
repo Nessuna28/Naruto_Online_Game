@@ -196,7 +196,9 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
         viewModelScope.launch {
             repository.insertDataGame(dataPlayer)
-            countVictorysAndDefeats()
+            if (dataList.value!!.isNotEmpty()) {
+                countVictorysAndDefeats()
+            }
         }
     }
 

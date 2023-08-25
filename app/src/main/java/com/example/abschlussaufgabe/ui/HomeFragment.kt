@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.AuthViewModel
+import com.example.abschlussaufgabe.FightViewModel
 import com.example.abschlussaufgabe.FirestoreViewModel
 import com.example.abschlussaufgabe.KniffelViewModel
 import com.example.abschlussaufgabe.MainViewModel
@@ -24,6 +25,7 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
 
     private val viewModel: MainViewModel by activityViewModels()
+    private val fightViewModel: FightViewModel by activityViewModels()
     private val storeViewModel: FirestoreViewModel by activityViewModels()
 
 
@@ -40,6 +42,8 @@ class HomeFragment : Fragment() {
         viewModel.tvUserName.value?.let { viewModel.showTextView(it) }
         viewModel.imageSettings.value?.let { viewModel.showImages(it) }
         viewModel.imageProfile.value?.let { viewModel.showMaterialCard(it) }
+
+        fightViewModel.stopSound()
     }
 
     override fun onCreateView(

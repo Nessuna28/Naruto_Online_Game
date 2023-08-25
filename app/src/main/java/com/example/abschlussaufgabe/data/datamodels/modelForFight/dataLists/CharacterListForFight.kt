@@ -13,7 +13,7 @@ class CharacterListForFight {
         CharacterForFight(
             R.drawable.naruto,
             R.drawable.naruto_pose,
-            R.drawable.naruto_face,
+            R.drawable.naruto_face2,
             R.drawable.naruto_attack,
             R.drawable.naruto_sad,
             R.raw.song_naruto,
@@ -27,7 +27,7 @@ class CharacterListForFight {
     CharacterForFight(
         R.drawable.sasuke,
         R.drawable.sasuke_pose,
-        R.drawable.sasuke_face,
+        R.drawable.sasuke_face2,
         R.drawable.sasuke_attack,
         R.drawable.sasuke_sad,
         R.raw.song_sasuke,
@@ -43,7 +43,7 @@ class CharacterListForFight {
     CharacterForFight(
         R.drawable.sakura,
         R.drawable.sakura_pose,
-        R.drawable.sakura_face,
+        R.drawable.sakura_face2,
         R.drawable.sakura_attack,
         R.drawable.sakura_sad,
         R.raw.song_sakura,
@@ -57,7 +57,7 @@ class CharacterListForFight {
         CharacterForFight(
             R.drawable.shikamaru,
             R.drawable.shikamaru_pose,
-            R.drawable.shikamaru_face,
+            R.drawable.shikamaru_face2,
             R.drawable.shikamaru_attack,
             R.drawable.shikamaru_sad,
             R.raw.song_shikamaru,
@@ -71,7 +71,7 @@ class CharacterListForFight {
         CharacterForFight(
             R.drawable.choji,
             R.drawable.choji_pose,
-            R.drawable.choji_face,
+            R.drawable.choji_face2,
             R.drawable.choji_attack,
             R.drawable.choji_sad,
             R.raw.song_theme,
@@ -85,7 +85,7 @@ class CharacterListForFight {
         CharacterForFight(
             R.drawable.ino,
             R.drawable.ino_pose,
-            R.drawable.ino_face,
+            R.drawable.ino_face2,
             R.drawable.ino_attack,
             R.drawable.ino_sad,
             R.raw.song_theme,
@@ -99,7 +99,7 @@ class CharacterListForFight {
         CharacterForFight(
             R.drawable.neji,
             R.drawable.neji_pose,
-            R.drawable.neji_face,
+            R.drawable.neji_face2,
             R.drawable.neji_attack,
             R.drawable.neji_sad,
             R.raw.song_neji,
@@ -113,7 +113,7 @@ class CharacterListForFight {
         CharacterForFight(
             R.drawable.tenten,
             R.drawable.tenten_pose,
-            R.drawable.tenten_face,
+            R.drawable.tenten_face2,
             R.drawable.tenten_attack,
             R.drawable.tenten_sad,
             R.raw.song_theme,
@@ -127,7 +127,7 @@ class CharacterListForFight {
         CharacterForFight(
             R.drawable.rocklee,
             R.drawable.rocklee_pose,
-            R.drawable.rocklee_face,
+            R.drawable.rocklee_face2,
             R.drawable.rocklee_attack,
             R.drawable.rocklee_sad,
             R.raw.song_theme,
@@ -142,7 +142,7 @@ class CharacterListForFight {
         CharacterForFight(
             R.drawable.gaara,
             R.drawable.gaara_pose,
-            R.drawable.gaara_face,
+            R.drawable.gaara_face2,
             R.drawable.gaara_attack,
             R.drawable.gaara_sad,
             R.raw.song_gaara,
