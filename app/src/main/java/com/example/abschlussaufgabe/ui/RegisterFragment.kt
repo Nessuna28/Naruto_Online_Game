@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.AuthViewModel
+import com.example.abschlussaufgabe.MainViewModel
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.databinding.FragmentRegisterBinding
 
@@ -16,6 +17,7 @@ import com.example.abschlussaufgabe.databinding.FragmentRegisterBinding
 class RegisterFragment : Fragment() {
 
     private lateinit var binding: FragmentRegisterBinding
+
     private val authViewModel: AuthViewModel by activityViewModels()
 
 
@@ -47,6 +49,8 @@ class RegisterFragment : Fragment() {
                 authViewModel.showToast(requireContext())
             }
         }
+
+        // Navigation
 
         binding.btnCancel.setOnClickListener {
             findNavController().navigateUp()

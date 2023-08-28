@@ -82,6 +82,7 @@ class CharacterDetailFragment : Fragment() {
         binding.tvFamily.text = character.family.toString()
 
 
+        // Navigation
 
         binding.ivBack.setOnClickListener {
             findNavController().navigateUp()
@@ -97,6 +98,10 @@ class CharacterDetailFragment : Fragment() {
 
         viewModel.tvUserName.value!!.setOnClickListener {
             findNavController().navigate(CharacterDetailFragmentDirections.actionCharacterDetailFragmentToProfileFragment())
+        }
+
+        viewModel.imageSettings.value!!.setOnClickListener {
+            findNavController().navigate(CharacterDetailFragmentDirections.actionCharacterDetailFragmentToSettingsFragment())
         }
     }
 }

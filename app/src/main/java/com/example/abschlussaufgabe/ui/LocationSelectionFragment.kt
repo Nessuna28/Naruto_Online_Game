@@ -75,6 +75,8 @@ class LocationSelectionFragment : Fragment() {
             fightViewModel.randomLocation()
         }
 
+        // Navigation
+
         binding.ivBack?.setOnClickListener {
             findNavController().navigateUp()
         }
@@ -86,15 +88,23 @@ class LocationSelectionFragment : Fragment() {
         }
 
         viewModel.imageHome.value?.setOnClickListener {
+            fightViewModel.stopSound()
             findNavController().navigate(LocationSelectionFragmentDirections.actionLocationSelectionFragmentToHomeFragment())
         }
 
         viewModel.imageProfile.value!!.setOnClickListener {
+            fightViewModel.stopSound()
             findNavController().navigate(LocationSelectionFragmentDirections.actionLocationSelectionFragmentToProfileFragment())
         }
 
         viewModel.tvUserName.value!!.setOnClickListener {
+            fightViewModel.stopSound()
             findNavController().navigate(LocationSelectionFragmentDirections.actionLocationSelectionFragmentToProfileFragment())
+        }
+
+        viewModel.imageSettings.value!!.setOnClickListener {
+            fightViewModel.stopSound()
+            findNavController().navigate(LocationSelectionFragmentDirections.actionLocationSelectionFragmentToSettingsFragment())
         }
     }
 }

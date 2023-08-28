@@ -18,6 +18,10 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
     private var mediaPlayer: MediaPlayer? = null
     private var currentIndex = 0
 
+    private val _volume = MutableLiveData(0.9F)
+    val volume: LiveData<Float>
+        get() = _volume
+
 
     // LiveData-Variablen
 
@@ -320,6 +324,7 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
         mediaPlayer = MediaPlayer.create(context, songList.value!![currentIndex])
         mediaPlayer?.setOnCompletionListener {
             // Wenn die Wiedergabe beendet ist, spielen Sie das nächste Lied ab
+            setVolume()
             playNextSong(context)
         }
     }
@@ -327,6 +332,7 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
     // die Funktion wird woanders aufgerufen und spielt dann die komplette Songliste ab (repeat)
     fun playFirstSong(context: Context) {
         prepareMediaPlayer(context)
+        setVolume()
         mediaPlayer?.start()
     }
 
@@ -336,6 +342,16 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
         mediaPlayer?.reset()
         prepareMediaPlayer(context)
         mediaPlayer?.start()
+    }
+
+    private fun setVolume() {
+
+        mediaPlayer?.setVolume(volume.value!!, volume.value!!)
+    }
+
+    fun setValueForVolume(value: Float) {
+
+        _volume.value = value
     }
 
     // beendet das Abspielen der Songliste

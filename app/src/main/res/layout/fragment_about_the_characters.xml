@@ -67,5 +67,17 @@
             app:layout_constraintTop_toBottomOf="@+id/ti_search"
             tools:listitem="@layout/character_item" />
 
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:layout_marginBottom="13dp"
+            app:layout_constraintBottom_toBottomOf="@+id/ti_search"
+            app:layout_constraintEnd_toEndOf="@+id/ti_search"
+            app:layout_constraintTop_toTopOf="@+id/ti_search"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/baseline_close_24" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

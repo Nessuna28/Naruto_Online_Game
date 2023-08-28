@@ -20,6 +20,10 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
 
     private var mediaPlayer: MediaPlayer? = null
 
+    private val _volume = MutableLiveData(0.9F)
+    val volume: LiveData<Float>
+        get() = _volume
+
     // für die Kampfeinstellungen
 
     private val _selectFight = MutableLiveData<String>()
@@ -213,9 +217,7 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
             releaseMediaPlayer()
         }
 
-        // Lautstärke erhöhen (auf 90% der vollen Lautstärke)
-        mediaPlayer?.setVolume(0.9f, 0.9f)
-
+        setVolume()
         mediaPlayer?.start()
     }
 
@@ -223,6 +225,16 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
 
         mediaPlayer?.release()
         mediaPlayer = null
+    }
+
+    private fun setVolume() {
+
+        mediaPlayer?.setVolume(volume.value!!, volume.value!!)
+    }
+
+    fun setValueForVolume(value: Float) {
+
+        _volume.value = value
     }
 
     // beendet den Sound
@@ -617,8 +629,6 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
 
         _player.value!!.chakraPoints = player.value!!.chakraPointsStart
         _enemy.value!!.chakraPoints = enemy.value!!.chakraPointsStart
-
-        startTimer()
     }
 
     // setzt die Lebens- und Chakrapunkte zurück auf den Anfangswert und startet den Timer neu
@@ -632,8 +642,6 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
 
         _player.value = _player.value
         _enemy.value = _enemy.value
-
-        startTimer()
     }
 
     // setzt alle Werte zurück auf 0

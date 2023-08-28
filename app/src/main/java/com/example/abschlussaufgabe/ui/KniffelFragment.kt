@@ -4,6 +4,8 @@ package com.example.abschlussaufgabe.ui
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Context
+import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Bundle
@@ -35,6 +37,7 @@ class KniffelFragment : Fragment() {
     private val storeViewModel: FirestoreViewModel by activityViewModels()
 
     private lateinit var binding: FragmentKniffelBinding
+
 
     // Variable für die ausgewählten Würfelbilder
     private lateinit var selectedDice: Dice
@@ -154,9 +157,12 @@ class KniffelFragment : Fragment() {
         setTextColorValuesAtTheBeginning()
 
         kniffelViewModel.songList.observe(viewLifecycleOwner) {
+            kniffelViewModel.stopSound()
             if (it.isNotEmpty()) {
                 kniffelViewModel.setSelected(true)
-                context?.let { kniffelViewModel.playFirstSong(it) }
+                kniffelViewModel.volume.observe(viewLifecycleOwner) {
+                    context?.let { kniffelViewModel.playFirstSong(it) }
+                }
             }
         }
     }
@@ -496,6 +502,10 @@ class KniffelFragment : Fragment() {
         viewModel.imageHome.value!!.setOnClickListener {
             kniffelViewModel.stopSound()
             findNavController().navigate(KniffelFragmentDirections.actionKniffelFragmentToHomeFragment())
+        }
+
+        viewModel.imageSettings.value!!.setOnClickListener {
+            findNavController().navigate(KniffelFragmentDirections.actionKniffelFragmentToSettingsFragment())
         }
     }
 

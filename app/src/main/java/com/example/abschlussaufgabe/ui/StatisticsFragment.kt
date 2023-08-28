@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.abschlussaufgabe.FightViewModel
 import com.example.abschlussaufgabe.MainViewModel
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.adapter.StatisticAdapter
@@ -20,6 +21,7 @@ import com.example.abschlussaufgabe.helper.DataTouchHelper
 class StatisticsFragment : Fragment() {
 
     private val viewModel: MainViewModel by activityViewModels()
+    private val fightViewModel: FightViewModel by activityViewModels()
 
     private lateinit var binding: FragmentStatisticsBinding
 
@@ -62,7 +64,9 @@ class StatisticsFragment : Fragment() {
 
         viewModel.dataList.observe(viewLifecycleOwner) {
             adapter.replaceDataSet(it)
-            viewModel.countVictorysAndDefeats()
+            if (it.isNotEmpty()) {
+                viewModel.countVictorysAndDefeats()
+            }
         }
 
         binding.ivDelete?.setOnClickListener {
@@ -77,15 +81,23 @@ class StatisticsFragment : Fragment() {
         }
 
         viewModel.imageHome.value?.setOnClickListener {
+            fightViewModel.stopSound()
             findNavController().navigate(StatisticsFragmentDirections.actionStatisticsFragmentToHomeFragment())
         }
 
         viewModel.imageProfile.value!!.setOnClickListener {
+            fightViewModel.stopSound()
             findNavController().navigate(StatisticsFragmentDirections.actionStatisticsFragmentToProfileFragment())
         }
 
         viewModel.tvUserName.value!!.setOnClickListener {
+            fightViewModel.stopSound()
             findNavController().navigate(StatisticsFragmentDirections.actionStatisticsFragmentToProfileFragment())
+        }
+
+        viewModel.imageSettings.value!!.setOnClickListener {
+            fightViewModel.stopSound()
+            findNavController().navigate(StatisticsFragmentDirections.actionStatisticsFragmentToSettingsFragment())
         }
     }
 }

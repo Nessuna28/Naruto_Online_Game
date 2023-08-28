@@ -113,6 +113,11 @@ class ResultFragment : Fragment() {
             fightViewModel.stopSound()
             findNavController().navigate(ResultFragmentDirections.actionResultFragmentToCharacterSelectionFragment())
         }
+
+        viewModel.imageSettings.value!!.setOnClickListener {
+            fightViewModel.stopSound()
+            findNavController().navigate(ResultFragmentDirections.actionResultFragmentToSettingsFragment())
+        }
     }
 
     // setzt die aktuellen Daten in eine Variable, die dann der Funktion

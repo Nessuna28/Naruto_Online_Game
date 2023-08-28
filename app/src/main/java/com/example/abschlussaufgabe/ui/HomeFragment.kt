@@ -60,6 +60,8 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Navigation
+
         binding.tvCharacterTitle.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToAboutTheCharactersFragment())
         }
@@ -81,7 +83,7 @@ class HomeFragment : Fragment() {
         }
 
         viewModel.imageSettings.value!!.setOnClickListener {
-            // TODO: noch schreiben
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSettingsFragment())
         }
     }
 

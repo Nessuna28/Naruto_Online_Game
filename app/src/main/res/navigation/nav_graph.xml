@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_homeFragment_to_createProfileFragment"
             app:destination="@id/createProfileFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/characterSelectionFragment"
@@ -43,6 +46,9 @@
         <action
             android:id="@+id/action_characterSelectionFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_characterSelectionFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/locationSelectionFragment"
@@ -61,6 +67,9 @@
         <action
             android:id="@+id/action_locationSelectionFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_locationSelectionFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/fightFragment"
@@ -91,6 +100,9 @@
         <action
             android:id="@+id/action_aboutTheCharactersFragment_to_profileFragment4"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_aboutTheCharactersFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/statisticsFragment"
@@ -103,6 +115,9 @@
         <action
             android:id="@+id/action_statisticsFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_statisticsFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/characterDetailFragment"
@@ -121,6 +136,9 @@
         <action
             android:id="@+id/action_characterDetailFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_characterDetailFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
 
     </fragment>
     <fragment
@@ -140,6 +158,9 @@
         <action
             android:id="@+id/action_resultFragment_to_combatSettingsFragment"
             app:destination="@id/combatSettingsFragment" />
+        <action
+            android:id="@+id/action_resultFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -164,6 +185,9 @@
         <action
             android:id="@+id/action_profileFragment_to_logInFragment"
             app:destination="@id/logInFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/combatSettingsFragment"
@@ -182,6 +206,9 @@
         <action
             android:id="@+id/action_combatSettingsFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_combatSettingsFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/kniffelFragment"
@@ -194,6 +221,9 @@
         <action
             android:id="@+id/action_kniffelFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_kniffelFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/selectionGameFragment"
@@ -212,6 +242,9 @@
         <action
             android:id="@+id/action_selectionGameFragment_to_combatSettingsFragment"
             app:destination="@id/combatSettingsFragment" />
+        <action
+            android:id="@+id/action_selectionGameFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/logInFragment"
@@ -262,9 +295,14 @@
         android:id="@+id/createProfileFragment"
         android:name="com.example.abschlussaufgabe.ui.CreateProfileFragment"
         android:label="CreateProfileFragment"
-        tools:layout="@layout/fragment_create_profile">>
+        tools:layout="@layout/fragment_create_profile">
         <action
             android:id="@+id/action_createProfileFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.abschlussaufgabe.ui.SettingsFragment"
+        android:label="SettingsFragment"
+        tools:layout="@layout/fragment_settings"/>
 </navigation>

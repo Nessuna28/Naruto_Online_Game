@@ -40,7 +40,7 @@ class AboutTheCharactersFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_about_the_characters, container, false)
         return binding.root
     }
@@ -56,6 +56,12 @@ class AboutTheCharactersFragment : Fragment() {
             viewModel.searchCharacter(it.toString())
         }
 
+        binding.ivClose?.setOnClickListener {
+            binding.tiSearch.setText("")
+        }
+
+        // Navigation
+
         binding.ivBack.setOnClickListener {
             findNavController().navigateUp()
         }
@@ -70,6 +76,10 @@ class AboutTheCharactersFragment : Fragment() {
 
         viewModel.tvUserName.value!!.setOnClickListener {
             findNavController().navigate(AboutTheCharactersFragmentDirections.actionAboutTheCharactersFragmentToProfileFragment4())
+        }
+
+        viewModel.imageSettings.value!!.setOnClickListener {
+            findNavController().navigate(AboutTheCharactersFragmentDirections.actionAboutTheCharactersFragmentToSettingsFragment())
         }
     }
 }

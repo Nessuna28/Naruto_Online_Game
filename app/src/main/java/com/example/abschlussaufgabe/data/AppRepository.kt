@@ -31,7 +31,7 @@ class AppRepository(private val api: CharacterApi, private val gameDatabase: Gam
                 getAllCharacters()
             }
         } catch (e: Exception) {
-            Log.e(TAG, "Error: ${e.message}")
+            Log.e(TAG, "Error: get Character ${e.message}")
         }
     }
 
@@ -40,7 +40,7 @@ class AppRepository(private val api: CharacterApi, private val gameDatabase: Gam
         try {
             characters = api.retrofitService.getAllCharacters().characters
         } catch (e: Exception) {
-            Log.e(TAG, "Error: ${e.message}")
+            Log.e(TAG, "Error: get all Characters ${e.message}")
         }
     }
 

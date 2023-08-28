@@ -43,7 +43,9 @@ class CombatSettingsFragment : Fragment() {
 
         requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
 
-        context?.let { fightViewModel.playSound(it, R.raw.song_beginn) }
+        fightViewModel.volume.observe(viewLifecycleOwner) {
+            context?.let { fightViewModel.playSound(it, R.raw.song_beginn) }
+        }
 
         viewModel.materialCard.value?.let { viewModel.showMaterialCard(it) }
         viewModel.imageHome.value?.let { viewModel.showImages(it) }
@@ -149,15 +151,23 @@ class CombatSettingsFragment : Fragment() {
         }
 
         viewModel.imageHome.value?.setOnClickListener {
+            fightViewModel.stopSound()
             findNavController().navigate(CombatSettingsFragmentDirections.actionCombatSettingsFragmentToHomeFragment())
         }
 
         viewModel.imageProfile.value!!.setOnClickListener {
+            fightViewModel.stopSound()
             findNavController().navigate(CombatSettingsFragmentDirections.actionCombatSettingsFragmentToProfileFragment())
         }
 
         viewModel.tvUserName.value!!.setOnClickListener {
+            fightViewModel.stopSound()
             findNavController().navigate(CombatSettingsFragmentDirections.actionCombatSettingsFragmentToProfileFragment())
+        }
+
+        viewModel.imageSettings.value!!.setOnClickListener {
+            fightViewModel.stopSound()
+            findNavController().navigate(CombatSettingsFragmentDirections.actionCombatSettingsFragmentToSettingsFragment())
         }
     }
 }

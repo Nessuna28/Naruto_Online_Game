@@ -163,20 +163,30 @@ class CharacterSelectionFragment : Fragment() {
             resetToDefault()
         }
 
+        // Navigation
+
         binding.ivBack?.setOnClickListener {
             findNavController().navigateUp()
         }
 
         viewModel.imageHome.value?.setOnClickListener {
+            fightViewModel.stopSound()
             findNavController().navigate(CharacterSelectionFragmentDirections.actionCharacterSelectionFragmentToHomeFragment())
         }
 
         viewModel.imageProfile.value!!.setOnClickListener {
+            fightViewModel.stopSound()
             findNavController().navigate(CharacterSelectionFragmentDirections.actionCharacterSelectionFragmentToProfileFragment())
         }
 
         viewModel.tvUserName.value!!.setOnClickListener {
+            fightViewModel.stopSound()
             findNavController().navigate(CharacterSelectionFragmentDirections.actionCharacterSelectionFragmentToProfileFragment())
+        }
+
+        viewModel.imageSettings.value!!.setOnClickListener {
+            fightViewModel.stopSound()
+            findNavController().navigate(CharacterSelectionFragmentDirections.actionCharacterSelectionFragmentToSettingsFragment())
         }
     }
 

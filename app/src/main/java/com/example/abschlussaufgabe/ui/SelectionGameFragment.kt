@@ -35,7 +35,7 @@ class SelectionGameFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_selection_game, container, false)
         return binding.root
     }
@@ -69,6 +69,10 @@ class SelectionGameFragment : Fragment() {
 
         viewModel.tvUserName.value!!.setOnClickListener {
             findNavController().navigate(SelectionGameFragmentDirections.actionSelectionGameFragmentToProfileFragment())
+        }
+
+        viewModel.imageSettings.value!!.setOnClickListener {
+            findNavController().navigate(SelectionGameFragmentDirections.actionSelectionGameFragmentToSettingsFragment())
         }
     }
 }

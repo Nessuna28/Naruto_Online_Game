@@ -144,6 +144,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
         viewModelScope.launch {
             repository.getAllCharacters()
+            _characters.value = repository.characters
         }
     }
 
@@ -152,6 +153,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
         viewModelScope.launch {
             repository.getCharacter(name)
+            _characters.value = repository.characters
             println(characters)
         }
     }
@@ -196,9 +198,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
         viewModelScope.launch {
             repository.insertDataGame(dataPlayer)
-            if (dataList.value!!.isNotEmpty()) {
-                countVictorysAndDefeats()
-            }
         }
     }
 
