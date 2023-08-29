@@ -36,9 +36,9 @@
 
         <ImageView
             android:id="@+id/iv_characterImage"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="32dp"
+            android:layout_width="128dp"
+            android:layout_height="124dp"
+            android:layout_marginStart="50dp"
             android:layout_marginTop="8dp"
             android:rotation="9"
             app:layout_constraintStart_toEndOf="@+id/tv_titleRounds"

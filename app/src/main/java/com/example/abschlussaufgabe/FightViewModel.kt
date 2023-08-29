@@ -418,7 +418,7 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
             time = 90000
         }
 
-        timer = object : CountDownTimer(time, 1000) { // 60000 Millisekunden = 1 Minute
+        timer = object : CountDownTimer(time, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 // Hier wird der Timer aktualisiert, während er herunterzählt
                 // Du kannst den verbleibenden Millisekunden nutzen, um die Zeit im UI anzuzeigen
@@ -575,9 +575,9 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
                 Handler().removeCallbacks(runnable)
                 _roundBegan.value = false
 
-                if (player.value!!.lifePoints > 0) {
+                if (player.value!!.lifePoints > 0 && enemy.value!!.lifePoints <= 0) {
                     _roundsWonPlayer.value = roundsWonPlayer.value!!.plus(1)
-                } else if (enemy.value!!.lifePoints > 0) {
+                } else if (enemy.value!!.lifePoints > 0 && player.value!!.lifePoints <= 0) {
                     _roundsWonEnemy.value = roundsWonEnemy.value!!.plus(1)
                 }
             }
@@ -599,9 +599,9 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
                     Handler().removeCallbacks(runnable)
                     _roundBegan.value = false
 
-                    if (player.value!!.lifePoints > 0) {
+                    if (player.value!!.lifePoints > 0 && enemy.value!!.lifePoints <= 0) {
                         _roundsWonPlayer.value = roundsWonPlayer.value!!.plus(1)
-                    } else if (enemy.value!!.lifePoints > 0) {
+                    } else if (enemy.value!!.lifePoints > 0 && player.value!!.lifePoints <= 0) {
                         _roundsWonEnemy.value = roundsWonEnemy.value!!.plus(1)
                     }
                 }

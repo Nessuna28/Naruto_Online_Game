@@ -5,6 +5,7 @@ import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -588,16 +589,16 @@ class FightFragment : Fragment() {
                     binding.ivResult?.setImageResource(R.drawable.loser)
                 }
             } else {
-                if (player.lifePoints == 0) {
+                if (player.lifePoints <= 0 && enemy.lifePoints > 0) {
                     binding.ivResult?.setImageResource(R.drawable.loser)
-                } else if (player.lifePoints > 0) {
+                } else if (player.lifePoints > 0 && enemy.lifePoints <= 0) {
                     binding.ivResult?.setImageResource(R.drawable.winner)
                 }
             }
         } else {
-            if (player.lifePoints == 0) {
+            if (player.lifePoints <= 0 && enemy.lifePoints > 0) {
                 binding.ivResult?.setImageResource(R.drawable.loser)
-            } else if (player.lifePoints > 0) {
+            } else if (player.lifePoints > 0 && enemy.lifePoints <= 0) {
                 binding.ivResult?.setImageResource(R.drawable.winner)
             }
         }
@@ -606,6 +607,9 @@ class FightFragment : Fragment() {
 
         handler.postDelayed(
             { binding.ivResult?.visibility = View.INVISIBLE }, 3000)
+
+        Log.e("Fight", "${player.lifePoints}")
+        Log.e("Fight", "${enemy.lifePoints}")
     }
 
     override fun onDestroyView() {
