@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.SplashScreenFragment">
+
+
+        <ImageView
+            android:id="@+id/iv_imageBeginn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/naruto_splash_screen"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_konoha"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/konoha"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ImageView
+            android:id="@+id/iv_naruto15"
+            android:layout_width="122dp"
+            android:layout_height="221dp"
+            android:layout_marginEnd="49dp"
+            android:layout_marginBottom="94dp"
+            android:src="@drawable/naruto"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_narutoOriginal"
+            app:layout_constraintEnd_toEndOf="@+id/iv_narutoOriginal" />
+
+        <ImageView
+            android:id="@+id/iv_naruto14"
+            android:layout_width="122dp"
+            android:layout_height="221dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginBottom="85dp"
+            android:src="@drawable/naruto"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_narutoOriginal"
+            app:layout_constraintStart_toStartOf="@+id/iv_narutoOriginal" />
+
+        <ImageView
+            android:id="@+id/iv_naruto13"
+            android:layout_width="122dp"
+            android:layout_height="221dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="94dp"
+            android:src="@drawable/naruto"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_narutoOriginal"
+            app:layout_constraintEnd_toStartOf="@+id/iv_narutoOriginal" />
+
+        <ImageView
+            android:id="@+id/iv_naruto12"
+            android:layout_width="122dp"
+            android:layout_height="221dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginBottom="94dp"
+            android:src="@drawable/naruto"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_narutoOriginal"
+            app:layout_constraintStart_toEndOf="@+id/iv_narutoOriginal" />
+
+        <ImageView
+            android:id="@+id/iv_naruto11"
+            android:layout_width="122dp"
+            android:layout_height="221dp"
+            android:layout_marginStart="11dp"
+            android:layout_marginBottom="76dp"
+            android:src="@drawable/naruto"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_narutoOriginal"
+            app:layout_constraintStart_toEndOf="@+id/iv_narutoOriginal" />
+
+        <ImageView
+            android:id="@+id/iv_naruto10"
+            android:layout_width="122dp"
+            android:layout_height="221dp"
+            android:layout_marginStart="96dp"
+            android:layout_marginBottom="64dp"
+            android:src="@drawable/naruto"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_narutoOriginal"
+            app:layout_constraintStart_toStartOf="@+id/iv_narutoOriginal" />
+
+        <ImageView
+            android:id="@+id/iv_naruto9"
+            android:layout_width="122dp"
+            android:layout_height="221dp"
+            android:layout_marginEnd="115dp"
+            android:layout_marginBottom="76dp"
+            android:src="@drawable/naruto"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_narutoOriginal"
+            app:layout_constraintEnd_toEndOf="@+id/iv_narutoOriginal" />
+
+        <ImageView
+            android:id="@+id/iv_naruto8"
+            android:layout_width="122dp"
+            android:layout_height="221dp"
+            android:layout_marginStart="11dp"
+            android:layout_marginBottom="54dp"
+            android:src="@drawable/naruto"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_narutoOriginal"
+            app:layout_constraintStart_toStartOf="@+id/iv_narutoOriginal" />
+
+        <ImageView
+            android:id="@+id/iv_naruto7"
+            android:layout_width="122dp"
+            android:layout_height="221dp"
+            android:layout_marginEnd="145dp"
+            android:layout_marginBottom="54dp"
+            android:src="@drawable/naruto"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_narutoOriginal"
+            app:layout_constraintEnd_toEndOf="@+id/iv_narutoOriginal" />
+
+        <ImageView
+            android:id="@+id/iv_naruto6"
+            android:layout_width="122dp"
+            android:layout_height="221dp"
+            android:layout_marginEnd="81dp"
+            android:layout_marginBottom="45dp"
+            android:src="@drawable/naruto"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_narutoOriginal"
+            app:layout_constraintEnd_toEndOf="@+id/iv_narutoOriginal" />
+
+        <ImageView
+            android:id="@+id/iv_naruto5"
+            android:layout_width="122dp"
+            android:layout_height="221dp"
+            android:layout_marginStart="104dp"
+            android:layout_marginBottom="21dp"
+            android:src="@drawable/naruto"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_narutoOriginal"
+            app:layout_constraintStart_toStartOf="@+id/iv_narutoOriginal" />
+
+        <ImageView
+            android:id="@+id/iv_naruto4"
+            android:layout_width="122dp"
+            android:layout_height="221dp"
+            android:layout_marginEnd="95dp"
+            android:layout_marginBottom="30dp"
+            android:src="@drawable/naruto"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_narutoOriginal"
+            app:layout_constraintEnd_toEndOf="@+id/iv_narutoOriginal" />
+
+        <ImageView
+            android:id="@+id/iv_naruto3"
+            android:layout_width="122dp"
+            android:layout_height="221dp"
+            android:layout_marginBottom="21dp"
+            android:src="@drawable/naruto"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_narutoOriginal"
+            app:layout_constraintEnd_toStartOf="@+id/iv_narutoOriginal" />
+
+        <ImageView
+            android:id="@+id/iv_naruto2"
+            android:layout_width="122dp"
+            android:layout_height="221dp"
+            android:layout_marginEnd="11dp"
+            android:layout_marginBottom="1dp"
+            android:src="@drawable/naruto"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_narutoOriginal"
+            app:layout_constraintEnd_toStartOf="@+id/iv_narutoOriginal" />
+
+        <ImageView
+            android:id="@+id/iv_naruto1"
+            android:layout_width="122dp"
+            android:layout_height="221dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginBottom="1dp"
+            android:src="@drawable/naruto"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_narutoOriginal"
+            app:layout_constraintStart_toEndOf="@+id/iv_narutoOriginal" />
+
+        <ImageView
+            android:id="@+id/iv_narutoOriginal"
+            android:layout_width="145dp"
+            android:layout_height="242dp"
+            android:src="@drawable/naruto_attack"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="top"
+            app:constraint_referenced_ids="iv_naruto15" />
+
+        <TextView
+            android:id="@+id/tv_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/subtitle"
+            android:textColor="@color/primary"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_title"
+            app:layout_constraintEnd_toEndOf="@+id/iv_title" />
+
+        <ImageView
+            android:id="@+id/iv_title"
+            android:layout_width="335dp"
+            android:layout_height="190dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.355"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/title" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

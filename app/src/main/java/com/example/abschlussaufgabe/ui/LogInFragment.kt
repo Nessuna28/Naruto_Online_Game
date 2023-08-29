@@ -65,7 +65,7 @@ class LogInFragment : Fragment() {
 
         authViewModel.currentUser.observe(viewLifecycleOwner) {
             if (it != null) {
-                findNavController().navigate(LogInFragmentDirections.actionLogInFragmentToHomeFragment())
+                findNavController().navigate(LogInFragmentDirections.actionLogInFragmentToSplashScreenFragment())
             }
         }
 
