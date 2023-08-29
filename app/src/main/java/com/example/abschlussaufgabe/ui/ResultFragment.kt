@@ -111,11 +111,15 @@ class ResultFragment : Fragment() {
 
         binding.btnSelection?.setOnClickListener {
             fightViewModel.stopSound()
+            fightViewModel.resetPointsForNewGame()
+            fightViewModel.resetToDefaultRounds()
             findNavController().navigate(ResultFragmentDirections.actionResultFragmentToCharacterSelectionFragment())
         }
 
         viewModel.imageSettings.value!!.setOnClickListener {
             fightViewModel.stopSound()
+            fightViewModel.resetPointsForNewGame()
+            fightViewModel.resetToDefaultRounds()
             findNavController().navigate(ResultFragmentDirections.actionResultFragmentToSettingsFragment())
         }
     }

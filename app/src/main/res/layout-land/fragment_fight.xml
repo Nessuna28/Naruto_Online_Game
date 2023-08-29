@@ -508,7 +508,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="Timer"
+            android:text="@string/timer"
             android:textColor="@color/primary"
             android:textSize="20sp"
             android:textStyle="bold"

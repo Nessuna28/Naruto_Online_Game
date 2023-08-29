@@ -434,6 +434,17 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
         timer?.start()
     }
 
+    fun setRemainingTimeToStart() {
+
+        if (selectTimer.value == "30 Sekunden") {
+            _remainingTime.value = 30
+        } else if (selectTimer.value == "60 Sekunden") {
+            _remainingTime.value = 60
+        } else if (selectTimer.value == "90 Sekunden") {
+            _remainingTime.value = 90
+        }
+    }
+
     // stopt den Timer
     fun stopTimer() {
         timer?.cancel()
@@ -452,7 +463,6 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
         if (selectRounds.value == "1") {
             if (rounds.value!! == 1) {
                 _gameEnd.value = true
-
             } else {
                 if (attackPlayer.value != null && attackEnemy.value != null) {
                     if (player.value!!.lifePoints > 0 || enemy.value!!.lifePoints > 0) {

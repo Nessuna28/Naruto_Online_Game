@@ -95,6 +95,8 @@ class FightFragment : Fragment() {
                 binding.ivTimer?.visibility = View.INVISIBLE
             }
         }
+
+        fightViewModel.setRemainingTimeToStart()
     }
 
 
