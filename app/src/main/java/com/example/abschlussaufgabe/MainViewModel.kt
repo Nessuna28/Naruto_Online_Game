@@ -27,7 +27,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     private val gameDatabase = GameDatabase.getDatabase(application)
     private val repository = AppRepository(CharacterApi, gameDatabase)
-    private val authViewModel = AuthViewModel()
 
 
     // LiveData-Variable für Api
@@ -80,20 +79,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
 
     // für die Spieldaten
-    val dataList = repository.dataList
-
-
-    // LiveData-Variable für Siege und Niederlagen für die Datenbank
-
-    private val _victory = MutableLiveData(0)
-    val victory: LiveData<Int>
-        get() = _victory
-
-
-    private val _defeat = MutableLiveData(0)
-    val defeat: LiveData<Int>
-        get() = _defeat
-
+    var dataList = repository.dataList
 
 
 
@@ -176,21 +162,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     }
 
 
-    // zählt die Siege und Niederlagen
-    fun countVictorysAndDefeats() {
-
-        if (victory.value!! + defeat.value!! != dataList.value!!.size) {
-            Log.e("ViewModel", "${dataList.value!!.size}")
-            dataList.value!!.forEach {
-                if (it.result == "Sieg") {
-                    _victory.value = _victory.value?.plus(1)
-                } else if (it.result == "Niederlage") {
-                    _defeat.value = _defeat.value?.plus(1)
-                }
-            }
-        }
-    }
-
     // für die Datenbanken
 
     // speichert die Spieldaten des Spielers in der Datenbank
@@ -206,7 +177,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
         viewModelScope.launch {
             repository.deleteDataGame(dataPlayer)
-            countVictorysAndDefeats()
         }
     }
 
@@ -214,7 +184,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
         viewModelScope.launch {
             repository.deleteAllDataGame()
-            countVictorysAndDefeats()
         }
     }
 

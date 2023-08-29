@@ -47,14 +47,6 @@ class StatisticsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.victory.observe(viewLifecycleOwner) {
-            binding.tvVictorys.text = it.toString()
-        }
-
-        viewModel.defeat.observe(viewLifecycleOwner) {
-            binding.tvDefeats.text = it.toString()
-        }
-
         val adapter = StatisticAdapter(viewModel)
         binding.rvStatistic.adapter = adapter
 
@@ -64,9 +56,8 @@ class StatisticsFragment : Fragment() {
 
         viewModel.dataList.observe(viewLifecycleOwner) {
             adapter.replaceDataSet(it)
-            if (it.isNotEmpty()) {
-                viewModel.countVictorysAndDefeats()
-            }
+            binding.tvVictorys.text = it.count { it.result == "Sieg" }.toString()
+            binding.tvDefeats.text = it.count { it.result == "Niederlage" }.toString()
         }
 
         binding.ivDelete?.setOnClickListener {
