@@ -64,11 +64,24 @@ class SettingsFragment : Fragment() {
             kniffelViewModel.setValueForVolume(mediaPlayerVolume)
         }
 
+        // TODO: addOnChangeListener für die Schriftgröße
 
         // Navigation
 
         binding.ivBack.setOnClickListener {
             findNavController().navigateUp()
+        }
+
+        viewModel.imageHome.value!!.setOnClickListener {
+            findNavController().navigate(SettingsFragmentDirections.actionSettingsFragmentToHomeFragment())
+        }
+
+        viewModel.tvUserName.value!!.setOnClickListener {
+            findNavController().navigate(SettingsFragmentDirections.actionSettingsFragmentToProfileFragment())
+        }
+
+        viewModel.imageProfile.value!!.setOnClickListener {
+            findNavController().navigate(SettingsFragmentDirections.actionSettingsFragmentToProfileFragment())
         }
     }
 }

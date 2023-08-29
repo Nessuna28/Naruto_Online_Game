@@ -324,7 +324,6 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
         mediaPlayer = MediaPlayer.create(context, songList.value!![currentIndex])
         mediaPlayer?.setOnCompletionListener {
             // Wenn die Wiedergabe beendet ist, spielen Sie das nächste Lied ab
-            setVolume()
             playNextSong(context)
         }
     }
@@ -341,6 +340,7 @@ class KniffelViewModel(application: Application): AndroidViewModel(application) 
         currentIndex = (currentIndex + 1) % songList.value!!.size
         mediaPlayer?.reset()
         prepareMediaPlayer(context)
+        setVolume()
         mediaPlayer?.start()
     }
 
