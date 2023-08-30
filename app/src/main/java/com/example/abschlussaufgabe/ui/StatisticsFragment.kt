@@ -64,7 +64,6 @@ class StatisticsFragment : Fragment() {
                 storeViewModel.playerDataList.observe(viewLifecycleOwner) { dataList ->
                     if (dataList != null) {
                         adapter.replaceDataSet(dataList)
-                        Log.e("Statistik", "${dataList}")
                         binding.tvVictorys.text = dataList.count { it.result == "Sieg" }.toString()
                         binding.tvDefeats.text = dataList.count { it.result == "Niederlage" }.toString()
                     }
@@ -81,6 +80,9 @@ class StatisticsFragment : Fragment() {
 
         binding.ivDelete?.setOnClickListener {
             viewModel.deleteAllDataGame()
+            if (authViewModel.currentUser.value != null) {
+                storeViewModel.deleteAllPlayerData()
+            }
         }
 
 

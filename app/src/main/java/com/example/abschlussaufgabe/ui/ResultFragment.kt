@@ -103,11 +103,15 @@ class ResultFragment : Fragment() {
 
         binding.btnAgain?.setOnClickListener {
             fightViewModel.stopSound()
+            fightViewModel.resetPointsForNewGame()
+            fightViewModel.resetToDefaultRounds()
             findNavController().navigate(ResultFragmentDirections.actionResultFragmentToFightFragment())
         }
 
         binding.btnHome?.setOnClickListener {
             fightViewModel.stopSound()
+            fightViewModel.resetPointsForNewGame()
+            fightViewModel.resetToDefaultRounds()
             findNavController().navigate(ResultFragmentDirections.actionResultFragmentToHomeFragment())
         }
 

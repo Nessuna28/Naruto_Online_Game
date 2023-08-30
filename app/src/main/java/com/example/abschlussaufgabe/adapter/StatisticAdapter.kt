@@ -28,6 +28,9 @@ class StatisticAdapter(
 
     fun removeData(position: Int) {
         viewModel.deleteDataGame(dataset[position])
+        if (storeViewModel.currentProfile.value != null) {
+            storeViewModel.deletePlayerData(dataset[position])
+        }
         notifyItemRemoved(position)
     }
 
