@@ -43,7 +43,7 @@ class CharacterSelectionFragment : Fragment() {
         viewModel.materialCard.value?.let { viewModel.showMaterialCard(it) }
         viewModel.imageHome.value?.let { viewModel.showImages(it) }
         viewModel.tvUserName.value?.let { viewModel.showTextView(it) }
-        viewModel.imageProfile.value?.let { viewModel.showMaterialCard(it) }
+        viewModel.cvImageProfile.value?.let { viewModel.showMaterialCard(it) }
         viewModel.imageBackground.value?.let { viewModel.hideImages(it) }
         viewModel.imageTitle.value?.let { viewModel.hideImages(it) }
 
@@ -174,7 +174,7 @@ class CharacterSelectionFragment : Fragment() {
             findNavController().navigate(CharacterSelectionFragmentDirections.actionCharacterSelectionFragmentToHomeFragment())
         }
 
-        viewModel.imageProfile.value!!.setOnClickListener {
+        viewModel.cvImageProfile.value!!.setOnClickListener {
             fightViewModel.stopSound()
             findNavController().navigate(CharacterSelectionFragmentDirections.actionCharacterSelectionFragmentToProfileFragment())
         }

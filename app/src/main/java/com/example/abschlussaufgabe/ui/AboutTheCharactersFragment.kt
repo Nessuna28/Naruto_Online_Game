@@ -32,7 +32,7 @@ class AboutTheCharactersFragment : Fragment() {
         viewModel.imageHome.value?.let { viewModel.showImages(it) }
         viewModel.tvUserName.value?.let { viewModel.showTextView(it) }
         viewModel.materialCard.value?.let { viewModel.showMaterialCard(it) }
-        viewModel.imageProfile.value?.let { viewModel.showMaterialCard(it) }
+        viewModel.cvImageProfile.value?.let { viewModel.showMaterialCard(it) }
         viewModel.imageSettings.value?.let { viewModel.showImages(it) }
     }
 
@@ -70,7 +70,7 @@ class AboutTheCharactersFragment : Fragment() {
             findNavController().navigate(AboutTheCharactersFragmentDirections.actionAboutTheCharactersFragmentToHomeFragment())
         }
 
-        viewModel.imageProfile.value!!.setOnClickListener {
+        viewModel.cvImageProfile.value!!.setOnClickListener {
             findNavController().navigate(AboutTheCharactersFragmentDirections.actionAboutTheCharactersFragmentToProfileFragment4())
         }
 

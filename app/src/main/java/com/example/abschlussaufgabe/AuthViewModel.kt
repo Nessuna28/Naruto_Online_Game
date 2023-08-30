@@ -63,7 +63,7 @@ class AuthViewModel: ViewModel() {
     fun logout() {
 
         firebaseAuth.signOut()
-        _currentUser.value = firebaseAuth.currentUser
+        _currentUser.value = null
     }
 
     fun reset() {

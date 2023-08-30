@@ -63,7 +63,7 @@ class SelectionGameFragment : Fragment() {
             findNavController().navigate(SelectionGameFragmentDirections.actionSelectionGameFragmentToHomeFragment())
         }
 
-        viewModel.imageProfile.value!!.setOnClickListener {
+        viewModel.cvImageProfile.value!!.setOnClickListener {
             findNavController().navigate(SelectionGameFragmentDirections.actionSelectionGameFragmentToProfileFragment())
         }
 

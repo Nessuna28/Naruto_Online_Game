@@ -18,6 +18,7 @@ import com.example.abschlussaufgabe.FirestoreViewModel
 import com.example.abschlussaufgabe.MainViewModel
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.data.datamodels.Profile
+import com.example.abschlussaufgabe.data.datamodels.RandomProfileImage
 import com.example.abschlussaufgabe.databinding.FragmentCreateProfileBinding
 import com.example.abschlussaufgabe.databinding.FragmentEditProfileBinding
 
@@ -66,7 +67,7 @@ class CreateProfileFragment : Fragment() {
                 setProfile(it!!.uid, it.email!!)
                 storeViewModel.getUserData(it.uid)
             }
-            findNavController().navigate(CreateProfileFragmentDirections.actionCreateProfileFragmentToProfileFragment())
+            findNavController().navigate(CreateProfileFragmentDirections.actionCreateProfileFragmentToLogInFragment())
         }
 
         binding.btnCancel.setOnClickListener {
@@ -120,26 +121,7 @@ class CreateProfileFragment : Fragment() {
 
     private fun createProfileImage(): Uri {
 
-        val imageList = listOf(
-            R.drawable.anko_face,
-            R.drawable.asuma_face,
-            R.drawable.choji_face,
-            R.drawable.deidara_face,
-            R.drawable.gaara_face,
-            R.drawable.gai_face,
-            R.drawable.hidan_face,
-            R.drawable.hinata_face,
-            R.drawable.ino_face,
-            R.drawable.itachi_face,
-            R.drawable.jiraiya_face,
-            R.drawable.kabuto_face,
-            R.drawable.kiba_face,
-            R.drawable.naruto_face,
-            R.drawable.sasuke_face,
-            R.drawable.sakura_face,
-            R.drawable.kakashi_face
-        )
-        val randomImage = imageList.random()
+        val randomImage = RandomProfileImage().imageList.random()
 
         return Uri.parse("android.resource://com.example.abschlussaufgabe/drawable/${randomImage}")
     }

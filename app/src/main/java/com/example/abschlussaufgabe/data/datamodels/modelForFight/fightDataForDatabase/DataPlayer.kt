@@ -10,6 +10,7 @@ data class DataPlayer(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
 
+    val userId: String,
     val date: String,
     val userName: String,
     val characterName: String,

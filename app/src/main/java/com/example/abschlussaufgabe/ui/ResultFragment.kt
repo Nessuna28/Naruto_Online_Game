@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.abschlussaufgabe.AuthViewModel
 import com.example.abschlussaufgabe.FightViewModel
 import com.example.abschlussaufgabe.FirestoreViewModel
 import com.example.abschlussaufgabe.MainViewModel
@@ -21,7 +22,7 @@ class ResultFragment : Fragment() {
 
     private val viewModel: MainViewModel by activityViewModels()
     private val fightViewModel: FightViewModel by activityViewModels()
-    private val storeViewModel: FirestoreViewModel by activityViewModels()
+    private val authViewModel: AuthViewModel by activityViewModels()
 
     private lateinit var binding: FragmentResultBinding
 
@@ -76,13 +77,7 @@ class ResultFragment : Fragment() {
             }
         }
 
-        storeViewModel.currentProfile.observe(viewLifecycleOwner) {
-            if (it != null) {
-                binding.tvUserName?.text = it.userName
-            } else {
-                binding.tvUserName?.text = R.string.guest.toString()
-            }
-        }
+        binding.tvUserName?.text = viewModel.tvUserName.value!!.text
 
         fightViewModel.rounds.observe(viewLifecycleOwner) {
             binding.tvRounds?.text = it.toString()
@@ -94,7 +89,13 @@ class ResultFragment : Fragment() {
 
 
         // der Datenbank hinzufügen
-        setData()
+        authViewModel.currentUser.observe(viewLifecycleOwner) {
+            if (it != null) {
+                setData(it.uid)
+            } else {
+                setData(R.string.guest.toString())
+            }
+        }
 
 
         // Navigation
@@ -126,25 +127,19 @@ class ResultFragment : Fragment() {
 
     // setzt die aktuellen Daten in eine Variable, die dann der Funktion
     // zum einfügen in die Datenbank übergeben wird
-    private fun setData() {
+    private fun setData(userId: String) {
 
         val charakter = fightViewModel.player.value!!
         val charakterEnemy = fightViewModel.enemy.value!!
-        var userName = ""
-
-        if (storeViewModel.currentProfile.value?.userName != null) {
-            userName = storeViewModel.currentProfile.value!!.userName
-        } else {
-            userName = R.string.guest.toString()
-        }
 
         val today = viewModel.getTodayDate()
 
 
         val data = DataPlayer(
 
+            userId = userId,
             date = today,
-            userName = userName,
+            userName = viewModel.tvUserName.value!!.text.toString(),
             characterName = charakter.name,
             characterImage = charakter.image,
             result = fightViewModel.result.value!!,

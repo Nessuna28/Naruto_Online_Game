@@ -1,7 +1,6 @@
 package com.example.abschlussaufgabe
 
 import android.app.Application
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.lifecycle.AndroidViewModel
@@ -9,7 +8,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.abschlussaufgabe.data.AppRepository
-import com.example.abschlussaufgabe.data.datamodels.Profile
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.fightDataForDatabase.DataPlayer
 import com.example.abschlussaufgabe.data.local.GameDatabase
 import com.example.abschlussaufgabe.data.remote.CharacterApi
@@ -17,7 +15,6 @@ import com.google.android.material.card.MaterialCardView
 import kotlinx.coroutines.launch
 import android.widget.TextView
 import com.example.abschlussaufgabe.data.datamodels.modelsApi.Character
-import com.google.firebase.auth.FirebaseUser
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -67,9 +64,11 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = _tvUserName
 
 
-    val _imageProfile = MutableLiveData<MaterialCardView>()
-    val imageProfile: LiveData<MaterialCardView>
-        get() = _imageProfile
+    val _cVImageProfile = MutableLiveData<MaterialCardView>()
+    val cvImageProfile: LiveData<MaterialCardView>
+        get() = _cVImageProfile
+
+    val imageProfile = MutableLiveData<ImageView>()
 
 
     private val _userNameEnemy = MutableLiveData<String>()

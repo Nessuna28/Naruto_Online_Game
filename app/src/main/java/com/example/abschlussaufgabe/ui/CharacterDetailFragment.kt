@@ -37,7 +37,7 @@ class CharacterDetailFragment : Fragment() {
         viewModel.materialCard.value?.let { viewModel.showMaterialCard(it) }
         viewModel.tvUserName.value?.let { viewModel.showTextView(it) }
         viewModel.imageSettings.value?.let { viewModel.showImages(it) }
-        viewModel.imageProfile.value?.let { viewModel.showMaterialCard(it) }
+        viewModel.cvImageProfile.value?.let { viewModel.showMaterialCard(it) }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,7 +92,7 @@ class CharacterDetailFragment : Fragment() {
             findNavController().navigate(CharacterDetailFragmentDirections.actionCharacterDetailFragmentToHomeFragment())
         }
 
-        viewModel.imageProfile.value?.setOnClickListener {
+        viewModel.cvImageProfile.value?.setOnClickListener {
             findNavController().navigate(CharacterDetailFragmentDirections.actionCharacterDetailFragmentToProfileFragment())
         }
 

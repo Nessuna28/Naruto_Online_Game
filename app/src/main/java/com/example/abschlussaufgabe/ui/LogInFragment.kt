@@ -75,6 +75,10 @@ class LogInFragment : Fragment() {
             }
         }
 
+        binding.btnContinueAsGuest.setOnClickListener {
+            findNavController().navigate(LogInFragmentDirections.actionLogInFragmentToHomeFragment())
+        }
+
         binding.tvRegister.setOnClickListener {
             findNavController().navigate(LogInFragmentDirections.actionLogInFragmentToRegisterFragment())
         }

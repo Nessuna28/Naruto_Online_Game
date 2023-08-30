@@ -3,7 +3,6 @@ package com.example.abschlussaufgabe.ui
 import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -37,7 +36,7 @@ class ProfileFragment : Fragment() {
         viewModel.imageBackground.value?.let { viewModel.hideImages(it) }
         viewModel.materialCard.value?.let { viewModel.showMaterialCard(it) }
         viewModel.tvUserName.value?.let { viewModel.hideTextView(it) }
-        viewModel.imageProfile.value?.let { viewModel.hideMaterialCard(it) }
+        viewModel.cvImageProfile.value?.let { viewModel.hideMaterialCard(it) }
         viewModel.imageTitle.value?.let { viewModel.showImages(it) }
         viewModel.imageHome.value?.let { viewModel.showImages(it) }
         viewModel.imageSettings.value?.let { viewModel.showImages(it) }
@@ -50,6 +49,11 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
+
+        if (authViewModel.currentUser.value == null) {
+            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToLogInFragment())
+        }
+
         return binding.root
     }
 
@@ -72,7 +76,7 @@ class ProfileFragment : Fragment() {
                 binding.tvBirthday.text = ""
                 binding.tvHomeTown.text = ""
                 binding.tvEmail.text = authViewModel.currentUser.value!!.email!!
-                binding.ivProfilePhoto.setImageURI(Uri.EMPTY)
+                binding.ivProfilePhoto.setImageURI(Uri.parse(viewModel.cvImageProfile.value!!.toString()))
             }
         }
 

@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.FightViewModel
+import com.example.abschlussaufgabe.FirestoreViewModel
 import com.example.abschlussaufgabe.KniffelViewModel
 import com.example.abschlussaufgabe.MainViewModel
 import com.example.abschlussaufgabe.R
@@ -22,6 +23,7 @@ class SettingsFragment : Fragment() {
     private val viewModel: MainViewModel by activityViewModels()
     private val fightViewModel: FightViewModel by activityViewModels()
     private val kniffelViewModel: KniffelViewModel by activityViewModels()
+    private val storeViewModel: FirestoreViewModel by activityViewModels()
 
     private lateinit var binding: FragmentSettingsBinding
 
@@ -77,11 +79,11 @@ class SettingsFragment : Fragment() {
         }
 
         viewModel.tvUserName.value!!.setOnClickListener {
-            findNavController().navigate(SettingsFragmentDirections.actionSettingsFragmentToProfileFragment())
+            findNavController().navigate(SelectionGameFragmentDirections.actionSelectionGameFragmentToProfileFragment())
         }
 
-        viewModel.imageProfile.value!!.setOnClickListener {
-            findNavController().navigate(SettingsFragmentDirections.actionSettingsFragmentToProfileFragment())
+        viewModel.cvImageProfile.value!!.setOnClickListener {
+            findNavController().navigate(SelectionGameFragmentDirections.actionSelectionGameFragmentToProfileFragment())
         }
     }
 }

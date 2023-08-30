@@ -7,11 +7,10 @@ import androidx.databinding.DataBindingUtil
 import com.example.abschlussaufgabe.databinding.ActivityMainBinding
 import com.example.abschlussaufgabe.MainViewModel
 import androidx.activity.viewModels
-import androidx.fragment.app.activityViewModels
-import androidx.navigation.findNavController
 import com.example.abschlussaufgabe.AuthViewModel
 import com.example.abschlussaufgabe.FirestoreViewModel
 import com.example.abschlussaufgabe.R
+import com.example.abschlussaufgabe.data.datamodels.RandomProfileImage
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,6 +30,9 @@ class MainActivity : AppCompatActivity() {
         authViewModel.currentUser.observe(this) {
             if (it != null) {
                 storeViewModel.getUserData(it.uid)
+            } else {
+                binding.tvUserName.setText(R.string.guest)
+                binding.ivProfilePhoto.setImageURI(createProfileImage())
             }
         }
 
@@ -38,19 +40,23 @@ class MainActivity : AppCompatActivity() {
             if (it != null) {
                 binding.tvUserName.text = it.userName
                 binding.ivProfilePhoto.setImageURI(it.profileImage)
-            } else {
-                binding.tvUserName.text = R.string.guest.toString()
-                binding.ivProfilePhoto.setImageURI(Uri.EMPTY)
             }
         }
 
 
         viewModel._imageTitle.value = binding.ivTitle
-        viewModel._imageProfile.value = binding.mcProfile
+        viewModel._cVImageProfile.value = binding.mcProfile
         viewModel._tvUserName.value = binding.tvUserName
         viewModel._imageHome.value = binding.ivHome
         viewModel._imageSettings.value = binding.ivSettings
         viewModel._imageBackground.value = binding.ivBackground
         viewModel._materialCard.value = binding.materialCardView
+    }
+
+    private fun createProfileImage(): Uri {
+
+        val randomImage = RandomProfileImage().imageList.random()
+
+        return Uri.parse("android.resource://com.example.abschlussaufgabe/drawable/${randomImage}")
     }
 }

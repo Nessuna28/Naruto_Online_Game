@@ -116,9 +116,7 @@ class FightFragment : Fragment() {
         enemy = fightViewModel.enemy.value!!
 
 
-        storeViewModel.currentProfile.observe(viewLifecycleOwner) {
-            binding.tvNamePlayer?.text = it.userName
-        }
+        binding.tvNamePlayer?.text = viewModel.tvUserName.value!!.text
 
         viewModel.userNameEnemy.observe(viewLifecycleOwner) {
             binding.tvNameEnemy?.text = it

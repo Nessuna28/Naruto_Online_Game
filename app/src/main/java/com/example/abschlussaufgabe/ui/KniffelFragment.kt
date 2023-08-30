@@ -4,12 +4,9 @@ package com.example.abschlussaufgabe.ui
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
-import android.content.Context
-import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -152,7 +149,7 @@ class KniffelFragment : Fragment() {
         viewModel.materialCard.value?.let { viewModel.showMaterialCard(it) }
         viewModel.imageSettings.value?.let { viewModel.showImages(it) }
         viewModel.tvUserName.value?.let { viewModel.hideTextView(it) }
-        viewModel.imageProfile.value?.let { viewModel.showMaterialCard(it) }
+        viewModel.cvImageProfile.value?.let { viewModel.showMaterialCard(it) }
 
         setTextColorValuesAtTheBeginning()
 
@@ -489,7 +486,7 @@ class KniffelFragment : Fragment() {
             findNavController().navigateUp()
         }
 
-        viewModel.imageProfile.value!!.setOnClickListener {
+        viewModel.cvImageProfile.value!!.setOnClickListener {
             kniffelViewModel.stopSound()
             findNavController().navigate(KniffelFragmentDirections.actionKniffelFragmentToProfileFragment())
         }

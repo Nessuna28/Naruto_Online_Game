@@ -155,7 +155,7 @@ class CombatSettingsFragment : Fragment() {
             findNavController().navigate(CombatSettingsFragmentDirections.actionCombatSettingsFragmentToHomeFragment())
         }
 
-        viewModel.imageProfile.value!!.setOnClickListener {
+        viewModel.cvImageProfile.value!!.setOnClickListener {
             fightViewModel.stopSound()
             findNavController().navigate(CombatSettingsFragmentDirections.actionCombatSettingsFragmentToProfileFragment())
         }

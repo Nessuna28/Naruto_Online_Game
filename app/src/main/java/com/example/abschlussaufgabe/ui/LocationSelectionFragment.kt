@@ -92,7 +92,7 @@ class LocationSelectionFragment : Fragment() {
             findNavController().navigate(LocationSelectionFragmentDirections.actionLocationSelectionFragmentToHomeFragment())
         }
 
-        viewModel.imageProfile.value!!.setOnClickListener {
+        viewModel.cvImageProfile.value!!.setOnClickListener {
             fightViewModel.stopSound()
             findNavController().navigate(LocationSelectionFragmentDirections.actionLocationSelectionFragmentToProfileFragment())
         }

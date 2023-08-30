@@ -58,7 +58,7 @@ class RegisterFragment : Fragment() {
 
         authViewModel.registerSuccess.observe(viewLifecycleOwner) {
             if (it) {
-                findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToLogInFragment())
+                findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToCreateProfileFragment())
                 }
         }
     }

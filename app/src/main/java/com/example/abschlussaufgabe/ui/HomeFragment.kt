@@ -2,7 +2,6 @@ package com.example.abschlussaufgabe.ui
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,14 +9,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.example.abschlussaufgabe.AuthViewModel
 import com.example.abschlussaufgabe.FightViewModel
-import com.example.abschlussaufgabe.FirestoreViewModel
 import com.example.abschlussaufgabe.KniffelViewModel
 import com.example.abschlussaufgabe.MainViewModel
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.databinding.FragmentHomeBinding
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 
 class HomeFragment : Fragment() {
@@ -26,7 +22,6 @@ class HomeFragment : Fragment() {
 
     private val viewModel: MainViewModel by activityViewModels()
     private val fightViewModel: FightViewModel by activityViewModels()
-    private val storeViewModel: FirestoreViewModel by activityViewModels()
     private val kniffelViewModel: KniffelViewModel by activityViewModels()
 
 
@@ -42,7 +37,7 @@ class HomeFragment : Fragment() {
         viewModel.imageBackground.value?.let { viewModel.showImages(it) }
         viewModel.tvUserName.value?.let { viewModel.showTextView(it) }
         viewModel.imageSettings.value?.let { viewModel.showImages(it) }
-        viewModel.imageProfile.value?.let { viewModel.showMaterialCard(it) }
+        viewModel.cvImageProfile.value?.let { viewModel.showMaterialCard(it) }
 
         fightViewModel.stopSound()
         kniffelViewModel.stopSound()
@@ -60,8 +55,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Navigation
-
         binding.tvCharacterTitle.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToAboutTheCharactersFragment())
         }
@@ -74,25 +67,16 @@ class HomeFragment : Fragment() {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSelectionGameFragment())
         }
 
-        viewModel.imageProfile.value!!.setOnClickListener {
-            checkProfile()
+        viewModel.cvImageProfile.value!!.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProfileFragment())
         }
 
         viewModel.tvUserName.value!!.setOnClickListener {
-            checkProfile()
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProfileFragment())
         }
 
         viewModel.imageSettings.value!!.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSettingsFragment())
-        }
-    }
-
-    private fun checkProfile() {
-
-        if (storeViewModel.currentProfile.value != null) {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProfileFragment())
-        } else {
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCreateProfileFragment())
         }
     }
 }

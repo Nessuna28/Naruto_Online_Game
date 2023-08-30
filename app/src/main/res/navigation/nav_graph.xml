@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/logInFragment">
+    app:startDestination="@id/splashScreenFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -26,11 +26,11 @@
             android:id="@+id/action_homeFragment_to_logInFragment"
             app:destination="@id/logInFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_createProfileFragment"
-            app:destination="@id/createProfileFragment" />
-        <action
             android:id="@+id/action_homeFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
     </fragment>
     <fragment
         android:id="@+id/characterSelectionFragment"
@@ -275,6 +275,9 @@
         <action
             android:id="@+id/action_registerFragment_to_logInFragment"
             app:destination="@id/logInFragment" />
+        <action
+            android:id="@+id/action_registerFragment_to_createProfileFragment"
+            app:destination="@id/createProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/passwordResetFragment"
@@ -302,6 +305,9 @@
         <action
             android:id="@+id/action_createProfileFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_createProfileFragment_to_logInFragment"
+            app:destination="@id/logInFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"

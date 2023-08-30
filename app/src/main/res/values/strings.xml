@@ -120,4 +120,5 @@
     <string name="volume">Lautstärke</string>
     <string name="fontSize">Schriftgröße</string>
     <string name="timer">Timer</string>
+    <string name="continueAsGuest">als Gast weiter machen</string>
 </resources>

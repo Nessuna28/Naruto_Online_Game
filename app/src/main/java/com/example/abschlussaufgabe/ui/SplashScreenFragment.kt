@@ -11,7 +11,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.BounceInterpolator
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.abschlussaufgabe.AuthViewModel
+import com.example.abschlussaufgabe.MainViewModel
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.databinding.FragmentSplashScreenBinding
 
@@ -20,10 +23,16 @@ class SplashScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentSplashScreenBinding
 
+    private val viewModel: MainViewModel by activityViewModels()
+    private val authViewModel: AuthViewModel by activityViewModels()
+
     private val handler = Handler()
 
     override fun onStart() {
         super.onStart()
+
+        viewModel.materialCard.value?.let { viewModel.hideMaterialCard(it) }
+        viewModel.imageBackground.value?.let { viewModel.hideImages(it) }
 
         binding.ivTitle.visibility = View.VISIBLE
         binding.tvSubtitle.visibility = View.VISIBLE
@@ -54,9 +63,15 @@ class SplashScreenFragment : Fragment() {
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_splash_screen, container, false)
 
-        Handler(Looper.myLooper()!!).postDelayed({
-            findNavController().navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToHomeFragment())
-        }, 10000)
+        authViewModel.currentUser.observe(viewLifecycleOwner) {
+            if (it != null) {
+                findNavController().navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToHomeFragment())
+            } else {
+                Handler(Looper.myLooper()!!).postDelayed({
+                    findNavController().navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToHomeFragment())
+                }, 10000)
+            }
+        }
 
         return binding.root
     }
