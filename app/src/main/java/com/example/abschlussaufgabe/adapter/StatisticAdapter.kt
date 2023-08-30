@@ -4,13 +4,15 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.abschlussaufgabe.FirestoreViewModel
 import com.example.abschlussaufgabe.MainViewModel
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.fightDataForDatabase.DataPlayer
 import com.example.abschlussaufgabe.databinding.StatisticItemBinding
 
 
 class StatisticAdapter(
-    private val viewModel: MainViewModel
+    private val viewModel: MainViewModel,
+    private val storeViewModel: FirestoreViewModel
 ): RecyclerView.Adapter<StatisticAdapter.ItemViewHolder>() {
 
     private var dataset: List<DataPlayer> = listOf()

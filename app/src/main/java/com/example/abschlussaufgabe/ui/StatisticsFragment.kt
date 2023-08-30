@@ -2,6 +2,7 @@ package com.example.abschlussaufgabe.ui
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -50,18 +51,31 @@ class StatisticsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = StatisticAdapter(viewModel)
+        val adapter = StatisticAdapter(viewModel, storeViewModel)
         binding.rvStatistic.adapter = adapter
 
-        DataTouchHelper { position ->
+        DataTouchHelper {position ->
             adapter.removeData(position)
         }.attachToRecyclerView(binding.rvStatistic)
 
-
-        viewModel.dataList.observe(viewLifecycleOwner) {
-            adapter.replaceDataSet(it)
-            binding.tvVictorys.text = it.count { it.result == "Sieg" }.toString()
-            binding.tvDefeats.text = it.count { it.result == "Niederlage" }.toString()
+        authViewModel.currentUser.observe(viewLifecycleOwner) { user ->
+            if (user != null) {
+                storeViewModel.getPlayerData(user.uid)
+                storeViewModel.playerDataList.observe(viewLifecycleOwner) { dataList ->
+                    if (dataList != null) {
+                        adapter.replaceDataSet(dataList)
+                        Log.e("Statistik", "${dataList}")
+                        binding.tvVictorys.text = dataList.count { it.result == "Sieg" }.toString()
+                        binding.tvDefeats.text = dataList.count { it.result == "Niederlage" }.toString()
+                    }
+                }
+            } else {
+                viewModel.dataList.observe(viewLifecycleOwner) {
+                    adapter.replaceDataSet(it)
+                    binding.tvVictorys.text = it.count { it.result == "Sieg" }.toString()
+                    binding.tvDefeats.text = it.count { it.result == "Niederlage" }.toString()
+                }
+            }
         }
 
 

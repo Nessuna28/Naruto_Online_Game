@@ -22,6 +22,7 @@ class ResultFragment : Fragment() {
 
     private val viewModel: MainViewModel by activityViewModels()
     private val fightViewModel: FightViewModel by activityViewModels()
+    private val storeViewModel: FirestoreViewModel by activityViewModels()
     private val authViewModel: AuthViewModel by activityViewModels()
 
     private lateinit var binding: FragmentResultBinding
@@ -150,5 +151,9 @@ class ResultFragment : Fragment() {
         )
 
         viewModel.insertDataGame(data)
+
+        if (userId != R.string.guest.toString()) {
+            storeViewModel.addNewPlayerData(data, userId)
+        }
     }
 }

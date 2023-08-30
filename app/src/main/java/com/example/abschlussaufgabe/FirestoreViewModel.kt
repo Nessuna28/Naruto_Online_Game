@@ -106,7 +106,7 @@ class FirestoreViewModel: ViewModel() {
             .addOnSuccessListener { documents ->
                 for (document in documents) {
                     val id = document.getLong("id").toString().toInt()
-                    val userId = document.getString("userId").toString()
+                    val userId = document.getString("userID").toString()
                     val date = document.getString("data").toString()
                     val userName = document.getString("userName").toString()
                     val characterName = document.getString("characterName").toString()
@@ -137,6 +137,7 @@ class FirestoreViewModel: ViewModel() {
                 val filteredPlayerDataList = list.filter { playerData ->
                     playerData.userId == currentUserId
                 }
+                Log.e("Store", "$list")
                 _playerDataList.value = filteredPlayerDataList
             }
             .addOnFailureListener { exception ->
@@ -160,6 +161,7 @@ class FirestoreViewModel: ViewModel() {
 
     fun deletePlayerData(userId: String) {
 
+        // TODO: Funktion richtig erstellen
         db.collection("playerData").document(userId)
             .delete()
             .addOnSuccessListener {
