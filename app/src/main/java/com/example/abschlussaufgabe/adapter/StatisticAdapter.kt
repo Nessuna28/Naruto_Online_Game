@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.abschlussaufgabe.AuthViewModel
 import com.example.abschlussaufgabe.FirestoreViewModel
 import com.example.abschlussaufgabe.MainViewModel
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.fightDataForDatabase.DataPlayer
@@ -12,7 +13,8 @@ import com.example.abschlussaufgabe.databinding.StatisticItemBinding
 
 class StatisticAdapter(
     private val viewModel: MainViewModel,
-    private val storeViewModel: FirestoreViewModel
+    private val storeViewModel: FirestoreViewModel,
+    private val authViewModel: AuthViewModel
 ): RecyclerView.Adapter<StatisticAdapter.ItemViewHolder>() {
 
     private var dataset: List<DataPlayer> = listOf()
@@ -27,9 +29,11 @@ class StatisticAdapter(
     }
 
     fun removeData(position: Int) {
-        viewModel.deleteDataGame(dataset[position])
-        if (storeViewModel.currentProfile.value != null) {
+
+        if (authViewModel.currentUser.value != null) {
             storeViewModel.deletePlayerData(dataset[position])
+        } else {
+            viewModel.deleteDataGame(dataset[position])
         }
         notifyItemRemoved(position)
     }

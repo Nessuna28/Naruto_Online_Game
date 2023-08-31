@@ -9,7 +9,6 @@ import com.example.abschlussaufgabe.data.datamodels.Profile
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.fightDataForDatabase.DataPlayer
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.model.Document
 import com.google.firebase.ktx.Firebase
 
 class FirestoreViewModel: ViewModel() {
@@ -47,11 +46,12 @@ class FirestoreViewModel: ViewModel() {
             .addOnFailureListener { e -> Log.w("Firestore", "Error writing document", e) }
     }
 
-    fun addNewPlayerData(data: DataPlayer, userId: String) {
+    fun addNewPlayerData(data: DataPlayer) {
+
+        val firestoreId = db.collection("playerData").document().id // Generiere die Firestore-ID
 
         val playerData = mapOf(
-            "id" to data.id,
-            "userID" to userId,
+            "userID" to data.userId,
             "data" to data.date,
             "userName" to data.userName,
             "characterName" to data.characterName,
@@ -63,7 +63,7 @@ class FirestoreViewModel: ViewModel() {
             "resultEnemy" to data.resultEnemy
         )
 
-        db.collection("playerData").document(data.id.toString()).set(playerData)
+        db.collection("playerData").document(firestoreId).set(playerData)
             .addOnSuccessListener { Log.d("Firestore", "DocumentSnapshot successfully written!") }
             .addOnFailureListener { e -> Log.w("Firestore", "Error writing document", e) }
     }
@@ -126,10 +126,10 @@ class FirestoreViewModel: ViewModel() {
 
     fun deletePlayerData(playerData: DataPlayer) {
 
-        db.collection("playerData").document(playerData.id.toString())
+        db.collection("playerData").document(playerData.firestoreId)
             .delete()
             .addOnSuccessListener {
-                filteredPlayerDataList.removeAt(playerData.id)
+                filteredPlayerDataList.remove(playerData)
                 _playerDataList.value = filteredPlayerDataList
                 Log.d("Firestore", "DocumentSnapshot successfully deleted!")
             }
@@ -142,15 +142,17 @@ class FirestoreViewModel: ViewModel() {
         docRef.get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
-                    document.reference.delete()
-                        .addOnSuccessListener {
-                            filteredPlayerDataList.clear()
-                            _playerDataList.value = filteredPlayerDataList
-                            Log.d("Firestore", "Document successfully deleted!")
-                        }
-                        .addOnFailureListener { exception ->
-                            Log.w("Firestore", "Error deleting document: ", exception)
-                        }
+                     if (document.getString("userID") == currentProfile.value!!.userID) {
+                         document.reference.delete()
+                             .addOnSuccessListener {
+                                 filteredPlayerDataList.clear()
+                                 _playerDataList.value = filteredPlayerDataList
+                                 Log.d("Firestore", "Document successfully deleted!")
+                             }
+                             .addOnFailureListener { exception ->
+                                 Log.w("Firestore", "Error deleting document: ", exception)
+                             }
+                     }
                 }
             }
             .addOnFailureListener { exception ->
@@ -158,12 +160,13 @@ class FirestoreViewModel: ViewModel() {
             }
     }
 
+
     private fun setDataList(documents: QuerySnapshot, currentUserId: String) {
 
         val list = mutableListOf<DataPlayer>()
 
         for (document in documents) {
-            val id = document.getLong("id").toString().toInt()
+            val firestoreId = document.getString("firestoreId").toString()
             val userId = document.getString("userID").toString()
             val date = document.getString("data").toString()
             val userName = document.getString("userName").toString()
@@ -176,7 +179,7 @@ class FirestoreViewModel: ViewModel() {
             val resultEnemy = document.getString("resultEnemy").toString()
 
             val playerData = DataPlayer(
-                id = id,
+                firestoreId = firestoreId,
                 userId = userId,
                 date = date,
                 userName = userName,
@@ -195,7 +198,6 @@ class FirestoreViewModel: ViewModel() {
         filteredPlayerDataList = list.filter { playerData ->
             playerData.userId == currentUserId
         }.toMutableList()
-        Log.e("Store", "$list")
         _playerDataList.value = filteredPlayerDataList
     }
 }

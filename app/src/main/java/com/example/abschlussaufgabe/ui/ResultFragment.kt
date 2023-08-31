@@ -139,9 +139,8 @@ class ResultFragment : Fragment() {
 
         val today = viewModel.getTodayDate()
 
-
         val data = DataPlayer(
-
+            firestoreId = "",
             userId = userId,
             date = today,
             userName = viewModel.tvUserName.value!!.text.toString(),
@@ -151,13 +150,13 @@ class ResultFragment : Fragment() {
             userNameEnemy = viewModel.userNameEnemy.value!!,
             characterNameEnemy = charakterEnemy.name,
             characterImageEnemy = charakterEnemy.image,
-            resultEnemy = fightViewModel.resultEnemy.value!!,
+            resultEnemy = fightViewModel.resultEnemy.value!!
         )
 
-        viewModel.insertDataGame(data)
-
         if (userId != R.string.guest.toString()) {
-            storeViewModel.addNewPlayerData(data, userId)
+            storeViewModel.addNewPlayerData(data)
+        } else {
+            viewModel.insertDataGame(data)
         }
     }
 }

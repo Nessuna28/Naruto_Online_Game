@@ -103,7 +103,7 @@
     <string name="editProfile">Profil bearbeiten</string>
     <string name="save">Speichern</string>
     <string name="logout">Ausloggen</string>
-    <string name="deleteProfile">Profil löschen</string>
+    <string name="deleteAccount">Account löschen</string>
     <string name="guest">Gast</string>
     <string name="createProfile">Pofil erstellen</string>
     <string name="textMandatoryField">Pflichtfelder sind mit einem * makiert</string>

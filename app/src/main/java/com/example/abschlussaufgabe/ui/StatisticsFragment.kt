@@ -51,7 +51,7 @@ class StatisticsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = StatisticAdapter(viewModel, storeViewModel)
+        val adapter = StatisticAdapter(viewModel, storeViewModel, authViewModel)
         binding.rvStatistic.adapter = adapter
 
         DataTouchHelper {position ->
@@ -79,9 +79,11 @@ class StatisticsFragment : Fragment() {
 
 
         binding.ivDelete?.setOnClickListener {
-            viewModel.deleteAllDataGame()
+
             if (authViewModel.currentUser.value != null) {
                 storeViewModel.deleteAllPlayerData()
+            } else {
+                viewModel.deleteAllDataGame()
             }
         }
 

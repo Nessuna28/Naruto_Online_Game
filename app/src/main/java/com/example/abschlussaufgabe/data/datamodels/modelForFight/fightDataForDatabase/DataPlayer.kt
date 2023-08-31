@@ -2,13 +2,14 @@ package com.example.abschlussaufgabe.data.datamodels.modelForFight.fightDataForD
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.firebase.auth.FirebaseAuth
 
 @Entity(tableName = "player_table")
 data class DataPlayer(
 
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    val localId: Int = 0, //  Room-interne ID
+
+    val firestoreId: String, // Firestore-ID (als String)
 
     val userId: String,
     val date: String,

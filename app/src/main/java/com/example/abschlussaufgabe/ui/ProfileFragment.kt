@@ -118,8 +118,11 @@ class ProfileFragment : Fragment() {
             storeViewModel.deleteUserData(authViewModel.currentUser.value!!.uid)
         }
 
-        binding.tvDeleteProfile.setOnClickListener {
+        binding.tvDeleteAccount.setOnClickListener {
             storeViewModel.deleteUserData(authViewModel.currentUser.value!!.uid)
+            authViewModel.logout()
+            //authViewModel. TODO: löschen der Anmeldedaten
+            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToHomeFragment())
         }
     }
 
