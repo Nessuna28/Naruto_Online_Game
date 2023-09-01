@@ -1,6 +1,7 @@
 package com.example.abschlussaufgabe.ui
 
 
+import android.animation.ObjectAnimator
 import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Bundle
@@ -9,6 +10,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.BounceInterpolator
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -61,8 +64,8 @@ class FightFragment : Fragment() {
         viewModel.imageBackground.value?.let { viewModel.hideImages(it) }
         viewModel.materialCard.value?.let { viewModel.hideMaterialCard(it) }
 
-        binding.ivImage2Player?.visibility = View.INVISIBLE
-        binding.ivImage2Enemy?.visibility = View.INVISIBLE
+        binding.ivImageToolPlayer?.visibility = View.INVISIBLE
+        binding.ivImageToolEnemy?.visibility = View.INVISIBLE
 
         invisibleAttacks()
 
@@ -128,7 +131,7 @@ class FightFragment : Fragment() {
 
         fightViewModel.player.observe(viewLifecycleOwner) {
             binding.ivCharacterImagePlayer?.setImageResource(it.imageFace)
-            binding.ivImage1Player?.setImageResource(it.image)
+            binding.ivImagePlayer?.setImageResource(it.image)
             binding.ivImageDouble1Player?.setImageResource(it.image)
             binding.ivImageDouble2Player?.setImageResource(it.image)
             binding.tvCharacterNamePlayer?.text = it.name
@@ -145,7 +148,7 @@ class FightFragment : Fragment() {
 
         fightViewModel.enemy.observe(viewLifecycleOwner) {
             binding.ivCharacterImageEnemy?.setImageResource(it.imageFace)
-            binding.ivImage1Enemy?.setImageResource(it.image)
+            binding.ivImageEnemy?.setImageResource(it.image)
             binding.ivImageDouble1Enemy?.setImageResource(it.image)
             binding.ivImageDouble2Enemy?.setImageResource(it.image)
             binding.tvCharacterNameEnemy?.text = it.name
@@ -174,7 +177,7 @@ class FightFragment : Fragment() {
         // wenn einer keine Lebenspunkte mehr hat oder die Zeit abgelaufen ist werden die Views der Attacken ausgeblendt
         // und die Runde beendet
         fightViewModel.attackPlayer.observe(viewLifecycleOwner) {
-            binding.ivImage2Player?.setImageResource(it.image)
+            binding.ivImageToolPlayer?.setImageResource(it.image)
             actionOfSelectionPlayer(it)
             fightViewModel.playRoundPlayer()
             if (player.lifePoints <= 0 || enemy.lifePoints <= 0 || fightViewModel.remainingTime.value == 0) {
@@ -188,7 +191,7 @@ class FightFragment : Fragment() {
         // wenn die Bedingungen nicht mehr erfüllt sind wird die Runde beendet
         fightViewModel.attackEnemy.observe(viewLifecycleOwner) {
             if (fightViewModel.roundBegan.value == true) {
-                binding.ivImage2Enemy?.setImageResource(it.image)
+                binding.ivImageToolEnemy?.setImageResource(it.image)
                 if (player.lifePoints > 0 && enemy.lifePoints > 0 || fightViewModel.remainingTime.value!! > 0) {
                     fightViewModel.playRoundEnemy()
                     actionOfSelectionEnemy(it)
@@ -258,10 +261,10 @@ class FightFragment : Fragment() {
 
 
         when (it) {
-            in person.defense -> changeViewsForDefense(check, it, 2000)
-            in person.tools -> changeViewsForTools(check, it, 2000)
-            in person.uniqueTraits -> changeViewsForAttack(check, it, 2000)
-            in person.jutsus -> changeViewsForAttack(check, it, 2000)
+            in person.defense -> changeViewsForDefense(check, it)
+            in person.tools -> changeViewsForTools(check, it)
+            in person.uniqueTraits -> changeViewsForAttack(check, it)
+            in person.jutsus -> changeViewsForAttack(check, it)
         }
     }
 
@@ -272,10 +275,10 @@ class FightFragment : Fragment() {
 
 
         when (it) {
-            in person.defense -> changeViewsForDefense(check, it, 2000)
-            in person.tools -> changeViewsForTools(check, it, 2000)
-            in person.uniqueTraits -> changeViewsForAttack(check, it, 2000)
-            in person.jutsus -> changeViewsForAttack(check, it, 2000)
+            in person.defense -> changeViewsForDefense(check, it)
+            in person.tools -> changeViewsForTools(check, it)
+            in person.uniqueTraits -> changeViewsForAttack(check, it)
+            in person.jutsus -> changeViewsForAttack(check, it)
         }
     }
 
@@ -283,147 +286,61 @@ class FightFragment : Fragment() {
     // wechselt ein Bild für eine bestimmte Zeit oder
     // ändert die Visibility der Views
 
-    private fun changeViewsForAttack(check: Boolean, attack: Attack, duration: Long) {
+    private fun changeViewsForAttack(check: Boolean, attack: Attack) {
 
         if (check) {
             if (attack.name == "Heilung") {
                 binding.ivImageHealPlayer?.visibility = View.VISIBLE
 
                 handler.postDelayed(
-                    { binding.ivImageHealPlayer?.visibility = View.INVISIBLE },
-                    duration
-                )
+                    { binding.ivImageHealPlayer?.visibility = View.INVISIBLE }, 1000)
             } else {
-                binding.ivImage1Player?.visibility = View.INVISIBLE
-                binding.ivImage2Player?.visibility = View.VISIBLE
+                binding.ivImagePlayer?.setImageResource(attack.image)
+
+                imageAnimationTranslate(player, binding.ivImagePlayer)
 
                 handler.postDelayed(
-                    { binding.ivImage1Player?.visibility = View.VISIBLE },
-                    duration
-                )
-                handler.postDelayed(
-                    { binding.ivImage2Player?.visibility = View.INVISIBLE },
-                    duration
-                )
+                    { binding.ivImagePlayer?.setImageResource(player.image) }, 1000)
             }
         } else {
             if (attack.name == "Heilung") {
                 binding.ivImageHealEnemy?.visibility = View.VISIBLE
 
                 handler.postDelayed(
-                    { binding.ivImageHealEnemy?.visibility = View.INVISIBLE },
-                    duration
-                )
+                    { binding.ivImageHealEnemy?.visibility = View.INVISIBLE }, 1000)
             } else {
-                binding.ivImage1Enemy?.visibility = View.INVISIBLE
-                binding.ivImage2Enemy?.visibility = View.VISIBLE
+                binding.ivImageEnemy?.setImageResource(attack.image)
+
+                imageAnimationTranslate(enemy, binding.ivImageEnemy)
 
                 handler.postDelayed(
-                    { binding.ivImage1Enemy?.visibility = View.VISIBLE },
-                    duration
-                )
-                handler.postDelayed(
-                    { binding.ivImage2Enemy?.visibility = View.INVISIBLE },
-                    duration
-                )
+                    { binding.ivImageEnemy?.setImageResource(enemy.image) }, 1000)
             }
         }
     }
 
-    private fun changeViewsForTools(check: Boolean, attack: Attack, duration: Long) {
+    private fun changeViewsForTools(check: Boolean, attack: Attack) {
 
         if (check) {
-            if (attack.name == "Kunai") {
-                binding.ivImage2Player?.setImageResource(attack.image)
-                binding.ivImage2Player?.visibility = View.VISIBLE
+                binding.ivImageToolPlayer?.setImageResource(attack.image)
+                binding.ivImageToolPlayer?.visibility = View.VISIBLE
+
+            imageAnimationTranslate(player, binding.ivImageToolPlayer)
 
                 handler.postDelayed(
-                    { binding.ivImage2Player?.visibility = View.INVISIBLE }, duration
-                )
-
-            } else if (attack.name == "Shuriken") {
-                binding.ivImage2Player?.setImageResource(attack.image)
-                binding.ivImage2Player?.visibility = View.VISIBLE
-                binding.ivImage2Player?.rotationX = 50F
-
-                handler.postDelayed(
-                    { binding.ivImage2Player?.visibility = View.INVISIBLE }, duration
-                )
-                handler.postDelayed(
-                    { binding.ivImage2Player?.rotationX = 0F }, duration
-                )
-            } else if (attack.name == "Eisensand") {
-                binding.ivImage2Player?.setImageResource(attack.image)
-                binding.ivImage2Player?.visibility = View.VISIBLE
-                binding.ivImage1Player?.visibility = View.INVISIBLE
-
-                handler.postDelayed(
-                    { binding.ivImage2Player?.visibility = View.INVISIBLE }, duration
-                )
-                handler.postDelayed(
-                    { binding.ivImage1Player?.visibility = View.VISIBLE }, duration
-                )
-            } else {
-                binding.ivImage1Player?.visibility = View.INVISIBLE
-                binding.ivImage2Player?.visibility = View.VISIBLE
-
-                handler.postDelayed(
-                    { binding.ivImage1Player?.visibility = View.VISIBLE },
-                    duration
-                )
-                handler.postDelayed(
-                    { binding.ivImage2Player?.visibility = View.INVISIBLE },
-                    duration
-                )
-            }
+                    { binding.ivImageToolPlayer?.visibility = View.INVISIBLE }, 1000)
         } else {
-            if (attack.name == "Kunai") {
-                binding.ivImage2Enemy?.setImageResource(R.drawable.kunai_enemy)
-                binding.ivImage2Enemy?.visibility = View.VISIBLE
+                binding.ivImageToolEnemy?.setImageResource(attack.image)
+                binding.ivImageToolEnemy?.visibility = View.VISIBLE
+
+            imageAnimationTranslate(enemy, binding.ivImageToolEnemy)
 
                 handler.postDelayed(
-                    { binding.ivImage2Enemy?.visibility = View.INVISIBLE }, duration
-                )
-
-            } else if (attack.name == "Shuriken") {
-                binding.ivImage2Enemy?.setImageResource(attack.image)
-                binding.ivImage2Enemy?.visibility = View.VISIBLE
-                binding.ivImage2Enemy?.rotationX = 50F
-
-                handler.postDelayed(
-                    { binding.ivImage2Enemy?.visibility = View.INVISIBLE }, duration
-                )
-                handler.postDelayed(
-                    { binding.ivImage2Enemy?.rotationX = 0F }, duration
-                )
-            } else if (attack.name == "Eisensand") {
-                binding.ivImage2Enemy?.setImageResource(attack.image)
-                binding.ivImage2Enemy?.visibility = View.VISIBLE
-                binding.ivImage1Enemy?.visibility = View.INVISIBLE
-
-                handler.postDelayed(
-                    { binding.ivImage2Enemy?.visibility = View.INVISIBLE }, duration
-                )
-                handler.postDelayed(
-                    { binding.ivImage1Enemy?.visibility = View.VISIBLE }, duration
-                )
-            } else {
-                binding.ivImage1Enemy?.visibility = View.INVISIBLE
-                binding.ivImage2Enemy?.visibility = View.VISIBLE
-
-                handler.postDelayed(
-                    { binding.ivImage1Enemy?.visibility = View.VISIBLE },
-                    duration
-                )
-                handler.postDelayed(
-                    { binding.ivImage2Enemy?.visibility = View.INVISIBLE },
-                    duration
-                )
-            }
+                    { binding.ivImageToolEnemy?.visibility = View.INVISIBLE }, 1000)
         }
     }
 
-    private fun changeViewsForDefense(check: Boolean, attack: Attack, duration: Long) {
+    private fun changeViewsForDefense(check: Boolean, attack: Attack) {
 
         if (check) {
             if (attack.name == "Schattendoppelgänger" || attack.name == "Sanddoppelgänger") {
@@ -431,17 +348,15 @@ class FightFragment : Fragment() {
                 binding.ivImageDouble2Player?.visibility = View.VISIBLE
 
                 handler.postDelayed(
-                    { binding.ivImageDouble1Player?.visibility = View.INVISIBLE }, duration
-                )
-                handler.postDelayed(
-                    { binding.ivImageDouble2Player?.visibility = View.INVISIBLE }, duration
-                )
-            } else {
-                binding.ivImage1Player?.setImageResource(attack.image)
+                    { binding.ivImageDouble1Player?.visibility = View.INVISIBLE }, 1000)
 
                 handler.postDelayed(
-                    { binding.ivImage1Player?.setImageResource(player.image)}, duration
-                )
+                    { binding.ivImageDouble2Player?.visibility = View.INVISIBLE }, 1000)
+            } else {
+                binding.ivImagePlayer?.setImageResource(attack.image)
+
+                handler.postDelayed(
+                    { binding.ivImagePlayer?.setImageResource(player.image)}, 1000)
             }
         } else {
             if (attack.name == "Schattendoppelgänger" || attack.name == "Sanddoppelgänger") {
@@ -449,17 +364,15 @@ class FightFragment : Fragment() {
                 binding.ivImageDouble2Enemy?.visibility = View.VISIBLE
 
                 handler.postDelayed(
-                    { binding.ivImageDouble1Enemy?.visibility = View.INVISIBLE }, duration
-                )
-                handler.postDelayed(
-                    { binding.ivImageDouble2Enemy?.visibility = View.INVISIBLE }, duration
-                )
-            } else {
-                binding.ivImage1Enemy?.setImageResource(attack.image)
+                    { binding.ivImageDouble1Enemy?.visibility = View.INVISIBLE }, 1000)
 
                 handler.postDelayed(
-                    { binding.ivImage1Enemy?.setImageResource(enemy.image)}, duration
-                )
+                    { binding.ivImageDouble2Enemy?.visibility = View.INVISIBLE }, 1000)
+            } else {
+                binding.ivImageEnemy?.setImageResource(attack.image)
+
+                handler.postDelayed(
+                    { binding.ivImageEnemy?.setImageResource(enemy.image)}, 1000)
             }
         }
     }
@@ -648,6 +561,23 @@ class FightFragment : Fragment() {
 
         binding.mcRound1Enemy?.background?.setTint(white)
         binding.mcRound2Enemy?.background?.setTint(white)
+    }
+
+    private fun imageAnimationTranslate(attacker: CharacterForFight, image: ImageView?) {
+
+        if (attacker == player) {
+            val animator = ObjectAnimator.ofFloat(image, View.TRANSLATION_X, 750f)
+            animator.duration = 500
+            animator.repeatCount = 1
+            animator.repeatMode = ObjectAnimator.REVERSE
+            animator.start()
+        } else if (attacker == enemy) {
+            val animator = ObjectAnimator.ofFloat(image, View.TRANSLATION_X, -750f)
+            animator.duration = 500
+            animator.repeatCount = 1
+            animator.repeatMode = ObjectAnimator.REVERSE
+            animator.start()
+        }
     }
 }
 

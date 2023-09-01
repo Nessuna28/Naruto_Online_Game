@@ -76,7 +76,7 @@ class HomeFragment : Fragment() {
         }
 
         viewModel.imageSettings.value!!.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProfileFragment())
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSettingsFragment())
         }
     }
 }

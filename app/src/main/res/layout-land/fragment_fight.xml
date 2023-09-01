@@ -117,12 +117,12 @@
             android:layout_height="150dp"
             android:layout_marginEnd="48dp"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_image1Player"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_imagePlayer"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:srcCompat="@drawable/heal" />
 
         <ImageView
-            android:id="@+id/iv_image1Player"
+            android:id="@+id/iv_imagePlayer"
             android:layout_width="100dp"
             android:layout_height="150dp"
             android:layout_marginEnd="100dp"
@@ -138,7 +138,7 @@
             android:layout_marginEnd="160dp"
             android:layout_marginBottom="28dp"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_image1Player"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_imagePlayer"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:srcCompat="@drawable/naruto" />
 
@@ -154,13 +154,13 @@
             app:srcCompat="@drawable/naruto" />
 
         <ImageView
-            android:id="@+id/iv_image2Player"
+            android:id="@+id/iv_imageToolPlayer"
             android:layout_width="100dp"
             android:layout_height="150dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_image1Player"
+            android:layout_marginEnd="100dp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_imagePlayer"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toTopOf="@+id/iv_image1Player"
+            app:layout_constraintTop_toTopOf="@+id/iv_imagePlayer"
             app:srcCompat="@drawable/naruto_attack" />
 
         <TextView
@@ -201,13 +201,13 @@
         </com.google.android.material.card.MaterialCardView>
 
         <ImageView
-            android:id="@+id/iv_image2Enemy"
+            android:id="@+id/iv_imageToolEnemy"
             android:layout_width="100dp"
             android:layout_height="150dp"
-            android:layout_marginStart="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_image1Enemy"
+            android:layout_marginStart="100dp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_imageEnemy"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toTopOf="@+id/iv_image1Enemy"
+            app:layout_constraintTop_toTopOf="@+id/iv_imageEnemy"
             app:srcCompat="@drawable/naruto_attack" />
 
         <ImageView
@@ -222,7 +222,7 @@
             app:srcCompat="@drawable/heal" />
 
         <ImageView
-            android:id="@+id/iv_image1Enemy"
+            android:id="@+id/iv_imageEnemy"
             android:layout_width="100dp"
             android:layout_height="150dp"
             android:layout_marginStart="100dp"

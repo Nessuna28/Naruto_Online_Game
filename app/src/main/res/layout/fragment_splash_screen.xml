@@ -227,5 +227,14 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/title" />
 
+        <FrameLayout
+            android:layout_width="412dp"
+            android:layout_height="316dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+        </FrameLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

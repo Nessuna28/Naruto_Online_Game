@@ -5,12 +5,12 @@ import android.animation.PropertyValuesHolder
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.BounceInterpolator
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussaufgabe.AuthViewModel
@@ -34,10 +34,6 @@ class SplashScreenFragment : Fragment() {
         viewModel.materialCard.value?.let { viewModel.hideMaterialCard(it) }
         viewModel.imageBackground.value?.let { viewModel.hideImages(it) }
 
-        binding.ivTitle.visibility = View.VISIBLE
-        binding.tvSubtitle.visibility = View.VISIBLE
-        binding.ivImageBeginn.visibility = View.VISIBLE
-        binding.ivKonoha.visibility = View.INVISIBLE
         binding.ivNarutoOriginal.visibility = View.INVISIBLE
         binding.ivNaruto1.visibility = View.INVISIBLE
         binding.ivNaruto2.visibility = View.INVISIBLE
@@ -61,17 +57,24 @@ class SplashScreenFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_splash_screen, container, false)
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_splash_screen, container, false)
+        /*
+                authViewModel.currentUser.observe(viewLifecycleOwner) {
+                    if (it != null) {
+                        findNavController().navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToHomeFragment())
+                    } else {
+                        Handler(Looper.myLooper()!!).postDelayed({
+                            findNavController().navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToHomeFragment())
+                        }, 10000)
+                    }
+                }
 
-        authViewModel.currentUser.observe(viewLifecycleOwner) {
-            if (it != null) {
-                findNavController().navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToHomeFragment())
-            } else {
-                Handler(Looper.myLooper()!!).postDelayed({
-                    findNavController().navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToHomeFragment())
-                }, 10000)
-            }
-        }
+         */
+
+        Handler(Looper.myLooper()!!).postDelayed({
+            findNavController().navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToHomeFragment())
+        }, 10000)
 
         return binding.root
     }
@@ -85,57 +88,63 @@ class SplashScreenFragment : Fragment() {
             binding.ivNarutoOriginal.visibility = View.VISIBLE
 
             handler.postDelayed({
-                binding.ivNaruto1.visibility = View.VISIBLE
-                binding.ivNaruto2.visibility = View.VISIBLE
+                binding.ivNarutoOriginal.setImageResource(R.drawable.naruto_attack)
 
                 handler.postDelayed({
-                    binding.ivNaruto3.visibility = View.VISIBLE
-                    binding.ivNaruto4.visibility = View.VISIBLE
-                    binding.ivNaruto5.visibility = View.VISIBLE
+                    binding.ivNaruto1.visibility = View.VISIBLE
+                    binding.ivNaruto2.visibility = View.VISIBLE
 
                     handler.postDelayed({
-                        binding.ivNaruto6.visibility = View.VISIBLE
-                        binding.ivNaruto7.visibility = View.VISIBLE
+                        binding.ivNaruto3.visibility = View.VISIBLE
+                        binding.ivNaruto4.visibility = View.VISIBLE
 
                         handler.postDelayed({
-                            binding.ivNaruto8.visibility = View.VISIBLE
-                            binding.ivNaruto9.visibility = View.VISIBLE
-                            binding.ivNaruto10.visibility = View.VISIBLE
+                            binding.ivNaruto5.visibility = View.VISIBLE
+                            binding.ivNaruto6.visibility = View.VISIBLE
+                            binding.ivNaruto7.visibility = View.VISIBLE
 
                             handler.postDelayed({
-                                binding.ivNaruto11.visibility = View.VISIBLE
-                                binding.ivNaruto12.visibility = View.VISIBLE
+                                binding.ivNaruto8.visibility = View.VISIBLE
+                                binding.ivNaruto9.visibility = View.VISIBLE
 
                                 handler.postDelayed({
-                                    binding.ivNaruto13.visibility = View.VISIBLE
-                                    binding.ivNaruto14.visibility = View.VISIBLE
-                                    binding.ivNaruto15.visibility = View.VISIBLE
+                                    binding.ivNaruto10.visibility = View.VISIBLE
+                                    binding.ivNaruto11.visibility = View.VISIBLE
+                                    binding.ivNaruto12.visibility = View.VISIBLE
 
                                     handler.postDelayed({
-                                        binding.ivNarutoOriginal.setImageResource(R.drawable.naruto)
+                                        binding.ivNaruto13.visibility = View.VISIBLE
+                                        binding.ivNaruto14.visibility = View.VISIBLE
+                                        binding.ivNaruto15.visibility = View.VISIBLE
 
                                         handler.postDelayed({
-                                            scale()
+                                            binding.ivNarutoOriginal.setImageResource(R.drawable.naruto)
 
                                             handler.postDelayed({
-                                                binding.ivNarutoOriginal.setImageResource(R.drawable.naruto_pose)
+                                                imageAnimationScale()
 
-                                            }, 600)
-                                        }, 600)
-                                    }, 1000)
+                                                handler.postDelayed({
+                                                    binding.ivNarutoOriginal.setImageResource(R.drawable.naruto_pose)
+
+                                                }, 600)
+                                            }, 2000)
+                                        }, 1000)
+                                    }, 600)
                                 }, 600)
                             }, 600)
                         }, 600)
                     }, 600)
                 }, 600)
-            }, 1300)
-        }, 2000)
+            }, 600)
+        }, 600)
     }
 
-    private fun scale() {
+
+    private fun imageAnimationScale() {
         val scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 3f)
         val scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 3f)
-        val animator = ObjectAnimator.ofPropertyValuesHolder(binding.ivNarutoOriginal, scaleX, scaleY)
+        val animator =
+            ObjectAnimator.ofPropertyValuesHolder(binding.ivNarutoOriginal, scaleX, scaleY)
         animator.duration = 1500
         animator.repeatCount = 1
         animator.repeatMode = ObjectAnimator.REVERSE
