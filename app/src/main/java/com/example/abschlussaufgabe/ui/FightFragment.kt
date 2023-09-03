@@ -177,7 +177,7 @@ class FightFragment : Fragment() {
         // wenn einer keine Lebenspunkte mehr hat oder die Zeit abgelaufen ist werden die Views der Attacken ausgeblendt
         // und die Runde beendet
         fightViewModel.attackPlayer.observe(viewLifecycleOwner) {
-            binding.ivImageToolPlayer?.setImageResource(it.image)
+            binding.ivImageToolPlayer?.setImageResource(it.imagePlayer)
             actionOfSelectionPlayer(it)
             fightViewModel.playRoundPlayer()
             if (player.lifePoints <= 0 || enemy.lifePoints <= 0 || fightViewModel.remainingTime.value == 0) {
@@ -191,7 +191,7 @@ class FightFragment : Fragment() {
         // wenn die Bedingungen nicht mehr erfüllt sind wird die Runde beendet
         fightViewModel.attackEnemy.observe(viewLifecycleOwner) {
             if (fightViewModel.roundBegan.value == true) {
-                binding.ivImageToolEnemy?.setImageResource(it.image)
+                binding.ivImageToolEnemy?.setImageResource(it.imageEnemy)
                 if (player.lifePoints > 0 && enemy.lifePoints > 0 || fightViewModel.remainingTime.value!! > 0) {
                     fightViewModel.playRoundEnemy()
                     actionOfSelectionEnemy(it)
@@ -295,7 +295,7 @@ class FightFragment : Fragment() {
                 handler.postDelayed(
                     { binding.ivImageHealPlayer?.visibility = View.INVISIBLE }, 1000)
             } else {
-                binding.ivImagePlayer?.setImageResource(attack.image)
+                binding.ivImagePlayer?.setImageResource(attack.imagePlayer)
 
                 imageAnimationTranslate(player, binding.ivImagePlayer)
 
@@ -309,7 +309,7 @@ class FightFragment : Fragment() {
                 handler.postDelayed(
                     { binding.ivImageHealEnemy?.visibility = View.INVISIBLE }, 1000)
             } else {
-                binding.ivImageEnemy?.setImageResource(attack.image)
+                binding.ivImageEnemy?.setImageResource(attack.imageEnemy)
 
                 imageAnimationTranslate(enemy, binding.ivImageEnemy)
 
@@ -322,7 +322,7 @@ class FightFragment : Fragment() {
     private fun changeViewsForTools(check: Boolean, attack: Attack) {
 
         if (check) {
-                binding.ivImageToolPlayer?.setImageResource(attack.image)
+                binding.ivImageToolPlayer?.setImageResource(attack.imagePlayer)
                 binding.ivImageToolPlayer?.visibility = View.VISIBLE
 
             imageAnimationTranslate(player, binding.ivImageToolPlayer)
@@ -330,7 +330,7 @@ class FightFragment : Fragment() {
                 handler.postDelayed(
                     { binding.ivImageToolPlayer?.visibility = View.INVISIBLE }, 1000)
         } else {
-                binding.ivImageToolEnemy?.setImageResource(attack.image)
+                binding.ivImageToolEnemy?.setImageResource(attack.imageEnemy)
                 binding.ivImageToolEnemy?.visibility = View.VISIBLE
 
             imageAnimationTranslate(enemy, binding.ivImageToolEnemy)
@@ -353,7 +353,7 @@ class FightFragment : Fragment() {
                 handler.postDelayed(
                     { binding.ivImageDouble2Player?.visibility = View.INVISIBLE }, 1000)
             } else {
-                binding.ivImagePlayer?.setImageResource(attack.image)
+                binding.ivImagePlayer?.setImageResource(attack.imagePlayer)
 
                 handler.postDelayed(
                     { binding.ivImagePlayer?.setImageResource(player.image)}, 1000)
@@ -369,7 +369,7 @@ class FightFragment : Fragment() {
                 handler.postDelayed(
                     { binding.ivImageDouble2Enemy?.visibility = View.INVISIBLE }, 1000)
             } else {
-                binding.ivImageEnemy?.setImageResource(attack.image)
+                binding.ivImageEnemy?.setImageResource(attack.imageEnemy)
 
                 handler.postDelayed(
                     { binding.ivImageEnemy?.setImageResource(enemy.image)}, 1000)

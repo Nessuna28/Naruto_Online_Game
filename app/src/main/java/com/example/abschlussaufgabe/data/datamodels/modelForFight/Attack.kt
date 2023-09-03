@@ -5,7 +5,8 @@ open class Attack(
 
     val name: String,
     val value: Int,
-    val image: Int
+    val imagePlayer: Int,
+    val imageEnemy: Int
 ) {
 
     var isDefense: Boolean = false

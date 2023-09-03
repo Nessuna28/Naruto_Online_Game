@@ -6,7 +6,6 @@ data class CharacterForFight(
     val image: Int,
     val imagePose: Int,
     val imageFace: Int,
-    val imageAttack: Int,
     val imageSad: Int,
     val sound: Int,
     val video: Int,

@@ -44,7 +44,7 @@
             android:layout_height="221dp"
             android:layout_marginEnd="49dp"
             android:layout_marginBottom="94dp"
-            android:src="@drawable/naruto"
+            android:src="@drawable/naruto_player"
             app:layout_constraintBottom_toBottomOf="@+id/iv_narutoOriginal"
             app:layout_constraintEnd_toEndOf="@+id/iv_narutoOriginal" />
 
@@ -54,7 +54,7 @@
             android:layout_height="221dp"
             android:layout_marginStart="50dp"
             android:layout_marginBottom="85dp"
-            android:src="@drawable/naruto"
+            android:src="@drawable/naruto_player"
             app:layout_constraintBottom_toBottomOf="@+id/iv_narutoOriginal"
             app:layout_constraintStart_toStartOf="@+id/iv_narutoOriginal" />
 
@@ -64,7 +64,7 @@
             android:layout_height="221dp"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="94dp"
-            android:src="@drawable/naruto"
+            android:src="@drawable/naruto_player"
             app:layout_constraintBottom_toBottomOf="@+id/iv_narutoOriginal"
             app:layout_constraintEnd_toStartOf="@+id/iv_narutoOriginal" />
 
@@ -74,7 +74,7 @@
             android:layout_height="221dp"
             android:layout_marginStart="35dp"
             android:layout_marginBottom="94dp"
-            android:src="@drawable/naruto"
+            android:src="@drawable/naruto_player"
             app:layout_constraintBottom_toBottomOf="@+id/iv_narutoOriginal"
             app:layout_constraintStart_toEndOf="@+id/iv_narutoOriginal" />
 
@@ -84,7 +84,7 @@
             android:layout_height="221dp"
             android:layout_marginStart="11dp"
             android:layout_marginBottom="76dp"
-            android:src="@drawable/naruto"
+            android:src="@drawable/naruto_player"
             app:layout_constraintBottom_toBottomOf="@+id/iv_narutoOriginal"
             app:layout_constraintStart_toEndOf="@+id/iv_narutoOriginal" />
 
@@ -94,7 +94,7 @@
             android:layout_height="221dp"
             android:layout_marginStart="96dp"
             android:layout_marginBottom="64dp"
-            android:src="@drawable/naruto"
+            android:src="@drawable/naruto_enemy"
             app:layout_constraintBottom_toBottomOf="@+id/iv_narutoOriginal"
             app:layout_constraintStart_toStartOf="@+id/iv_narutoOriginal" />
 
@@ -104,7 +104,7 @@
             android:layout_height="221dp"
             android:layout_marginEnd="115dp"
             android:layout_marginBottom="76dp"
-            android:src="@drawable/naruto"
+            android:src="@drawable/naruto_enemy"
             app:layout_constraintBottom_toBottomOf="@+id/iv_narutoOriginal"
             app:layout_constraintEnd_toEndOf="@+id/iv_narutoOriginal" />
 
@@ -114,7 +114,7 @@
             android:layout_height="221dp"
             android:layout_marginStart="11dp"
             android:layout_marginBottom="54dp"
-            android:src="@drawable/naruto"
+            android:src="@drawable/naruto_enemy"
             app:layout_constraintBottom_toBottomOf="@+id/iv_narutoOriginal"
             app:layout_constraintStart_toStartOf="@+id/iv_narutoOriginal" />
 
@@ -124,7 +124,7 @@
             android:layout_height="221dp"
             android:layout_marginEnd="145dp"
             android:layout_marginBottom="54dp"
-            android:src="@drawable/naruto"
+            android:src="@drawable/naruto_player"
             app:layout_constraintBottom_toBottomOf="@+id/iv_narutoOriginal"
             app:layout_constraintEnd_toEndOf="@+id/iv_narutoOriginal" />
 
@@ -134,7 +134,7 @@
             android:layout_height="221dp"
             android:layout_marginEnd="81dp"
             android:layout_marginBottom="45dp"
-            android:src="@drawable/naruto"
+            android:src="@drawable/naruto_enemy"
             app:layout_constraintBottom_toBottomOf="@+id/iv_narutoOriginal"
             app:layout_constraintEnd_toEndOf="@+id/iv_narutoOriginal" />
 
@@ -144,7 +144,7 @@
             android:layout_height="221dp"
             android:layout_marginStart="104dp"
             android:layout_marginBottom="21dp"
-            android:src="@drawable/naruto"
+            android:src="@drawable/naruto_enemy"
             app:layout_constraintBottom_toBottomOf="@+id/iv_narutoOriginal"
             app:layout_constraintStart_toStartOf="@+id/iv_narutoOriginal" />
 
@@ -154,7 +154,7 @@
             android:layout_height="221dp"
             android:layout_marginEnd="95dp"
             android:layout_marginBottom="30dp"
-            android:src="@drawable/naruto"
+            android:src="@drawable/naruto_player"
             app:layout_constraintBottom_toBottomOf="@+id/iv_narutoOriginal"
             app:layout_constraintEnd_toEndOf="@+id/iv_narutoOriginal" />
 
@@ -163,7 +163,7 @@
             android:layout_width="122dp"
             android:layout_height="221dp"
             android:layout_marginBottom="21dp"
-            android:src="@drawable/naruto"
+            android:src="@drawable/naruto_enemy"
             app:layout_constraintBottom_toBottomOf="@+id/iv_narutoOriginal"
             app:layout_constraintEnd_toStartOf="@+id/iv_narutoOriginal" />
 
@@ -173,7 +173,7 @@
             android:layout_height="221dp"
             android:layout_marginEnd="11dp"
             android:layout_marginBottom="1dp"
-            android:src="@drawable/naruto"
+            android:src="@drawable/naruto_player"
             app:layout_constraintBottom_toBottomOf="@+id/iv_narutoOriginal"
             app:layout_constraintEnd_toStartOf="@+id/iv_narutoOriginal" />
 
@@ -183,7 +183,7 @@
             android:layout_height="221dp"
             android:layout_marginStart="12dp"
             android:layout_marginBottom="1dp"
-            android:src="@drawable/naruto"
+            android:src="@drawable/naruto_enemy"
             app:layout_constraintBottom_toBottomOf="@+id/iv_narutoOriginal"
             app:layout_constraintStart_toEndOf="@+id/iv_narutoOriginal" />
 
@@ -191,7 +191,7 @@
             android:id="@+id/iv_narutoOriginal"
             android:layout_width="145dp"
             android:layout_height="242dp"
-            android:src="@drawable/naruto_attack"
+            android:src="@drawable/naruto_player"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

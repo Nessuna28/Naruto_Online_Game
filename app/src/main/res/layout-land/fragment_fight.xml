@@ -129,29 +129,29 @@
             android:layout_marginBottom="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
-            app:srcCompat="@drawable/naruto" />
+            app:srcCompat="@drawable/naruto_player" />
 
         <ImageView
             android:id="@+id/iv_imageDouble1Player"
             android:layout_width="100dp"
             android:layout_height="150dp"
-            android:layout_marginEnd="160dp"
-            android:layout_marginBottom="28dp"
+            android:layout_marginEnd="172dp"
+            android:layout_marginBottom="8dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/iv_imagePlayer"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
-            app:srcCompat="@drawable/naruto" />
+            app:srcCompat="@drawable/naruto_player" />
 
         <ImageView
             android:id="@+id/iv_imageDouble2Player"
             android:layout_width="100dp"
             android:layout_height="150dp"
-            android:layout_marginTop="152dp"
-            android:layout_marginEnd="52dp"
+            android:layout_marginTop="188dp"
+            android:layout_marginEnd="32dp"
             android:visibility="invisible"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/naruto" />
+            app:srcCompat="@drawable/naruto_player" />
 
         <ImageView
             android:id="@+id/iv_imageToolPlayer"
@@ -161,7 +161,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/iv_imagePlayer"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toTopOf="@+id/iv_imagePlayer"
-            app:srcCompat="@drawable/naruto_attack" />
+            app:srcCompat="@drawable/kunai_player" />
 
         <TextView
             android:id="@+id/tv_chakraPlayer"
@@ -208,7 +208,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/iv_imageEnemy"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toTopOf="@+id/iv_imageEnemy"
-            app:srcCompat="@drawable/naruto_attack" />
+            app:srcCompat="@drawable/kunai_enemy" />
 
         <ImageView
             android:id="@+id/iv_imageHealEnemy"
@@ -229,29 +229,29 @@
             android:layout_marginBottom="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:srcCompat="@drawable/naruto" />
+            app:srcCompat="@drawable/naruto_enemy" />
 
         <ImageView
             android:id="@+id/iv_imageDouble1Enemy"
             android:layout_width="100dp"
             android:layout_height="150dp"
-            android:layout_marginStart="188dp"
-            android:layout_marginBottom="28dp"
+            android:layout_marginStart="196dp"
+            android:layout_marginBottom="8dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/iv_imageHealEnemy"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:srcCompat="@drawable/naruto" />
+            app:srcCompat="@drawable/naruto_enemy" />
 
         <ImageView
             android:id="@+id/iv_imageDouble2Enemy"
             android:layout_width="100dp"
             android:layout_height="150dp"
-            android:layout_marginStart="28dp"
-            android:layout_marginBottom="28dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginBottom="8dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/iv_imageHealEnemy"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:srcCompat="@drawable/naruto" />
+            app:srcCompat="@drawable/naruto_enemy" />
 
         <TextView
             android:id="@+id/tv_nameEnemy"

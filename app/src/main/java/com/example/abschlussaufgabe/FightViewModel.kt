@@ -348,7 +348,7 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
 
         _attackPlayer.value = attack
         Handler().postDelayed({
-            _attackPlayer.value = Attack("", 0, player.value!!.image)
+            _attackPlayer.value = Attack("", 0, player.value!!.image, enemy.value!!.image)
         }, 1000)
     }
 
@@ -383,7 +383,7 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
 
         _attackEnemy.value = currentAttackEnemy
         Handler().postDelayed({
-            _attackEnemy.value = Attack("", 0, enemy.value!!.image)
+            _attackEnemy.value = Attack("", 0, player.value!!.image, enemy.value!!.image)
         }, 1000)
     }
 
@@ -663,8 +663,8 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
         _resultEnemy.value = ""
         _roundsWonPlayer.value = 0
         _roundsWonEnemy.value = 0
-        _attackPlayer.value = Attack("", 0, player.value!!.image)
-        _attackEnemy.value = Attack("", 0, enemy.value!!.image)
+        _attackPlayer.value = Attack("", 0, player.value!!.image, enemy.value!!.image)
+        _attackEnemy.value = Attack("", 0, player.value!!.image, enemy.value!!.image)
     }
 
     // ändert den Wert des Ergebniss (gewonnen oder verloren)

@@ -88,7 +88,7 @@ class SplashScreenFragment : Fragment() {
             binding.ivNarutoOriginal.visibility = View.VISIBLE
 
             handler.postDelayed({
-                binding.ivNarutoOriginal.setImageResource(R.drawable.naruto_attack)
+                binding.ivNarutoOriginal.setImageResource(R.drawable.naruto_defense_schattendoppel_player)
 
                 handler.postDelayed({
                     binding.ivNaruto1.visibility = View.VISIBLE
@@ -118,7 +118,7 @@ class SplashScreenFragment : Fragment() {
                                         binding.ivNaruto15.visibility = View.VISIBLE
 
                                         handler.postDelayed({
-                                            binding.ivNarutoOriginal.setImageResource(R.drawable.naruto)
+                                            binding.ivNarutoOriginal.setImageResource(R.drawable.naruto_player)
 
                                             handler.postDelayed({
                                                 imageAnimationScale()
