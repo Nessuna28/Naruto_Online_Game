@@ -99,6 +99,15 @@
             app:layout_constraintVertical_bias="0.0"
             app:maxLifePoints="500" />
 
+        <TextView
+            android:id="@+id/tv_chakraPlayer"
+            android:layout_width="66dp"
+            android:layout_height="15dp"
+            android:text="@string/chakraPoints"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/tv_lifePlayer"
+            app:layout_constraintTop_toBottomOf="@+id/tv_lifePlayer" />
+
         <com.example.abschlussaufgabe.data.datamodels.modelForFight.ChakraPointsBarView
             android:id="@+id/chakraPointsBarViewPlayer"
             android:layout_width="150dp"
@@ -121,7 +130,7 @@
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/naruto_attack_vertrautr_geist" />
+            app:srcCompat="@drawable/naruto_attack_vertrauter_geist" />
 
         <ImageView
             android:id="@+id/iv_imageHealPlayer"
@@ -167,23 +176,14 @@
 
         <ImageView
             android:id="@+id/iv_imageToolPlayer"
-            android:layout_width="100dp"
-            android:layout_height="150dp"
+            android:layout_width="70dp"
+            android:layout_height="60dp"
             android:layout_marginEnd="100dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/iv_imagePlayer"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toTopOf="@+id/iv_imagePlayer"
             app:srcCompat="@drawable/kunai_player" />
-
-        <TextView
-            android:id="@+id/tv_chakraPlayer"
-            android:layout_width="66dp"
-            android:layout_height="15dp"
-            android:text="@string/chakraPoints"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="@+id/tv_lifePlayer"
-            app:layout_constraintTop_toBottomOf="@+id/tv_lifePlayer" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"
@@ -223,12 +223,12 @@
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/naruto_attack_vertrautr_geist" />
+            app:srcCompat="@drawable/naruto_attack_vertrauter_geist" />
 
         <ImageView
             android:id="@+id/iv_imageToolEnemy"
-            android:layout_width="100dp"
-            android:layout_height="150dp"
+            android:layout_width="70dp"
+            android:layout_height="60dp"
             android:layout_marginStart="100dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/iv_imageEnemy"

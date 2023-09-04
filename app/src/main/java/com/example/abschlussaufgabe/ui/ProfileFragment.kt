@@ -60,6 +60,12 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        authViewModel.currentUser.observe(viewLifecycleOwner) {
+            if (it != null) {
+                storeViewModel.getUserData(it.uid)
+            }
+        }
+
         storeViewModel.currentProfile.observe(viewLifecycleOwner) {
             if (it != null) {
                 binding.tvLastName.text = it.lastName

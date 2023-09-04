@@ -18,7 +18,7 @@ class CharacterListForFight {
             R.raw.song_naruto,
             R.raw.video_naruto,
     "Naruto",
-        listOf(Jutsu("Taijutsu", 20, R.drawable.naruto_attack_player, R.drawable.naruto_attack_enemy), Jutsu("Rasengan", 50, R.drawable.naruto_attack_rasengan_player, R.drawable.naruto_attack_rasengan_enemy), Jutsu("Rasenshuriken", 70, R.drawable.naruto_attack_rasenshuriken_player, R.drawable.naruro_attack_rasenshuriken_enemy), Jutsu("Jutsu des vertrauten Geistes", 80, R.drawable.naruto_attack_vertrautr_geist, R.drawable.naruto_attack_vertrautr_geist)),
+        listOf(Jutsu("Taijutsu", 20, R.drawable.naruto_attack_player, R.drawable.naruto_attack_enemy), Jutsu("Rasengan", 50, R.drawable.naruto_attack_rasengan_player, R.drawable.naruto_attack_rasengan_enemy), Jutsu("Rasenshuriken", 70, R.drawable.naruto_attack_rasenshuriken_player, R.drawable.naruro_attack_rasenshuriken_enemy), Jutsu("Jutsu des vertrauten Geistes", 80, R.drawable.naruto_attack_vertrauter_geist, R.drawable.naruto_attack_vertrauter_geist)),
         listOf(Tool("Kunai", 15, R.drawable.kunai_player, R.drawable.kunai_enemy), Tool("Shuriken", 20, R.drawable.shuriken, R.drawable.shuriken)),
         listOf(UniqueTrait("Weisenmodus", 80, R.drawable.naruto_trait_weisenmodus, R.drawable.naruto_trait_weisenmodus), UniqueTrait("Kiubimodus", 100, R.drawable.naruto_trait_kiubimodus_player, R.drawable.naruto_trait_kiubimodus_enemy)),
         listOf(Defense("Jutsu des Tausches", 20, R.drawable.baumstamm, R.drawable.baumstamm), Defense("Schattendoppelgänger", 35, R.drawable.naruto_defense_schattendoppel_player, R.drawable.naruto_defense_schattendoppel_enemy)),),

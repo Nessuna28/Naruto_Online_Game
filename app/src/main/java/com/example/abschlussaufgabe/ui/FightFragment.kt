@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.os.postDelayed
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -34,6 +35,7 @@ class FightFragment : Fragment() {
 
     private val viewModel: MainViewModel by activityViewModels()
     private val fightViewModel: FightViewModel by activityViewModels()
+    private val storeViewModel: FirestoreViewModel by activityViewModels()
 
     private lateinit var binding: FragmentFightBinding
 
@@ -96,6 +98,8 @@ class FightFragment : Fragment() {
         }
 
         fightViewModel.setRemainingTimeToStart()
+        fightViewModel.resetPointsForNewGame()
+        fightViewModel.resetToDefaultRounds()
     }
 
 
@@ -115,7 +119,13 @@ class FightFragment : Fragment() {
         enemy = fightViewModel.enemy.value!!
 
 
-        binding.tvNamePlayer?.text = viewModel.tvUserName.value!!.text
+        storeViewModel.currentProfile.observe(viewLifecycleOwner) {
+            if (it != null) {
+                binding.tvNamePlayer?.text = it.userName
+            } else {
+                binding.tvNamePlayer?.text = R.string.guest.toString()
+            }
+        }
 
         viewModel.userNameEnemy.observe(viewLifecycleOwner) {
             binding.tvNameEnemy?.text = it
@@ -280,7 +290,7 @@ class FightFragment : Fragment() {
 
 
     // wechselt ein Bild für eine bestimmte Zeit oder
-    // ändert die Visibility der Views
+    // ändert die Visibility der Views oder das Image und bewegt es zum Gegner
 
     private fun changeViewsForAttack(check: Boolean, attack: Attack) {
 
@@ -331,7 +341,12 @@ class FightFragment : Fragment() {
 
         if (check) {
             if (attack.name == "Schwert") {
-                binding.ivImagePlayer?.visibility = View.INVISIBLE
+                binding.ivImagePlayer?.setImageResource(attack.imagePlayer)
+                imageAnimationTranslate(player, binding.ivImagePlayer)
+
+                handler.postDelayed({
+                    binding.ivImagePlayer?.setImageResource(player.image)
+                }, 1000)
             }
 
             binding.ivImageToolPlayer?.setImageResource(attack.imagePlayer)
@@ -344,7 +359,12 @@ class FightFragment : Fragment() {
                 binding.ivImagePlayer?.visibility = View.VISIBLE }, 1000)
         } else {
             if (attack.name == "Schwert") {
-                binding.ivImageEnemy?.visibility = View.INVISIBLE
+                binding.ivImageEnemy?.setImageResource(attack.imageEnemy)
+                imageAnimationTranslate(enemy, binding.ivImageEnemy)
+
+                handler.postDelayed({
+                    binding.ivImageEnemy?.setImageResource(enemy.image)
+                }, 1000)
             }
 
             binding.ivImageToolEnemy?.setImageResource(attack.imageEnemy)
