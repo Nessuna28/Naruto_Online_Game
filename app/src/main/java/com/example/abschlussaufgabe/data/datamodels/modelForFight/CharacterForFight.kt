@@ -8,7 +8,6 @@ data class CharacterForFight(
     val imageFace: Int,
     val imageSad: Int,
     val sound: Int,
-    val video: Int,
     val name: String,
     var jutsus: List<Jutsu>,
     val tools: List<Tool>,
