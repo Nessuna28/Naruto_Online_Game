@@ -25,31 +25,22 @@
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/location_arena" />
 
-        <VideoView
-            android:id="@+id/vv_characterVideo"
-            android:layout_width="377dp"
-            android:layout_height="205dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="24dp"
-            app:layout_constraintBottom_toTopOf="@+id/btn_selection"
-            app:layout_constraintEnd_toEndOf="parent" />
-
         <ImageView
             android:id="@+id/iv_characterImage"
-            android:layout_width="128dp"
-            android:layout_height="124dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="8dp"
+            android:layout_width="192dp"
+            android:layout_height="168dp"
+            android:layout_marginTop="80dp"
             android:rotation="9"
-            app:layout_constraintStart_toEndOf="@+id/tv_titleRounds"
-            app:layout_constraintTop_toBottomOf="@+id/tv_userName"
+            app:layout_constraintEnd_toEndOf="@+id/btn_home"
+            app:layout_constraintStart_toStartOf="@+id/btn_again"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/naruto_pose" />
 
         <ImageView
             android:id="@+id/iv_titleWonOrLost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
+            android:layout_marginStart="50dp"
             android:layout_marginTop="50dp"
             android:rotation="-13"
             android:rotationX="13"
@@ -75,16 +66,16 @@
             android:id="@+id/tv_characterName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="120dp"
+            android:layout_marginEnd="150dp"
             android:fontFamily="@font/akaya_telivigala"
             android:rotation="9"
             android:text="@string/name"
             android:textColor="@color/primary"
-            android:textSize="18sp"
+            android:textSize="40sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/iv_characterImage"
-            app:layout_constraintStart_toStartOf="@+id/iv_characterImage"
-            app:layout_constraintTop_toBottomOf="@+id/iv_characterImage" />
+            app:layout_constraintTop_toTopOf="@+id/iv_characterImage" />
 
         <TextView
             android:id="@+id/tv_titleRounds"

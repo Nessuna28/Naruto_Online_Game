@@ -10,7 +10,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.BounceInterpolator
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -35,7 +34,6 @@ class FightFragment : Fragment() {
 
     private val viewModel: MainViewModel by activityViewModels()
     private val fightViewModel: FightViewModel by activityViewModels()
-    private val storeViewModel: FirestoreViewModel by activityViewModels()
 
     private lateinit var binding: FragmentFightBinding
 
@@ -70,8 +68,6 @@ class FightFragment : Fragment() {
         invisibleAttacks()
 
         handler.removeCallbacks(fightViewModel.runnable)
-        fightViewModel.resetPointsForNewGame()
-        fightViewModel.resetToDefaultRounds()
 
         fightViewModel.selectRounds.observe(viewLifecycleOwner) {
             if (it == "1") {
@@ -294,6 +290,12 @@ class FightFragment : Fragment() {
 
                 handler.postDelayed(
                     { binding.ivImageHealPlayer?.visibility = View.INVISIBLE }, 1000)
+            }else if (attack.name == "Jutsu des vertrauten Geistes") {
+                binding.ivImageVertrauterGeistPlayer?.visibility = View.VISIBLE
+                imageAnimationTranslate(player, binding.ivImageVertrauterGeistPlayer)
+
+                handler.postDelayed(
+                    { binding.ivImageVertrauterGeistPlayer?.visibility = View.INVISIBLE }, 1000)
             } else {
                 binding.ivImagePlayer?.setImageResource(attack.imagePlayer)
 
@@ -308,6 +310,12 @@ class FightFragment : Fragment() {
 
                 handler.postDelayed(
                     { binding.ivImageHealEnemy?.visibility = View.INVISIBLE }, 1000)
+            }else if (attack.name == "Jutsu des vertrauten Geistes") {
+                binding.ivImageVertrauterGeistEnemy?.visibility = View.VISIBLE
+                imageAnimationTranslate(enemy, binding.ivImageVertrauterGeistEnemy)
+
+                handler.postDelayed(
+                    { binding.ivImageVertrauterGeistEnemy?.visibility = View.INVISIBLE }, 1000)
             } else {
                 binding.ivImageEnemy?.setImageResource(attack.imageEnemy)
 
@@ -322,21 +330,31 @@ class FightFragment : Fragment() {
     private fun changeViewsForTools(check: Boolean, attack: Attack) {
 
         if (check) {
-                binding.ivImageToolPlayer?.setImageResource(attack.imagePlayer)
-                binding.ivImageToolPlayer?.visibility = View.VISIBLE
+            if (attack.name == "Schwert") {
+                binding.ivImagePlayer?.visibility = View.INVISIBLE
+            }
+
+            binding.ivImageToolPlayer?.setImageResource(attack.imagePlayer)
+            binding.ivImageToolPlayer?.visibility = View.VISIBLE
 
             imageAnimationTranslate(player, binding.ivImageToolPlayer)
 
-                handler.postDelayed(
-                    { binding.ivImageToolPlayer?.visibility = View.INVISIBLE }, 1000)
+            handler.postDelayed({
+                binding.ivImageToolPlayer?.visibility = View.INVISIBLE
+                binding.ivImagePlayer?.visibility = View.VISIBLE }, 1000)
         } else {
-                binding.ivImageToolEnemy?.setImageResource(attack.imageEnemy)
-                binding.ivImageToolEnemy?.visibility = View.VISIBLE
+            if (attack.name == "Schwert") {
+                binding.ivImageEnemy?.visibility = View.INVISIBLE
+            }
+
+            binding.ivImageToolEnemy?.setImageResource(attack.imageEnemy)
+            binding.ivImageToolEnemy?.visibility = View.VISIBLE
 
             imageAnimationTranslate(enemy, binding.ivImageToolEnemy)
 
-                handler.postDelayed(
-                    { binding.ivImageToolEnemy?.visibility = View.INVISIBLE }, 1000)
+            handler.postDelayed({
+                binding.ivImageToolEnemy?.visibility = View.INVISIBLE
+                binding.ivImageEnemy?.visibility = View.VISIBLE }, 1000)
         }
     }
 
@@ -520,9 +538,6 @@ class FightFragment : Fragment() {
 
         handler.postDelayed(
             { binding.ivResult?.visibility = View.INVISIBLE }, 3000)
-
-        Log.e("Fight", "${player.lifePoints}")
-        Log.e("Fight", "${enemy.lifePoints}")
     }
 
     override fun onDestroyView() {

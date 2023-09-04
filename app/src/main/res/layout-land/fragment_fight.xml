@@ -112,10 +112,22 @@
             app:maxChakraPoints="500" />
 
         <ImageView
+            android:id="@+id/iv_imageVertrauterGeistPlayer"
+            android:layout_width="274dp"
+            android:layout_height="231dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="50dp"
+            android:rotationY="19"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/naruto_attack_vertrautr_geist" />
+
+        <ImageView
             android:id="@+id/iv_imageHealPlayer"
             android:layout_width="100dp"
             android:layout_height="150dp"
-            android:layout_marginEnd="48dp"
+            android:layout_marginEnd="100dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/iv_imagePlayer"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
@@ -146,11 +158,11 @@
             android:id="@+id/iv_imageDouble2Player"
             android:layout_width="100dp"
             android:layout_height="150dp"
-            android:layout_marginTop="188dp"
             android:layout_marginEnd="32dp"
+            android:layout_marginBottom="8dp"
             android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_imageHealPlayer"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/naruto_player" />
 
         <ImageView
@@ -158,6 +170,7 @@
             android:layout_width="100dp"
             android:layout_height="150dp"
             android:layout_marginEnd="100dp"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/iv_imagePlayer"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toTopOf="@+id/iv_imagePlayer"
@@ -201,10 +214,23 @@
         </com.google.android.material.card.MaterialCardView>
 
         <ImageView
+            android:id="@+id/iv_imageVertrauterGeistEnemy"
+            android:layout_width="274dp"
+            android:layout_height="231dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="50dp"
+            android:rotationY="-19"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/naruto_attack_vertrautr_geist" />
+
+        <ImageView
             android:id="@+id/iv_imageToolEnemy"
             android:layout_width="100dp"
             android:layout_height="150dp"
             android:layout_marginStart="100dp"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/iv_imageEnemy"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toTopOf="@+id/iv_imageEnemy"

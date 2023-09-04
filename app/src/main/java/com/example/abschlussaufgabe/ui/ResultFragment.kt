@@ -1,11 +1,15 @@
 package com.example.abschlussaufgabe.ui
 
+import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.BounceInterpolator
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -55,44 +59,42 @@ class ResultFragment : Fragment() {
             binding.ivBackgroundResult?.setImageResource(it.image)
         }
 
-        fightViewModel.result.observe(viewLifecycleOwner) {
-            if (it == "Sieg") {
+        fightViewModel.result.observe(viewLifecycleOwner) { result ->
+            if (result == "Sieg") {
                 binding.ivTitleWonOrLost?.setImageResource(R.drawable.winner)
-                fightViewModel.player.observe(viewLifecycleOwner) {
-                    binding.tvCharacterName?.text = it.name
-                    binding.ivCharacterImage?.setImageResource(it.imagePose)
-                    binding.vvCharacterVideo?.setVideoPath(it.video.toString())
-                    binding.vvCharacterVideo?.start()
-                    context?.let { it1 -> fightViewModel.playSound(it1, it.sound) }
+                fightViewModel.player.observe(viewLifecycleOwner) { player ->
+                    binding.tvCharacterName?.text = player.name
+                    binding.ivCharacterImage?.setImageResource(player.imagePose)
+                    imageAnimationScale()
+                    context?.let { it1 -> fightViewModel.playSound(it1, player.sound) }
                 }
 
             } else {
                 binding.ivTitleWonOrLost?.setImageResource(R.drawable.loser)
-                fightViewModel.player.observe(viewLifecycleOwner) {
-                    binding.tvCharacterName?.text = it.name
-                    binding.ivCharacterImage?.setImageResource(it.imageSad)
-                    binding.vvCharacterVideo?.setVideoPath(it.video.toString())
-                    binding.vvCharacterVideo?.start()
-                    context?.let { it1 -> fightViewModel.playSound(it1, it.sound) }
+                fightViewModel.player.observe(viewLifecycleOwner) { enemy ->
+                    binding.tvCharacterName?.text = enemy.name
+                    binding.ivCharacterImage?.setImageResource(enemy.imageSad)
+                    imageAnimationScale()
+                    context?.let { it1 -> fightViewModel.playSound(it1, enemy.sound) }
                 }
             }
         }
 
         binding.tvUserName?.text = viewModel.tvUserName.value!!.text
 
-        fightViewModel.rounds.observe(viewLifecycleOwner) {
-            binding.tvRounds?.text = it.toString()
+        fightViewModel.rounds.observe(viewLifecycleOwner) { rounds ->
+            binding.tvRounds?.text = rounds.toString()
         }
 
-        fightViewModel.roundsWonPlayer.observe(viewLifecycleOwner) {
-            binding.tvRoundsWon?.text = it.toString()
+        fightViewModel.roundsWonPlayer.observe(viewLifecycleOwner) { roundWon ->
+            binding.tvRoundsWon?.text = roundWon.toString()
         }
 
 
         // der Datenbank hinzufügen
-        authViewModel.currentUser.observe(viewLifecycleOwner) {
-            if (it != null) {
-                setData(it.uid)
+        authViewModel.currentUser.observe(viewLifecycleOwner) { user ->
+            if (user != null) {
+                setData(user.uid)
             } else {
                 setData(R.string.guest.toString())
             }
@@ -158,5 +160,17 @@ class ResultFragment : Fragment() {
         } else {
             viewModel.insertDataGame(data)
         }
+    }
+
+    private fun imageAnimationScale() {
+        val scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 2f)
+        val scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 2f)
+        val animator =
+            ObjectAnimator.ofPropertyValuesHolder(binding.ivCharacterImage, scaleX, scaleY)
+        animator.duration = 1500
+        animator.repeatCount = 1
+        animator.repeatMode = ObjectAnimator.REVERSE
+        animator.interpolator = BounceInterpolator()
+        animator.start()
     }
 }

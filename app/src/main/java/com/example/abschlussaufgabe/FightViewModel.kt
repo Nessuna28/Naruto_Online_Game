@@ -578,43 +578,31 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
     // es wird festgelegt ob der Spieler gewonnen oder verloren hat
     fun endRound() {
 
-        if (selectTimer.value == "kein Zeitlimit") {
-            stopTimer()
-            if (player.value!!.lifePoints <= 0 || enemy.value!!.lifePoints <= 0) {
-                _rounds.value = rounds.value!!.plus(1)
-                Handler().removeCallbacks(runnable)
-                _roundBegan.value = false
+        _rounds.value = rounds.value!!.plus(1)
+        stopTimer()
+        Handler().removeCallbacks(runnable)
+        _roundBegan.value = false
 
-                if (player.value!!.lifePoints > 0 && enemy.value!!.lifePoints <= 0) {
+
+        if (selectTimer.value == "kein Zeitlimit") {
+                if (player.value!!.lifePoints > 0) {
                     _roundsWonPlayer.value = roundsWonPlayer.value!!.plus(1)
-                } else if (enemy.value!!.lifePoints > 0 && player.value!!.lifePoints <= 0) {
+                } else if (enemy.value!!.lifePoints > 0) {
                     _roundsWonEnemy.value = roundsWonEnemy.value!!.plus(1)
                 }
-            }
         } else {
             if (remainingTime.value == 0) {
-                _rounds.value = rounds.value!!.plus(1)
-                stopTimer()
-                Handler().removeCallbacks(runnable)
-                _roundBegan.value = false
                 if (player.value!!.lifePoints < enemy.value!!.lifePoints) {
                     _roundsWonEnemy.value = roundsWonEnemy.value!!.plus(1)
                 } else if (player.value!!.lifePoints > enemy.value!!.lifePoints) {
                     _roundsWonPlayer.value = roundsWonPlayer.value!!.plus(1)
                 }
             } else if (remainingTime.value!! > 0) {
-                if (player.value!!.lifePoints <= 0 || enemy.value!!.lifePoints <= 0) {
-                    _rounds.value = rounds.value!!.plus(1)
-                    stopTimer()
-                    Handler().removeCallbacks(runnable)
-                    _roundBegan.value = false
-
-                    if (player.value!!.lifePoints > 0 && enemy.value!!.lifePoints <= 0) {
+                    if (player.value!!.lifePoints > 0) {
                         _roundsWonPlayer.value = roundsWonPlayer.value!!.plus(1)
-                    } else if (enemy.value!!.lifePoints > 0 && player.value!!.lifePoints <= 0) {
+                    } else if (enemy.value!!.lifePoints > 0) {
                         _roundsWonEnemy.value = roundsWonEnemy.value!!.plus(1)
                     }
-                }
             }
 
             _roundsWonPlayer.value = _roundsWonPlayer.value
