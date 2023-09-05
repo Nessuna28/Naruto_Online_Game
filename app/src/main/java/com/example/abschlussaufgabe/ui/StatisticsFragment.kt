@@ -36,6 +36,7 @@ class StatisticsFragment : Fragment() {
         activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 
         viewModel.imageTitle.value?.let { viewModel.showImages(it) }
+        viewModel.imageHome.value?.let { viewModel.showImages(it) }
         viewModel.materialCard.value?.let { viewModel.showMaterialCard(it) }
     }
 

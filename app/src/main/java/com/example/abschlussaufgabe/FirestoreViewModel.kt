@@ -1,6 +1,5 @@
 package com.example.abschlussaufgabe
 
-import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,6 +9,7 @@ import com.example.abschlussaufgabe.data.datamodels.modelForFight.fightDataForDa
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+
 
 class FirestoreViewModel: ViewModel() {
 
@@ -74,27 +74,21 @@ class FirestoreViewModel: ViewModel() {
         docRef.get()
             .addOnSuccessListener { document ->
                 if (document != null) {
-                    val profileImageUri = document.data?.get("profileImage") as? String
-                    val profileImage = if (!profileImageUri.isNullOrEmpty()) {
-                        Uri.parse(profileImageUri)
-                    } else {
-                        Uri.EMPTY
-                    }
-                    _currentProfile.value = profileImage?.let {
-                        Profile(
-                            userID = userId,
-                            profileImage = it,
-                            lastName = document.data?.get("lastName").toString(),
-                            firstName = document.data?.get("firstName").toString(),
-                            userName = document.data?.get("userName").toString(),
-                            birthday = document.data?.get("birthday").toString(),
-                            homeTown = document.data?.get("homeTown").toString(),
-                            email = document.data?.get("email").toString()
-                        )
-                    }
+                    val profile = Profile(
+                        userID = userId,
+                        profileImage = document.data?.get("profileImage").toString(),
+                        lastName = document.data?.get("lastName").toString(),
+                        firstName = document.data?.get("firstName").toString(),
+                        userName = document.data?.get("userName").toString(),
+                        birthday = document.data?.get("birthday").toString(),
+                        homeTown = document.data?.get("homeTown").toString(),
+                        email = document.data?.get("email").toString()
+                    )
+                    _currentProfile.value = profile
                 } else {
                     Log.d("Firestore", "No such document")
                 }
+
             }
             .addOnFailureListener { exception ->
                 Log.d("Firestore", "get failed with ", exception)
@@ -126,6 +120,7 @@ class FirestoreViewModel: ViewModel() {
 
     fun deletePlayerData(playerData: DataPlayer) {
 
+        Log.e("FirestoreId", "${playerData.firestoreId}")
         db.collection("playerData").document(playerData.firestoreId)
             .delete()
             .addOnSuccessListener {
@@ -166,16 +161,16 @@ class FirestoreViewModel: ViewModel() {
         val list = mutableListOf<DataPlayer>()
 
         for (document in documents) {
-            val firestoreId = document.getString("firestoreId").toString()
+            val firestoreId = document.id
             val userId = document.getString("userID").toString()
             val date = document.getString("data").toString()
             val userName = document.getString("userName").toString()
             val characterName = document.getString("characterName").toString()
-            val characterImage = document.getLong("characterImage").toString().toInt()
+            val characterImage = document.getLong("characterImage")!!.toInt()
             val result = document.getString("result").toString()
             val userNameEnemy = document.getString("userNameEnemy").toString()
             val characterNameEnemy = document.getString("characterNameEnemy").toString()
-            val characterImageEnemy = document.getLong("characterImageEnemy").toString().toInt()
+            val characterImageEnemy = document.getLong("characterImageEnemy")!!.toInt()
             val resultEnemy = document.getString("resultEnemy").toString()
 
             val playerData = DataPlayer(
@@ -200,4 +195,5 @@ class FirestoreViewModel: ViewModel() {
         }.toMutableList()
         _playerDataList.value = filteredPlayerDataList
     }
+
 }

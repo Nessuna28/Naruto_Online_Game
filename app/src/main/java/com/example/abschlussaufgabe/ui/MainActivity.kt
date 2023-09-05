@@ -11,6 +11,7 @@ import com.example.abschlussaufgabe.AuthViewModel
 import com.example.abschlussaufgabe.FirestoreViewModel
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.data.datamodels.RandomProfileImage
+import com.squareup.picasso.Picasso
 
 
 class MainActivity : AppCompatActivity() {
@@ -39,7 +40,11 @@ class MainActivity : AppCompatActivity() {
         storeViewModel.currentProfile.observe(this) {
             if (it != null) {
                 binding.tvUserName.text = it.userName
-                binding.ivProfilePhoto.setImageURI(it.profileImage)
+                // Das Bild in einer ImageView anzeigen
+                Picasso.get()
+                    .load(it.profileImage)
+                    .placeholder(R.drawable.placeholder_image)
+                    .into(binding.ivProfilePhoto)
             }
         }
 

@@ -59,8 +59,8 @@
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/mc_profile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_marginStart="16dp"
                     app:cardCornerRadius="@android:dimen/app_icon_size"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -69,8 +69,9 @@
 
                     <ImageView
                         android:id="@+id/iv_profilePhoto"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleType="centerCrop"/>
                 </com.google.android.material.card.MaterialCardView>
 
                 <TextView

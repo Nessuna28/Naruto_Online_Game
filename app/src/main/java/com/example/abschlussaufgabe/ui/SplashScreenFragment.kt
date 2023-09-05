@@ -69,7 +69,6 @@ class SplashScreenFragment : Fragment() {
                         }, 10000)
                     }
                 }
-
          */
 
         Handler(Looper.myLooper()!!).postDelayed({

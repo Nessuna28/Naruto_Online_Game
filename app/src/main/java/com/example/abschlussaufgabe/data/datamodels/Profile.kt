@@ -6,7 +6,7 @@ import android.net.Uri
 data class Profile(
 
     val userID: String,
-    val profileImage: Uri,
+    val profileImage: String,
     val lastName: String,
     val firstName: String,
     val userName: String,
@@ -14,4 +14,10 @@ data class Profile(
     val homeTown: String,
     val email: String
 
-)
+) {
+
+    fun getProfileImageUri(): Uri {
+        // Hier konvertieren Sie den Download-URL in eine Uri und geben ihn zurück
+        return Uri.parse(profileImage)
+    }
+}

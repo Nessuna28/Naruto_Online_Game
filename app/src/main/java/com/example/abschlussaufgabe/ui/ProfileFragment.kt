@@ -3,6 +3,7 @@ package com.example.abschlussaufgabe.ui
 import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,8 @@ import com.example.abschlussaufgabe.FirestoreViewModel
 import com.example.abschlussaufgabe.MainViewModel
 import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.databinding.FragmentProfileBinding
+import com.squareup.picasso.MemoryPolicy
+import com.squareup.picasso.Picasso
 
 
 class ProfileFragment : Fragment() {
@@ -40,6 +43,37 @@ class ProfileFragment : Fragment() {
         viewModel.imageTitle.value?.let { viewModel.showImages(it) }
         viewModel.imageHome.value?.let { viewModel.showImages(it) }
         viewModel.imageSettings.value?.let { viewModel.showImages(it) }
+
+        authViewModel.currentUser.observe(viewLifecycleOwner) {
+            if (it != null) {
+                storeViewModel.getUserData(it.uid)
+            }
+        }
+
+        storeViewModel.currentProfile.observe(viewLifecycleOwner) {
+            if (it != null) {
+                binding.tvLastName.text = it.lastName
+                binding.tvFirstName.text = it.firstName
+                binding.tvUserName.text = it.userName
+                binding.tvBirthday.text = it.birthday
+                binding.tvHomeTown.text = it.homeTown
+                binding.tvEmail.text = it.email
+                // Das Bild in einer ImageView anzeigen
+                Picasso.get()
+                    .load(it.profileImage)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                    .placeholder(R.drawable.placeholder_image)
+                    .into(binding.ivProfilePhoto)
+            } else {
+                binding.tvLastName.text = ""
+                binding.tvFirstName.text = ""
+                binding.tvUserName.text = R.string.guest.toString()
+                binding.tvBirthday.text = ""
+                binding.tvHomeTown.text = ""
+                binding.tvEmail.text = authViewModel.currentUser.value!!.email!!
+                binding.ivProfilePhoto.setImageURI(Uri.parse(viewModel.cvImageProfile.value!!.toString()))
+            }
+        }
     }
 
 
@@ -60,31 +94,7 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        authViewModel.currentUser.observe(viewLifecycleOwner) {
-            if (it != null) {
-                storeViewModel.getUserData(it.uid)
-            }
-        }
 
-        storeViewModel.currentProfile.observe(viewLifecycleOwner) {
-            if (it != null) {
-                binding.tvLastName.text = it.lastName
-                binding.tvFirstName.text = it.firstName
-                binding.tvUserName.text = it.userName
-                binding.tvBirthday.text = it.birthday
-                binding.tvHomeTown.text = it.homeTown
-                binding.tvEmail.text = it.email
-                binding.ivProfilePhoto.setImageURI(it.profileImage)
-            } else {
-                binding.tvLastName.text = ""
-                binding.tvFirstName.text = ""
-                binding.tvUserName.text = R.string.guest.toString()
-                binding.tvBirthday.text = ""
-                binding.tvHomeTown.text = ""
-                binding.tvEmail.text = authViewModel.currentUser.value!!.email!!
-                binding.ivProfilePhoto.setImageURI(Uri.parse(viewModel.cvImageProfile.value!!.toString()))
-            }
-        }
 
 
         findNavController().addOnDestinationChangedListener { _, destination, _ ->

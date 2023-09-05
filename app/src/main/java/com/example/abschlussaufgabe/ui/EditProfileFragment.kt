@@ -6,6 +6,7 @@ import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +21,9 @@ import com.example.abschlussaufgabe.R
 import com.example.abschlussaufgabe.data.datamodels.Profile
 import com.example.abschlussaufgabe.data.datamodels.RandomProfileImage
 import com.example.abschlussaufgabe.databinding.FragmentEditProfileBinding
+import com.google.firebase.storage.FirebaseStorage
+import com.squareup.picasso.MemoryPolicy
+import com.squareup.picasso.Picasso
 
 
 class EditProfileFragment : Fragment() {
@@ -33,6 +37,7 @@ class EditProfileFragment : Fragment() {
     private val PICK_IMAGE_REQUEST = 1
     private var profileImage: Uri = Uri.EMPTY
     private var deleteProfileImage = false
+
 
 
 
@@ -67,13 +72,16 @@ class EditProfileFragment : Fragment() {
             binding.tietUserName.setText(it.userName)
             binding.tietBirthday.setText(it.birthday)
             binding.tietHomeTown.setText(it.homeTown)
-            binding.ivProfilePhoto.setImageURI(it.profileImage)
+            Picasso.get()
+                .load(it.profileImage)
+                .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                .placeholder(R.drawable.placeholder_image)
+                .into(binding.ivProfilePhoto)
         }
 
         binding.ivProfilePhoto.setOnClickListener {
             openImagePicker()
             deleteProfileImage = false
-            binding.ivProfilePhoto.setImageURI(profileImage)
         }
 
         binding.ivDelete.setOnClickListener {
@@ -105,6 +113,7 @@ class EditProfileFragment : Fragment() {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
             val selectedImageUri = data.data
             profileImage = selectedImageUri!!
+            binding.ivProfilePhoto.setImageURI(profileImage)
         }
     }
 
@@ -116,27 +125,42 @@ class EditProfileFragment : Fragment() {
 
         if (deleteProfileImage) {
             currentImage = createProfileImage()
+            profileImage = currentImage
         } else {
             if (profileImage.toString().isNotEmpty()) {
                 currentImage = profileImage
             } else {
-                currentImage = storeViewModel.currentProfile.value!!.profileImage
+                currentImage = storeViewModel.currentProfile.value!!.getProfileImageUri()
             }
         }
 
+        val storageRef = FirebaseStorage.getInstance().reference
+        val imageRef = storageRef.child("profile_images/${authViewModel.currentUser.value!!.uid}/profileImage.jpg")
 
-        val profile = Profile(
-            userID = authViewModel.currentUser.value!!.uid,
-            profileImage = currentImage,
-            lastName = binding.tietLastName.text.toString(),
-            firstName = binding.tietFirstName.text.toString(),
-            userName = binding.tietUserName.text.toString(),
-            birthday = binding.tietBirthday.text.toString(),
-            homeTown = binding.tietHomeTown.text.toString(),
-            email = storeViewModel.currentProfile.value!!.email
-        )
+        val imageStream = requireActivity().contentResolver.openInputStream(currentImage)
 
-        storeViewModel.addNewUser(profile)
+        val uploadTask = imageStream?.let { imageRef.putStream(it) }
+        uploadTask?.addOnSuccessListener { taskSnapshot ->
+            imageRef.downloadUrl.addOnSuccessListener { uri ->
+                val downloadUrl = uri.toString()
+
+                val profile = Profile(
+                    userID = authViewModel.currentUser.value!!.uid,
+                    profileImage = downloadUrl,
+                    lastName = binding.tietLastName.text.toString(),
+                    firstName = binding.tietFirstName.text.toString(),
+                    userName = binding.tietUserName.text.toString(),
+                    birthday = binding.tietBirthday.text.toString(),
+                    homeTown = binding.tietHomeTown.text.toString(),
+                    email = storeViewModel.currentProfile.value!!.email
+                )
+
+                storeViewModel.addNewUser(profile)
+            }
+        }
+            ?.addOnFailureListener { exception ->
+                Log.w("FirestoreStorage", "Error loading Image", exception)
+            }
     }
 
     private fun createProfileImage(): Uri {

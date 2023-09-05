@@ -5,6 +5,7 @@ import android.content.Context
 import android.media.MediaPlayer
 import android.os.CountDownTimer
 import android.os.Handler
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -578,12 +579,6 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
     // es wird festgelegt ob der Spieler gewonnen oder verloren hat
     fun endRound() {
 
-        _rounds.value = rounds.value!!.plus(1)
-        stopTimer()
-        Handler().removeCallbacks(runnable)
-        _roundBegan.value = false
-
-
         if (selectTimer.value == "kein Zeitlimit") {
                 if (player.value!!.lifePoints > 0) {
                     _roundsWonPlayer.value = roundsWonPlayer.value!!.plus(1)
@@ -608,6 +603,11 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
             _roundsWonPlayer.value = _roundsWonPlayer.value
             _roundsWonEnemy.value = _roundsWonEnemy.value
         }
+
+        _rounds.value = rounds.value!!.plus(1)
+        stopTimer()
+        Handler().removeCallbacks(runnable)
+        _roundBegan.value = false
 
         _rounds.value = _rounds.value
         _roundsWonPlayer.value = _roundsWonPlayer.value

@@ -6,6 +6,7 @@ import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +22,9 @@ import com.example.abschlussaufgabe.data.datamodels.Profile
 import com.example.abschlussaufgabe.data.datamodels.RandomProfileImage
 import com.example.abschlussaufgabe.databinding.FragmentCreateProfileBinding
 import com.example.abschlussaufgabe.databinding.FragmentEditProfileBinding
+import com.google.firebase.storage.FirebaseStorage
+import com.squareup.picasso.MemoryPolicy
+import com.squareup.picasso.Picasso
 
 class CreateProfileFragment : Fragment() {
 
@@ -60,6 +64,12 @@ class CreateProfileFragment : Fragment() {
 
         binding.ivProfilePhoto.setOnClickListener {
             openImagePicker()
+            // hier wird das Bild in der ImageView aktualisiert
+            Picasso.get()
+                .load(profileImage)
+                .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                .placeholder(R.drawable.placeholder_image)
+                .into(binding.ivProfilePhoto)
         }
 
         binding.btnSave.setOnClickListener {
@@ -95,28 +105,43 @@ class CreateProfileFragment : Fragment() {
     // ertellt eine Variable mit den eingetragenen Daten und übergibt sie der Funktion
     // die die Daten in Firestore speichert
     private fun setProfile(id: String, email: String) {
-
         var currentImage = Uri.EMPTY
 
-        if(profileImage.toString().isNotEmpty()) {
+        if (profileImage.toString().isNotEmpty()) {
             currentImage = profileImage
         } else {
             currentImage = createProfileImage()
         }
 
-        val profile = Profile(
-            userID = id,
-            profileImage = currentImage,
-            lastName = binding.tietLastName.text.toString(),
-            firstName = binding.tietFirstName.text.toString(),
-            userName = binding.tietUserName.text.toString(),
-            birthday = binding.tietBirthday.text.toString(),
-            homeTown = binding.tietHomeTown.text.toString(),
-            email = email
-        )
+        val storageRef = FirebaseStorage.getInstance().reference
+        val imageRef = storageRef.child("profile_images/${authViewModel.currentUser.value!!.uid}/profileImage.jpg")
 
-        storeViewModel.addNewUser(profile)
+        val imageStream = requireActivity().contentResolver.openInputStream(currentImage)
+
+        val uploadTask = imageStream?.let { imageRef.putStream(it) }
+        uploadTask?.addOnSuccessListener { taskSnapshot ->
+            imageRef.downloadUrl.addOnSuccessListener { uri ->
+                val downloadUrl = uri.toString()
+
+                val profile = Profile(
+                    userID = id,
+                    profileImage = downloadUrl,
+                    lastName = binding.tietLastName.text.toString(),
+                    firstName = binding.tietFirstName.text.toString(),
+                    userName = binding.tietUserName.text.toString(),
+                    birthday = binding.tietBirthday.text.toString(),
+                    homeTown = binding.tietHomeTown.text.toString(),
+                    email = email
+                )
+
+                storeViewModel.addNewUser(profile)
+            }
+        }
+            ?.addOnFailureListener { exception ->
+                Log.w("FirestoreStorage", "Error loading Image", exception)
+            }
     }
+
 
 
     private fun createProfileImage(): Uri {
@@ -125,4 +150,5 @@ class CreateProfileFragment : Fragment() {
 
         return Uri.parse("android.resource://com.example.abschlussaufgabe/drawable/${randomImage}")
     }
+
 }
