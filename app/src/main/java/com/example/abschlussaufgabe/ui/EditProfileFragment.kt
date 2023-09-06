@@ -134,7 +134,7 @@ class EditProfileFragment : Fragment() {
     private fun changeProfile() {
 
         var currentImage = Uri.EMPTY
-        val existingImage =
+        var existingImage = Uri.EMPTY
 
         if (deleteProfileImage) {
             currentImage = createProfileImage()
@@ -142,7 +142,7 @@ class EditProfileFragment : Fragment() {
             if (profileImage.toString().isNotEmpty()) {
                 currentImage = profileImage
             } else {
-                currentImage = storeViewModel.currentProfile.value!!.getProfileImageUri()
+                existingImage = Uri.parse(storeViewModel.currentProfile.value!!.profileImage)
             }
         }
 
@@ -150,11 +150,32 @@ class EditProfileFragment : Fragment() {
         val imageRef = storageRef.child("profile_images/${authViewModel.currentUser.value!!.uid}/profileImage.jpg")
         Log.e("Image", "$imageRef")
         Log.e("Image", "$currentImage")
-        val imageStream = requireActivity().contentResolver.openInputStream(currentImage)
+        if (existingImage == Uri.EMPTY) {
+            val imageStream = requireActivity().contentResolver.openInputStream(currentImage)
 
+            val uploadTask = imageStream?.let { imageRef.putStream(it) }
+            uploadTask?.addOnSuccessListener { taskSnapshot ->
+                imageRef.downloadUrl.addOnSuccessListener { uri ->
+                    val downloadUrl = uri.toString()
 
-        val uploadTask = imageStream?.let { imageRef.putStream(it) }
-        uploadTask?.addOnSuccessListener { taskSnapshot ->
+                    val profile = Profile(
+                        userID = authViewModel.currentUser.value!!.uid,
+                        profileImage = downloadUrl,
+                        lastName = binding.tietLastName.text.toString(),
+                        firstName = binding.tietFirstName.text.toString(),
+                        userName = binding.tietUserName.text.toString(),
+                        birthday = binding.tietBirthday.text.toString(),
+                        homeTown = binding.tietHomeTown.text.toString(),
+                        email = storeViewModel.currentProfile.value!!.email
+                    )
+
+                    storeViewModel.addNewUser(profile)
+                }
+                    ?.addOnFailureListener { exception ->
+                        Log.w("FirestoreStorage", "Error loading Image", exception)
+                    }
+                }
+        } else {
             imageRef.downloadUrl.addOnSuccessListener { uri ->
                 val downloadUrl = uri.toString()
 
@@ -171,10 +192,17 @@ class EditProfileFragment : Fragment() {
 
                 storeViewModel.addNewUser(profile)
             }
+                ?.addOnFailureListener { exception ->
+                    Log.w("FirestoreStorage", "Error loading Image", exception)
+                }
         }
-            ?.addOnFailureListener { exception ->
-                Log.w("FirestoreStorage", "Error loading Image", exception)
-            }
+
+
+
+
+
+
+
     }
 
     private fun createProfileImage(): Uri {
