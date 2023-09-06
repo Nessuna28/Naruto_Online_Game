@@ -3,7 +3,8 @@ package com.example.abschlussaufgabe.data.datamodels.modelForFight
 
 data class CharacterForFight(
 
-    val image: Int,
+    val imagePlayer: Int,
+    val imageEnemy: Int,
     val imagePose: Int,
     val imageFace: Int,
     val imageSad: Int,

@@ -24,6 +24,9 @@ import com.example.abschlussaufgabe.databinding.FragmentEditProfileBinding
 import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.Picasso
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
 
 
 class EditProfileFragment : Fragment() {
@@ -66,6 +69,12 @@ class EditProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        authViewModel.currentUser.observe(viewLifecycleOwner) {
+            if (it != null) {
+                storeViewModel.getUserData(it.uid)
+            }
+        }
+
         storeViewModel.currentProfile.observe(viewLifecycleOwner) {
             binding.tietLastName.setText(it.lastName)
             binding.tietFirstName.setText(it.firstName)
@@ -92,7 +101,11 @@ class EditProfileFragment : Fragment() {
 
         binding.btnSave.setOnClickListener {
             changeProfile()
-            findNavController().navigate(EditProfileFragmentDirections.actionEditProfileFragmentToProfileFragment())
+            storeViewModel.updateDone.observe(viewLifecycleOwner) {
+                if (it) {
+                    findNavController().navigate(EditProfileFragmentDirections.actionEditProfileFragmentToProfileFragment())
+                }
+            }
         }
 
         binding.btnCancel.setOnClickListener {
@@ -113,7 +126,6 @@ class EditProfileFragment : Fragment() {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
             val selectedImageUri = data.data
             profileImage = selectedImageUri!!
-            binding.ivProfilePhoto.setImageURI(profileImage)
         }
     }
 
@@ -122,10 +134,10 @@ class EditProfileFragment : Fragment() {
     private fun changeProfile() {
 
         var currentImage = Uri.EMPTY
+        val existingImage =
 
         if (deleteProfileImage) {
             currentImage = createProfileImage()
-            profileImage = currentImage
         } else {
             if (profileImage.toString().isNotEmpty()) {
                 currentImage = profileImage
@@ -136,8 +148,10 @@ class EditProfileFragment : Fragment() {
 
         val storageRef = FirebaseStorage.getInstance().reference
         val imageRef = storageRef.child("profile_images/${authViewModel.currentUser.value!!.uid}/profileImage.jpg")
-
+        Log.e("Image", "$imageRef")
+        Log.e("Image", "$currentImage")
         val imageStream = requireActivity().contentResolver.openInputStream(currentImage)
+
 
         val uploadTask = imageStream?.let { imageRef.putStream(it) }
         uploadTask?.addOnSuccessListener { taskSnapshot ->

@@ -458,7 +458,6 @@ class KniffelFragment : Fragment() {
                 newGame()
                 kniffelViewModel.stopSound()
 
-                // Erstelle den MaterialAlertDialogBuilder
                 val builder = MaterialAlertDialogBuilder(requireContext())
                 builder.setTitle("Das Spiel ist beendet")
                     .setMessage(

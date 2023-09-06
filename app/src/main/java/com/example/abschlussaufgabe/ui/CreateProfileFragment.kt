@@ -64,12 +64,7 @@ class CreateProfileFragment : Fragment() {
 
         binding.ivProfilePhoto.setOnClickListener {
             openImagePicker()
-            // hier wird das Bild in der ImageView aktualisiert
-            Picasso.get()
-                .load(profileImage)
-                .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
-                .placeholder(R.drawable.placeholder_image)
-                .into(binding.ivProfilePhoto)
+            binding.ivProfilePhoto.setImageURI(profileImage)
         }
 
         binding.btnSave.setOnClickListener {

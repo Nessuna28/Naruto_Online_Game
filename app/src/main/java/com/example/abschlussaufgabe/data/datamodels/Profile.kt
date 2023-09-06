@@ -16,8 +16,9 @@ data class Profile(
 
 ) {
 
+    // hier wird der Download-URL in eine Uri konvertiert und zurückgegeben
     fun getProfileImageUri(): Uri {
-        // Hier konvertieren Sie den Download-URL in eine Uri und geben ihn zurück
+
         return Uri.parse(profileImage)
     }
 }

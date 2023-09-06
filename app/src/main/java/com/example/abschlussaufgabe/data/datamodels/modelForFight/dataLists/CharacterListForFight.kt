@@ -12,6 +12,7 @@ class CharacterListForFight {
     val characterList = mutableListOf(
         CharacterForFight(
             R.drawable.naruto_player,
+            R.drawable.naruto_enemy,
             R.drawable.naruto_pose,
             R.drawable.naruto_face2,
             R.drawable.naruto_sad,
@@ -24,6 +25,7 @@ class CharacterListForFight {
 
     CharacterForFight(
         R.drawable.sasuke_player,
+        R.drawable.sasuke_enemy,
         R.drawable.sasuke_pose,
         R.drawable.sasuke_face2,
         R.drawable.sasuke_sad,
@@ -36,6 +38,7 @@ class CharacterListForFight {
 
     CharacterForFight(
         R.drawable.sakura_player,
+        R.drawable.sakura_enemy,
         R.drawable.sakura_pose,
         R.drawable.sakura_face2,
         R.drawable.sakura_sad,
@@ -48,6 +51,7 @@ class CharacterListForFight {
 
         CharacterForFight(
             R.drawable.shikamaru_player,
+            R.drawable.shikamaru_enemy,
             R.drawable.shikamaru_pose,
             R.drawable.shikamaru_face2,
             R.drawable.shikamaru_sad,
@@ -60,6 +64,7 @@ class CharacterListForFight {
 
         CharacterForFight(
             R.drawable.choji_player,
+            R.drawable.choji_enemy,
             R.drawable.choji_pose,
             R.drawable.choji_face2,
             R.drawable.choji_sad,
@@ -72,6 +77,7 @@ class CharacterListForFight {
 
         CharacterForFight(
             R.drawable.ino_player,
+            R.drawable.ino_enemy,
             R.drawable.ino_pose,
             R.drawable.ino_face2,
             R.drawable.ino_sad,
@@ -84,6 +90,7 @@ class CharacterListForFight {
 
         CharacterForFight(
             R.drawable.neji_player,
+            R.drawable.neji_enemy,
             R.drawable.neji_pose,
             R.drawable.neji_face2,
             R.drawable.neji_sad,
@@ -96,6 +103,7 @@ class CharacterListForFight {
 
         CharacterForFight(
             R.drawable.tenten_player,
+            R.drawable.tenten_enemy,
             R.drawable.tenten_pose,
             R.drawable.tenten_face2,
             R.drawable.tenten_sad,
@@ -108,6 +116,7 @@ class CharacterListForFight {
 
         CharacterForFight(
             R.drawable.rocklee_player,
+            R.drawable.rocklee_enemy,
             R.drawable.rocklee_pose,
             R.drawable.rocklee_face2,
             R.drawable.rocklee_sad,
@@ -120,6 +129,7 @@ class CharacterListForFight {
 
         CharacterForFight(
             R.drawable.hinata_player,
+            R.drawable.hinata_enemy,
             R.drawable.hinata_pose,
             R.drawable.hinata_face2,
             R.drawable.hinata_sad,
@@ -132,6 +142,7 @@ class CharacterListForFight {
 
         CharacterForFight(
             R.drawable.kiba_player,
+            R.drawable.kiba_enemy,
             R.drawable.kiba_pose,
             R.drawable.kiba_face2,
             R.drawable.kiba_sad,
@@ -144,6 +155,7 @@ class CharacterListForFight {
 
         CharacterForFight(
             R.drawable.shino_player,
+            R.drawable.shino_enemy,
             R.drawable.shino_pose,
             R.drawable.shino_face2,
             R.drawable.shino_sad,
@@ -156,6 +168,7 @@ class CharacterListForFight {
 
         CharacterForFight(
             R.drawable.gaara_player,
+            R.drawable.gaara_enemy,
             R.drawable.gaara_pose,
             R.drawable.gaara_face2,
             R.drawable.gaara_sad,

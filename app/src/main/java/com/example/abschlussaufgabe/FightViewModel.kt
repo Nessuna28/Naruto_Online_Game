@@ -333,8 +333,8 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
     // setzt die Daten wieder zurück zum Ursprung
     fun resetSelectionData() {
 
-        _imageForPlayer.value = characterForFight.value?.get(0)?.image
-        _imageForEnemy.value = characterForFight.value?.get(0)?.image
+        _imageForPlayer.value = characterForFight.value?.get(0)?.imagePlayer
+        _imageForEnemy.value = characterForFight.value?.get(0)?.imageEnemy
         _characterNameForPlayer.value = characterForFight.value?.get(0)?.name
         _characterNameForEnemy.value = characterForFight.value?.get(0)?.name
         _jutsuListForPlayer.value = characterForFight.value?.get(0)?.jutsus
@@ -349,7 +349,7 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
 
         _attackPlayer.value = attack
         Handler().postDelayed({
-            _attackPlayer.value = Attack("", 0, player.value!!.image, enemy.value!!.image)
+            _attackPlayer.value = Attack("", 0, player.value!!.imagePlayer, enemy.value!!.imageEnemy)
         }, 1000)
     }
 
@@ -384,7 +384,7 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
 
         _attackEnemy.value = currentAttackEnemy
         Handler().postDelayed({
-            _attackEnemy.value = Attack("", 0, player.value!!.image, enemy.value!!.image)
+            _attackEnemy.value = Attack("", 0, player.value!!.imagePlayer, enemy.value!!.imageEnemy)
         }, 1000)
     }
 
@@ -651,8 +651,8 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
         _resultEnemy.value = ""
         _roundsWonPlayer.value = 0
         _roundsWonEnemy.value = 0
-        _attackPlayer.value = Attack("", 0, player.value!!.image, enemy.value!!.image)
-        _attackEnemy.value = Attack("", 0, player.value!!.image, enemy.value!!.image)
+        _attackPlayer.value = Attack("", 0, player.value!!.imagePlayer, enemy.value!!.imageEnemy)
+        _attackEnemy.value = Attack("", 0, player.value!!.imagePlayer, enemy.value!!.imageEnemy)
     }
 
     // ändert den Wert des Ergebniss (gewonnen oder verloren)

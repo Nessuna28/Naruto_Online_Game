@@ -44,11 +44,33 @@ class ProfileFragment : Fragment() {
         viewModel.imageHome.value?.let { viewModel.showImages(it) }
         viewModel.imageSettings.value?.let { viewModel.showImages(it) }
 
-        authViewModel.currentUser.observe(viewLifecycleOwner) {
-            if (it != null) {
-                storeViewModel.getUserData(it.uid)
-            }
+        storeViewModel.resetUpdateDone()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        storeViewModel.getUserData(authViewModel.currentUser.value!!.uid)
+        storeViewModel.resetUpdateDone()
+    }
+
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
+
+        if (authViewModel.currentUser.value == null) {
+            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToLogInFragment())
         }
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         storeViewModel.currentProfile.observe(viewLifecycleOwner) {
             if (it != null) {
@@ -74,27 +96,6 @@ class ProfileFragment : Fragment() {
                 binding.ivProfilePhoto.setImageURI(Uri.parse(viewModel.cvImageProfile.value!!.toString()))
             }
         }
-    }
-
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
-
-        if (authViewModel.currentUser.value == null) {
-            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToLogInFragment())
-        }
-
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
 
 
         findNavController().addOnDestinationChangedListener { _, destination, _ ->
@@ -103,9 +104,9 @@ class ProfileFragment : Fragment() {
         }
 
         // der Zurück-Button navigiert nur zurück wenn ich nicht vom Profil bearbeiten komme
-        // komme ich vom Profil bearbeiten dann navigiert der Zurück-Button zum Home
+        // komme ich vom Profil bearbeiten dann navigiert der Zurück-Button zum HomeScreen
         binding.ivBack.setOnClickListener {
-            if (previousFragmentTag == "fragment_edit_profile_tag" || previousFragmentTag == "fragment_create_profile_tag") {
+            if (previousFragmentTag == R.layout.fragment_edit_profile.toString() || previousFragmentTag == R.layout.fragment_create_profile.toString()) {
                 findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToHomeFragment())
             } else {
                 findNavController().navigateUp()

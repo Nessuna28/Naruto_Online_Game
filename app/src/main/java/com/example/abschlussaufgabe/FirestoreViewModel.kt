@@ -19,6 +19,11 @@ class FirestoreViewModel: ViewModel() {
         get() = _currentProfile
 
 
+    private val _updateDone = MutableLiveData(false)
+    val updateDone: LiveData<Boolean>
+        get() = _updateDone
+
+
     private val _playerDataList = MutableLiveData<List<DataPlayer>>()
     val playerDataList: LiveData<List<DataPlayer>>
         get() = _playerDataList
@@ -42,8 +47,14 @@ class FirestoreViewModel: ViewModel() {
         )
 
         db.collection("profiles").document(profile.userID).set(userProfile)
-            .addOnSuccessListener { Log.d("Firestore", "DocumentSnapshot successfully written!") }
+            .addOnSuccessListener { Log.d("Firestore", "DocumentSnapshot successfully written!")
+            _updateDone.value = true }
             .addOnFailureListener { e -> Log.w("Firestore", "Error writing document", e) }
+    }
+
+    fun resetUpdateDone() {
+
+        _updateDone.value = false
     }
 
     fun addNewPlayerData(data: DataPlayer) {
@@ -88,11 +99,16 @@ class FirestoreViewModel: ViewModel() {
                 } else {
                     Log.d("Firestore", "No such document")
                 }
-
             }
             .addOnFailureListener { exception ->
                 Log.d("Firestore", "get failed with ", exception)
             }
+    }
+
+    fun reloadProfile(profile: Profile) {
+
+        _currentProfile.value = profile
+        _currentProfile.value = _currentProfile.value
     }
 
     fun getPlayerData(currentUserId: String) {

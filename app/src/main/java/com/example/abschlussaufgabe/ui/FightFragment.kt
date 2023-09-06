@@ -29,6 +29,7 @@ import com.example.abschlussaufgabe.adapter.TraitPlayerAdapter
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.Attack
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.CharacterForFight
 import com.example.abschlussaufgabe.databinding.FragmentFightBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 
 class FightFragment : Fragment() {
@@ -137,9 +138,9 @@ class FightFragment : Fragment() {
 
         fightViewModel.player.observe(viewLifecycleOwner) {
             binding.ivCharacterImagePlayer?.setImageResource(it.imageFace)
-            binding.ivImagePlayer?.setImageResource(it.image)
-            binding.ivImageDouble1Player?.setImageResource(it.image)
-            binding.ivImageDouble2Player?.setImageResource(it.image)
+            binding.ivImagePlayer?.setImageResource(it.imagePlayer)
+            binding.ivImageDouble1Player?.setImageResource(it.imagePlayer)
+            binding.ivImageDouble2Player?.setImageResource(it.imagePlayer)
             binding.tvCharacterNamePlayer?.text = it.name
             binding.lifePointsBarViewPlayer?.setMaxLifePoints(it.lifePointsStart) // Setze hier den Maximalwert
             binding.lifePointsBarViewPlayer?.setCurrentLifePoints(it.lifePoints) // Setze die aktuellen Lebenspunkte
@@ -154,9 +155,9 @@ class FightFragment : Fragment() {
 
         fightViewModel.enemy.observe(viewLifecycleOwner) {
             binding.ivCharacterImageEnemy?.setImageResource(it.imageFace)
-            binding.ivImageEnemy?.setImageResource(it.image)
-            binding.ivImageDouble1Enemy?.setImageResource(it.image)
-            binding.ivImageDouble2Enemy?.setImageResource(it.image)
+            binding.ivImageEnemy?.setImageResource(it.imageEnemy)
+            binding.ivImageDouble1Enemy?.setImageResource(it.imageEnemy)
+            binding.ivImageDouble2Enemy?.setImageResource(it.imageEnemy)
             binding.tvCharacterNameEnemy?.text = it.name
             binding.lifePointsBarViewEnemy?.setMaxLifePoints(it.lifePointsStart)
             binding.lifePointsBarViewEnemy?.setCurrentLifePoints(it.lifePoints)
@@ -244,7 +245,19 @@ class FightFragment : Fragment() {
         // Navigation
 
         binding.ivBack?.setOnClickListener {
-            findNavController().navigate(FightFragmentDirections.actionFightFragmentToCharacterSelectionFragment())
+            val builder = MaterialAlertDialogBuilder(requireContext())
+            builder.setTitle("Spiel verlassen")
+                .setMessage(
+                    """Möchtest du das Spiel wirklich beenden?""".trimMargin()
+                )
+                .setPositiveButton("Ja") { dialog, which ->
+                    fightViewModel.stopSound()
+                    findNavController().navigate(R.id.selectionGameFragment)
+                }
+                .setNegativeButton("Nein") { dialog, which ->
+                    dialog.dismiss()
+                }
+                .show()
         }
 
         fightViewModel.gameEnd.observe(viewLifecycleOwner) {
@@ -312,7 +325,7 @@ class FightFragment : Fragment() {
                 imageAnimationTranslate(player, binding.ivImagePlayer)
 
                 handler.postDelayed(
-                    { binding.ivImagePlayer?.setImageResource(player.image) }, 1000)
+                    { binding.ivImagePlayer?.setImageResource(player.imagePlayer) }, 1000)
             }
         } else {
             if (attack.name == "Heilung") {
@@ -332,7 +345,7 @@ class FightFragment : Fragment() {
                 imageAnimationTranslate(enemy, binding.ivImageEnemy)
 
                 handler.postDelayed(
-                    { binding.ivImageEnemy?.setImageResource(enemy.image) }, 1000)
+                    { binding.ivImageEnemy?.setImageResource(enemy.imageEnemy) }, 1000)
             }
         }
     }
@@ -345,7 +358,7 @@ class FightFragment : Fragment() {
                 imageAnimationTranslate(player, binding.ivImagePlayer)
 
                 handler.postDelayed({
-                    binding.ivImagePlayer?.setImageResource(player.image)
+                    binding.ivImagePlayer?.setImageResource(player.imagePlayer)
                 }, 1000)
             }
 
@@ -363,7 +376,7 @@ class FightFragment : Fragment() {
                 imageAnimationTranslate(enemy, binding.ivImageEnemy)
 
                 handler.postDelayed({
-                    binding.ivImageEnemy?.setImageResource(enemy.image)
+                    binding.ivImageEnemy?.setImageResource(enemy.imageEnemy)
                 }, 1000)
             }
 
@@ -394,7 +407,7 @@ class FightFragment : Fragment() {
                 binding.ivImagePlayer?.setImageResource(attack.imagePlayer)
 
                 handler.postDelayed(
-                    { binding.ivImagePlayer?.setImageResource(player.image)}, 1000)
+                    { binding.ivImagePlayer?.setImageResource(player.imagePlayer)}, 1000)
             }
         } else {
             if (attack.name == "Schattendoppelgänger" || attack.name == "Sanddoppelgänger") {
@@ -410,7 +423,7 @@ class FightFragment : Fragment() {
                 binding.ivImageEnemy?.setImageResource(attack.imageEnemy)
 
                 handler.postDelayed(
-                    { binding.ivImageEnemy?.setImageResource(enemy.image)}, 1000)
+                    { binding.ivImageEnemy?.setImageResource(enemy.imageEnemy)}, 1000)
             }
         }
     }

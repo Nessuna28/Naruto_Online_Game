@@ -112,22 +112,16 @@ class ResultFragment : Fragment() {
 
         binding.btnHome?.setOnClickListener {
             fightViewModel.stopSound()
-            fightViewModel.resetPointsForNewGame()
-            fightViewModel.resetToDefaultRounds()
             findNavController().navigate(ResultFragmentDirections.actionResultFragmentToHomeFragment())
         }
 
         binding.btnSelection?.setOnClickListener {
             fightViewModel.stopSound()
-            fightViewModel.resetPointsForNewGame()
-            fightViewModel.resetToDefaultRounds()
             findNavController().navigate(ResultFragmentDirections.actionResultFragmentToCharacterSelectionFragment())
         }
 
         viewModel.imageSettings.value!!.setOnClickListener {
             fightViewModel.stopSound()
-            fightViewModel.resetPointsForNewGame()
-            fightViewModel.resetToDefaultRounds()
             findNavController().navigate(ResultFragmentDirections.actionResultFragmentToSettingsFragment())
         }
     }
@@ -147,11 +141,11 @@ class ResultFragment : Fragment() {
             date = today,
             userName = viewModel.tvUserName.value!!.text.toString(),
             characterName = charakter.name,
-            characterImage = charakter.image,
+            characterImage = charakter.imagePlayer,
             result = fightViewModel.result.value!!,
             userNameEnemy = viewModel.userNameEnemy.value!!,
             characterNameEnemy = charakterEnemy.name,
-            characterImageEnemy = charakterEnemy.image,
+            characterImageEnemy = charakterEnemy.imageEnemy,
             resultEnemy = fightViewModel.resultEnemy.value!!
         )
 

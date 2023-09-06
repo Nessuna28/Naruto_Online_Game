@@ -50,8 +50,8 @@ class CharacterSelectionFragment : Fragment() {
         val firstCharacter = fightViewModel.characterForFight.value!!.first()
         binding.tvCharacterNamePlayer?.text = firstCharacter.name
         binding.tvCharacterNameEnemy?.text = firstCharacter.name
-        binding.ivSelectionPlayer?.setImageResource(firstCharacter.image)
-        binding.ivSelectionEnemy?.setImageResource(firstCharacter.image)
+        binding.ivSelectionPlayer?.setImageResource(firstCharacter.imagePlayer)
+        binding.ivSelectionEnemy?.setImageResource(firstCharacter.imageEnemy)
 
         resetToDefault()
 
@@ -94,7 +94,7 @@ class CharacterSelectionFragment : Fragment() {
             binding.tvCharacterNamePlayer?.visibility = View.VISIBLE
             binding.tvCharacterNamePlayer?.text = it.name
             binding.ivSelectionPlayer?.visibility = View.VISIBLE
-            binding.ivSelectionPlayer?.setImageResource(it.image)
+            binding.ivSelectionPlayer?.setImageResource(it.imagePlayer)
             binding.tvTitleJutsusPlayer?.visibility = View.VISIBLE
             binding.rvJutsusPlayer?.visibility = View.VISIBLE
             binding.rvJutsusPlayer?.adapter = JutsuPlayerAdapter(it.jutsus, fightViewModel)
@@ -107,7 +107,7 @@ class CharacterSelectionFragment : Fragment() {
             binding.tvCharacterNameEnemy?.visibility = View.VISIBLE
             binding.tvCharacterNameEnemy?.text = it.name
             binding.ivSelectionEnemy?.visibility = View.VISIBLE
-            binding.ivSelectionEnemy?.setImageResource(it.image)
+            binding.ivSelectionEnemy?.setImageResource(it.imageEnemy)
             binding.tvTitleJutsusEnemy?.visibility = View.VISIBLE
             binding.rvJutsusEnemy?.visibility = View.VISIBLE
             binding.rvJutsusEnemy?.adapter = JutsuEnemyAdapter(it.jutsus)
