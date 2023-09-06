@@ -126,6 +126,7 @@ class EditProfileFragment : Fragment() {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
             val selectedImageUri = data.data
             profileImage = selectedImageUri!!
+            binding.ivProfilePhoto.setImageURI(profileImage)
         }
     }
 
