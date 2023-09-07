@@ -64,7 +64,12 @@ class StatisticsFragment : Fragment() {
                 storeViewModel.getPlayerData(user.uid)
                 storeViewModel.playerDataList.observe(viewLifecycleOwner) { dataList ->
                     if (dataList != null) {
-                        adapter.replaceDataSet(dataList)
+                        Thread(Runnable {
+                            this.requireActivity().runOnUiThread {
+                                adapter.replaceDataSet(dataList)
+                            }
+                        }).start()
+
                         binding.tvVictorys.text = dataList.count { it.result == "Sieg" }.toString()
                         binding.tvDefeats.text = dataList.count { it.result == "Niederlage" }.toString()
                     }

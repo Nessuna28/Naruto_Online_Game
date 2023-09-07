@@ -2,6 +2,7 @@ package com.example.abschlussaufgabe.ui
 
 
 import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
 import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.BounceInterpolator
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.os.postDelayed
@@ -313,14 +315,35 @@ class FightFragment : Fragment() {
 
                 handler.postDelayed(
                     { binding.ivImageHealPlayer?.visibility = View.INVISIBLE }, 1000)
-            }else if (attack.name == "Jutsu des vertrauten Geistes") {
+            } else if (attack.name == "Jutsu des vertrauten Geistes") {
+                Thread(Runnable {
+                    this.requireActivity().runOnUiThread {
+                        binding.ivImageVertrauterGeistPlayer?.setImageResource(attack.imagePlayer)
+                    }
+                }).start()
                 binding.ivImageVertrauterGeistPlayer?.visibility = View.VISIBLE
                 imageAnimationTranslate(player, binding.ivImageVertrauterGeistPlayer)
 
                 handler.postDelayed(
-                    { binding.ivImageVertrauterGeistPlayer?.visibility = View.INVISIBLE }, 1000)
+                    { binding.ivImageVertrauterGeistPlayer?.visibility = View.INVISIBLE }, 1000
+                )
+            } else if (attack.name == "Byakugan" || attack.name == "Sharingan" || attack.name == "Jahundertstärke") {
+                Thread(Runnable {
+                    this.requireActivity().runOnUiThread {
+                        binding.ivImagePlayer?.setImageResource(attack.imagePlayer)
+                    }
+                }).start()
+
+                imageAnimationScale(binding.ivImagePlayer)
+
+                handler.postDelayed(
+                    { binding.ivImagePlayer?.setImageResource(player.imagePlayer) }, 1000)
             } else {
-                binding.ivImagePlayer?.setImageResource(attack.imagePlayer)
+                Thread(Runnable {
+                    this.requireActivity().runOnUiThread {
+                        binding.ivImagePlayer?.setImageResource(attack.imagePlayer)
+                    }
+                }).start()
 
                 imageAnimationTranslate(player, binding.ivImagePlayer)
 
@@ -333,12 +356,20 @@ class FightFragment : Fragment() {
 
                 handler.postDelayed(
                     { binding.ivImageHealEnemy?.visibility = View.INVISIBLE }, 1000)
-            }else if (attack.name == "Jutsu des vertrauten Geistes") {
+            } else if (attack.name == "Jutsu des vertrauten Geistes") {
+                binding.ivImageVertrauterGeistEnemy?.setImageResource(attack.imageEnemy)
                 binding.ivImageVertrauterGeistEnemy?.visibility = View.VISIBLE
                 imageAnimationTranslate(enemy, binding.ivImageVertrauterGeistEnemy)
 
                 handler.postDelayed(
                     { binding.ivImageVertrauterGeistEnemy?.visibility = View.INVISIBLE }, 1000)
+            } else if (attack.name == "Byakugan" || attack.name == "Sharingan" || attack.name == "Jahundertstärke") {
+                binding.ivImageEnemy?.setImageResource(attack.imageEnemy)
+
+                imageAnimationScale(binding.ivImageEnemy)
+
+                handler.postDelayed(
+                    { binding.ivImageEnemy?.setImageResource(enemy.imageEnemy) }, 1000)
             } else {
                 binding.ivImageEnemy?.setImageResource(attack.imageEnemy)
 
@@ -354,7 +385,12 @@ class FightFragment : Fragment() {
 
         if (check) {
             if (attack.name == "Schwert") {
-                binding.ivImagePlayer?.setImageResource(attack.imagePlayer)
+                Thread(Runnable {
+                    this.requireActivity().runOnUiThread {
+                        binding.ivImagePlayer?.setImageResource(attack.imagePlayer)
+                    }
+                }).start()
+
                 imageAnimationTranslate(player, binding.ivImagePlayer)
 
                 handler.postDelayed({
@@ -394,7 +430,7 @@ class FightFragment : Fragment() {
     private fun changeViewsForDefense(check: Boolean, attack: Attack) {
 
         if (check) {
-            if (attack.name == "Schattendoppelgänger" || attack.name == "Sanddoppelgänger") {
+            if (attack.name == "Schattendoppelgänger" || attack.name == "Sanddoppelgänger" || attack.name == "Insektendoppelgänger") {
                 binding.ivImageDouble1Player?.visibility = View.VISIBLE
                 binding.ivImageDouble2Player?.visibility = View.VISIBLE
 
@@ -404,13 +440,17 @@ class FightFragment : Fragment() {
                 handler.postDelayed(
                     { binding.ivImageDouble2Player?.visibility = View.INVISIBLE }, 1000)
             } else {
-                binding.ivImagePlayer?.setImageResource(attack.imagePlayer)
+                Thread(Runnable {
+                    this.requireActivity().runOnUiThread {
+                        binding.ivImagePlayer?.setImageResource(attack.imagePlayer)
+                    }
+                }).start()
 
                 handler.postDelayed(
                     { binding.ivImagePlayer?.setImageResource(player.imagePlayer)}, 1000)
             }
         } else {
-            if (attack.name == "Schattendoppelgänger" || attack.name == "Sanddoppelgänger") {
+            if (attack.name == "Schattendoppelgänger" || attack.name == "Sanddoppelgänger" || attack.name == "Insektendoppelgänger") {
                 binding.ivImageDouble1Enemy?.visibility = View.VISIBLE
                 binding.ivImageDouble2Enemy?.visibility = View.VISIBLE
 
@@ -626,6 +666,18 @@ class FightFragment : Fragment() {
             animator.repeatMode = ObjectAnimator.REVERSE
             animator.start()
         }
+    }
+
+    private fun imageAnimationScale(image: ImageView?) {
+        val scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 3f)
+        val scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 3f)
+        val animator =
+            ObjectAnimator.ofPropertyValuesHolder(image, scaleX, scaleY)
+        animator.duration = 900
+        animator.repeatCount = 1
+        animator.repeatMode = ObjectAnimator.REVERSE
+        animator.interpolator = BounceInterpolator()
+        animator.start()
     }
 }
 

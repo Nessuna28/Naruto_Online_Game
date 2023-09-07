@@ -87,7 +87,7 @@ class AuthViewModel: ViewModel() {
         val message = message
         val duration = Toast.LENGTH_LONG
 
-        Toast.makeText(context, message.value, duration)
+        Toast.makeText(context, message.value, duration).show()
     }
 
 }

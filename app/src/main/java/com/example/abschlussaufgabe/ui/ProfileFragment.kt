@@ -50,7 +50,9 @@ class ProfileFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        storeViewModel.getUserData(authViewModel.currentUser.value!!.uid)
+        if (authViewModel.currentUser.value != null) {
+            storeViewModel.getUserData(authViewModel.currentUser.value!!.uid)
+        }
         storeViewModel.resetUpdateDone()
     }
 

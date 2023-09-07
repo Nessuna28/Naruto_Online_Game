@@ -149,8 +149,7 @@ class EditProfileFragment : Fragment() {
 
         val storageRef = FirebaseStorage.getInstance().reference
         val imageRef = storageRef.child("profile_images/${authViewModel.currentUser.value!!.uid}/profileImage.jpg")
-        Log.e("Image", "$imageRef")
-        Log.e("Image", "$currentImage")
+
         if (existingImage == Uri.EMPTY) {
             val imageStream = requireActivity().contentResolver.openInputStream(currentImage)
 
@@ -197,13 +196,6 @@ class EditProfileFragment : Fragment() {
                     Log.w("FirestoreStorage", "Error loading Image", exception)
                 }
         }
-
-
-
-
-
-
-
     }
 
     private fun createProfileImage(): Uri {
