@@ -56,7 +56,7 @@ class SelectionGameFragment : Fragment() {
         }
 
         binding.tvScissorsRockPaper.setOnClickListener {
-            //TODO:
+            findNavController().navigate(SelectionGameFragmentDirections.actionSelectionGameFragmentToScissorsRockPaperFragment())
         }
 
         binding.ivBack.setOnClickListener {

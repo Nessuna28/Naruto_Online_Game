@@ -16,6 +16,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.abschlussaufgabe.AuthViewModel
 import com.example.abschlussaufgabe.FirestoreViewModel
 import com.example.abschlussaufgabe.KniffelViewModel
 import com.example.abschlussaufgabe.MainViewModel
@@ -32,6 +33,7 @@ class KniffelFragment : Fragment() {
     private val viewModel: MainViewModel by activityViewModels()
     private val kniffelViewModel: KniffelViewModel by activityViewModels()
     private val storeViewModel: FirestoreViewModel by activityViewModels()
+    private val authViewModel: AuthViewModel by activityViewModels()
 
     private lateinit var binding: FragmentKniffelBinding
 
@@ -182,12 +184,12 @@ class KniffelFragment : Fragment() {
             rounds.add(false)
         }
 
-        storeViewModel.currentProfile.observe(viewLifecycleOwner) {
-            if (it != null) {
-                binding.tvNamePlayer.text = it.userName
-            } else {
-                binding.tvNamePlayer.text = R.string.guest.toString()
+        if (authViewModel.currentUser.value != null) {
+            storeViewModel.currentProfile.observe(viewLifecycleOwner) {
+                binding.tvNamePlayer.text = storeViewModel.currentProfile.value!!.userName
             }
+        } else {
+            binding.tvNamePlayer.text = R.string.guest.toString()
         }
 
         kniffelViewModel.points.observe(viewLifecycleOwner) {

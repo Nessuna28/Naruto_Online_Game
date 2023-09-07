@@ -121,5 +121,9 @@
     <string name="fontSize">Schriftgröße</string>
     <string name="timer">Timer</string>
     <string name="continueAsGuest">als Gast weiter machen</string>
-    <string name="scissorsRockPaper">Schere, Stein, Papier</string>
+    <string name="scissorsRockPaper">Schere - Stein - Papier</string>
+    <string name="scissors">Schere</string>
+    <string name="rock">Stein</string>
+    <string name="paper">Papier</string>
+    <string name="computer">Computer</string>
 </resources>
