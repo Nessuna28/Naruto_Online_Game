@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.example.abschlussaufgabe.AuthViewModel
 import com.example.abschlussaufgabe.FightViewModel
 import com.example.abschlussaufgabe.FirestoreViewModel
 import com.example.abschlussaufgabe.MainViewModel
@@ -39,6 +40,7 @@ class FightFragment : Fragment() {
     private val viewModel: MainViewModel by activityViewModels()
     private val fightViewModel: FightViewModel by activityViewModels()
     private val storeViewModel: FirestoreViewModel by activityViewModels()
+    private val authViewModel: AuthViewModel by activityViewModels()
 
     private lateinit var binding: FragmentFightBinding
 
@@ -74,6 +76,22 @@ class FightFragment : Fragment() {
 
         handler.removeCallbacks(fightViewModel.runnable)
 
+        fightViewModel.selectFight.observe(viewLifecycleOwner) {
+            if (it == R.string.single.toString()) {
+                binding.mcTeammate1?.visibility = View.INVISIBLE
+                binding.mcTeammate2?.visibility = View.INVISIBLE
+                binding.ivTeammatePlayer?.visibility = View.INVISIBLE
+                binding.mcTeammate1Enemy?.visibility = View.INVISIBLE
+                binding.mcTeammate2Enemy?.visibility = View.INVISIBLE
+                binding.ivTeammateEnemy?.visibility = View.INVISIBLE
+            } else if (it == R.string.team.toString()) {
+                binding.mcTeammate1?.visibility = View.VISIBLE
+                binding.mcTeammate2?.visibility = View.VISIBLE
+                binding.mcTeammate1Enemy?.visibility = View.VISIBLE
+                binding.mcTeammate2Enemy?.visibility = View.VISIBLE
+            }
+        }
+
         fightViewModel.selectRounds.observe(viewLifecycleOwner) {
             if (it == "1") {
                 binding.mcRound1Player?.visibility = View.VISIBLE
@@ -88,8 +106,6 @@ class FightFragment : Fragment() {
             }
         }
 
-        resetColorForRound()
-
         fightViewModel.selectTimer.observe(viewLifecycleOwner) {
             if (it == "kein Zeitlimit") {
                 binding.tvTimer?.visibility = View.INVISIBLE
@@ -100,6 +116,7 @@ class FightFragment : Fragment() {
             }
         }
 
+        resetColorForRound()
         fightViewModel.setRemainingTimeToStart()
         fightViewModel.resetPointsForNewGame()
         fightViewModel.resetToDefaultRounds()
@@ -122,12 +139,10 @@ class FightFragment : Fragment() {
         enemy = fightViewModel.enemy.value!!
 
 
-        storeViewModel.currentProfile.observe(viewLifecycleOwner) {
-            if (it != null) {
-                binding.tvNamePlayer?.text = it.userName
-            } else {
-                binding.tvNamePlayer?.text = R.string.guest.toString()
-            }
+        if (authViewModel.currentUser.value != null) {
+            binding.tvNamePlayer?.text = storeViewModel.currentProfile.value!!.userName
+        } else {
+            binding.tvNamePlayer?.setText(R.string.guest)
         }
 
         viewModel.userNameEnemy.observe(viewLifecycleOwner) {

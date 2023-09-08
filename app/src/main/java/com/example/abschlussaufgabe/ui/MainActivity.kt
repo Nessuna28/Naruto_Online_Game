@@ -28,23 +28,25 @@ class MainActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-
-        if (authViewModel.currentUser.value != null) {
-            storeViewModel.getUserData(authViewModel.currentUser.value!!.uid)
-            storeViewModel.currentProfile.observe(this) {
-                if (it != null) {
-                    binding.tvUserName.text = it.userName
-                    // Das Bild in einer ImageView anzeigen
-                    Picasso.get()
-                        .load(it.profileImage)
-                        .placeholder(R.drawable.placeholder_image)
-                        .into(binding.ivProfilePhoto)
+        authViewModel.currentUser.observe(this) {
+            if (it != null) {
+                storeViewModel.getUserData(it.uid)
+                storeViewModel.currentProfile.observe(this) {
+                    if (it != null) {
+                        binding.tvUserName.text = it.userName
+                        // Das Bild in einer ImageView anzeigen
+                        Picasso.get()
+                            .load(it.profileImage)
+                            .placeholder(R.drawable.placeholder_image)
+                            .into(binding.ivProfilePhoto)
+                    }
                 }
+            } else {
+                binding.tvUserName.setText(R.string.guest)
+                binding.ivProfilePhoto.setImageURI(createProfileImage())
             }
-        } else {
-            binding.tvUserName.setText(R.string.guest)
-            binding.ivProfilePhoto.setImageURI(createProfileImage())
         }
+
 
         viewModel._imageTitle.value = binding.ivTitle
         viewModel._cVImageProfile.value = binding.mcProfile

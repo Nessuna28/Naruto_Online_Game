@@ -62,19 +62,14 @@ class ScissorsRockPaperFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Thread(Runnable {
-            this.requireActivity().runOnUiThread {
-                if (authViewModel.currentUser.value != null) {
-                    storeViewModel.currentProfile.observe(viewLifecycleOwner) {
-                        binding.tvPlayerName.text = storeViewModel.currentProfile.value!!.userName
-                    }
-                } else {
-                    binding.tvPlayerName.text = R.string.guest.toString()
-                }
-            }
-        }).start()
 
-        binding.tvEnemyName.text = "Computer"
+        if (authViewModel.currentUser.value != null) {
+            binding.tvPlayerName.text = storeViewModel.currentProfile.value!!.userName
+        } else {
+            binding.tvPlayerName.setText(R.string.guest)
+        }
+
+        binding.tvEnemyName.setText(R.string.computer)
 
         binding.btnPaper.setOnClickListener {
             gameViewModel.setPlayerHand("paper")

@@ -13,6 +13,9 @@ class SelectionCharacterEnemyAdapter(
     private var fightViewModel: FightViewModel
 ): RecyclerView.Adapter<SelectionCharacterEnemyAdapter.ItemViewHolder>() {
 
+    private var checkCharacterEnemy = false
+    private var checkTeammate1Enemy = false
+    private var checkTeammate2Enemy = false
 
     inner class ItemViewHolder(val binding: SelectionCharacterEnemyItemBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -36,7 +39,16 @@ class SelectionCharacterEnemyAdapter(
         holder.binding.ivCharacter.setImageResource(characterForFight.imageFace)
 
         holder.binding.ivCharacter.setOnClickListener {
-            fightViewModel.setEnemy(characterForFight)
+            if (!checkCharacterEnemy && !checkTeammate1Enemy && !checkTeammate2Enemy) {
+                fightViewModel.setEnemy(characterForFight)
+                checkCharacterEnemy = true
+            } else if (checkCharacterEnemy && !checkTeammate1Enemy && !checkTeammate2Enemy) {
+                fightViewModel.setTeammateEnemy(characterForFight)
+                checkTeammate1Enemy = true
+            } else if (checkCharacterEnemy && checkTeammate1Enemy && !checkTeammate2Enemy) {
+                fightViewModel.setTeammateEnemy(characterForFight)
+                checkTeammate2Enemy = true
+            }
         }
     }
 }

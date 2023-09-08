@@ -13,6 +13,9 @@ class SelectionCharacterPlayerAdapter(
     private var fightViewModel: FightViewModel
 ): RecyclerView.Adapter<SelectionCharacterPlayerAdapter.ItemViewHolder>() {
 
+    private var checkCharacterPlayer = false
+    private var checkTeammate1Player = false
+    private var checkTeammate2Player = false
 
     inner class ItemViewHolder(val binding: SelectionCharacterPlayerItemBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -36,7 +39,16 @@ class SelectionCharacterPlayerAdapter(
         holder.binding.ivCharacter.setImageResource(characterForFight.imageFace)
 
         holder.binding.ivCharacter.setOnClickListener {
-            fightViewModel.setPlayer(characterForFight)
+            if (!checkCharacterPlayer && !checkTeammate1Player && !checkTeammate2Player) {
+                fightViewModel.setPlayer(characterForFight)
+                checkCharacterPlayer = true
+            } else if (checkCharacterPlayer && !checkTeammate1Player && !checkTeammate2Player) {
+                fightViewModel.setTeammatePlayer(characterForFight)
+                checkTeammate1Player = true
+            } else if (checkCharacterPlayer && checkTeammate1Player && !checkTeammate2Player) {
+                fightViewModel.setTeammatePlayer(characterForFight)
+                checkTeammate2Player = true
+            }
         }
     }
 }

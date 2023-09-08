@@ -5,7 +5,6 @@ import android.content.Context
 import android.media.MediaPlayer
 import android.os.CountDownTimer
 import android.os.Handler
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,6 +15,7 @@ import com.example.abschlussaufgabe.data.datamodels.modelForFight.Location
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.UniqueTrait
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.dataLists.CharacterListForFight
 import com.example.abschlussaufgabe.data.datamodels.modelForFight.dataLists.LocationList
+import com.example.abschlussaufgabe.data.datamodels.modelForFight.Team
 
 class FightViewModel(application: Application): AndroidViewModel(application) {
 
@@ -102,6 +102,20 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
     private val _selectionConfirmedEnemy = MutableLiveData<Boolean>()
     val selectionConfirmedEnemy: LiveData<Boolean>
         get() = _selectionConfirmedEnemy
+
+
+    private val _teamPlayer = MutableLiveData<Team>()
+    val teamPlayer: LiveData<Team>
+        get() = _teamPlayer
+
+
+    private val _teamEnemy = MutableLiveData<Team>()
+    val teamEnemy: LiveData<Team>
+        get() = _teamEnemy
+
+
+    private var teamListPlayer = mutableListOf<CharacterForFight>()
+    private var teamListEnemy = mutableListOf<CharacterForFight>()
 
 
     // für die Auswahl der Location (LocationSelectionFragment)
@@ -273,11 +287,23 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
     fun setPlayer(character: CharacterForFight) {
 
         _player.value = character
+        teamListPlayer.add(character)
+    }
+
+    fun setTeammatePlayer(teammate: CharacterForFight) {
+
+        teamListPlayer.add(teammate)
     }
 
     fun setEnemy(character: CharacterForFight) {
 
         _enemy.value = character
+        teamListEnemy.add(character)
+    }
+
+    fun setTeammateEnemy(teammate: CharacterForFight) {
+
+        teamListEnemy.add(teammate)
     }
 
 
@@ -313,6 +339,18 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
         val randomCharacter = characterForFight.value!!.random()
 
         setPlayer(randomCharacter)
+        teamListPlayer.add(randomCharacter)
+    }
+
+    fun randomTeamForPlayer() {
+
+        val randomTeammate = characterForFight.value!!.random()
+
+        if (!teamListPlayer.contains(randomTeammate)) {
+            teamListPlayer.add(randomTeammate)
+        } else {
+            randomTeamForPlayer()
+        }
     }
 
     fun randomCharacterForEnemy() {
@@ -320,7 +358,34 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
         val randomCharacter = characterForFight.value!!.random()
 
         setEnemy(randomCharacter)
+        teamListEnemy.add(randomCharacter)
     }
+
+    fun randomTeamForEnemy() {
+
+        val randomTeammate = characterForFight.value!!.random()
+
+        if (!teamListEnemy.contains(randomTeammate)) {
+            teamListEnemy.add(randomTeammate)
+        } else {
+            randomTeamForEnemy()
+        }
+    }
+
+    fun setTeamPlayer() {
+
+        if (teamListPlayer.size >= 3) {
+            _teamPlayer.value = Team(teamListPlayer[1], teamListPlayer[2])
+        }
+    }
+
+    fun setTeamEnemy() {
+
+        if (teamListEnemy.size >= 3) {
+            _teamEnemy.value = Team(teamListEnemy[1], teamListEnemy[2])
+        }
+    }
+
 
     fun randomLocation() {
 

@@ -184,12 +184,11 @@ class KniffelFragment : Fragment() {
             rounds.add(false)
         }
 
+
         if (authViewModel.currentUser.value != null) {
-            storeViewModel.currentProfile.observe(viewLifecycleOwner) {
-                binding.tvNamePlayer.text = storeViewModel.currentProfile.value!!.userName
-            }
+            binding.tvNamePlayer.text = storeViewModel.currentProfile.value!!.userName
         } else {
-            binding.tvNamePlayer.text = R.string.guest.toString()
+            binding.tvNamePlayer.setText(R.string.guest)
         }
 
         kniffelViewModel.points.observe(viewLifecycleOwner) {

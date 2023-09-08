@@ -120,6 +120,44 @@
             app:layout_constraintVertical_bias="0.0"
             app:maxChakraPoints="500" />
 
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mc_teammate1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:visibility="invisible"
+            app:cardCornerRadius="50dp"
+            app:layout_constraintEnd_toStartOf="@+id/mc_teammate2"
+            app:layout_constraintTop_toBottomOf="@+id/chakraPointsBarViewPlayer">
+
+            <ImageView
+                android:id="@+id/iv_teammate1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/sasuke_face" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mc_teammate2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:visibility="invisible"
+            app:cardCornerRadius="50dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/chakraPointsBarViewPlayer">
+
+            <ImageView
+                android:id="@+id/iv_teammate2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/sakura_face" />
+
+        </com.google.android.material.card.MaterialCardView>
+
         <ImageView
             android:id="@+id/iv_imageVertrauterGeistPlayer"
             android:layout_width="274dp"
@@ -151,6 +189,16 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:srcCompat="@drawable/naruto_player" />
+
+        <ImageView
+            android:id="@+id/iv_teammatePlayer"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:layout_marginBottom="8dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_imagePlayer"
+            app:layout_constraintEnd_toStartOf="@+id/iv_imagePlayer"
+            app:srcCompat="@drawable/sasuke_player" />
 
         <ImageView
             android:id="@+id/iv_imageDouble1Player"
@@ -213,6 +261,44 @@
 
         </com.google.android.material.card.MaterialCardView>
 
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mc_teammate1Enemy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:visibility="invisible"
+            app:cardCornerRadius="50dp"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/chakraPointsBarViewEnemy">
+
+            <ImageView
+                android:id="@+id/iv_teammate1Enemy"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/sasuke_face" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mc_teammate2Enemy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:visibility="invisible"
+            app:cardCornerRadius="50dp"
+            app:layout_constraintStart_toEndOf="@+id/mc_teammate1Enemy"
+            app:layout_constraintTop_toBottomOf="@+id/chakraPointsBarViewEnemy">
+
+            <ImageView
+                android:id="@+id/iv_teammate2Enemy"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/sakura_face" />
+
+        </com.google.android.material.card.MaterialCardView>
+
         <ImageView
             android:id="@+id/iv_imageVertrauterGeistEnemy"
             android:layout_width="274dp"
@@ -256,6 +342,16 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:srcCompat="@drawable/naruto_enemy" />
+
+        <ImageView
+            android:id="@+id/iv_teammateEnemy"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:layout_marginBottom="8dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_imageEnemy"
+            app:layout_constraintStart_toEndOf="@+id/iv_imageEnemy"
+            app:srcCompat="@drawable/sasuke_enemy" />
 
         <ImageView
             android:id="@+id/iv_imageDouble1Enemy"
@@ -356,6 +452,7 @@
             android:fontFamily="@font/akaya_telivigala"
             android:text="@string/titleDefense"
             android:textStyle="bold"
+            android:textColor="@color/darkgrey"
             android:visibility="invisible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mc_characterImagePlayer" />
@@ -368,6 +465,7 @@
             android:fontFamily="@font/akaya_telivigala"
             android:text="@string/titleTools"
             android:textStyle="bold"
+            android:textColor="@color/darkgrey"
             android:visibility="invisible"
             app:layout_constraintStart_toStartOf="@+id/rv_defensePlayer"
             app:layout_constraintTop_toBottomOf="@+id/rv_defensePlayer" />
@@ -381,6 +479,7 @@
             android:fontFamily="@font/akaya_telivigala"
             android:text="@string/titleUniqueTraits"
             android:textStyle="bold"
+            android:textColor="@color/darkgrey"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mc_characterImageEnemy" />
@@ -393,6 +492,7 @@
             android:fontFamily="@font/akaya_telivigala"
             android:text="@string/titleJutsus"
             android:textStyle="bold"
+            android:textColor="@color/darkgrey"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="@+id/rv_uniqueTraitsPlayer"
             app:layout_constraintTop_toBottomOf="@+id/rv_uniqueTraitsPlayer" />
@@ -541,6 +641,44 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_titleHelp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/akaya_telivigala"
+            android:text="@string/help"
+            android:textColor="@color/darkgrey"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/tv_teammate1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_teammate1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/akaya_telivigala"
+            android:text="@string/name"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/tv_teammate2"
+            app:layout_constraintStart_toStartOf="@+id/tv_titleHelp" />
+
+        <TextView
+            android:id="@+id/tv_teammate2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/akaya_telivigala"
+            android:text="@string/name"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_backgroundFight"
+            app:layout_constraintStart_toStartOf="@+id/tv_teammate1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

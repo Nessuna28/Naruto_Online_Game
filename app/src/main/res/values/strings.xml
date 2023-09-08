@@ -126,4 +126,5 @@
     <string name="rock">Stein</string>
     <string name="paper">Papier</string>
     <string name="computer">Computer</string>
+    <string name="help">Hilfe</string>
 </resources>
