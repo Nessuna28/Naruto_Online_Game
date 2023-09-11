@@ -43,10 +43,10 @@ class SelectionCharacterEnemyAdapter(
                 fightViewModel.setEnemy(characterForFight)
                 checkCharacterEnemy = true
             } else if (checkCharacterEnemy && !checkTeammate1Enemy && !checkTeammate2Enemy) {
-                fightViewModel.setTeammateEnemy(characterForFight)
+                fightViewModel.setTeammate1Enemy(characterForFight)
                 checkTeammate1Enemy = true
             } else if (checkCharacterEnemy && checkTeammate1Enemy && !checkTeammate2Enemy) {
-                fightViewModel.setTeammateEnemy(characterForFight)
+                fightViewModel.setTeammate2Enemy(characterForFight)
                 checkTeammate2Enemy = true
             }
         }

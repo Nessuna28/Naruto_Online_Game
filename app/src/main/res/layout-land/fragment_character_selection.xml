@@ -92,47 +92,46 @@
             android:id="@+id/iv_selectionTeammate1Player"
             android:layout_width="50dp"
             android:layout_height="90dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="16dp"
             android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="@+id/iv_selectionPlayer"
-            app:layout_constraintTop_toTopOf="@+id/iv_selectionPlayer"
+            app:layout_constraintBottom_toTopOf="@+id/tv_teammate1PlayerName"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
             app:srcCompat="@drawable/sasuke_player" />
 
         <TextView
             android:id="@+id/tv_teammate1PlayerName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
             android:fontFamily="@font/akaya_telivigala"
             android:text="@string/name"
             android:textStyle="bold"
             android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/iv_selectionTeammate2Player"
             app:layout_constraintEnd_toEndOf="@+id/iv_selectionTeammate1Player"
-            app:layout_constraintStart_toStartOf="@+id/iv_selectionTeammate1Player"
-            app:layout_constraintTop_toBottomOf="@+id/iv_selectionTeammate1Player" />
+            app:layout_constraintStart_toStartOf="@+id/iv_selectionTeammate1Player" />
 
         <ImageView
             android:id="@+id/iv_selectionTeammate2Player"
             android:layout_width="50dp"
             android:layout_height="90dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
             android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="@+id/iv_selectionPlayer"
-            app:layout_constraintTop_toBottomOf="@+id/tv_teammate1PlayerName"
+            app:layout_constraintBottom_toTopOf="@+id/tv_teammate2PlayerName"
+            app:layout_constraintEnd_toEndOf="@+id/iv_selectionTeammate1Player"
             app:srcCompat="@drawable/sasuke_player" />
 
         <TextView
             android:id="@+id/tv_teammate2PlayerName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
             android:fontFamily="@font/akaya_telivigala"
             android:text="@string/name"
             android:textStyle="bold"
             android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/btn_reset"
             app:layout_constraintEnd_toEndOf="@+id/iv_selectionTeammate2Player"
-            app:layout_constraintStart_toStartOf="@+id/iv_selectionTeammate2Player"
-            app:layout_constraintTop_toBottomOf="@+id/iv_selectionTeammate2Player" />
+            app:layout_constraintStart_toStartOf="@+id/iv_selectionTeammate2Player" />
 
         <TextView
             android:id="@+id/tv_titleJutsusPlayer"
@@ -239,47 +238,46 @@
             android:id="@+id/iv_selectionTeammate1Enemy"
             android:layout_width="50dp"
             android:layout_height="90dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
             android:visibility="invisible"
-            app:layout_constraintStart_toStartOf="@+id/iv_selectionEnemy"
-            app:layout_constraintTop_toTopOf="@+id/iv_selectionEnemy"
+            app:layout_constraintBottom_toTopOf="@+id/tv_teammate1EnemyName"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
             app:srcCompat="@drawable/sasuke_player" />
 
         <TextView
             android:id="@+id/tv_teammate1EnemyName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
             android:fontFamily="@font/akaya_telivigala"
             android:text="@string/name"
             android:textStyle="bold"
             android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/iv_selectionTeammate2Enemy"
             app:layout_constraintEnd_toEndOf="@+id/iv_selectionTeammate1Enemy"
-            app:layout_constraintStart_toStartOf="@+id/iv_selectionTeammate1Enemy"
-            app:layout_constraintTop_toBottomOf="@+id/iv_selectionTeammate1Enemy" />
+            app:layout_constraintStart_toStartOf="@+id/iv_selectionTeammate1Enemy" />
 
         <ImageView
             android:id="@+id/iv_selectionTeammate2Enemy"
             android:layout_width="50dp"
             android:layout_height="90dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
             android:visibility="invisible"
-            app:layout_constraintStart_toStartOf="@+id/iv_selectionEnemy"
-            app:layout_constraintTop_toBottomOf="@+id/tv_teammate1EnemyName"
+            app:layout_constraintBottom_toTopOf="@+id/tv_teammate2EnemyName"
+            app:layout_constraintStart_toStartOf="@+id/iv_selectionTeammate1Enemy"
             app:srcCompat="@drawable/sasuke_player" />
 
         <TextView
             android:id="@+id/tv_teammate2EnemyName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
             android:fontFamily="@font/akaya_telivigala"
             android:text="@string/name"
             android:textStyle="bold"
             android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/btn_reset"
             app:layout_constraintEnd_toEndOf="@+id/iv_selectionTeammate2Enemy"
-            app:layout_constraintStart_toStartOf="@+id/iv_selectionTeammate2Enemy"
-            app:layout_constraintTop_toBottomOf="@+id/iv_selectionTeammate2Enemy" />
+            app:layout_constraintStart_toStartOf="@+id/iv_selectionTeammate2Enemy" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_charactersEnemy"

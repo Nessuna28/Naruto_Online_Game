@@ -43,7 +43,6 @@ class CharacterSelectionFragment : Fragment() {
     private var checkTeammate2Enemy = false
 
 
-
     @SuppressLint("ResourceAsColor")
     override fun onStart() {
         super.onStart()
@@ -91,7 +90,12 @@ class CharacterSelectionFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_character_selection, container, false)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_character_selection,
+            container,
+            false
+        )
         return binding.root
     }
 
@@ -127,19 +131,14 @@ class CharacterSelectionFragment : Fragment() {
             binding.rvTraitsPlayer?.adapter = TraitPlayerAdapter(it.uniqueTraits, fightViewModel)
         }
 
-        fightViewModel.teamPlayer.observe(viewLifecycleOwner) {
-            if (fightViewModel.selectFight.value == R.string.team.toString()) {
-                if (checkCharacterPlayer) {
-                    binding.ivSelectionTeammate1Player?.setImageResource(it.teammate1.imagePlayer)
-                    binding.ivSelectionTeammate1Player?.visibility = View.VISIBLE
-                    binding.tvTeammate1PlayerName?.text = it.teammate1.name
-                    binding.tvTeammate1PlayerName?.visibility = View.VISIBLE
-                    binding.ivSelectionTeammate2Player?.setImageResource(it.teammate2.imagePlayer)
-                    binding.ivSelectionTeammate2Player?.visibility = View.VISIBLE
-                    binding.tvTeammate2PlayerName?.text = it.teammate2.name
-                    binding.tvTeammate2PlayerName?.visibility = View.VISIBLE
-                }
-            }
+        fightViewModel.teammate1Player.observe(viewLifecycleOwner) {
+            binding.tvTeammate1PlayerName?.text = it.name
+            binding.ivSelectionTeammate1Player?.setImageResource(it.imagePlayer)
+        }
+
+        fightViewModel.teammate2Player.observe(viewLifecycleOwner) {
+            binding.tvTeammate2PlayerName?.text = it.name
+            binding.ivSelectionTeammate2Player?.setImageResource(it.imagePlayer)
         }
 
         fightViewModel.enemy.observe(viewLifecycleOwner) {
@@ -155,26 +154,21 @@ class CharacterSelectionFragment : Fragment() {
             binding.rvTraitsEnemy?.adapter = TraitEnemyAdapter(it.uniqueTraits)
         }
 
-        fightViewModel.teamEnemy.observe(viewLifecycleOwner) {
-            if (fightViewModel.selectFight.value == R.string.team.toString()) {
-                if (checkCharacterEnemy) {
-                    binding.ivSelectionTeammate1Enemy?.setImageResource(it.teammate1.imageEnemy)
-                    binding.ivSelectionTeammate1Enemy?.visibility = View.VISIBLE
-                    binding.tvTeammate1EnemyName?.text = it.teammate1.name
-                    binding.tvTeammate1EnemyName?.visibility = View.VISIBLE
-                    binding.ivSelectionTeammate2Enemy?.setImageResource(it.teammate2.imageEnemy)
-                    binding.ivSelectionTeammate2Enemy?.visibility = View.VISIBLE
-                    binding.tvTeammate2EnemyName?.text = it.teammate2.name
-                    binding.tvTeammate2EnemyName?.visibility = View.VISIBLE
-                }
-            }
+        fightViewModel.teammate1Enemy.observe(viewLifecycleOwner) {
+            binding.tvTeammate1EnemyName?.text = it.name
+            binding.ivSelectionTeammate1Enemy?.setImageResource(it.imagePlayer)
+        }
+
+        fightViewModel.teammate2Enemy.observe(viewLifecycleOwner) {
+            binding.tvTeammate2EnemyName?.text = it.name
+            binding.ivSelectionTeammate2Enemy?.setImageResource(it.imagePlayer)
         }
 
 
         // OnClickListerner & Navigation
 
         binding.btnOkPlayer?.setOnClickListener {
-            if (fightViewModel.selectFight.value == R.string.team.toString()) {
+            if (fightViewModel.selectFight.value == getString(R.string.team)) {
                 if (!checkCharacterPlayer && !checkTeammate1Player && !checkTeammate2Player) {
                     if (fightViewModel.player.isInitialized) {
                         binding.ivSelectionPlayer?.setImageResource(fightViewModel.player.value!!.imagePose)
@@ -185,32 +179,28 @@ class CharacterSelectionFragment : Fragment() {
                         checkCharacterPlayer = true
                     }
                 } else if (checkCharacterPlayer && !checkTeammate1Player && !checkTeammate2Player) {
-                    binding.ivSelectionTeammate1Player?.setImageResource(fightViewModel.teamPlayer.value!!.teammate1.imagePose)
+                    binding.ivSelectionTeammate1Player?.setImageResource(fightViewModel.teammate1Player.value!!.imagePose)
                     checkTeammate1Player = true
                 } else if (checkCharacterPlayer && checkTeammate1Player && !checkTeammate2Player) {
-                    binding.ivSelectionTeammate2Player?.setImageResource(fightViewModel.teamPlayer.value!!.teammate2.imagePose)
+                    binding.ivSelectionTeammate2Player?.setImageResource(fightViewModel.teammate2Player.value!!.imagePose)
                     checkTeammate2Player = true
 
                     it.setBackgroundColor(Color.GREEN)
                     fightViewModel.confirmSelectionPlayer(true)
-                    binding.rvCharactersPlayer?.isEnabled = false
-                    binding.rvCharactersEnemy?.isEnabled = true
                     check()
                 }
-            } else if (fightViewModel.selectFight.value == R.string.single.toString()) {
+            } else if (fightViewModel.selectFight.value == getString(R.string.single)) {
                 if (fightViewModel.player.isInitialized) {
                     binding.ivSelectionPlayer?.setImageResource(fightViewModel.player.value!!.imagePose)
                     it.setBackgroundColor(Color.GREEN)
                     fightViewModel.confirmSelectionPlayer(true)
-                    binding.rvCharactersPlayer?.isEnabled = false
-                    binding.rvCharactersEnemy?.isEnabled = true
                     check()
                 }
             }
         }
 
         binding.btnRandomPlayer?.setOnClickListener {
-            if (fightViewModel.selectFight.value == R.string.team.toString()) {
+            if (fightViewModel.selectFight.value == getString(R.string.team)) {
                 if (!checkCharacterPlayer && !checkTeammate1Player && !checkTeammate2Player) {
                     fightViewModel.randomCharacterForPlayer()
                     checkCharacterPlayer = true
@@ -218,7 +208,7 @@ class CharacterSelectionFragment : Fragment() {
                     fightViewModel.randomTeamForPlayer()
                     checkTeammate1Player = true
                 } else if (checkCharacterPlayer && checkTeammate1Player && !checkTeammate2Player) {
-                    fightViewModel.randomTeamForEnemy()
+                    fightViewModel.randomTeamForPlayer()
                     checkTeammate2Player = true
                     fightViewModel.confirmSelectionPlayer(true)
                 }
@@ -230,7 +220,7 @@ class CharacterSelectionFragment : Fragment() {
 
 
         binding.btnOkEnemy?.setOnClickListener {
-            if (fightViewModel.selectFight.value == R.string.team.toString()) {
+            if (fightViewModel.selectFight.value == getString(R.string.team)) {
                 if (!checkCharacterEnemy && !checkTeammate1Enemy && !checkTeammate2Enemy) {
                     if (fightViewModel.enemy.isInitialized) {
                         binding.ivSelectionEnemy?.setImageResource(fightViewModel.enemy.value!!.imagePose)
@@ -241,17 +231,17 @@ class CharacterSelectionFragment : Fragment() {
                         checkCharacterEnemy = true
                     }
                 } else if (checkCharacterEnemy && !checkTeammate1Enemy && !checkTeammate2Enemy) {
-                    binding.ivSelectionTeammate1Enemy?.setImageResource(fightViewModel.teamEnemy.value!!.teammate1.imagePose)
+                    binding.ivSelectionTeammate1Enemy?.setImageResource(fightViewModel.teammate1Enemy.value!!.imagePose)
                     checkTeammate1Enemy = true
                 } else if (checkCharacterEnemy && checkTeammate1Enemy && !checkTeammate2Enemy) {
-                    binding.ivSelectionTeammate2Enemy?.setImageResource(fightViewModel.teamEnemy.value!!.teammate2.imagePose)
+                    binding.ivSelectionTeammate2Enemy?.setImageResource(fightViewModel.teammate2Enemy.value!!.imagePose)
                     checkTeammate2Enemy = true
 
                     it.setBackgroundColor(Color.GREEN)
                     fightViewModel.confirmSelectionEnemy(true)
                     check()
                 }
-            } else if (fightViewModel.selectFight.value == R.string.single.toString()) {
+            } else if (fightViewModel.selectFight.value == getString(R.string.single)) {
                 if (fightViewModel.enemy.isInitialized) {
                     binding.ivSelectionEnemy?.setImageResource(fightViewModel.enemy.value!!.imagePose)
                     it.setBackgroundColor(Color.GREEN)
@@ -262,7 +252,7 @@ class CharacterSelectionFragment : Fragment() {
         }
 
         binding.btnRandomEnemy?.setOnClickListener {
-            if (fightViewModel.selectFight.value == R.string.team.toString()) {
+            if (fightViewModel.selectFight.value == getString(R.string.team)) {
                 if (!checkCharacterEnemy && !checkTeammate1Enemy && !checkTeammate2Enemy) {
                     fightViewModel.randomCharacterForEnemy()
                     checkCharacterEnemy = true

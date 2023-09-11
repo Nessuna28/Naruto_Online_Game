@@ -104,18 +104,25 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
         get() = _selectionConfirmedEnemy
 
 
-    private val _teamPlayer = MutableLiveData<Team>()
-    val teamPlayer: LiveData<Team>
-        get() = _teamPlayer
+    private val _teammate1Player = MutableLiveData<CharacterForFight>()
+    val teammate1Player: LiveData<CharacterForFight>
+        get() = _teammate1Player
 
 
-    private val _teamEnemy = MutableLiveData<Team>()
-    val teamEnemy: LiveData<Team>
-        get() = _teamEnemy
+    private val _teammate2Player = MutableLiveData<CharacterForFight>()
+    val teammate2Player: LiveData<CharacterForFight>
+        get() = _teammate2Player
 
 
-    private var teamListPlayer = mutableListOf<CharacterForFight>()
-    private var teamListEnemy = mutableListOf<CharacterForFight>()
+    private val _teammate1Enemy = MutableLiveData<CharacterForFight>()
+    val teammate1Enemy: LiveData<CharacterForFight>
+        get() = _teammate1Enemy
+
+
+    private val _teammate2Enemy = MutableLiveData<CharacterForFight>()
+    val teammate2Enemy: LiveData<CharacterForFight>
+        get() = _teammate2Enemy
+
 
 
     // für die Auswahl der Location (LocationSelectionFragment)
@@ -287,23 +294,31 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
     fun setPlayer(character: CharacterForFight) {
 
         _player.value = character
-        teamListPlayer.add(character)
     }
 
-    fun setTeammatePlayer(teammate: CharacterForFight) {
+    fun setTeammate1Player(teammate: CharacterForFight) {
 
-        teamListPlayer.add(teammate)
+        _teammate1Player.value = teammate
+    }
+
+    fun setTeammate2Player(teammate: CharacterForFight) {
+
+        _teammate2Player.value = teammate
     }
 
     fun setEnemy(character: CharacterForFight) {
 
         _enemy.value = character
-        teamListEnemy.add(character)
     }
 
-    fun setTeammateEnemy(teammate: CharacterForFight) {
+    fun setTeammate1Enemy(teammate: CharacterForFight) {
 
-        teamListEnemy.add(teammate)
+        _teammate1Enemy.value = teammate
+    }
+
+    fun setTeammate2Enemy(teammate: CharacterForFight) {
+
+        _teammate1Enemy.value = teammate
     }
 
 
@@ -339,18 +354,24 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
         val randomCharacter = characterForFight.value!!.random()
 
         setPlayer(randomCharacter)
-        teamListPlayer.add(randomCharacter)
     }
 
     fun randomTeamForPlayer() {
 
-        val randomTeammate = characterForFight.value!!.random()
+        val randomTeam = mutableListOf<CharacterForFight>()
+        val randomTeammate1 = characterForFight.value!!.random()
+        val randomTeammate2 = characterForFight.value!!.random()
 
-        if (!teamListPlayer.contains(randomTeammate)) {
-            teamListPlayer.add(randomTeammate)
-        } else {
+        randomTeam.add(randomTeammate1)
+
+        if (randomTeam.contains(randomTeammate2)) {
             randomTeamForPlayer()
+        } else {
+            randomTeam.add(randomTeammate2)
         }
+
+        _teammate1Player.value = randomTeam[0]
+        _teammate2Player.value = randomTeam[1]
     }
 
     fun randomCharacterForEnemy() {
@@ -358,32 +379,24 @@ class FightViewModel(application: Application): AndroidViewModel(application) {
         val randomCharacter = characterForFight.value!!.random()
 
         setEnemy(randomCharacter)
-        teamListEnemy.add(randomCharacter)
     }
 
     fun randomTeamForEnemy() {
 
-        val randomTeammate = characterForFight.value!!.random()
+        val randomTeam = mutableListOf<CharacterForFight>()
+        val randomTeammate1 = characterForFight.value!!.random()
+        val randomTeammate2 = characterForFight.value!!.random()
 
-        if (!teamListEnemy.contains(randomTeammate)) {
-            teamListEnemy.add(randomTeammate)
-        } else {
+        randomTeam.add(randomTeammate1)
+
+        if (randomTeam.contains(randomTeammate2)) {
             randomTeamForEnemy()
+        } else {
+            randomTeam.add(randomTeammate2)
         }
-    }
 
-    fun setTeamPlayer() {
-
-        if (teamListPlayer.size >= 3) {
-            _teamPlayer.value = Team(teamListPlayer[1], teamListPlayer[2])
-        }
-    }
-
-    fun setTeamEnemy() {
-
-        if (teamListEnemy.size >= 3) {
-            _teamEnemy.value = Team(teamListEnemy[1], teamListEnemy[2])
-        }
+        _teammate1Enemy.value = randomTeam[0]
+        _teammate2Enemy.value = randomTeam[1]
     }
 
 

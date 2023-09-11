@@ -43,10 +43,10 @@ class SelectionCharacterPlayerAdapter(
                 fightViewModel.setPlayer(characterForFight)
                 checkCharacterPlayer = true
             } else if (checkCharacterPlayer && !checkTeammate1Player && !checkTeammate2Player) {
-                fightViewModel.setTeammatePlayer(characterForFight)
+                fightViewModel.setTeammate1Player(characterForFight)
                 checkTeammate1Player = true
             } else if (checkCharacterPlayer && checkTeammate1Player && !checkTeammate2Player) {
-                fightViewModel.setTeammatePlayer(characterForFight)
+                fightViewModel.setTeammate2Player(characterForFight)
                 checkTeammate2Player = true
             }
         }
